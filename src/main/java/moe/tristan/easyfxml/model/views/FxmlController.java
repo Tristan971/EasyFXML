@@ -18,7 +18,7 @@ import javafx.application.Platform;
  * although it is strongly discouraged to use it that way.
  */
 @FunctionalInterface
-public interface FXMLController {
+public interface FxmlController {
     /**
      * This method is automatically called by the JavaFX {@link Platform}
      * as soon as all the components are loaded (not necessarily rendered).
