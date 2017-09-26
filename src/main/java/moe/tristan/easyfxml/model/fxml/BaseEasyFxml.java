@@ -60,7 +60,7 @@ public class BaseEasyFxml implements EasyFxml {
      *
      * @return A {@link Try} working exactly in the same way as {@link #getPaneForView(FxmlFile)}.
      */
-    @SuppressWarnings("PublicMethodNotExposedInInterface")
+    @SuppressWarnings({"PublicMethodNotExposedInInterface", "WeakerAccess"})
     public Try<Pane> getPaneForFile(final String filePathString) {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
         loader.setLocation(getURLForView(filePathString));
