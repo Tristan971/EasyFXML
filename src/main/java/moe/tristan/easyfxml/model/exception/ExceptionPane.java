@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model.error;
+package moe.tristan.easyfxml.model.exception;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -11,12 +11,12 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Slf4j
-public final class ErrorPane {
+public final class ExceptionPane {
     private static final double ERROR_FIELD_MARGIN_SIZE = 20.0;
     private final Throwable exception;
 
-    public ErrorPane(final Throwable exception) {
-        log.debug("Generating ErrorPane for unexpected exception of type {}", exception.getClass());
+    public ExceptionPane(final Throwable exception) {
+        log.debug("Generating ExceptionPane for exception of type {}", exception.getClass());
         this.exception = exception;
     }
 
@@ -25,7 +25,7 @@ public final class ErrorPane {
     }
 
     public Pane asPane(final String userReadableError) {
-        log.debug("Generating node corresponding to ErrorPane...");
+        log.debug("Generating node corresponding to ExceptionPane...");
         final Label messageLabel = new Label(userReadableError);
         final TextArea throwableDataLabel = new TextArea(formatErrorMessage(this.exception));
 

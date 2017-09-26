@@ -1,11 +1,14 @@
 package moe.tristan.easyfxml.model.views;
 
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.FxmlFile;
-import moe.tristan.easyfxml.model.error.ErrorPane;
+import moe.tristan.easyfxml.model.exception.ExceptionDialogDisplayRequest;
+import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
+import moe.tristan.easyfxml.model.exception.ExceptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -19,7 +22,7 @@ import org.springframework.stereotype.Service;
  *
  * It provides :
  * - Error handling ({@link #loadingError(Throwable)}
- * - Pop-up error handling
+ * - Pop-up exception handling
  *
  * It is recommended to use it but {@link EasyFxml} works fine without it.
  */
@@ -34,7 +37,7 @@ public class ViewsManager {
         this.context = context;
     }
 
-    public Pane loadPaneForView(final FxmlFile fxmlFile, final EOnExceptionBehavior onExceptionBehavior) {
+    public Pane loadPaneForView(final FxmlFile fxmlFile, final ExceptionPaneBehavior onExceptionBehavior) {
         log.debug("Loading view : {} [{}]", fxmlFile, fxmlFile.getPath());
         final EasyFxml easyFxml = this.context.getBean(EasyFxml.class);
         return easyFxml.getPaneForView(fxmlFile).getOrElseGet(exception -> {
@@ -43,7 +46,7 @@ public class ViewsManager {
                     return this.loadingError(exception);
                 case DIALOG:
                     this.loadingErrorDialog(exception);
-                    return new Pane(new Label("An error occured. See dialog and/or logs."));
+                    return new Pane(new Label("An exception occured. See dialog and/or logs."));
                 default:
                     throw new RuntimeException("Error behavior was not recognized. Was \""+ onExceptionBehavior +"\".");
             }
@@ -51,11 +54,12 @@ public class ViewsManager {
     }
 
     private Pane loadingError(final Throwable exception) {
-        log.error("Got error loading view ! See stacktrace : ", exception);
-        return new ErrorPane(exception).asPane("Could not load component :( Details :");
+        log.error("Got exception loading view ! See stacktrace : ", exception);
+        return new ExceptionPane(exception).asPane("Could not load component :( Details :");
     }
 
     private void loadingErrorDialog(final Throwable exception) {
         final Pane errPane = this.loadingError(exception);
+        Platform.runLater(ExceptionDialogDisplayRequest.of("An error has occured.", errPane));
     }
 }
