@@ -3,8 +3,8 @@ package moe.tristan.easyfxml.spring;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import lombok.extern.slf4j.Slf4j;
+import moe.tristan.easyfxml.FxmlController;
 import moe.tristan.easyfxml.model.views.ControllerManager;
-import moe.tristan.easyfxml.model.views.FxmlController;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -22,9 +22,14 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  * <p>
  * (e.g. : here with{@link FXMLLoader} as seen in
  * {@link #fxmlLoader(ApplicationContext, ControllerManager)}}.
+ *
+ * All beans are initialized lazily so that only the used parts of the
+ * library are generated. This will add a few slowdown moments in the
+ * beginning of an application's lifecycle, but yield lower memory
+ * usage and avoir bean name conflicts and other things like it.
  */
 @Configuration
-@ComponentScan(basePackages = "moe.tristan.easyfxml")
+@ComponentScan(basePackages = "moe.tristan.easyfxml", lazyInit = true)
 @Slf4j
 public class SpringContext {
 
