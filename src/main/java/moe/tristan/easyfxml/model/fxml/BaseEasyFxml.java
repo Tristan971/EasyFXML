@@ -14,10 +14,10 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Created by Tristan on 06/02/2017.
+ * This is the standard implementation of {@link EasyFxml}.
  */
-@Slf4j
 @Component
+@Slf4j
 public class BaseEasyFxml implements EasyFxml {
 
     private final ApplicationContext context;
