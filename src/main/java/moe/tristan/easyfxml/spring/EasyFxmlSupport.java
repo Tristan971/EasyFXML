@@ -5,16 +5,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * Used for non-Spring projects.
- * If you have Spring, simply autowire {@link EasyFxml} as it is
- * a service.
+ * Used for non-Spring projects in replacement of DI system.
+ * If you have Spring, simply autowire {@link EasyFxml}.
  */
-public class EasyFxmlSupport {
+public final class EasyFxmlSupport {
 
     private static ApplicationContext applicationContext;
 
-    private EasyFxmlSupport() {
-    }
+    private EasyFxmlSupport() {}
 
     public static EasyFxml getInstance() {
         return getApplicationContext().getBean(EasyFxml.class);
