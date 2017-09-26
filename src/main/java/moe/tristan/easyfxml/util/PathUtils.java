@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.lang;
+package moe.tristan.easyfxml.util;
 
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;

@@ -5,7 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
-import moe.tristan.easyfxml.lang.DomUtils;
+import moe.tristan.easyfxml.util.DomUtils;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
