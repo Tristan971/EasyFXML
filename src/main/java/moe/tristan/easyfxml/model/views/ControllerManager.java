@@ -1,5 +1,6 @@
 package moe.tristan.easyfxml.model.views;
 
+import moe.tristan.easyfxml.FxmlController;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
