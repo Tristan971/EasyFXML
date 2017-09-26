@@ -8,7 +8,7 @@ import moe.tristan.easyfxml.FxmlFile;
 import moe.tristan.easyfxml.model.error.ErrorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,8 +23,7 @@ import org.springframework.stereotype.Service;
  *
  * It is recommended to use it but {@link EasyFxml} works fine without it.
  */
-@Lazy
-@Service
+@Component
 @Slf4j
 public class ViewsManager {
 
