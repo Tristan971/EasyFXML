@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.lang.javafx;
+package moe.tristan.easyfxml.lang;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
