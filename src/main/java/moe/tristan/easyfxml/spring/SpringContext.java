@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.model.views.ControllerManager;
-import moe.tristan.easyfxml.model.views.FXMLController;
+import moe.tristan.easyfxml.model.views.FxmlController;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -58,8 +58,8 @@ public class SpringContext {
     public FXMLLoader fxmlLoader(final ApplicationContext context, final ControllerManager controllerManager) {
         final FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(clazz -> {
-            final Class<FXMLController> clazzCtrl = (Class<FXMLController>) clazz;
-            final FXMLController controllerInstance = context.getBean(clazzCtrl);
+            final Class<FxmlController> clazzCtrl = (Class<FxmlController>) clazz;
+            final FxmlController controllerInstance = context.getBean(clazzCtrl);
             controllerManager.registerController(clazzCtrl, controllerInstance);
             return controllerInstance;
         });

@@ -1,7 +1,6 @@
 package moe.tristan.easyfxml.lang;
 
 import io.vavr.control.Try;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -17,8 +16,10 @@ import java.util.stream.StreamSupport;
  * This class is because Brian Goetz doesn't like you reading files from the classpath
  */
 @Slf4j
-@UtilityClass
 public final class PathUtils {
+
+    private PathUtils() {}
+
     /**
      * This method gets the {@link Path} associated to a classpath-located file.
      *
