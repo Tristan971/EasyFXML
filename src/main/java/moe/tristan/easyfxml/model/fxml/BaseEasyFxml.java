@@ -31,7 +31,7 @@ public class BaseEasyFxml implements EasyFxml {
      * Loads a {@link FxmlFile} as a Pane (this is the safest base class for all sorts of hierarchies)
      * since most of the base containers are subclasses of it.
      *
-     * It returns a {@link Try} which is a monadic structure which allows us to do clean error-handling.
+     * It returns a {@link Try} which is a monadic structure which allows us to do clean exception-handling.
      *
      * @param view The file's {@link FxmlFile} counterpart. Try to avoid loading things using manual path
      *             as it implies losing a lot of coding safety. It does work fine as well though if you
