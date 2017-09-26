@@ -8,7 +8,7 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.FxmlFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,7 +16,7 @@ import java.net.URL;
 /**
  * This is the standard implementation of {@link EasyFxml}.
  */
-@Component
+@Service
 @Slf4j
 public class BaseEasyFxml implements EasyFxml {
 
