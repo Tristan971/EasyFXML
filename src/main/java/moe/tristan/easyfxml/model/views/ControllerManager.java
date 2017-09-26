@@ -16,7 +16,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 @Scope(scopeName = SCOPE_SINGLETON)
 public class ControllerManager {
 
-    private final Map<Class<? extends FXMLController>, Set<FXMLController>> controllers = new ConcurrentHashMap<>();
+    private final Map<Class<? extends FxmlController>, Set<FxmlController>> controllers = new ConcurrentHashMap<>();
 
     /**
      * Registers the controller in the Set of available controllers of type T.
@@ -39,7 +39,7 @@ public class ControllerManager {
      * @param controllerInstance The registered instance.
      * @param <T> The type of the class to provide at least some amount of type checking.
      */
-    public <T extends FXMLController> void registerController(final Class<T> controllerClass, final T controllerInstance) {
+    public <T extends FxmlController> void registerController(final Class<T> controllerClass, final T controllerInstance) {
         this.controllers.compute(
                 controllerClass,
                 (aClass, fxmlControllers) -> {
