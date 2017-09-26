@@ -4,7 +4,6 @@ import moe.tristan.easyfxml.EasyFxml;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,13 +24,6 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
  */
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class EasyFxmlDependencyInjectionTest {
-
-    private final Set<String> illegalAnnotationNames = Stream.of(
-            SpringBootTest.class,
-            SpringBootConfiguration.class,
-            SpringJUnit4ClassRunner.class
-    ).map(Class::getSimpleName).collect(Collectors.toSet());
-
     @Autowired
     private Environment environment;
 
@@ -47,7 +39,7 @@ public class EasyFxmlDependencyInjectionTest {
                         .map(Class::getAnnotations)
                         .flatMap(Arrays::stream)
                         .map(Annotation::toString)
-                        .filter(clazz -> this.illegalAnnotationNames.stream().anyMatch(clazz::contains))
+                        .filter(clazz -> clazz.contains("springframework"))
                         .collect(Collectors.toSet());
 
         assertThat(illegalAnnotationsFoundOnClasses).isEmpty();
