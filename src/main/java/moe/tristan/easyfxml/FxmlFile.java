@@ -2,7 +2,7 @@ package moe.tristan.easyfxml;
 
 /**
  * Base class to implement for your fxml file equivalents.
- * Using an enum is the recommended way here.
+ * Implementation in an enum is the recommended way to use it.
  */
 public interface FxmlFile {
     /**

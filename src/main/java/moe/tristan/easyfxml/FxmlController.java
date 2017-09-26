@@ -1,6 +1,10 @@
-package moe.tristan.easyfxml.model.views;
+package moe.tristan.easyfxml;
 
 import javafx.application.Platform;
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This is a base interface for all controllers.
@@ -12,13 +16,8 @@ import javafx.application.Platform;
  * dependency injection as the components are not
  * guaranteed to have been loaded yet and generally
  * result in the infamous {@link NullPointerException}.
- *
- * It is annotated with {@link FunctionalInterface} as
- * an informative measure for extremely simple controllers
- * although it is strongly discouraged to use it that way.
  */
-@FunctionalInterface
-public interface FxmlController {
+public interface FxmlController extends Initializable {
     /**
      * This method is automatically called by the JavaFX {@link Platform}
      * as soon as all the components are loaded (not necessarily rendered).
@@ -29,4 +28,19 @@ public interface FxmlController {
      * failures.
      */
     void initialize();
+
+    /**
+     * As this class is basically an explicit version of what {@link Initializable} is
+     * nowadays because the parameters here are injected by JavaFX, we still offer the
+     * following method for override should you have advanced needs for it.
+     *
+     * Should not be used though. (see {@link Initializable})
+     *
+     * JDK documentation for this :
+     * {@inheritDoc}
+     */
+    @Override
+    default void initialize(final URL location, final ResourceBundle resources) {
+        throw new RuntimeException("This needs to be implemented if it is to be used.");
+    }
 }
