@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.fxml;
+package moe.tristan.easyfxml.model.fxml;
 
 import io.vavr.control.Try;
 import javafx.fxml.FXMLLoader;
