@@ -14,6 +14,7 @@
 	<groupId>moe.tristan</groupId>
 	<artifactId>EasyFXML</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,11 +23,59 @@
 	</properties>
 
 	<build>
+		<sourceDirectory>target/generated-sources/delombok</sourceDirectory>
+		<testSourceDirectory>target/generated-test-sources/delombok</testSourceDirectory>
+
 		<plugins>
-			<!-- Compiler plugin overrides -->
+			<!-- Maven plugins -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+							<goal>test-jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Delombok -->
+			<plugin>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-maven-plugin</artifactId>
+				<version>1.16.18.1</version>
+				<executions>
+					<execution>
+						<id>delombok</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>delombok</goal>
+						</goals>
+						<configuration>
+							<addOutputDirectory>false</addOutputDirectory>
+							<sourceDirectory>src/main/java</sourceDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>test-delombok</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>testDelombok</goal>
+						</goals>
+						<configuration>
+							<addOutputDirectory>false</addOutputDirectory>
+							<sourceDirectory>src/test/java</sourceDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- Spring maven plugin -->
 			<plugin>
