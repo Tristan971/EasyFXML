@@ -8,6 +8,7 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.FxmlFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,10 +22,12 @@ import java.net.URL;
 public class BaseEasyFxml implements EasyFxml {
 
     private final ApplicationContext context;
+    private final Environment environment;
 
     @Autowired
-    protected BaseEasyFxml(final ApplicationContext context) {
+    protected BaseEasyFxml(final ApplicationContext context, final Environment environment) {
         this.context = context;
+        this.environment = environment;
     }
 
     /**
@@ -43,7 +46,11 @@ public class BaseEasyFxml implements EasyFxml {
      */
     @Override
     public Try<Pane> getPaneForView(final FxmlFile view) {
-        return this.getPaneForFile(view.getPath());
+        return this.getPaneForFile(this.prependFxmlRootPath(view.getPath()));
+    }
+
+    private String prependFxmlRootPath(final String filePathString) {
+        return this.environment.getRequiredProperty("moe.tristan.easyfxml.fxml.fxml_root_path") + filePathString;
     }
 
     /**
