@@ -70,6 +70,4 @@ public class SpringContext {
         });
         return loader;
     }
-
-
 }
