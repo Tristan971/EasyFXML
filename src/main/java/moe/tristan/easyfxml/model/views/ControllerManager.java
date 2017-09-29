@@ -44,18 +44,18 @@ public class ControllerManager {
     }
 
     /**
-     * This method stores your controller in a {@link ConcurrentHashMap} that looks like this :
-     * |-- ClassA --
-     * |           |-- Selector1 -> Instance 1 of class ClassA
-     * |           |-- Selector2 -> Instance 2 of class ClassA
-     * |
-     * |-- CLassB --
-     * |           |-- Selector# -> Instance # of class ClassB
-     * |          ...
-     * |           |-- SelectorN -> Instance N of class ClassB
-     * ...
-     * |
-     *
+     * This method stores your controller in a {@link ConcurrentHashMap} that looks like this :<br>
+     * |-- ClassA --<br>
+     * |           |-- Selector1 -> Instance 1 of class ClassA<br>
+     * |           |-- Selector2 -> Instance 2 of class ClassA<br>
+     * |<br>
+     * |-- CLassB --<br>
+     * |           |-- Selector# -> Instance # of class ClassB<br>
+     * |          ...<br>
+     * |           |-- SelectorN -> Instance N of class ClassB<br>
+     * ...<br>
+     * |<br>
+     * <br>
      * <p>
      * The point is that "selectors" are anything you want them to be, whether it be the hashcode of the
      * instance (but you won't be able to access it easily later), or some kind of related Node.
