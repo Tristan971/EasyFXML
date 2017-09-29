@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
- * The {@link ViewsManager} is a convenience {@link Service} acting as
+ * The {@link ViewsLoader} is a convenience {@link Service} acting as
  * a safe decorator around {@link EasyFxml} for broadly used tasks such as
  * directly opening a window which's base FXML file has a {@link FxmlFile}
  * instance counterpart.
@@ -28,12 +28,12 @@ import org.springframework.stereotype.Service;
  */
 @Component
 @Slf4j
-public class ViewsManager {
+public class ViewsLoader {
 
     private final ApplicationContext context;
 
     @Autowired
-    public ViewsManager(final ApplicationContext context) {
+    public ViewsLoader(final ApplicationContext context) {
         this.context = context;
     }
 
