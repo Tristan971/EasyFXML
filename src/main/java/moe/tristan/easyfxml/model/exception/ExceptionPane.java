@@ -4,10 +4,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.util.DomUtils;
+import moe.tristan.easyfxml.util.StageUtils;
 
 import java.util.Arrays;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,5 +43,11 @@ public final class ExceptionPane {
                 Arrays.stream(throwable.getStackTrace())
                         .map(StackTraceElement::toString)
                         .collect(Collectors.joining("\n"));
+    }
+
+    public static Future<Stage> displayExceptionPane(final String title, final String readable, final Throwable exception) {
+        final Pane exceptionPane = new ExceptionPane(exception).asPane(readable);
+        final Stage exceptionStage = StageUtils.stageOf(title, exceptionPane);
+        return StageUtils.scheduleDisplaying(exceptionStage);
     }
 }
