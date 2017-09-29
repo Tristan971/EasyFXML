@@ -1,7 +1,7 @@
 package moe.tristan.easyfxml.spring;
 
 /**
- * Stub class for the maven-shade-plugin which packages the library as a nice and reusable jar file.
+ * Stub class for the packaging the library as a nice and reusable jar file.
  * It requires a main class so we provide it with this. Feels like the C days huh.
  */
 public final class __main_stub {
