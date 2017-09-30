@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model.views;
+package moe.tristan.easyfxml.model.beanmanagement;
 
 import io.vavr.control.Option;
 

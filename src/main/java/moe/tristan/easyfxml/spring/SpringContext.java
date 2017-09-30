@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.FxmlController;
-import moe.tristan.easyfxml.model.views.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
