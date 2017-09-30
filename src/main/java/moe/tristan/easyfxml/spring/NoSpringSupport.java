@@ -12,16 +12,16 @@ import java.util.Arrays;
  * If you have Spring, simply autowire {@link EasyFxml}.
  */
 @Slf4j
-public final class EasyFxmlDependencyInjection {
+public final class NoSpringSupport {
 
     private static ApplicationContext applicationContext;
 
-    private EasyFxmlDependencyInjection() {
+    private NoSpringSupport() {
         log.info("Loading non-Spring project dependency injection adapter...");
     }
 
-    public static EasyFxml getInstance() {
-        return getApplicationContext().getBean(EasyFxml.class);
+    public static <T> T getInstance(Class<? extends T> instanceClass) {
+        return getApplicationContext().getBean(instanceClass);
     }
 
     private static ApplicationContext getApplicationContext() {

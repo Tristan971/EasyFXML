@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model.views;
+package moe.tristan.easyfxml.model.fxml;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
