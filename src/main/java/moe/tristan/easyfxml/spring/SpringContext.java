@@ -65,7 +65,7 @@ public class SpringContext {
         loader.setControllerFactory(clazz -> {
             final Class<FxmlController> clazzCtrl = (Class<FxmlController>) clazz;
             final FxmlController controllerInstance = context.getBean(clazzCtrl);
-            controllerManager.registerSingleStageController(clazzCtrl, controllerInstance);
+            controllerManager.registerSingle(clazzCtrl, controllerInstance);
             return controllerInstance;
         });
         return loader;
