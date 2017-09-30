@@ -2,9 +2,7 @@ package moe.tristan.easyfxml.model.beanmanagement;
 
 import io.vavr.control.Option;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -29,11 +27,11 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
     private final Map<Class<? extends TYPE_COMMON_INST>, TYPE_ACTUAL_INST> singletons = new ConcurrentHashMap<>();
     private final Map<Class<? extends TYPE_COMMON_INST>, Map<TYPE_SELECTOR, TYPE_ACTUAL_INST>> prototypes = new ConcurrentHashMap<>();
 
-    protected TYPE_ACTUAL_INST registerSingle(final Class<? extends TYPE_COMMON_INST> clazz, final TYPE_ACTUAL_INST controller) {
+    public TYPE_ACTUAL_INST registerSingle(final Class<? extends TYPE_COMMON_INST> clazz, final TYPE_ACTUAL_INST controller) {
         return this.singletons.put(clazz, controller);
     }
 
-    protected Option<TYPE_ACTUAL_INST> getSingle(final Class<? extends TYPE_COMMON_INST> clazz) {
+    public Option<TYPE_ACTUAL_INST> getSingle(final Class<? extends TYPE_COMMON_INST> clazz) {
         return Option.of(this.singletons.get(clazz));
     }
 
@@ -72,7 +70,7 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      *
      * @throws RuntimeException in case there was an error in saving the instance.
      */
-    protected Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST> registerMultiple(
+    public Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST> registerMultiple(
             final Class<? extends TYPE_COMMON_INST> clazz,
             final TYPE_SELECTOR selector,
             final TYPE_ACTUAL_INST instance
@@ -95,7 +93,7 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * Apart from this, the way this method works is strictly identical to
      * {@link #registerMultiple(Class, TYPE_SELECTOR, TYPE_COMMON_INST)}.
      */
-    protected Map.Entry<?, TYPE_ACTUAL_INST> registerMultiple(
+    public Map.Entry<?, TYPE_ACTUAL_INST> registerMultiple(
             final Class<? extends TYPE_COMMON_INST> clazz,
             final Supplier<TYPE_SELECTOR> selector,
             final TYPE_ACTUAL_INST instance
@@ -115,10 +113,22 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty ({@link Option.None, which means
      * it was not found or at some point in the hierarchy there has been an exception).
      */
-    protected Option<TYPE_ACTUAL_INST> getMultiple(final Class<? extends TYPE_COMMON_INST> clazz, final TYPE_SELECTOR selector) {
+    public Option<TYPE_ACTUAL_INST> getMultiple(final Class<? extends TYPE_COMMON_INST> clazz, final TYPE_SELECTOR selector) {
         return Option.of(this.prototypes.get(clazz)).map(selectorMap -> selectorMap.get(selector));
     }
-
+    
+    public List<TYPE_ACTUAL_INST> getMultiples(final Class<? extends TYPE_COMMON_INST> clazz) {
+        return new ArrayList<>(Option.of(this.prototypes.get(clazz))
+                .map(Map::values)
+                .getOrElse(Collections.emptyList()));
+    }
+    
+    public List<TYPE_ACTUAL_INST> getAll(final Class<? extends TYPE_COMMON_INST> clazz) {
+        final List<TYPE_ACTUAL_INST> all = getMultiples(clazz);
+        getSingle(clazz).peek(all::add);
+        return all;
+    }
+    
     /**
      * This is a very basic and simple merge for the {@link Map} &lt; {@link TYPE_SELECTOR} , {@link TYPE_COMMON_INST} &gt;
      * that contains the instances organized per class and distinct by selector.
