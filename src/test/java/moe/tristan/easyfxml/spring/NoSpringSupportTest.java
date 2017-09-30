@@ -23,7 +23,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
  * can work normally with the library...
  */
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
-public class EasyFxmlDependencyInjectionTest {
+public class NoSpringSupportTest {
     @Autowired
     private Environment environment;
 
@@ -35,7 +35,7 @@ public class EasyFxmlDependencyInjectionTest {
     @Test
     public void test_or_prod_class_using_spring() {
         final Set<String> illegalAnnotationsFoundOnClasses =
-                Stream.of(EasyFxmlDependencyInjectionTest.class, EasyFxmlDependencyInjection.class)
+                Stream.of(NoSpringSupportTest.class, NoSpringSupport.class)
                         .map(Class::getAnnotations)
                         .flatMap(Arrays::stream)
                         .map(Annotation::toString)
@@ -47,7 +47,7 @@ public class EasyFxmlDependencyInjectionTest {
 
     @Test
     public void getInstance() {
-        final EasyFxml instance = EasyFxmlDependencyInjection.getInstance();
+        final EasyFxml instance = NoSpringSupport.getInstance(EasyFxml.class);
         assertThat(instance).isNotNull();
     }
 }
