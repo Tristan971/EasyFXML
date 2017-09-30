@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model.views;
+package moe.tristan.easyfxml.model.beanmanagement;
 
 import io.vavr.control.Option;
 import javafx.stage.Stage;
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * @see moe.tristan.easyfxml.model.views.AbstractInstanceManager
+ * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
  *
  * {@inheritDoc}
  */
