@@ -124,8 +124,8 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
     }
     
     public List<TYPE_ACTUAL_INST> getAll(final Class<? extends TYPE_COMMON_INST> clazz) {
-        final List<TYPE_ACTUAL_INST> all = getMultiples(clazz);
-        getSingle(clazz).peek(all::add);
+        final List<TYPE_ACTUAL_INST> all = this.getMultiples(clazz);
+        this.getSingle(clazz).peek(all::add);
         return all;
     }
     
