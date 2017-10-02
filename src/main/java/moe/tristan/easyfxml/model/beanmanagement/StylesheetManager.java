@@ -1,7 +1,7 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import com.sun.javafx.css.Stylesheet;
-import moe.tristan.easyfxml.FxmlController;
+import moe.tristan.easyfxml.FxmlNode;
+import moe.tristan.easyfxml.FxmlStylesheet;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,4 +10,4 @@ import org.springframework.stereotype.Component;
  * {@inheritDoc}
  */
 @Component
-public class StylesheetManager extends AbstractInstanceManager<FxmlController, Stylesheet, Object> {}
+public class StylesheetManager extends AbstractInstanceManager<FxmlNode, FxmlStylesheet, Object> {}
