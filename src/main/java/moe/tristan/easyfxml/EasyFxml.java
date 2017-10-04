@@ -4,6 +4,7 @@ import io.vavr.control.Try;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 
