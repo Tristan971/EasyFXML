@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.FxmlNode;
+import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.exception.ExceptionDialogDisplayRequest;
 import moe.tristan.easyfxml.model.exception.ExceptionPane;
 import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
@@ -37,7 +37,7 @@ public class ViewsLoader {
     }
 
     public Pane loadPaneForView(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
-        log.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getPath());
+        log.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getFxmlFilePath());
         final EasyFxml easyFxml = this.context.getBean(EasyFxml.class);
         return easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
             switch (onExceptionBehavior) {

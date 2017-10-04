@@ -6,8 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.FxmlController;
-import moe.tristan.easyfxml.FxmlNode;
+import moe.tristan.easyfxml.model.FxmlController;
+import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -70,7 +70,7 @@ public class BaseEasyFxml implements EasyFxml {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
         loader.setControllerFactory(clazz -> {
             final FxmlController controllerInstance = context.getBean(node.getControllerClass());
-            controllerManager.registerSingle(node.getClass(), controllerInstance);
+            controllerManager.registerSingle(node, controllerInstance);
             return controllerInstance;
         });
         return loader;
@@ -80,7 +80,7 @@ public class BaseEasyFxml implements EasyFxml {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
         loader.setControllerFactory(clazz -> {
             final FxmlController controllerInstance = context.getBean(node.getControllerClass());
-            controllerManager.registerMultiple(node.getClass(), selector, controllerInstance);
+            controllerManager.registerMultiple(node, selector, controllerInstance);
             return controllerInstance;
         });
         return loader;
@@ -101,7 +101,7 @@ public class BaseEasyFxml implements EasyFxml {
      * as defined by environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
      */
     private String filePath(final FxmlNode fxmlNode) {
-        return this.prependFxmlRootPath(fxmlNode.getFxmlFile().getPath());
+        return this.prependFxmlRootPath(fxmlNode.getFxmlFile().getFxmlFilePath());
     }
 
     private String prependFxmlRootPath(final String filePathString) {
