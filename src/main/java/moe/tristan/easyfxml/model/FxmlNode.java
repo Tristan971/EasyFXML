@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml;
+package moe.tristan.easyfxml.model;
 
 /**
  * A {@link FxmlNode} is any element that the user is meant to see/interract with.

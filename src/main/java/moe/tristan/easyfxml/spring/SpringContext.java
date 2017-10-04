@@ -3,7 +3,7 @@ package moe.tristan.easyfxml.spring;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import lombok.extern.slf4j.Slf4j;
-import moe.tristan.easyfxml.FxmlNode;
+import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
