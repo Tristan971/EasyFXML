@@ -42,7 +42,7 @@ public final class StageUtils {
         return asyncStageOperation(stage, Stage::hide);
     }
 
-    private static Future<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
+    public static Future<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
         final CompletableFuture<Stage> onAsyncOpDone = new CompletableFuture<>();
         Platform.runLater(() -> {
             asyncOp.accept(stage);

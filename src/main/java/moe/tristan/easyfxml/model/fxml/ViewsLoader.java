@@ -1,13 +1,13 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.model.FxmlNode;
-import moe.tristan.easyfxml.model.exception.ExceptionDialogDisplayRequest;
 import moe.tristan.easyfxml.model.exception.ExceptionPane;
 import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
+import moe.tristan.easyfxml.util.StageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * The {@link ViewsLoader} is a convenience {@link Service} acting as
- * a safe decorator around {@link EasyFxml} for error-handling and generally
- * more polished usage.
+ * a safe decorator around {@link EasyFxml} for error-handling.
  *
  * It provides :
  * - Error handling ({@link #loadingError(Throwable)}
@@ -37,8 +36,8 @@ public class ViewsLoader {
         this.context = context;
     }
 
-    public Pane loadPaneForView(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
-        LOG.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getFxmlFilePath());
+    public Pane loadPaneForNode(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
+        LOG.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getPath());
         final EasyFxml easyFxml = this.context.getBean(EasyFxml.class);
         return easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
             switch (onExceptionBehavior) {
@@ -60,6 +59,7 @@ public class ViewsLoader {
 
     private void loadingErrorDialog(final Throwable exception) {
         final Pane errPane = this.loadingError(exception);
-        Platform.runLater(ExceptionDialogDisplayRequest.of("An error has occured.", errPane));
+        final Stage errorStage = StageUtils.stageOf("An error has occured", errPane);
+        StageUtils.scheduleDisplaying(errorStage);
     }
 }
