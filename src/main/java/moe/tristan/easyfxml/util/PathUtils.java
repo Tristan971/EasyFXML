@@ -1,7 +1,8 @@
 package moe.tristan.easyfxml.util;
 
 import io.vavr.control.Try;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,8 +16,8 @@ import java.util.stream.StreamSupport;
 /**
  * This class is because Brian Goetz doesn't like you reading files from the classpath
  */
-@Slf4j
 public final class PathUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(PathUtils.class);
 
     private PathUtils() {}
 
@@ -46,7 +47,7 @@ public final class PathUtils {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
             return StreamSupport.stream(files.spliterator(), false);
         } catch (final IOException e) {
-            log.error("Could not list files in {}", directory.toString(), e);
+            LOG.error("Could not list files in {}", directory.toString(), e);
             return Stream.empty();
         }
     }

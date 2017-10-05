@@ -3,12 +3,13 @@ package moe.tristan.easyfxml.model.fxml;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.exception.ExceptionDialogDisplayRequest;
 import moe.tristan.easyfxml.model.exception.ExceptionPane;
 import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -26,8 +27,8 @@ import org.springframework.stereotype.Service;
  * It is recommended to use it but {@link EasyFxml} works fine without it.
  */
 @Component
-@Slf4j
 public class ViewsLoader {
+    private static final Logger LOG = LoggerFactory.getLogger(ViewsLoader.class);
 
     private final ApplicationContext context;
 
@@ -37,7 +38,7 @@ public class ViewsLoader {
     }
 
     public Pane loadPaneForView(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
-        log.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getFxmlFilePath());
+        LOG.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getFxmlFilePath());
         final EasyFxml easyFxml = this.context.getBean(EasyFxml.class);
         return easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
             switch (onExceptionBehavior) {
@@ -53,7 +54,7 @@ public class ViewsLoader {
     }
 
     private Pane loadingError(final Throwable exception) {
-        log.error("Got exception loading view ! See stacktrace : ", exception);
+        LOG.error("Got exception loading view ! See stacktrace : ", exception);
         return new ExceptionPane(exception).asPane("Could not load component :( Details :");
     }
 

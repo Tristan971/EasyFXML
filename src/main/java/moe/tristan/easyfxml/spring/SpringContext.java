@@ -2,7 +2,6 @@ package moe.tristan.easyfxml.spring;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -11,8 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-
-import java.net.URL;
 
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
@@ -30,18 +27,14 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  */
 @Configuration
 @ComponentScan(basePackages = "moe.tristan.easyfxml", lazyInit = true)
-@Slf4j
 public class SpringContext {
 
     /**
      * The {@link FXMLLoader} object is a /SINGLE-USE/ object to load
      * a FXML file and deserialize it as an instance of {@link Node}.
      * <p>
-     * Because of its single-use policy on {@link FXMLLoader#load()}
-     * (you can not follow it with a {@link FXMLLoader#setLocation(URL)}
-     * and another load as a way to reuse it as it caches object tree in
-     * the instance), it must stay as a
-     * {@link ConfigurableBeanFactory#SCOPE_PROTOTYPE} - scoped bean.
+     * Because of its single-use policy (on {@link FXMLLoader#load()}),
+     * it must stay as a {@link ConfigurableBeanFactory#SCOPE_PROTOTYPE}.
      * <p>
      * This pre-made instance will be preloaded with
      * {@link ApplicationContext#getBean(Class)} as the default way to
