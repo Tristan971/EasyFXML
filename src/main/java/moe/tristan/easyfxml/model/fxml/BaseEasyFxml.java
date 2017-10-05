@@ -4,7 +4,6 @@ import io.vavr.control.Try;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.model.FxmlController;
 import moe.tristan.easyfxml.model.FxmlNode;
@@ -20,7 +19,6 @@ import java.net.URL;
  * This is the standard implementation of {@link EasyFxml}.
  */
 @Service
-@Slf4j
 public class BaseEasyFxml implements EasyFxml {
 
     private final ApplicationContext context;
