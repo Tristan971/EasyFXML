@@ -5,21 +5,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.util.DomUtils;
 import moe.tristan.easyfxml.util.StageUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
-@Slf4j
 public final class ExceptionPane {
+    private static final Logger LOG = LoggerFactory.getLogger(ExceptionPane.class);
+
     private static final double ERROR_FIELD_MARGIN_SIZE = 20.0;
     private final Throwable exception;
 
     public ExceptionPane(final Throwable exception) {
-        log.debug("Generating ExceptionPane for exception of type {}", exception.getClass());
+        LOG.debug("Generating ExceptionPane for exception of type {}", exception.getClass());
         this.exception = exception;
     }
 
@@ -28,7 +30,7 @@ public final class ExceptionPane {
     }
 
     public Pane asPane(final String userReadableError) {
-        log.debug("Generating node corresponding to ExceptionPane...");
+        LOG.debug("Generating node corresponding to ExceptionPane...");
         final Label messageLabel = new Label(userReadableError);
         final TextArea throwableDataLabel = new TextArea(formatErrorMessage(this.exception));
 
