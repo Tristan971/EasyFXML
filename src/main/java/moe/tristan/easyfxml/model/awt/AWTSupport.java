@@ -5,7 +5,9 @@ import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
+import java.awt.Desktop;
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -18,15 +20,16 @@ public class AWTSupport {
     private static final Logger LOG = LoggerFactory.getLogger(AWTSupport.class);
 
     private static final AtomicReference<Try<Boolean>> isAwtAvailable = new AtomicReference<>(
-            Try.failure(getAwtNotEnabledException())
+        Try.failure(getAwtNotEnabledException())
     );
     private static final AtomicReference<Try<Boolean>> isNotHeadless = new AtomicReference<>(
-            Try.failure(new HeadlessException())
+        Try.failure(new HeadlessException())
     );
 
     private static final AtomicBoolean hasBeenValidatedAlready = new AtomicBoolean(false);
 
-    private AWTSupport() {}
+    private AWTSupport() {
+    }
 
     /**
      * This method must be called in the main class of your application, before the
@@ -37,16 +40,6 @@ public class AWTSupport {
     public static void enableAwt() {
         isAwtAvailable.set(Try.of(Toolkit::getDefaultToolkit).map(Objects::nonNull));
         isNotHeadless.set(Try.of(Desktop::getDesktop).map(Objects::nonNull));
-    }
-
-    private static IllegalStateException getAwtNotEnabledException() {
-        return new IllegalStateException(
-                String.format(
-                        "You can not use AWT-related features (namely %s class and features). " +
-                        "Please call AWTSupport#enableAwt() in your main function.",
-                        AWTSupport.class.getName()
-                )
-        );
     }
 
     /**
@@ -77,5 +70,15 @@ public class AWTSupport {
         } else {
             LOG.debug("\tNon-headless functionnality is available.");
         }
+    }
+
+    private static IllegalStateException getAwtNotEnabledException() {
+        return new IllegalStateException(
+            String.format(
+                "You can not use AWT-related features (namely %s class and features). " +
+                    "Please call AWTSupport#enableAwt() in your main function.",
+                AWTSupport.class.getName()
+            )
+        );
     }
 }
