@@ -1,10 +1,11 @@
 package moe.tristan.easyfxml.model;
 
+@FunctionalInterface
 public interface FxmlStylesheet {
     /**
-     * @return Gives the path to the CSS file that is describing the stylesheet
+     * @return the CSS content that composes the stylesheet
      */
-    String getPath();
+    String getCssContent();
 
-    FxmlStylesheet NONE = () -> null;
+    FxmlStylesheet NONE = () -> "";
 }
