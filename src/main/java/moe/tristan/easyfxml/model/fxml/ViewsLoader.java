@@ -1,14 +1,15 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
+import javafx.stage.Stage;
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.FxmlFile;
-import moe.tristan.easyfxml.model.exception.ExceptionDialogDisplayRequest;
-import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
+import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.exception.ExceptionPane;
+import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
+import moe.tristan.easyfxml.util.StageUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -16,19 +17,17 @@ import org.springframework.stereotype.Service;
 
 /**
  * The {@link ViewsLoader} is a convenience {@link Service} acting as
- * a safe decorator around {@link EasyFxml} for broadly used tasks such as
- * directly opening a window which's base FXML file has a {@link FxmlFile}
- * instance counterpart.
+ * a safe decorator around {@link EasyFxml} for error-handling.
  *
  * It provides :
  * - Error handling ({@link #loadingError(Throwable)}
- * - Pop-up exception handling
+ * - Error styles {@link ExceptionPaneBehavior}
  *
  * It is recommended to use it but {@link EasyFxml} works fine without it.
  */
 @Component
-@Slf4j
 public class ViewsLoader {
+    private static final Logger LOG = LoggerFactory.getLogger(ViewsLoader.class);
 
     private final ApplicationContext context;
 
@@ -37,10 +36,10 @@ public class ViewsLoader {
         this.context = context;
     }
 
-    public Pane loadPaneForView(final FxmlFile fxmlFile, final ExceptionPaneBehavior onExceptionBehavior) {
-        log.debug("Loading view : {} [{}]", fxmlFile, fxmlFile.getPath());
+    public Pane loadPaneForNode(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
+        LOG.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getPath());
         final EasyFxml easyFxml = this.context.getBean(EasyFxml.class);
-        return easyFxml.getPaneForView(fxmlFile).getOrElseGet(exception -> {
+        return easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
             switch (onExceptionBehavior) {
                 case INLINE:
                     return this.loadingError(exception);
@@ -54,12 +53,13 @@ public class ViewsLoader {
     }
 
     private Pane loadingError(final Throwable exception) {
-        log.error("Got exception loading view ! See stacktrace : ", exception);
+        LOG.error("Got exception loading view ! See stacktrace : ", exception);
         return new ExceptionPane(exception).asPane("Could not load component :( Details :");
     }
 
     private void loadingErrorDialog(final Throwable exception) {
         final Pane errPane = this.loadingError(exception);
-        Platform.runLater(ExceptionDialogDisplayRequest.of("An error has occured.", errPane));
+        final Stage errorStage = StageUtils.stageOf("An error has occured", errPane);
+        StageUtils.scheduleDisplaying(errorStage);
     }
 }

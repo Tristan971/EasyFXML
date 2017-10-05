@@ -5,14 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
-@Slf4j
 public final class StageUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(StageUtils.class);
 
     private StageUtils() {}
 
@@ -24,7 +25,7 @@ public final class StageUtils {
     }
 
     public static Future<Stage> scheduleDisplaying(final Stage stage) {
-        log.debug(
+        LOG.debug(
                 "Requested displaying of stage {} with title : \"{}\"",
                 stage,
                 stage.getTitle()
@@ -33,7 +34,7 @@ public final class StageUtils {
     }
 
     public static Future<Stage> scheduleHiding(final Stage stage) {
-        log.debug(
+        LOG.debug(
                 "Requested hiding of stage {} with title : \"{}\"",
                 stage,
                 stage.getTitle()
@@ -41,7 +42,7 @@ public final class StageUtils {
         return asyncStageOperation(stage, Stage::hide);
     }
 
-    private static Future<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
+    public static Future<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
         final CompletableFuture<Stage> onAsyncOpDone = new CompletableFuture<>();
         Platform.runLater(() -> {
             asyncOp.accept(stage);

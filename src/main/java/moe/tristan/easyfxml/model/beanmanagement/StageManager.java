@@ -1,7 +1,7 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
 import javafx.stage.Stage;
-import moe.tristan.easyfxml.FxmlController;
+import moe.tristan.easyfxml.model.FxmlNode;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,4 +10,4 @@ import org.springframework.stereotype.Component;
  * {@inheritDoc}
  */
 @Component
-public class StageManager extends AbstractInstanceManager<FxmlController, Stage, Object> {}
+public class StageManager extends AbstractInstanceManager<FxmlNode, Stage, Object> {}
