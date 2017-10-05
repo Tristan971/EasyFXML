@@ -2,82 +2,134 @@ package moe.tristan.easyfxml.model.fxml;
 
 import io.vavr.control.Try;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.FxmlFile;
+import moe.tristan.easyfxml.model.FxmlController;
+import moe.tristan.easyfxml.model.FxmlNode;
+import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.net.URL;
 
 /**
  * This is the standard implementation of {@link EasyFxml}.
  */
 @Service
-@Slf4j
 public class BaseEasyFxml implements EasyFxml {
 
     private final ApplicationContext context;
     private final Environment environment;
+    private final ControllerManager controllerManager;
 
     @Autowired
-    protected BaseEasyFxml(final ApplicationContext context, final Environment environment) {
+    protected BaseEasyFxml(final ApplicationContext context, final Environment environment, final ControllerManager controllerManager) {
         this.context = context;
         this.environment = environment;
+        this.controllerManager = controllerManager;
     }
 
     /**
-     * Loads a {@link FxmlFile} as a Pane (this is the safest base class for all sorts of hierarchies)
-     * since most of the base containers are subclasses of it.
-     *
-     * It returns a {@link Try} which is a monadic structure which allows us to do clean exception-handling.
-     *
-     * @param view The file's {@link FxmlFile} counterpart. Try to avoid loading things using manual path
-     *             as it implies losing a lot of coding safety. It does work fine as well though if you
-     *             really dislike {@link FxmlFile}.
-     *
-     * @return A {@link Try} containing either the file {@link Try.Success} or the exception that was first
-     * raised during the chain of nested function calls needed to load it. See {@link Try#getOrElse(Object)}
-     * and related methods for how to handle {@link Try.Failure}.
+     * {@inheritDoc}
      */
     @Override
-    public Try<Pane> getPaneForView(final FxmlFile view) {
-        return this.getPaneForFile(this.prependFxmlRootPath(view.getPath()));
-    }
-
-    private String prependFxmlRootPath(final String filePathString) {
-        return this.environment.getRequiredProperty("moe.tristan.easyfxml.fxml.fxml_root_path") + filePathString;
+    public Try<Pane> loadNode(final FxmlNode node) {
+        return this.loadNode(node, Pane.class);
     }
 
     /**
-     * This method is the direct path access counterpart of {@link #getPaneForView(FxmlFile)}.
-     * It is discouraged to use it and left out of the {@link EasyFxml} interface but left
-     * accessible by casting {@link EasyFxml} to this class, or by subclassing.
-     *
-     * It is considered outside of the scope of the safe-to-use API and should be thought of as
-     * a unofficial usage of the API.
-     *
-     * @param filePathString The path to a FXML file either inside or outside classpath.
-     *                       If inside classpath the same root of /target/classes/ is assumed
-     *                       by the usage of {@link #getURLForView(String)}.
-     *
-     * @return A {@link Try} working exactly in the same way as {@link #getPaneForView(FxmlFile)}.
+     * {@inheritDoc}
      */
-    @SuppressWarnings({"PublicMethodNotExposedInInterface", "WeakerAccess"})
-    public Try<Pane> getPaneForFile(final String filePathString) {
+    @Override
+    public Try<Pane> loadNode(final FxmlNode node, final Object selector) {
+        return this.loadNode(node, Pane.class, selector);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass) {
+        final Try<T> loadedNode = this.loadNodeImpl(
+                this.getSingleStageFxmlLoader(nodeInfo),
+                this.filePath(nodeInfo)
+        );
+
+        return applyStylesheetIfNeeded(
+                nodeInfo,
+                loadedNode
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass, final Object selector) {
+        final Try<T> loadResult = this.loadNodeImpl(
+                this.getSingleStageFxmlLoader(nodeInfo),
+                this.filePath(nodeInfo)
+        );
+
+        return applyStylesheetIfNeeded(
+                nodeInfo,
+                loadResult
+        );
+    }
+
+    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> loadResult) {
+        nodeInfo.getStylesheet().peek(stylesheet ->
+                loadResult.peek(positiveLoadResult ->
+                        positiveLoadResult.setStyle(stylesheet.getCssContent())
+                )
+        );
+        return loadResult;
+    }
+
+    private FXMLLoader getSingleStageFxmlLoader(final FxmlNode node) {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
-        loader.setLocation(getURLForView(filePathString));
-        try {
-            final Pane filePane = loader.load();
-            return Try.of(() -> filePane);
-        } catch (final IOException e) {
-            log.error("Could not locate file at path : " + filePathString, e);
-            return Try.failure(e);
-        }
+        loader.setControllerFactory(clazz -> {
+            final FxmlController controllerInstance = context.getBean(node.getControllerClass());
+            controllerManager.registerSingle(node, controllerInstance);
+            return controllerInstance;
+        });
+        return loader;
+    }
+
+    private FXMLLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
+        final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
+        loader.setControllerFactory(clazz -> {
+            final FxmlController controllerInstance = context.getBean(node.getControllerClass());
+            controllerManager.registerMultiple(node, selector, controllerInstance);
+            return controllerInstance;
+        });
+        return loader;
+    }
+
+    /**
+     * This method acts just like {@link #loadNode(FxmlNode)} but with no
+     * autoconfiguration of controller binding and stylesheet application.
+     */
+    protected <T> Try<T> loadNodeImpl(final FXMLLoader fxmlLoader, final String filePathString) {
+        fxmlLoader.setLocation(getURLForView(filePathString));
+        return Try.of(fxmlLoader::load);
+    }
+
+    /**
+     * @param fxmlNode The node who's filepath we look for
+     *
+     * @return The node's {@link FxmlNode#getFxmlFile()} path prepended with the views root folder,
+     * as defined by environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
+     */
+    private String filePath(final FxmlNode fxmlNode) {
+        final String rootPath = Try.of(() -> "moe.tristan.easyfxml.fxml.fxml_root_path")
+                .map(this.environment::getRequiredProperty)
+                .getOrElse("");
+
+        return rootPath + fxmlNode.getFxmlFile().getPath();
     }
 
     private static URL getURLForView(final String filePathString) {

@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml;
+package moe.tristan.easyfxml.model;
 
 /**
  * Base class to implement for your fxml file equivalents.
