@@ -3,6 +3,7 @@ package moe.tristan.easyfxml.model.awt.integrations;
 import moe.tristan.easyfxml.model.awt.AWTSupport;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class BrowserSupportTest {
     }
 
     @Test
+    @Ignore("CI Testing doesn't offer browser support, so only manual tests here.")
     public void openUrl() {
         this.browserSupport.openUrl("https://www.google.fr");
     }
