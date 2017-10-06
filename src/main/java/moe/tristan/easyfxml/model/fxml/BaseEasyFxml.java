@@ -14,6 +14,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * This is the standard implementation of {@link EasyFxml}.
@@ -21,28 +23,24 @@ import java.net.URL;
 @Service
 public class BaseEasyFxml implements EasyFxml {
 
-    private final ApplicationContext context;
     private final Environment environment;
+    private final Supplier<FXMLLoader> fxmlLoaders;
+    private final Function<FxmlNode, FxmlController> controllerInstanciator;
     private final ControllerManager controllerManager;
 
     @Autowired
     protected BaseEasyFxml(final ApplicationContext context, final Environment environment, final ControllerManager controllerManager) {
-        this.context = context;
+        this.fxmlLoaders = () -> context.getBean(FXMLLoader.class);
+        this.controllerInstanciator = node -> context.getBean(node.getControllerClass());
         this.environment = environment;
         this.controllerManager = controllerManager;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Try<Pane> loadNode(final FxmlNode node) {
         return this.loadNode(node, Pane.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass) {
         final Try<T> loadedNode = this.loadNodeImpl(
@@ -56,17 +54,11 @@ public class BaseEasyFxml implements EasyFxml {
         );
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Try<Pane> loadNode(final FxmlNode node, final Object selector) {
         return this.loadNode(node, Pane.class, selector);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass, final Object selector) {
         final Try<T> loadResult = this.loadNodeImpl(
@@ -90,9 +82,9 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     private FXMLLoader getSingleStageFxmlLoader(final FxmlNode node) {
-        final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
+        final FXMLLoader loader = this.fxmlLoaders.get();
         loader.setControllerFactory(clazz -> {
-            final FxmlController controllerInstance = this.context.getBean(node.getControllerClass());
+            final FxmlController controllerInstance = this.controllerInstanciator.apply(node);
             this.controllerManager.registerSingle(node, controllerInstance);
             return controllerInstance;
         });
@@ -122,9 +114,9 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     private FXMLLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
-        final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
+        final FXMLLoader loader = this.fxmlLoaders.get();
         loader.setControllerFactory(clazz -> {
-            final FxmlController controllerInstance = this.context.getBean(node.getControllerClass());
+            final FxmlController controllerInstance = this.controllerInstanciator.apply(node);
             this.controllerManager.registerMultiple(node, selector, controllerInstance);
             return controllerInstance;
         });
