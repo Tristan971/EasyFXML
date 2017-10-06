@@ -10,33 +10,18 @@ import moe.tristan.easyfxml.model.exception.ExceptionPaneBehavior;
 import moe.tristan.easyfxml.util.StageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
- * The {@link ViewsLoader} is a convenience {@link Service} acting as
- * a safe decorator around {@link EasyFxml} for error-handling.
- * <p>
- * It provides :
- * - Error handling ({@link #loadingError(Throwable)}
- * - Error styles {@link ExceptionPaneBehavior}
- * <p>
- * It is recommended to use it but {@link EasyFxml} works fine without it.
+ * This is a yet unfinished class.
  */
-@Service
-public class ViewsLoader {
-    private static final Logger LOG = LoggerFactory.getLogger(ViewsLoader.class);
+@Component
+public class SafeEasyFxml {
+    private static final Logger LOG = LoggerFactory.getLogger(SafeEasyFxml.class);
 
-    private final EasyFxml easyFxml;
-
-    @Autowired
-    public ViewsLoader(final EasyFxml easyFxml) {
-        this.easyFxml = easyFxml;
-    }
-
-    public Pane loadPaneForNode(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
+    public Pane loadPaneForNode(final EasyFxml easyFxml, final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
         LOG.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getPath());
-        return this.easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
+        return easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
             switch (onExceptionBehavior) {
                 case INLINE:
                     return this.loadingError(exception);
