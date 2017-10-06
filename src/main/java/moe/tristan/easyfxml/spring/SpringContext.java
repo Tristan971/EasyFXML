@@ -6,12 +6,12 @@ import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
+
+import java.awt.Desktop;
 
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
 
 /**
  * {@link Configuration} class for non-autonomous {@link Bean}s. Useful to
@@ -25,6 +25,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  * beginning of an application's lifecycle, but yield lower memory
  * usage and avoir bean name conflicts and other things like it.
  */
+@Lazy
 @Configuration
 @ComponentScan(basePackages = "moe.tristan.easyfxml", lazyInit = true)
 public class SpringContext {
@@ -53,5 +54,11 @@ public class SpringContext {
         final FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(context::getBean);
         return fxmlLoader;
+    }
+
+    @Bean
+    @Scope(scopeName = SCOPE_SINGLETON)
+    public Desktop desktop() {
+        return Desktop.getDesktop();
     }
 }
