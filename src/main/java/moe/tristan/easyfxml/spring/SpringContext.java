@@ -8,10 +8,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 
-import java.awt.Desktop;
-
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
 
 /**
  * {@link Configuration} class for non-autonomous {@link Bean}s. Useful to
@@ -54,11 +51,5 @@ public class SpringContext {
         final FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(context::getBean);
         return fxmlLoader;
-    }
-
-    @Bean
-    @Scope(scopeName = SCOPE_SINGLETON)
-    public Desktop desktop() {
-        return Desktop.getDesktop();
     }
 }

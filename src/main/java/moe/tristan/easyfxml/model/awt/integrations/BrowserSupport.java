@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.Objects;
 
 import static io.vavr.API.unchecked;
+import static java.awt.Desktop.Action.*;
 
 @Component
 public class BrowserSupport implements AwtRequired {
@@ -36,6 +37,11 @@ public class BrowserSupport implements AwtRequired {
         Try.of(url::toURI)
             .onSuccess(this::browse)
             .onFailure(cause -> this.onException(cause, Objects.toString(url)));
+    }
+
+    @Override
+    public boolean isSupported() {
+        return this.desktop.isSupported(BROWSE);
     }
 
     private void onException(final Throwable cause, final String url) {
