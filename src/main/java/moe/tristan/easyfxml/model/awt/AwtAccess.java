@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * This class enables the AWT-only functionnalities relating to system
  * integration that were not (yet) incorporated in JavaFX.
  */
-public class AWTSupport {
-    private static final Logger LOG = LoggerFactory.getLogger(AWTSupport.class);
+public class AwtAccess {
+    private static final Logger LOG = LoggerFactory.getLogger(AwtAccess.class);
 
     private static final AtomicReference<Try<Boolean>> isAwtAvailable = new AtomicReference<>(
         Try.failure(getAwtNotEnabledException())
@@ -28,7 +28,7 @@ public class AWTSupport {
 
     private static final AtomicBoolean hasBeenValidatedAlready = new AtomicBoolean(false);
 
-    private AWTSupport() {
+    private AwtAccess() {
     }
 
     /**
@@ -77,7 +77,7 @@ public class AWTSupport {
             String.format(
                 "You can not use AWT-related features (namely %s class and features). " +
                     "Please call AWTSupport#enableAwt() in your main function.",
-                AWTSupport.class.getName()
+                AwtAccess.class.getName()
             )
         );
     }

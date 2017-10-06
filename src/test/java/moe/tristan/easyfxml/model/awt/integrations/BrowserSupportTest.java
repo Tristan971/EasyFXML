@@ -1,6 +1,6 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import moe.tristan.easyfxml.model.awt.AWTSupport;
+import moe.tristan.easyfxml.model.awt.AwtAccess;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -19,7 +19,7 @@ public class BrowserSupportTest {
 
     @BeforeClass
     public static void setUpAWT() {
-        AWTSupport.enableAwt();
+        AwtAccess.enableAwt();
     }
 
     @Test
