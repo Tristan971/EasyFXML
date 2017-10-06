@@ -21,7 +21,7 @@ public final class NoSpringSupport {
         LOG.info("Loading non-Spring project dependency injection adapter...");
     }
 
-    public static <T> T getInstance(Class<? extends T> instanceClass) {
+    public static <T> T getInstance(final Class<? extends T> instanceClass) {
         return getApplicationContext().getBean(instanceClass);
     }
 
