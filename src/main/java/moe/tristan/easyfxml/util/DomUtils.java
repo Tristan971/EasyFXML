@@ -5,7 +5,8 @@ import javafx.scene.layout.AnchorPane;
 
 public final class DomUtils {
 
-    private DomUtils() {}
+    private DomUtils() {
+    }
 
     public static void centerNode(final Node node, final Double marginSize) {
         AnchorPane.setTopAnchor(node, marginSize);

@@ -19,7 +19,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  * <p>
  * (e.g. : here with{@link FXMLLoader} as seen in
  * {@link #fxmlLoader(ApplicationContext)}.
- *
+ * <p>
  * All beans are initialized lazily so that only the used parts of the
  * library are generated. This will add a few slowdown moments in the
  * beginning of an application's lifecycle, but yield lower memory
@@ -39,12 +39,11 @@ public class SpringContext {
      * This pre-made instance will be preloaded with
      * {@link ApplicationContext#getBean(Class)} as the default way to
      * fabricate the controller classes which handle the UI's state.
-     *
+     * <p>
      * See further configuration in {@link BaseEasyFxml#getSingleStageFxmlLoader(FxmlNode)}
      * and {@link BaseEasyFxml#getMultiStageFxmlLoader(FxmlNode, Object)}
      *
-     * @param context           The application's context for controller instanciation
-     *
+     * @param context The application's context for controller instanciation
      * @return A spring-enabled {@link FXMLLoader}.
      */
     @Bean
