@@ -38,18 +38,18 @@ public final class ExceptionPane {
         return new AnchorPane(messageLabel, throwableDataLabel);
     }
 
-    private static String formatErrorMessage(final Throwable throwable) {
-        return "Message : \n" +
-                throwable.getMessage() +
-                "\nStackTrace:\n" +
-                Arrays.stream(throwable.getStackTrace())
-                        .map(StackTraceElement::toString)
-                        .collect(Collectors.joining("\n"));
-    }
-
     public static Future<Stage> displayExceptionPane(final String title, final String readable, final Throwable exception) {
         final Pane exceptionPane = new ExceptionPane(exception).asPane(readable);
         final Stage exceptionStage = StageUtils.stageOf(title, exceptionPane);
         return StageUtils.scheduleDisplaying(exceptionStage);
+    }
+
+    private static String formatErrorMessage(final Throwable throwable) {
+        return "Message : \n" +
+            throwable.getMessage() +
+            "\nStackTrace:\n" +
+            Arrays.stream(throwable.getStackTrace())
+                .map(StackTraceElement::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

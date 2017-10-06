@@ -19,7 +19,8 @@ import java.util.stream.StreamSupport;
 public final class PathUtils {
     private static final Logger LOG = LoggerFactory.getLogger(PathUtils.class);
 
-    private PathUtils() {}
+    private PathUtils() {
+    }
 
     /**
      * This method gets the {@link Path} associated to a classpath-located file.
@@ -30,9 +31,9 @@ public final class PathUtils {
      */
     public static Try<Path> getPathForResource(final String resourceName) {
         return Try.of(PathUtils.class::getClassLoader)
-                .map(cl -> cl.getResource(resourceName))
-                .mapTry(URL::toURI)
-                .mapTry(Paths::get);
+            .map(cl -> cl.getResource(resourceName))
+            .mapTry(URL::toURI)
+            .mapTry(Paths::get);
     }
 
     /**

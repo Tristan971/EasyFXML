@@ -31,8 +31,20 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
         return this.singletons.put(commonInst, controller);
     }
 
-    public Option<TYPE_ACTUAL_INST> getSingle(final TYPE_COMMON_INST commonInst) {
-        return Option.of(this.singletons.get(commonInst));
+    /**
+     * Should you have a premade method that supplies you with selectors so you can choose your own management system,
+     * then you can give access to a lambda version of it in the form of a {@link Supplier} instead of giving the actual
+     * value directly. This is marginal but if you wished for it, here it is.
+     * <p>
+     * Apart from this, the way this method works is strictly identical to
+     * {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}.
+     */
+    public Map.Entry<?, TYPE_ACTUAL_INST> registerMultiple(
+        final TYPE_COMMON_INST commonInst,
+        final Supplier<TYPE_SELECTOR> selector,
+        final TYPE_ACTUAL_INST instance
+    ) {
+        return this.registerMultiple(commonInst, selector.get(), instance);
     }
 
     /**
@@ -63,40 +75,22 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * @param commonInst An instance, typically an enum member
      * @param selector   The selector that you have to provide to recover this particular instance later
      * @param instance   The instance to save.
-     *
      * @return A map entry containing the selector and the controller registered in case you need it.
-     *
      * @throws RuntimeException in case there was an error in saving the instance.
      */
     public Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST> registerMultiple(
-            final TYPE_COMMON_INST commonInst,
-            final TYPE_SELECTOR selector,
-            final TYPE_ACTUAL_INST instance
+        final TYPE_COMMON_INST commonInst,
+        final TYPE_SELECTOR selector,
+        final TYPE_ACTUAL_INST instance
     ) {
         final Optional<Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST>> newEntry = this.prototypes.merge(
-                commonInst,
-                new HashMap<TYPE_SELECTOR, TYPE_ACTUAL_INST>() {{
-                    this.put(selector, instance);
-                }},
-                this::mergePrototypes
+            commonInst,
+            new HashMap<TYPE_SELECTOR, TYPE_ACTUAL_INST>() {{
+                this.put(selector, instance);
+            }},
+            this::mergePrototypes
         ).entrySet().stream().filter(entry -> entry.getKey().equals(selector)).findAny();
         return newEntry.orElseThrow(RuntimeException::new);
-    }
-
-    /**
-     * Should you have a premade method that supplies you with selectors so you can choose your own management system,
-     * then you can give access to a lambda version of it in the form of a {@link Supplier} instead of giving the actual
-     * value directly. This is marginal but if you wished for it, here it is.
-     * <p>
-     * Apart from this, the way this method works is strictly identical to
-     * {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}.
-     */
-    public Map.Entry<?, TYPE_ACTUAL_INST> registerMultiple(
-            final TYPE_COMMON_INST commonInst,
-            final Supplier<TYPE_SELECTOR> selector,
-            final TYPE_ACTUAL_INST instance
-    ) {
-        return this.registerMultiple(commonInst, selector.get(), instance);
     }
 
     /**
@@ -107,7 +101,7 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * Look at {@link Option} for information on how to use it.
      *
      * @param commonInst The instance who's children you look for.
-     * @param selector The selector previously used in {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}
+     * @param selector   The selector previously used in {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}
      * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty ({@link Option.None, which means
      * it was not found or at some point in the hierarchy there has been an exception).
      */
@@ -115,16 +109,20 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
         return Option.of(this.prototypes.get(commonInst)).map(selectorMap -> selectorMap.get(selector));
     }
 
-    public List<TYPE_ACTUAL_INST> getMultiples(final TYPE_COMMON_INST commonInst) {
-        return new ArrayList<>(Option.of(this.prototypes.get(commonInst))
-                .map(Map::values)
-                .getOrElse(Collections.emptyList()));
-    }
-
     public List<TYPE_ACTUAL_INST> getAll(final TYPE_COMMON_INST commonInst) {
         final List<TYPE_ACTUAL_INST> all = this.getMultiples(commonInst);
         this.getSingle(commonInst).peek(all::add);
         return all;
+    }
+
+    public List<TYPE_ACTUAL_INST> getMultiples(final TYPE_COMMON_INST commonInst) {
+        return new ArrayList<>(Option.of(this.prototypes.get(commonInst))
+            .map(Map::values)
+            .getOrElse(Collections.emptyList()));
+    }
+
+    public Option<TYPE_ACTUAL_INST> getSingle(final TYPE_COMMON_INST commonInst) {
+        return Option.of(this.singletons.get(commonInst));
     }
 
     /**
@@ -136,13 +134,13 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * @return The merge result to be stored (a simple result of a null-check followed by a {@link Map#putAll(Map)}).
      */
     private Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> mergePrototypes(
-            final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> oldValue,
-            final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> newValue
+        final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> oldValue,
+        final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> newValue
     ) {
         final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> finalValue =
-                (oldValue == null) ?
-                        new ConcurrentHashMap<>() :
-                        new ConcurrentHashMap<>(oldValue);
+            (oldValue == null) ?
+                new ConcurrentHashMap<>() :
+                new ConcurrentHashMap<>(oldValue);
 
         finalValue.putAll(newValue);
         return finalValue;

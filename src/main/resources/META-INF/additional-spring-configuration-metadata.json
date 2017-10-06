@@ -1,20 +1,19 @@
 {
-  "properties": [
-    {
-      "name": "moe.tristan.easyfxml.version",
-      "type": "java.lang.String",
-      "description": "Library's version."
-    },
-    {
-      "name": "moe.tristan.easyfxml.spring.version",
-      "type": "java.lang.String",
-      "description": "Currently used version of Spring Boot inside the library."
-    },
-    {
-      "name": "moe.tristan.easyfxml.fxml.fxml_root_path",
-      "type": "java.lang.String",
-      "description": "Root path for FXML files. Considered empt string for non-custom manipulation of fxml files."
-
-    }
-  ]
+    "properties": [
+        {
+            "name": "moe.tristan.easyfxml.version",
+            "type": "java.lang.String",
+            "description": "Library's version."
+        },
+        {
+            "name": "moe.tristan.easyfxml.spring.version",
+            "type": "java.lang.String",
+            "description": "Currently used version of Spring Boot inside the library."
+        },
+        {
+            "name": "moe.tristan.easyfxml.fxml.fxml_root_path",
+            "type": "java.lang.String",
+            "description": "Root path for FXML files. Considered empt string for non-custom manipulation of fxml files."
+        }
+    ]
 }

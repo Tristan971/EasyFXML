@@ -44,6 +44,22 @@ public class BaseEasyFxml implements EasyFxml {
      * {@inheritDoc}
      */
     @Override
+    public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass) {
+        final Try<T> loadedNode = this.loadNodeImpl(
+            this.getSingleStageFxmlLoader(nodeInfo),
+            this.filePath(nodeInfo)
+        );
+
+        return this.applyStylesheetIfNeeded(
+            nodeInfo,
+            loadedNode
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Try<Pane> loadNode(final FxmlNode node, final Object selector) {
         return this.loadNode(node, Pane.class, selector);
     }
@@ -52,41 +68,25 @@ public class BaseEasyFxml implements EasyFxml {
      * {@inheritDoc}
      */
     @Override
-    public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass) {
-        final Try<T> loadedNode = this.loadNodeImpl(
-                this.getSingleStageFxmlLoader(nodeInfo),
-                this.filePath(nodeInfo)
+    public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass, final Object selector) {
+        final Try<T> loadResult = this.loadNodeImpl(
+            this.getSingleStageFxmlLoader(nodeInfo),
+            this.filePath(nodeInfo)
         );
 
         return this.applyStylesheetIfNeeded(
-                nodeInfo,
-                loadedNode
+            nodeInfo,
+            loadResult
         );
     }
 
     /**
-     * {@inheritDoc}
+     * This method acts just like {@link #loadNode(FxmlNode)} but with no
+     * autoconfiguration of controller binding and stylesheet application.
      */
-    @Override
-    public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass, final Object selector) {
-        final Try<T> loadResult = this.loadNodeImpl(
-                this.getSingleStageFxmlLoader(nodeInfo),
-                this.filePath(nodeInfo)
-        );
-
-        return this.applyStylesheetIfNeeded(
-                nodeInfo,
-                loadResult
-        );
-    }
-
-    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> loadResult) {
-        nodeInfo.getStylesheet().peek(stylesheet ->
-                loadResult.peek(positiveLoadResult ->
-                        positiveLoadResult.setStyle(stylesheet.getCssContent())
-                )
-        );
-        return loadResult;
+    protected <T> Try<T> loadNodeImpl(final FXMLLoader fxmlLoader, final String filePathString) {
+        fxmlLoader.setLocation(getURLForView(filePathString));
+        return Try.of(fxmlLoader::load);
     }
 
     private FXMLLoader getSingleStageFxmlLoader(final FxmlNode node) {
@@ -99,6 +99,28 @@ public class BaseEasyFxml implements EasyFxml {
         return loader;
     }
 
+    /**
+     * @param fxmlNode The node who's filepath we look for
+     * @return The node's {@link FxmlNode#getFxmlFile()} path prepended with the views root folder,
+     * as defined by environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
+     */
+    private String filePath(final FxmlNode fxmlNode) {
+        final String rootPath = Try.of(() -> "moe.tristan.easyfxml.fxml.fxml_root_path")
+            .map(this.environment::getRequiredProperty)
+            .getOrElse("");
+
+        return rootPath + fxmlNode.getFxmlFile().getPath();
+    }
+
+    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> loadResult) {
+        nodeInfo.getStylesheet().peek(stylesheet ->
+            loadResult.peek(positiveLoadResult ->
+                positiveLoadResult.setStyle(stylesheet.getCssContent())
+            )
+        );
+        return loadResult;
+    }
+
     private FXMLLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
         loader.setControllerFactory(clazz -> {
@@ -107,29 +129,6 @@ public class BaseEasyFxml implements EasyFxml {
             return controllerInstance;
         });
         return loader;
-    }
-
-    /**
-     * This method acts just like {@link #loadNode(FxmlNode)} but with no
-     * autoconfiguration of controller binding and stylesheet application.
-     */
-    protected <T> Try<T> loadNodeImpl(final FXMLLoader fxmlLoader, final String filePathString) {
-        fxmlLoader.setLocation(getURLForView(filePathString));
-        return Try.of(fxmlLoader::load);
-    }
-
-    /**
-     * @param fxmlNode The node who's filepath we look for
-     *
-     * @return The node's {@link FxmlNode#getFxmlFile()} path prepended with the views root folder,
-     * as defined by environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
-     */
-    private String filePath(final FxmlNode fxmlNode) {
-        final String rootPath = Try.of(() -> "moe.tristan.easyfxml.fxml.fxml_root_path")
-                .map(this.environment::getRequiredProperty)
-                .getOrElse("");
-
-        return rootPath + fxmlNode.getFxmlFile().getPath();
     }
 
     private static URL getURLForView(final String filePathString) {

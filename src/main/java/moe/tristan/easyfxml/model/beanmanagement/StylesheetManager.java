@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
- *
+ * <p>
  * {@inheritDoc}
  */
 @Component
-public class StylesheetManager extends AbstractInstanceManager<FxmlNode, FxmlStylesheet, Object> {}
+public class StylesheetManager extends AbstractInstanceManager<FxmlNode, FxmlStylesheet, Object> {
+}

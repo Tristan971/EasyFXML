@@ -14,7 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class __main_stub {
     private static final Logger LOG = LoggerFactory.getLogger(__main_stub.class);
 
-    public static void main(final String ... args) {
+    public static void main(final String... args) {
         try (ConfigurableApplicationContext ctx = SpringApplication.run(__main_stub.class)) {
             LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINS.");
         }
