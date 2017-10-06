@@ -11,8 +11,6 @@ import moe.tristan.easyfxml.util.StageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,21 +23,20 @@ import org.springframework.stereotype.Service;
  *
  * It is recommended to use it but {@link EasyFxml} works fine without it.
  */
-@Component
+@Service
 public class ViewsLoader {
     private static final Logger LOG = LoggerFactory.getLogger(ViewsLoader.class);
 
-    private final ApplicationContext context;
+    private final EasyFxml easyFxml;
 
     @Autowired
-    public ViewsLoader(final ApplicationContext context) {
-        this.context = context;
+    public ViewsLoader(final EasyFxml easyFxml) {
+        this.easyFxml = easyFxml;
     }
 
     public Pane loadPaneForNode(final FxmlNode fxmlNode, final ExceptionPaneBehavior onExceptionBehavior) {
         LOG.debug("Loading view : {} [{}]", fxmlNode, fxmlNode.getFxmlFile().getPath());
-        final EasyFxml easyFxml = this.context.getBean(EasyFxml.class);
-        return easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
+        return this.easyFxml.loadNode(fxmlNode).getOrElseGet(exception -> {
             switch (onExceptionBehavior) {
                 case INLINE:
                     return this.loadingError(exception);
