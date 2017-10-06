@@ -58,7 +58,7 @@ public class BaseEasyFxml implements EasyFxml {
                 this.filePath(nodeInfo)
         );
 
-        return applyStylesheetIfNeeded(
+        return this.applyStylesheetIfNeeded(
                 nodeInfo,
                 loadedNode
         );
@@ -74,7 +74,7 @@ public class BaseEasyFxml implements EasyFxml {
                 this.filePath(nodeInfo)
         );
 
-        return applyStylesheetIfNeeded(
+        return this.applyStylesheetIfNeeded(
                 nodeInfo,
                 loadResult
         );
@@ -92,8 +92,8 @@ public class BaseEasyFxml implements EasyFxml {
     private FXMLLoader getSingleStageFxmlLoader(final FxmlNode node) {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
         loader.setControllerFactory(clazz -> {
-            final FxmlController controllerInstance = context.getBean(node.getControllerClass());
-            controllerManager.registerSingle(node, controllerInstance);
+            final FxmlController controllerInstance = this.context.getBean(node.getControllerClass());
+            this.controllerManager.registerSingle(node, controllerInstance);
             return controllerInstance;
         });
         return loader;
@@ -102,8 +102,8 @@ public class BaseEasyFxml implements EasyFxml {
     private FXMLLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
         final FXMLLoader loader = this.context.getBean(FXMLLoader.class);
         loader.setControllerFactory(clazz -> {
-            final FxmlController controllerInstance = context.getBean(node.getControllerClass());
-            controllerManager.registerMultiple(node, selector, controllerInstance);
+            final FxmlController controllerInstance = this.context.getBean(node.getControllerClass());
+            this.controllerManager.registerMultiple(node, selector, controllerInstance);
             return controllerInstance;
         });
         return loader;
