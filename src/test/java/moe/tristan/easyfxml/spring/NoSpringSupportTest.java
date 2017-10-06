@@ -35,12 +35,12 @@ public class NoSpringSupportTest {
     @Test
     public void test_or_prod_class_using_spring() {
         final Set<String> illegalAnnotationsFoundOnClasses =
-                Stream.of(NoSpringSupportTest.class, NoSpringSupport.class)
-                        .map(Class::getAnnotations)
-                        .flatMap(Arrays::stream)
-                        .map(Annotation::toString)
-                        .filter(clazz -> clazz.contains("springframework"))
-                        .collect(Collectors.toSet());
+            Stream.of(NoSpringSupportTest.class, NoSpringSupport.class)
+                .map(Class::getAnnotations)
+                .flatMap(Arrays::stream)
+                .map(Annotation::toString)
+                .filter(clazz -> clazz.contains("springframework"))
+                .collect(Collectors.toSet());
 
         assertThat(illegalAnnotationsFoundOnClasses).isEmpty();
     }

@@ -15,7 +15,8 @@ import java.util.function.Consumer;
 public final class StageUtils {
     private static final Logger LOG = LoggerFactory.getLogger(StageUtils.class);
 
-    private StageUtils() {}
+    private StageUtils() {
+    }
 
     public static Stage stageOf(final String title, final Pane rootPane) {
         final Stage stage = new Stage(StageStyle.DECORATED);
@@ -26,20 +27,11 @@ public final class StageUtils {
 
     public static Future<Stage> scheduleDisplaying(final Stage stage) {
         LOG.debug(
-                "Requested displaying of stage {} with title : \"{}\"",
-                stage,
-                stage.getTitle()
+            "Requested displaying of stage {} with title : \"{}\"",
+            stage,
+            stage.getTitle()
         );
         return asyncStageOperation(stage, Stage::show);
-    }
-
-    public static Future<Stage> scheduleHiding(final Stage stage) {
-        LOG.debug(
-                "Requested hiding of stage {} with title : \"{}\"",
-                stage,
-                stage.getTitle()
-        );
-        return asyncStageOperation(stage, Stage::hide);
     }
 
     public static Future<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
@@ -49,5 +41,14 @@ public final class StageUtils {
             onAsyncOpDone.complete(stage);
         });
         return onAsyncOpDone;
+    }
+
+    public static Future<Stage> scheduleHiding(final Stage stage) {
+        LOG.debug(
+            "Requested hiding of stage {} with title : \"{}\"",
+            stage,
+            stage.getTitle()
+        );
+        return asyncStageOperation(stage, Stage::hide);
     }
 }

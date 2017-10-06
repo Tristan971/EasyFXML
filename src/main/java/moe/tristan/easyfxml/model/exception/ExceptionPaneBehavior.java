@@ -9,8 +9,8 @@ import moe.tristan.easyfxml.model.fxml.ViewsLoader;
  * you may want either to have the error pane display in
  * place of your expected pane, or you might on the other
  * hand wish for a disting dialog window popping up.
- * 
- * As you can guess, using {@link ViewsLoader#loadPaneForNode(FxmlNode, ExceptionPaneBehavior)} : 
+ * <p>
+ * As you can guess, using {@link ViewsLoader#loadPaneForNode(FxmlNode, ExceptionPaneBehavior)} :
  * - {@link #INLINE} generates the error in-place, while
  * - {@link #DIALOG} generates and displays it in a separate window.
  */

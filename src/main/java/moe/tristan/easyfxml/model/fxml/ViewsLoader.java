@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 /**
  * The {@link ViewsLoader} is a convenience {@link Service} acting as
  * a safe decorator around {@link EasyFxml} for error-handling.
- *
+ * <p>
  * It provides :
  * - Error handling ({@link #loadingError(Throwable)}
  * - Error styles {@link ExceptionPaneBehavior}
- *
+ * <p>
  * It is recommended to use it but {@link EasyFxml} works fine without it.
  */
 @Service
@@ -44,7 +44,7 @@ public class ViewsLoader {
                     this.loadingErrorDialog(exception);
                     return new Pane(new Label("An exception occured. See dialog and/or logs."));
                 default:
-                    throw new RuntimeException("Error behavior was not recognized. Was \""+ onExceptionBehavior +"\".");
+                    throw new RuntimeException("Error behavior was not recognized. Was \"" + onExceptionBehavior + "\".");
             }
         });
     }
