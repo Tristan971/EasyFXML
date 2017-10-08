@@ -10,7 +10,9 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
@@ -44,12 +46,13 @@ public final class PathUtils {
      * @return A stream of the files under the given directory or an empty stream if
      * the {@link Path} was not a directory.
      */
-    public static Stream<Path> listFiles(final Path directory) {
+    public static List<Path> listFiles(final Path directory) {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
-            return StreamSupport.stream(files.spliterator(), false);
-        } catch (final IOException e) {
-            LOG.error("Could not list files in {}", directory.toString(), e);
-            return Stream.empty();
+            return StreamSupport.stream(files.spliterator(), false)
+                .collect(Collectors.toList());
+        } catch (final IOException ignored) {
+            // shouldn't happen unless accessing some privileged paths. Don't do that...
+            return Collections.emptyList();
         }
     }
 }
