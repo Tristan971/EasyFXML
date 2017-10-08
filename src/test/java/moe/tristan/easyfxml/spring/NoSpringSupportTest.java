@@ -1,11 +1,19 @@
 package moe.tristan.easyfxml.spring;
 
+import javafx.fxml.FXMLLoader;
 import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.model.awt.AwtAccess;
+import moe.tristan.easyfxml.model.awt.integrations.BrowserSupport;
+import moe.tristan.easyfxml.model.awt.integrations.SystemTraySupport;
+import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.StageManager;
+import moe.tristan.easyfxml.model.beanmanagement.StylesheetManager;
+import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.lang.annotation.Annotation;
@@ -14,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Do not add {@link SpringBootTest} annotation
@@ -22,14 +30,15 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
  * as this test checks whether the non-Spring projects
  * can work normally with the library...
  */
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
+@SuppressWarnings({"SpringJavaAutowiredMembersInspection", "CodeBlock2Expr"})
 public class NoSpringSupportTest {
+
     @Autowired
-    private Environment environment;
+    private ApplicationContext ctx;
 
     @Test
     public void test_doesnt_load_spring() {
-        assertThat(this.environment).isNull();
+        assertThat(this.ctx).isNull();
     }
 
     @Test
@@ -47,7 +56,23 @@ public class NoSpringSupportTest {
 
     @Test
     public void getInstance() {
-        final EasyFxml instance = NoSpringSupport.getInstance(EasyFxml.class);
-        assertThat(instance).isNotNull();
+        AwtAccess.enableAwt();
+        Stream.of(
+            EasyFxml.class,
+            BaseEasyFxml.class,
+            FXMLLoader.class,
+
+            ControllerManager.class,
+            StageManager.class,
+            StylesheetManager.class,
+
+            java.awt.Desktop.class,
+            java.awt.SystemTray.class,
+            java.awt.Toolkit.class,
+            SystemTraySupport.class,
+            BrowserSupport.class
+        ).map(NoSpringSupport::getInstance).forEach(instance -> {
+            assertThat(instance).isNotNull();
+        });
     }
 }
