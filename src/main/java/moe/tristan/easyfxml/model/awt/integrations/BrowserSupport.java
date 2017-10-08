@@ -3,7 +3,7 @@ package moe.tristan.easyfxml.model.awt.integrations;
 import io.vavr.CheckedFunction1;
 import io.vavr.control.Try;
 import moe.tristan.easyfxml.model.awt.AwtRequired;
-import moe.tristan.easyfxml.model.exception.ExceptionPane;
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class BrowserSupport implements AwtRequired {
     }
 
     private void onException(final Throwable cause, final String url) {
-        ExceptionPane.displayExceptionPane(
+        ExceptionHandler.displayExceptionPane(
             "Browser error",
             "We could not open the following url in the browser : " + url,
             cause
