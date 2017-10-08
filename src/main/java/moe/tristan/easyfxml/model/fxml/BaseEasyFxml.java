@@ -11,7 +11,7 @@ import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.function.Function;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 /**
  * This is the standard implementation of {@link EasyFxml}.
  */
-@Service
+@Component
 public class BaseEasyFxml implements EasyFxml {
 
     private final Environment environment;
