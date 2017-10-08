@@ -1,16 +1,21 @@
 package moe.tristan.easyfxml;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestUtils {
-    public static Button fillTestStage(final Stage stage) {
-        final Button testButton = new Button("TEST");
-        final Pane testPane = new Pane(testButton);
-        final Scene testScene = new Scene(testPane);
-        stage.setScene(testScene);
-        return testButton;
+    public static void ensureSpringSingleton(final ApplicationContext context, final Class<?> beanClazz) {
+        final Object bean1 = context.getBean(beanClazz);
+        final Object bean2 = context.getBean(beanClazz);
+
+        assertThat(bean1).isEqualTo(bean2);
+    }
+
+    public static void ensureSpringPrototype(final ApplicationContext context, final Class<?> beanClazz) {
+        final Object bean1 = context.getBean(beanClazz);
+        final Object bean2 = context.getBean(beanClazz);
+
+        assertThat(bean1).isNotEqualTo(bean2);
     }
 }
