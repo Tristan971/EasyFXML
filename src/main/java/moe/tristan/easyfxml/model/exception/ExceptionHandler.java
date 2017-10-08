@@ -11,16 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-public final class ExceptionPane {
-    private static final Logger LOG = LoggerFactory.getLogger(ExceptionPane.class);
+public final class ExceptionHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandler.class);
 
     private static final double ERROR_FIELD_MARGIN_SIZE = 20.0;
     private final Throwable exception;
 
-    public ExceptionPane(final Throwable exception) {
+    public ExceptionHandler(final Throwable exception) {
         LOG.debug("Generating ExceptionPane for exception of type {}", exception.getClass());
         this.exception = exception;
     }
@@ -34,14 +34,19 @@ public final class ExceptionPane {
         final Label messageLabel = new Label(userReadableError);
         final TextArea throwableDataLabel = new TextArea(formatErrorMessage(this.exception));
 
+        AnchorPane.setLeftAnchor(messageLabel, ERROR_FIELD_MARGIN_SIZE);
         DomUtils.centerNode(throwableDataLabel, ERROR_FIELD_MARGIN_SIZE);
         return new AnchorPane(messageLabel, throwableDataLabel);
     }
 
-    public static Future<Stage> displayExceptionPane(final String title, final String readable, final Throwable exception) {
-        final Pane exceptionPane = new ExceptionPane(exception).asPane(readable);
-        final Stage exceptionStage = StageUtils.stageOf(title, exceptionPane);
-        return StageUtils.scheduleDisplaying(exceptionStage);
+    public static CompletableFuture<Stage> displayExceptionPane(
+        final String title,
+        final String readable,
+        final Throwable exception
+    ) {
+        final Pane exceptionPane = new ExceptionHandler(exception).asPane(readable);
+        final CompletableFuture<Stage> exceptionStage = StageUtils.stageOf(title, exceptionPane);
+        return exceptionStage.thenCompose(StageUtils::scheduleDisplaying);
     }
 
     private static String formatErrorMessage(final Throwable throwable) {

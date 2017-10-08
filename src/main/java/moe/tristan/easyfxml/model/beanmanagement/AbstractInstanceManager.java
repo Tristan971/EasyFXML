@@ -27,8 +27,8 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
     private final Map<TYPE_COMMON_INST, TYPE_ACTUAL_INST> singletons = new ConcurrentHashMap<>();
     private final Map<TYPE_COMMON_INST, Map<TYPE_SELECTOR, TYPE_ACTUAL_INST>> prototypes = new ConcurrentHashMap<>();
 
-    public TYPE_ACTUAL_INST registerSingle(final TYPE_COMMON_INST commonInst, final TYPE_ACTUAL_INST controller) {
-        return this.singletons.put(commonInst, controller);
+    public TYPE_ACTUAL_INST registerSingle(final TYPE_COMMON_INST parent, final TYPE_ACTUAL_INST instance) {
+        return this.singletons.put(parent, instance);
     }
 
     /**
@@ -40,11 +40,11 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}.
      */
     public Map.Entry<?, TYPE_ACTUAL_INST> registerMultiple(
-        final TYPE_COMMON_INST commonInst,
+        final TYPE_COMMON_INST parent,
         final Supplier<TYPE_SELECTOR> selector,
         final TYPE_ACTUAL_INST instance
     ) {
-        return this.registerMultiple(commonInst, selector.get(), instance);
+        return this.registerMultiple(parent, selector.get(), instance);
     }
 
     /**
@@ -72,19 +72,19 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * {@link #registerMultiple(TYPE_COMMON_INST, Supplier, TYPE_COMMON_INST)}. Look at it if you think about writing
      * something like a {@link Function} &lt; {@link TYPE_COMMON_INST} , {@link Object} &gt; to compute selectors.
      *
-     * @param commonInst An instance, typically an enum member
+     * @param parent An instance, typically an enum member
      * @param selector   The selector that you have to provide to recover this particular instance later
      * @param instance   The instance to save.
      * @return A map entry containing the selector and the controller registered in case you need it.
      * @throws RuntimeException in case there was an error in saving the instance.
      */
     public Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST> registerMultiple(
-        final TYPE_COMMON_INST commonInst,
+        final TYPE_COMMON_INST parent,
         final TYPE_SELECTOR selector,
         final TYPE_ACTUAL_INST instance
     ) {
         final Optional<Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST>> newEntry = this.prototypes.merge(
-            commonInst,
+            parent,
             new HashMap<TYPE_SELECTOR, TYPE_ACTUAL_INST>() {{
                 this.put(selector, instance);
             }},
@@ -100,29 +100,29 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * <p>
      * Look at {@link Option} for information on how to use it.
      *
-     * @param commonInst The instance who's children you look for.
+     * @param parent The instance who's children you look for.
      * @param selector   The selector previously used in {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}
      * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty ({@link Option.None, which means
      * it was not found or at some point in the hierarchy there has been an exception).
      */
-    public Option<TYPE_ACTUAL_INST> getMultiple(final TYPE_COMMON_INST commonInst, final TYPE_SELECTOR selector) {
-        return Option.of(this.prototypes.get(commonInst)).map(selectorMap -> selectorMap.get(selector));
+    public Option<TYPE_ACTUAL_INST> getMultiple(final TYPE_COMMON_INST parent, final TYPE_SELECTOR selector) {
+        return Option.of(this.prototypes.get(parent)).map(selectorMap -> selectorMap.get(selector));
     }
 
-    public List<TYPE_ACTUAL_INST> getAll(final TYPE_COMMON_INST commonInst) {
-        final List<TYPE_ACTUAL_INST> all = this.getMultiples(commonInst);
-        this.getSingle(commonInst).peek(all::add);
+    public List<TYPE_ACTUAL_INST> getAll(final TYPE_COMMON_INST parent) {
+        final List<TYPE_ACTUAL_INST> all = this.getMultiples(parent);
+        this.getSingle(parent).peek(all::add);
         return all;
     }
 
-    public List<TYPE_ACTUAL_INST> getMultiples(final TYPE_COMMON_INST commonInst) {
-        return new ArrayList<>(Option.of(this.prototypes.get(commonInst))
+    public List<TYPE_ACTUAL_INST> getMultiples(final TYPE_COMMON_INST parent) {
+        return new ArrayList<>(Option.of(this.prototypes.get(parent))
             .map(Map::values)
             .getOrElse(Collections.emptyList()));
     }
 
-    public Option<TYPE_ACTUAL_INST> getSingle(final TYPE_COMMON_INST commonInst) {
-        return Option.of(this.singletons.get(commonInst));
+    public Option<TYPE_ACTUAL_INST> getSingle(final TYPE_COMMON_INST parent) {
+        return Option.of(this.singletons.get(parent));
     }
 
     /**

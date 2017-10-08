@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 public final class StageUtils {
@@ -18,14 +17,18 @@ public final class StageUtils {
     private StageUtils() {
     }
 
-    public static Stage stageOf(final String title, final Pane rootPane) {
-        final Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle(title);
-        stage.setScene(new Scene(rootPane));
-        return stage;
+    public static CompletableFuture<Stage> stageOf(final String title, final Pane rootPane) {
+        final CompletableFuture<Stage> upcomingStage = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            final Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle(title);
+            stage.setScene(new Scene(rootPane));
+            upcomingStage.complete(stage);
+        });
+        return upcomingStage;
     }
 
-    public static Future<Stage> scheduleDisplaying(final Stage stage) {
+    public static CompletableFuture<Stage> scheduleDisplaying(final Stage stage) {
         LOG.debug(
             "Requested displaying of stage {} with title : \"{}\"",
             stage,
@@ -34,7 +37,7 @@ public final class StageUtils {
         return asyncStageOperation(stage, Stage::show);
     }
 
-    public static Future<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
+    public static CompletableFuture<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
         final CompletableFuture<Stage> onAsyncOpDone = new CompletableFuture<>();
         Platform.runLater(() -> {
             asyncOp.accept(stage);
@@ -43,7 +46,7 @@ public final class StageUtils {
         return onAsyncOpDone;
     }
 
-    public static Future<Stage> scheduleHiding(final Stage stage) {
+    public static CompletableFuture<Stage> scheduleHiding(final Stage stage) {
         LOG.debug(
             "Requested hiding of stage {} with title : \"{}\"",
             stage,
