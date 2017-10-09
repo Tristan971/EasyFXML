@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.Map;
 
-public interface SystemTrayElement {
+public interface SystemTrayIcon {
 
     String getLabel();
 
