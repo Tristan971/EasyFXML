@@ -27,4 +27,3 @@ jdk:
 
 script:
   - mvn -DargLine="-Denv=ci" package
-
