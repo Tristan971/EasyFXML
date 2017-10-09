@@ -16,7 +16,7 @@ public class CIIncompatibleTest {
     public void ensureNotCi() {
         final String envProperty = System.getProperty("env");
         if (envProperty != null) {
-            assumeFalse("ci".equals(System.getProperty("env")));
+            assumeFalse("ci".equals(envProperty));
         }
         System.out.println("WAS NOT CI ENVIRONMENT. EXECUTING TEST.");
     }
