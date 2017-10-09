@@ -21,6 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,7 +29,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = { SpringContext.class, SAMPLE_CONTROL_CLASS.class })
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
-    private enum FXMLNODES implements FxmlNode {
+
+    public enum FXMLNODES implements FxmlNode {
         PANE(() -> "fxml/test_pane.fxml", Option.of(SAMPLE_CONTROL_CLASS.class), Option.none()),
         BUTTON(() -> "fxml/button.fxml", Option.none(), Option.none()),
         INVALID(() -> "fxml/invalid_file.fxml", Option.none(), Option.none());
@@ -126,9 +128,11 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void can_instantiate_test_class() {
-        final SAMPLE_CONTROL_CLASS bean = this.context.getBean(SAMPLE_CONTROL_CLASS.class);
-        assertThat(bean).isNotNull();
+    public void can_instantiate_controller_as_prototype() {
+        final SAMPLE_CONTROL_CLASS inst1 = this.context.getBean(SAMPLE_CONTROL_CLASS.class);
+        final SAMPLE_CONTROL_CLASS inst2 = this.context.getBean(SAMPLE_CONTROL_CLASS.class);
+        assertThat(Arrays.asList(inst1, inst2)).doesNotContainNull();
+        assertThat(inst1).isNotEqualTo(inst2);
     }
 
     private Pane assertTestPaneLoadedCorrectly(final Supplier<Try<Pane>> paneLoadingSupplier) {
