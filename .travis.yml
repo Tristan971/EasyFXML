@@ -26,4 +26,5 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn package
+  - mvn -DargLine="-Denv=ci" package
+
