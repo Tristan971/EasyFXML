@@ -6,13 +6,13 @@ import static org.junit.Assume.assumeFalse;
 
 /**
  * This class skips all extending test classes tests if we are in a CI
- * environment. Depending on the reason it generally means (unless commented
- * appropriately) that it is unreliable/failing in CI despite being
- * actually testing working code when used in a non-CI environment.
+ * environment. Many things are reasons for this including no AWT
+ * support for some of the functionnalities in headless environments.
+ * I'll get a non-headless test env sometimes.
  */
 public class CIIncompatibleTest {
     @Before
-    public void setUp() {
+    public void ensureNotCi() {
         final String envProperty = System.getProperty("env");
         if (envProperty != null) {
             assumeFalse(System.getProperty("env").equals("ci"));

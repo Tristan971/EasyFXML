@@ -3,8 +3,6 @@ package moe.tristan.easyfxml.spring;
 import javafx.fxml.FXMLLoader;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.model.awt.AwtAccess;
-import moe.tristan.easyfxml.model.awt.integrations.BrowserSupport;
-import moe.tristan.easyfxml.model.awt.integrations.SystemTraySupport;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.StageManager;
 import moe.tristan.easyfxml.model.beanmanagement.StylesheetManager;
@@ -64,13 +62,7 @@ public class NoSpringSupportTest {
 
             ControllerManager.class,
             StageManager.class,
-            StylesheetManager.class,
-
-            java.awt.Desktop.class,
-            java.awt.SystemTray.class,
-            java.awt.Toolkit.class,
-            SystemTraySupport.class,
-            BrowserSupport.class
+            StylesheetManager.class
         ).map(NoSpringSupport::getInstance).forEach(instance -> {
             assertThat(instance).isNotNull();
         });
