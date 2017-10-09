@@ -25,7 +25,7 @@ public class FxmlStylesheetTest {
     @Test
     public void getCssContent() throws IOException {
         final FxmlStylesheet stylesheet = this.stylesheetLoading.getOrElseThrow(IOException::new);
-        assertThat(stylesheet.getCssContent()).isEqualTo(TEST_STYLE_CONTENT);
+        assertThat(stylesheet.getCssContent()).isEqualToIgnoringWhitespace(TEST_STYLE_CONTENT);
     }
 
     @Test
