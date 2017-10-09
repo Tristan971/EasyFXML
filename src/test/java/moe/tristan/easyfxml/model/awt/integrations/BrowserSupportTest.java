@@ -18,7 +18,7 @@ public class BrowserSupportTest extends CIIncompatibleTest {
     private BrowserSupport browserSupport;
 
     @BeforeClass
-    public static void setUpAWT() {
+    public static void setUp() {
         AwtAccess.enableAwt();
     }
 
