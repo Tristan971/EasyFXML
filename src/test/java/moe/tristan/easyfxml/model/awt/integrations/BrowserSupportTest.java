@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class BrowserSupportTest extends CIIncompatibleTest {
 
     @Autowired
-    private BrowserSupport browserSupport;
+    private ApplicationContext context;
 
     @BeforeClass
     public static void setUp() {
@@ -24,7 +25,8 @@ public class BrowserSupportTest extends CIIncompatibleTest {
 
     @Test
     public void openUrl() {
-        this.browserSupport.openUrl("https://www.google.fr");
+        final BrowserSupport browserSupport = this.context.getBean(BrowserSupport.class);
+        browserSupport.openUrl("https://www.google.fr");
     }
 
 }

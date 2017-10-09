@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -32,7 +33,7 @@ public class SystemTraySupportTest extends CIIncompatibleTest {
     private static final URL TRAY_ICON_URL = getTrayIcon();
 
     @Autowired
-    private SystemTraySupport systemTraySupport;
+    private ApplicationContext applicationContext;
 
     @BeforeClass
     public static void enableAwt() {
@@ -41,11 +42,14 @@ public class SystemTraySupportTest extends CIIncompatibleTest {
 
     @Test
     public void awt_system_tray_supported_on_local_testing() {
-        assertThat(this.systemTraySupport.isSupported()).isTrue();
+        final SystemTraySupport systemTraySupport = this.applicationContext.getBean(SystemTraySupport.class);
+        assertThat(systemTraySupport.isSupported()).isTrue();
     }
 
     @Test
     public void register_system_tray_icon() {
+        final SystemTraySupport systemTraySupport = this.applicationContext.getBean(SystemTraySupport.class);
+
         final MenuItem testItem = new MenuItem("DISABLED_ON_CLICK");
         final ActionListener disableOnClick = e -> testItem.setEnabled(false);
 
@@ -54,12 +58,12 @@ public class SystemTraySupportTest extends CIIncompatibleTest {
         }};
 
         final SystemTrayIcon trayIcon = this.systemTrayIconWith(menuItems);
-        final Try<TrayIcon> registrationResult = this.systemTraySupport.registerTrayIcon(trayIcon);
+        final Try<TrayIcon> registrationResult = systemTraySupport.registerTrayIcon(trayIcon);
         assertThat(registrationResult.isSuccess()).isTrue();
         registrationResult.andThen(loadedIcon -> {
-            assertThat(this.systemTraySupport.getTrayIcons()).containsExactly(loadedIcon);
-            this.systemTraySupport.removeTrayIcon(loadedIcon);
-            assertThat(this.systemTraySupport.getTrayIcons()).isEmpty();
+            assertThat(systemTraySupport.getTrayIcons()).containsExactly(loadedIcon);
+            systemTraySupport.removeTrayIcon(loadedIcon);
+            assertThat(systemTraySupport.getTrayIcons()).isEmpty();
         });
     }
 
