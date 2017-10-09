@@ -10,12 +10,13 @@ import static org.junit.Assume.assumeFalse;
  * support for some of the functionnalities in headless environments.
  * I'll get a non-headless test env sometimes.
  */
+@SuppressWarnings("AccessOfSystemProperties")
 public class CIIncompatibleTest {
     @Before
     public void ensureNotCi() {
         final String envProperty = System.getProperty("env");
         if (envProperty != null) {
-            assumeFalse(System.getProperty("env").equals("ci"));
+            assumeFalse("ci".equals(System.getProperty("env")));
         }
         System.out.println("WAS NOT CI ENVIRONMENT. EXECUTING TEST.");
     }

@@ -6,8 +6,7 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletionStage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +19,7 @@ public class ExceptionHandlerTest extends ApplicationTest {
     private Pane ERR_PANE_READBLE;
 
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
         this.EXCEPTION_TEXT = "SAMPLE EXCEPTION";
         this.EXCEPTION_TEXT_READABLE = "USER READABLE ERROR";
         this.EXCEPTION = new Exception(this.EXCEPTION_TEXT);
@@ -42,14 +41,13 @@ public class ExceptionHandlerTest extends ApplicationTest {
     }
 
     @Test
-    public void displayExceptionPane() throws ExecutionException, InterruptedException {
-        final CompletableFuture<Stage> displayedStage = ExceptionHandler.displayExceptionPane(
+    public void displayExceptionPane() {
+        final CompletionStage<Stage> displayedStage = ExceptionHandler.displayExceptionPane(
             this.EXCEPTION_TEXT,
             this.EXCEPTION_TEXT_READABLE,
             this.EXCEPTION
         );
 
-        final Stage stage = displayedStage.get();
-        assertThat(stage.isShowing()).isTrue();
+        displayedStage.thenAccept(stage -> assertThat(stage.isShowing()));
     }
 }

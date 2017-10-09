@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 public final class ExceptionHandler {
@@ -39,13 +39,13 @@ public final class ExceptionHandler {
         return new AnchorPane(messageLabel, throwableDataLabel);
     }
 
-    public static CompletableFuture<Stage> displayExceptionPane(
+    public static CompletionStage<Stage> displayExceptionPane(
         final String title,
         final String readable,
         final Throwable exception
     ) {
         final Pane exceptionPane = new ExceptionHandler(exception).asPane(readable);
-        final CompletableFuture<Stage> exceptionStage = StageUtils.stageOf(title, exceptionPane);
+        final CompletionStage<Stage> exceptionStage = StageUtils.stageOf(title, exceptionPane);
         return exceptionStage.thenCompose(StageUtils::scheduleDisplaying);
     }
 

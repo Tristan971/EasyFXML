@@ -32,7 +32,7 @@ public class BaseEasyFxml implements EasyFxml {
         this.controllerManager = controllerManager;
     }
 
-    private Option<FxmlController> makeControllerForNode(FxmlNode node) {
+    private Option<FxmlController> makeControllerForNode(final FxmlNode node) {
         return node.getControllerClass().map(this.context::getBean);
     }
 
@@ -69,7 +69,7 @@ public class BaseEasyFxml implements EasyFxml {
     protected <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));
-        Try<T> loadResult = Try.of(fxmlLoader::load);
+        final Try<T> loadResult = Try.of(fxmlLoader::load);
 
         loadResult.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
 

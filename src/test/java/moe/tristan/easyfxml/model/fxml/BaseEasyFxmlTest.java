@@ -38,7 +38,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
         private final Option<FxmlStylesheet> stylesheet;
 
-        FXMLNODES(FxmlFile fxmlFile, Option<Class<? extends FxmlController>> controllerClass, Option<FxmlStylesheet> stylesheet) {
+        FXMLNODES(final FxmlFile fxmlFile, final Option<Class<? extends FxmlController>> controllerClass, final Option<FxmlStylesheet> stylesheet) {
             this.fxmlFile = fxmlFile;
             this.controllerClass = controllerClass;
             this.stylesheet = stylesheet;
@@ -71,7 +71,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     private ControllerManager controllerManager;
 
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
 
     }
 
@@ -131,7 +131,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(bean).isNotNull();
     }
 
-    private Pane assertTestPaneLoadedCorrectly(Supplier<Try<Pane>> paneLoadingSupplier) {
+    private Pane assertTestPaneLoadedCorrectly(final Supplier<Try<Pane>> paneLoadingSupplier) {
         final Try<Pane> testPaneLoadResult = paneLoadingSupplier.get();
         assertThat(testPaneLoadResult.isSuccess());
 
