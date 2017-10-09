@@ -1,7 +1,7 @@
 package moe.tristan.easyfxml.model.fxml;
 
+import io.vavr.control.Option;
 import io.vavr.control.Try;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import moe.tristan.easyfxml.EasyFxml;
@@ -14,8 +14,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * This is the standard implementation of {@link EasyFxml}.
@@ -23,17 +21,19 @@ import java.util.function.Supplier;
 @Component
 public class BaseEasyFxml implements EasyFxml {
 
+    private final ApplicationContext context;
     private final Environment environment;
-    private final Supplier<FXMLLoader> fxmlLoaders;
-    private final Function<FxmlNode, FxmlController> controllerInstanciator;
     private final ControllerManager controllerManager;
 
     @Autowired
     protected BaseEasyFxml(final ApplicationContext context, final Environment environment, final ControllerManager controllerManager) {
-        this.fxmlLoaders = () -> context.getBean(FXMLLoader.class);
-        this.controllerInstanciator = node -> context.getBean(node.getControllerClass());
+        this.context = context;
         this.environment = environment;
         this.controllerManager = controllerManager;
+    }
+
+    private Option<FxmlController> makeControllerForNode(FxmlNode node) {
+        return node.getControllerClass().map(this.context::getBean);
     }
 
     @Override
@@ -66,10 +66,12 @@ public class BaseEasyFxml implements EasyFxml {
      * This method acts just like {@link #loadNode(FxmlNode)} but with no
      * autoconfiguration of controller binding and stylesheet application.
      */
-    protected <T extends Node> Try<T> loadNodeImpl(final FXMLLoader fxmlLoader, final FxmlNode fxmlNode) {
+    protected <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));
         Try<T> loadResult = Try.of(fxmlLoader::load);
+
+        loadResult.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
 
         return this.applyStylesheetIfNeeded(
             fxmlNode,
@@ -86,22 +88,22 @@ public class BaseEasyFxml implements EasyFxml {
         return loadResult;
     }
 
-    private FXMLLoader getSingleStageFxmlLoader(final FxmlNode node) {
-        final FXMLLoader loader = this.fxmlLoaders.get();
-        loader.setControllerFactory(clazz -> {
-            final FxmlController controllerInstance = this.controllerInstanciator.apply(node);
-            this.controllerManager.registerSingle(node, controllerInstance);
-            return controllerInstance;
+    private FxmlLoader getSingleStageFxmlLoader(final FxmlNode node) {
+        final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
+        final Option<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
+        instanceLoadingResult.peek(instance -> {
+            loader.setControllerFactory(clazz -> instance);
+            loader.setOnSuccess(() -> this.controllerManager.registerSingle(node, instance));
         });
         return loader;
     }
 
-    private FXMLLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
-        final FXMLLoader loader = this.fxmlLoaders.get();
-        loader.setControllerFactory(clazz -> {
-            final FxmlController controllerInstance = this.controllerInstanciator.apply(node);
-            this.controllerManager.registerMultiple(node, selector, controllerInstance);
-            return controllerInstance;
+    private FxmlLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
+        final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
+        final Option<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
+        instanceLoadingResult.peek(instance -> {
+            loader.setControllerFactory(clazz -> instance);
+            loader.setOnSuccess(() -> this.controllerManager.registerMultiple(node, selector, instance));
         });
         return loader;
     }
