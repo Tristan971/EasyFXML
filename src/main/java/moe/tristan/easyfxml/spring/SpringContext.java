@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
+import moe.tristan.easyfxml.model.fxml.FxmlLoader;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -28,10 +29,13 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 public class SpringContext {
 
     /**
-     * The {@link FXMLLoader} object is a /SINGLE-USE/ object to load
+     * The {@link FxmlLoader} object is a /SINGLE-USE/ object to load
      * a FXML file and deserialize it as an instance of {@link Node}.
+     * It extends {@link FXMLLoader} adding {@link FxmlLoader#onSuccess(Object)}
+     * and {@link FxmlLoader#onFailure(Throwable)} as utility methods to
+     * do various things.
      * <p>
-     * Because of its single-use policy (on {@link FXMLLoader#load()}),
+     * Because of the single-use policy (on {@link FXMLLoader#load()}),
      * it must stay as a {@link ConfigurableBeanFactory#SCOPE_PROTOTYPE}.
      * <p>
      * This pre-made instance will be preloaded with
@@ -47,8 +51,8 @@ public class SpringContext {
     @Bean
     @Scope(scopeName = SCOPE_PROTOTYPE)
     @SuppressWarnings("unchecked")
-    public FXMLLoader fxmlLoader(final ApplicationContext context) {
-        final FXMLLoader fxmlLoader = new FXMLLoader();
+    public FxmlLoader fxmlLoader(final ApplicationContext context) {
+        final FxmlLoader fxmlLoader = new FxmlLoader();
         fxmlLoader.setControllerFactory(context::getBean);
         return fxmlLoader;
     }

@@ -15,7 +15,7 @@ public interface FxmlNode {
 
     FxmlFile getFxmlFile();
 
-    Class<? extends FxmlController> getControllerClass();
+    Option<Class<? extends FxmlController>> getControllerClass();
 
     default Option<FxmlStylesheet> getStylesheet() {
         return Option.none();
