@@ -22,7 +22,7 @@ public class BrowserSupport implements AwtRequired {
     private final Desktop desktop;
 
     @Autowired
-    public BrowserSupport(Desktop desktop) {
+    public BrowserSupport(final Desktop desktop) {
         this.desktop = desktop;
     }
 
@@ -55,7 +55,7 @@ public class BrowserSupport implements AwtRequired {
     private void browse(final URI uri) {
         try {
             this.desktop.browse(uri);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }

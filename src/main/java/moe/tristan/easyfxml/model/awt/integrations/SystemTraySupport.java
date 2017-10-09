@@ -18,7 +18,7 @@ public class SystemTraySupport implements AwtRequired {
     private final Toolkit awtToolkit;
 
     @Autowired
-    public SystemTraySupport(SystemTray awtSystemTray, Toolkit awtToolkit) {
+    public SystemTraySupport(final SystemTray awtSystemTray, final Toolkit awtToolkit) {
         this.awtSystemTray = new AtomicReference<>(awtSystemTray);
         this.awtToolkit = awtToolkit;
     }

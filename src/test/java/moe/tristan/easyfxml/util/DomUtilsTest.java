@@ -9,15 +9,16 @@ import org.testfx.framework.junit.ApplicationTest;
 
 public class DomUtilsTest extends ApplicationTest {
     private static final double MARGIN = 5d;
+    public static final int WIDTH_PANE = 200;
+    public static final int HEIGHT_PANE = 200;
 
-    private AnchorPane testPane;
     private Button testButton;
 
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
         this.testButton = new Button();
-        this.testPane = new AnchorPane(this.testButton);
-        stage.setScene(new Scene(this.testPane, 200, 200));
+        final AnchorPane testPane = new AnchorPane(this.testButton);
+        stage.setScene(new Scene(testPane, WIDTH_PANE, HEIGHT_PANE));
         stage.show();
     }
 

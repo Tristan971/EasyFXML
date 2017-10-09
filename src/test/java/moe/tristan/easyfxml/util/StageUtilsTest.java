@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +24,7 @@ public class StageUtilsTest extends ApplicationTest {
     private static Stage TEST_STAGE;
 
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
         Platform.setImplicitExit(false);
         STAGE_TITLE = "STAGE_TITLE";
         STAGE_TITLE_2 = "STAGE_TITLE_2";
@@ -36,7 +36,7 @@ public class StageUtilsTest extends ApplicationTest {
 
     @Test
     public void stageOf() {
-        final CompletableFuture<Stage> stageReq = StageUtils.stageOf(STAGE_TITLE, STAGE_PANE);
+        final CompletionStage<Stage> stageReq = StageUtils.stageOf(STAGE_TITLE, STAGE_PANE);
         stageReq.thenAccept(stage -> {
             assertThat(stage.getScene().getRoot()).isEqualTo(STAGE_PANE);
             assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE);
