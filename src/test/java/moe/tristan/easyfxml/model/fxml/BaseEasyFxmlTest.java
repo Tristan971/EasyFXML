@@ -35,7 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
 
-    private static final int WAITING_FOR_UI_TO_LOAD = 4000;
     private static final Object SELECTOR = new Object();
 
     @Autowired
