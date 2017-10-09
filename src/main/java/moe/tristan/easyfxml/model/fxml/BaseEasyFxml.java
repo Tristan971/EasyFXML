@@ -53,7 +53,8 @@ public class BaseEasyFxml implements EasyFxml {
     public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass) {
         return this.loadNodeImpl(
             this.getSingleStageFxmlLoader(nodeInfo),
-            nodeInfo
+            nodeInfo,
+            nodeClass
         );
     }
 
@@ -61,7 +62,8 @@ public class BaseEasyFxml implements EasyFxml {
     public <T extends Node> Try<T> loadNode(final FxmlNode nodeInfo, final Class<T> nodeClass, final Object selector) {
         return this.loadNodeImpl(
             this.getMultiStageFxmlLoader(nodeInfo, selector),
-            nodeInfo
+            nodeInfo,
+            nodeClass
         );
     }
 
@@ -69,10 +71,11 @@ public class BaseEasyFxml implements EasyFxml {
      * This method acts just like {@link #loadNode(FxmlNode)} but with no
      * autoconfiguration of controller binding and stylesheet application.
      */
-    protected <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode) {
+    @SuppressWarnings({"unchecked", "WeakerAccess"})
+    protected <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode, final Class<T> clazz) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));
-        final Try<T> loadResult = Try.of(fxmlLoader::load);
+        final Try<T> loadResult = Try.of(fxmlLoader::load).map(clazz::cast);
 
         loadResult.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
 
@@ -82,13 +85,9 @@ public class BaseEasyFxml implements EasyFxml {
         );
     }
 
-    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> loadResult) {
-        nodeInfo.getStylesheet().peek(stylesheet ->
-            loadResult.peek(success ->
-                success.setStyle(stylesheet.getCssContent())
-            )
-        );
-        return loadResult;
+    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> res) {
+        nodeInfo.getStylesheet().peek(css -> res.peek(success -> success.setStyle(css.getCssContent())));
+        return res;
     }
 
     private FxmlLoader getSingleStageFxmlLoader(final FxmlNode node) {

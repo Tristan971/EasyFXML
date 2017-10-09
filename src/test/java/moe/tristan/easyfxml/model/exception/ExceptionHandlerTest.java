@@ -48,6 +48,6 @@ public class ExceptionHandlerTest extends ApplicationTest {
             this.EXCEPTION
         );
 
-        displayedStage.thenAccept(stage -> assertThat(stage.isShowing()));
+        displayedStage.thenAccept(stage -> assertThat(stage.isShowing()).isTrue());
     }
 }

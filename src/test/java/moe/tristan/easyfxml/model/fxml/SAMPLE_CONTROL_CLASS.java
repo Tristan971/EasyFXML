@@ -24,7 +24,6 @@ public class SAMPLE_CONTROL_CLASS implements FxmlController {
     }
 
     private void hasClickedHandler(final MouseEvent event) {
-        System.out.println("<CLICK RECORDED on instance : "+this.toString()+" >");
         this.hasBeenClicked = true;
     }
 }
