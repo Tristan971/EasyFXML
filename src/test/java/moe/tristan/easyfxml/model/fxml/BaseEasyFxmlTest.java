@@ -53,11 +53,11 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         public Option<Class<? extends FxmlController>> getControllerClass() {
             return this.controllerClass;
         }
+
         @Override
         public Option<FxmlStylesheet> getStylesheet() {
             return this.stylesheet;
         }
-
     }
 
     private static final int WAITING_FOR_UI_TO_LOAD = 4000;

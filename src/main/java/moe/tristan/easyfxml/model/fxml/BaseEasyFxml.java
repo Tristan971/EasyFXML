@@ -8,6 +8,8 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.model.FxmlController;
 import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -20,6 +22,7 @@ import java.net.URL;
  */
 @Component
 public class BaseEasyFxml implements EasyFxml {
+    private static final Logger LOG = LoggerFactory.getLogger(BaseEasyFxml.class);
 
     private final ApplicationContext context;
     private final Environment environment;
@@ -94,6 +97,7 @@ public class BaseEasyFxml implements EasyFxml {
         instanceLoadingResult.peek(instance -> {
             loader.setControllerFactory(clazz -> instance);
             loader.setOnSuccess(() -> this.controllerManager.registerSingle(node, instance));
+            loader.setOnFailure(cause -> LOG.error("Could not load node {}", node, cause));
         });
         return loader;
     }
@@ -104,6 +108,7 @@ public class BaseEasyFxml implements EasyFxml {
         instanceLoadingResult.peek(instance -> {
             loader.setControllerFactory(clazz -> instance);
             loader.setOnSuccess(() -> this.controllerManager.registerMultiple(node, selector, instance));
+            loader.setOnFailure(cause -> LOG.error("Could not load node {}", node, cause));
         });
         return loader;
     }
