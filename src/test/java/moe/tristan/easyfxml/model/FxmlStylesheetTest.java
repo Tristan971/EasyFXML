@@ -30,6 +30,6 @@ public class FxmlStylesheetTest {
 
     @Test
     public void ofResourceFile() {
-        assertThat(this.stylesheetLoading.isDefined());
+        assertThat(this.stylesheetLoading.isDefined()).isTrue();
     }
 }

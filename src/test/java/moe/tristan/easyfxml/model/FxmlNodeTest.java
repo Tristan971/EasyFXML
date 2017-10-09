@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FxmlNodeTest {
 
-    final FxmlNode testNode = new FxmlNode() {
+    private final FxmlNode testNode = new FxmlNode() {
         @Override
         public FxmlFile getFxmlFile() {
             return null;
@@ -21,6 +21,6 @@ public class FxmlNodeTest {
 
     @Test
     public void non_overriden_css() {
-        assertThat(this.testNode.getStylesheet().isEmpty());
+        assertThat(this.testNode.getStylesheet().isEmpty()).isTrue();
     }
 }
