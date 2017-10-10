@@ -63,6 +63,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         final Pane testPane = this.assertSuccessAndGet(
             this.easyFxml.loadNode(FXMLNODES.PANE, SELECTOR)
         );
+        
+        this.assertStylesheetAppliedCorrectly(testPane, FXMLNODES.PANE);
 
         this.assertControllerBoundToTestPane(
             testPane,
@@ -73,7 +75,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(testPane.getChildren().get(0).getClass()).isEqualTo(Button.class);
 
     }
-
+    
     @Test
     public void load_with_type_success() {
         final Pane testPane = this.assertSuccessAndGet(
@@ -85,7 +87,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             this.controllerManager.getSingle(FXMLNODES.PANE)
         );
     }
-
+    
     @Test
     public void load_with_type_single_invalid_class_failure() {
         final Try<Pane> testPane = this.easyFxml.loadNode(FXMLNODES.BUTTON, Pane.class);
@@ -96,7 +98,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             ClassCastException.class
         );
     }
-
+    
     @Test
     public void load_with_type_single_invalid_file_failure() {
         final Try<? extends Node> failingLoadResult = this.easyFxml.loadNode(FXMLNODES.INVALID);
@@ -107,7 +109,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             LoadException.class
         );
     }
-
+    
     @Test
     public void load_with_type_multiple_invalid_class_failure() {
         final Try<Pane> testPane = this.easyFxml.loadNode(FXMLNODES.BUTTON, Pane.class, SELECTOR);
@@ -118,7 +120,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             ClassCastException.class
         );
     }
-
+    
     @Test
     public void load_with_type_multiple_invalid_file_failure() {
         final Try<Pane> testPaneLoadResult = this.easyFxml.loadNode(FXMLNODES.INVALID, SELECTOR);
@@ -129,7 +131,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             LoadException.class
         );
     }
-
+    
     @Test
     public void can_instantiate_controller_as_prototype() {
         final SAMPLE_CONTROL_CLASS inst1 = this.context.getBean(SAMPLE_CONTROL_CLASS.class);
@@ -137,12 +139,12 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(Arrays.asList(inst1, inst2)).doesNotContainNull();
         assertThat(inst1).isNotEqualTo(inst2);
     }
-
+    
     private <T extends Node> T assertSuccessAndGet(final Try<T> loadResult) {
         assertThat(loadResult.isSuccess()).isTrue();
         return loadResult.get();
     }
-
+    
     private void assertControllerBoundToTestPane(
         final Pane testPane,
         final Option<FxmlController> controllerLookup
@@ -161,7 +163,11 @@ public class BaseEasyFxmlTest extends ApplicationTest {
                 assertThat(testController.hasBeenClicked).isTrue();
             });
     }
-
+    
+    private <T extends Node> void assertStylesheetAppliedCorrectly(T testPane, FXMLNODES nodeInfo) {
+        final Try<String> stylesheetContent;
+    }
+    
     private void assertPaneFailedLoadingAndDidNotRegister(
         final Try<? extends Node> failingLoadResult,
         final Option<FxmlController> controllerLookup,
@@ -171,7 +177,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(failingLoadResult.getCause()).isInstanceOf(expectedExceptionClass);
         assertThat(controllerLookup.isEmpty()).isTrue();
     }
-
+    
     private CompletionStage<Stage> clickOnNode(final Stage stage, final Node node) {
         final CompletableFuture<Stage> clickRequest = new CompletableFuture<>();
         Platform.runLater(() -> {
@@ -180,7 +186,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         });
         return clickRequest;
     }
-
+    
     @Ignore("This is not a test class")
     private enum FXMLNODES implements FxmlNode {
         PANE(
