@@ -192,7 +192,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         BUTTON(
             () -> "fxml/button.fxml",
             Option.none(),
-            FxmlStylesheet.ofResourceFile("fxml/test_style.css")
+            Option.of(() -> "fxml/test_style.css")
         ),
 
         INVALID(

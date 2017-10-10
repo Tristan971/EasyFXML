@@ -85,9 +85,16 @@ public class BaseEasyFxml implements EasyFxml {
         );
     }
 
-    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> res) {
-        nodeInfo.getStylesheet().peek(css -> res.peek(success -> success.setStyle(css.getCssContent())));
-        return res;
+    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> nodeLoadResult) {
+         nodeInfo.getStylesheet().peek(
+            stylesheet -> stylesheet.getContentOfSheet().peek(
+                stylesheetContent -> nodeLoadResult.peek(
+                    loadedNode -> loadedNode.setStyle(stylesheetContent)
+                )
+            )
+        );
+        
+        return nodeLoadResult;
     }
 
     private FxmlLoader getSingleStageFxmlLoader(final FxmlNode node) {
