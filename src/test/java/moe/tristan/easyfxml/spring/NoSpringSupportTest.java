@@ -5,7 +5,6 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.model.awt.AwtAccess;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.StageManager;
-import moe.tristan.easyfxml.model.beanmanagement.StylesheetManager;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,8 +60,7 @@ public class NoSpringSupportTest {
             FXMLLoader.class,
 
             ControllerManager.class,
-            StageManager.class,
-            StylesheetManager.class
+            StageManager.class
         ).map(NoSpringSupport::getInstance).forEach(instance -> {
             assertThat(instance).isNotNull();
         });

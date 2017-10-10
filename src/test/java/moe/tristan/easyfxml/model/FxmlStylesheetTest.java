@@ -1,6 +1,7 @@
 package moe.tristan.easyfxml.model;
 
 import io.vavr.control.Option;
+import io.vavr.control.Try;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,12 +21,14 @@ public class FxmlStylesheetTest {
         "    -fx-font-weight: bold;\n" +
         "}\n";
 
-    private final Option<FxmlStylesheet> stylesheetLoading = FxmlStylesheet.ofResourceFile("fxml/test_style.css");
+    private final Option<FxmlStylesheet> stylesheetLoading = Option.of(() -> "fxml/test_style.css");
 
     @Test
     public void getCssContent() throws IOException {
         final FxmlStylesheet stylesheet = this.stylesheetLoading.getOrElseThrow(IOException::new);
-        assertThat(stylesheet.getCssContent()).isEqualToIgnoringWhitespace(TEST_STYLE_CONTENT);
+        final Try<String> contentLoadResult = stylesheet.getContentOfSheet();
+        assertThat(contentLoadResult.isSuccess()).isTrue();
+        assertThat(contentLoadResult.get()).isEqualToIgnoringWhitespace(TEST_STYLE_CONTENT);
     }
 
     @Test
