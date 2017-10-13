@@ -16,7 +16,7 @@ public class __main_stub {
 
     public static void main(final String... args) {
         try (ConfigurableApplicationContext ctx = SpringApplication.run(__main_stub.class)) {
-            LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINS.");
+            LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINGS.");
             throw new RuntimeException("NOT TO BE EXECUTED");
         }
     }
