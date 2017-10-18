@@ -11,9 +11,35 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>A simple-to-use and boilerplate free JavaFX library.</description>
+    <url>https://tristan971.github.io/EasyFXML/</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Tristan Deloche</name>
+            <email>tristandeloche@gmail.com</email>
+            <organization>Tristan Deloche</organization>
+            <organizationUrl>https://github.com/Tristan971/EasyFXML</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/Tristan971/EasyFXML.git</connection>
+        <developerConnection>scm:git:ssh://github.com:Tristan971/EasyFXML.git</developerConnection>
+        <url>http://github.com/Tristan971/EasyFXML/tree/master</url>
+    </scm>
+
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -32,6 +58,10 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.0.1</version>
                 <executions>
@@ -46,7 +76,30 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
