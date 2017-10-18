@@ -1,11 +1,12 @@
-package moe.tristan.easyfxml;
-
-import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
+package moe.tristan.easyfxml.model.awt;
 
 import java.awt.Desktop;
 import java.awt.SystemTray;
+
 import org.junit.Before;
+
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 /**
  * This class skips all extending test classes tests if we are in a CI
@@ -14,7 +15,7 @@ import org.junit.Before;
  * I'll get a non-headless test env sometimes.
  */
 @SuppressWarnings("AccessOfSystemProperties")
-public class CIIncompatibleTest {
+public class HeadlessIncompatibleTest {
     @Before
     public void ensureNotCi() {
         final String envProperty = System.getProperty("env");
@@ -24,6 +25,6 @@ public class CIIncompatibleTest {
             assumeTrue(SystemTray.isSupported());
             assumeTrue(Desktop.isDesktopSupported());
         }
-        System.out.println("WAS NOT CI ENVIRONMENT. EXECUTING TEST.");
+        System.out.println("Not CI env, executing non-headless test.");
     }
 }
