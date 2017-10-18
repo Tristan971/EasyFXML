@@ -31,7 +31,7 @@ public class SpringContext {
     /**
      * The {@link FxmlLoader} object is a /SINGLE-USE/ object to load
      * a FXML file and deserialize it as an instance of {@link Node}.
-     * It extends {@link FXMLLoader} adding {@link FxmlLoader#onSuccess(Object)}
+     * It extends {@link FXMLLoader} adding {@link FxmlLoader#onSuccess(Node)}
      * and {@link FxmlLoader#onFailure(Throwable)} as utility methods to
      * do various things.
      * <p>
