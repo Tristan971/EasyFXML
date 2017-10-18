@@ -5,8 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import moe.tristan.easyfxml.model.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
-import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
-import moe.tristan.easyfxml.model.fxml.FxmlLoader;
 
 public interface EasyFxml {
 
@@ -17,10 +15,8 @@ public interface EasyFxml {
      * <p>
      * It returns a {@link Try} which is a monadic structure which allows us to do clean exception-handling.
      *
-     * @param node The element's {@link FxmlNode} counterpart. Try to avoid loading things using manual path
-     *             as it implies losing a lot of coding safety, controller binding and stylesheet control.
-     *             It does work fine as well though if you really want to, using
-     *             {@link BaseEasyFxml#loadNodeImpl(FxmlLoader, FxmlNode)} after sublcassing it.
+     * @param node The element's {@link FxmlNode} counterpart.
+     *
      * @return A {@link Try} containing either the file {@link Try.Success} or the exception that was first
      * raised during the chain of nested function calls needed to load it. See {@link Try#getOrElse(Object)}
      * and related methods for how to handle {@link Try.Failure}.
