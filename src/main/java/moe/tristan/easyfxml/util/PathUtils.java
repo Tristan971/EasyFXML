@@ -1,9 +1,5 @@
 package moe.tristan.easyfxml.util;
 
-import io.vavr.control.Try;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
@@ -15,14 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import io.vavr.control.Try;
+
 /**
  * This class is because Brian Goetz doesn't like you reading files from the classpath
  */
 public final class PathUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(PathUtils.class);
-
-    private PathUtils() {
-    }
 
     /**
      * This method gets the {@link Path} associated to a classpath-located file.

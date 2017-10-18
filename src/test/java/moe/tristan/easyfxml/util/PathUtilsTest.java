@@ -1,16 +1,16 @@
 package moe.tristan.easyfxml.util;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import io.vavr.control.Try;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,7 +26,6 @@ public class PathUtilsTest {
     private static final String EXISTING_ANOTHER_FILE_NAME = "another_file_that_exists";
 
     private static final String NONEXISTING_FILE_NAME = "file_that_doesnt_exist";
-    private static final String NONEXISTING_FOLDER = "NonExistingFolder/";
 
     @Test
     public void path_of_existing_file() {
