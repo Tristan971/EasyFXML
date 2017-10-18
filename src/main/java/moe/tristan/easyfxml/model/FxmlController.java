@@ -23,5 +23,6 @@ public interface FxmlController {
      * Calling it from the constructor is a hazard and will generally cause
      * failures.
      */
+    @SuppressWarnings("unused")
     void initialize();
 }

@@ -9,8 +9,8 @@ import org.testfx.framework.junit.ApplicationTest;
 
 public class DomUtilsTest extends ApplicationTest {
     private static final double MARGIN = 5d;
-    public static final int WIDTH_PANE = 200;
-    public static final int HEIGHT_PANE = 200;
+    private static final int WIDTH_PANE = 200;
+    private static final int HEIGHT_PANE = 200;
 
     private Button testButton;
 

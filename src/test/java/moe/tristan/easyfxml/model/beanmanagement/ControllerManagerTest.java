@@ -1,6 +1,5 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import moe.tristan.easyfxml.TestUtils;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
@@ -25,6 +25,6 @@ public class ControllerManagerTest {
 
     @Test
     public void testSingleton() {
-        TestUtils.ensureSpringSingleton(this.context, ControllerManager.class);
+        assertThat(isSpringSingleton(this.context, ControllerManager.class)).isTrue();
     }
 }
