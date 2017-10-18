@@ -1,8 +1,15 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
+import java.awt.MenuItem;
+import java.awt.TrayIcon;
+import java.awt.event.ActionListener;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.vavr.control.Try;
-import moe.tristan.easyfxml.CIIncompatibleTest;
 import moe.tristan.easyfxml.model.awt.AwtAccess;
+import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
 import moe.tristan.easyfxml.model.awt.interfaces.SystemTrayIcon;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.BeforeClass;
@@ -13,12 +20,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -27,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringRunner.class)
-public class SystemTraySupportTest extends CIIncompatibleTest {
+public class SystemTraySupportTest extends HeadlessIncompatibleTest {
 
     private static final String TRAY_LABEL = "TEST_LABEL";
     private static final URL TRAY_ICON_URL = getTrayIcon();
