@@ -2,28 +2,20 @@ package moe.tristan.easyfxml.model.awt.integrations;
 
 import io.vavr.CheckedFunction1;
 import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.AwtRequired;
+import moe.tristan.easyfxml.model.awt.AwtUtils;
 import moe.tristan.easyfxml.model.exception.ExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URL;
 import java.util.Objects;
+import java.util.concurrent.CompletionStage;
 
 import static io.vavr.API.unchecked;
-import static java.awt.Desktop.Action.BROWSE;
 
 @Component
-public class BrowserSupport implements AwtRequired {
-
-    private final Desktop desktop;
-
-    @Autowired
-    public BrowserSupport(final Desktop desktop) {
-        this.desktop = desktop;
-    }
+public class BrowserSupport {
 
     public void openUrl(final String url) {
         Try.of(() -> url)
@@ -39,11 +31,6 @@ public class BrowserSupport implements AwtRequired {
             .onFailure(cause -> this.onException(cause, Objects.toString(url)));
     }
 
-    @Override
-    public boolean isSupported() {
-        return this.desktop.isSupported(BROWSE);
-    }
-
     private void onException(final Throwable cause, final String url) {
         ExceptionHandler.displayExceptionPane(
             "Browser error",
@@ -53,8 +40,13 @@ public class BrowserSupport implements AwtRequired {
     }
 
     private void browse(final URI uri) {
-        Try.of(() -> uri)
-            .andThenTry(this.desktop::browse)
-            .onFailure(cause -> onException(cause, Objects.toString(uri)));
+        final CompletionStage<Try<Void>> browserOpeningResult = AwtUtils.asyncAwtCallbackWithRequirement(
+            Desktop::getDesktop,
+            desktop -> Try.run(() -> desktop.browse(uri))
+        );
+
+        browserOpeningResult.thenAccept(result ->
+            result.onFailure(cause -> onException(cause, uri.toString()))
+        );
     }
 }

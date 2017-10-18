@@ -15,9 +15,6 @@ import java.util.function.Consumer;
 public final class StageUtils {
     private static final Logger LOG = LoggerFactory.getLogger(StageUtils.class);
 
-    private StageUtils() {
-    }
-
     public static CompletionStage<Stage> stageOf(final String title, final Pane rootPane) {
         final CompletableFuture<Stage> upcomingStage = new CompletableFuture<>();
         Platform.runLater(() -> {

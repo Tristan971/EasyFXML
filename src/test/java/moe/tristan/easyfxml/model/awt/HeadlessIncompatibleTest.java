@@ -1,6 +1,8 @@
 package moe.tristan.easyfxml.model.awt;
 
+import javafx.stage.Stage;
 import org.junit.Before;
+import org.testfx.framework.junit.ApplicationTest;
 
 import java.awt.Desktop;
 import java.awt.SystemTray;
@@ -15,7 +17,7 @@ import static org.junit.Assume.assumeTrue;
  * I'll get a non-headless test env sometimes.
  */
 @SuppressWarnings("AccessOfSystemProperties")
-public class HeadlessIncompatibleTest {
+public class HeadlessIncompatibleTest extends ApplicationTest {
     @Before
     public void ensureNotCi() {
         final String envProperty = System.getProperty("env");
@@ -26,5 +28,10 @@ public class HeadlessIncompatibleTest {
             assumeTrue(Desktop.isDesktopSupported());
         }
         System.out.println("Not CI env, executing non-headless test.");
+    }
+
+    @Override
+    public void start(Stage stage) {
+        // since AWT is mostly called in conjunction with JavaFX it's better to make sure it's initialized
     }
 }

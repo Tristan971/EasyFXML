@@ -2,7 +2,6 @@ package moe.tristan.easyfxml.spring;
 
 import javafx.fxml.FXMLLoader;
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.model.awt.AwtAccess;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.StageManager;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
@@ -53,7 +52,6 @@ public class NoSpringSupportTest {
 
     @Test
     public void getInstance() {
-        AwtAccess.enableAwt();
         Stream.of(
             EasyFxml.class,
             BaseEasyFxml.class,
