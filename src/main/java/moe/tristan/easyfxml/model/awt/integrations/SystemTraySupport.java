@@ -1,63 +1,74 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
 import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.AwtRequired;
-import moe.tristan.easyfxml.model.awt.interfaces.SystemTrayIcon;
-import org.springframework.beans.factory.annotation.Autowired;
+import moe.tristan.easyfxml.model.awt.AwtUtils;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static io.vavr.API.unchecked;
-
 @Component
-public class SystemTraySupport implements AwtRequired {
+public class SystemTraySupport {
 
-    private final AtomicReference<SystemTray> awtSystemTray;
-    private final Toolkit awtToolkit;
-
-    @Autowired
-    public SystemTraySupport(final SystemTray awtSystemTray, final Toolkit awtToolkit) {
-        this.awtSystemTray = new AtomicReference<>(awtSystemTray);
-        this.awtToolkit = awtToolkit;
+    public CompletionStage<Try<TrayIcon>> registerTrayIcon(final SystemTrayIcon systemTrayIcon) {
+        return this.mapTrayIcon(systemTrayIcon).thenCompose(trayIcon ->
+            AwtUtils.asyncAwtCallbackWithRequirement(
+                SystemTray::getSystemTray,
+                systemTray -> Try.of(() -> {
+                    systemTray.add(trayIcon);
+                    return trayIcon;
+                })
+        ));
     }
 
-    public Try<TrayIcon> registerTrayIcon(final SystemTrayIcon systemTrayIcon) {
-        return Try.of(() -> this.mapTrayIcon(systemTrayIcon))
-            .map(unchecked(trayIcon -> {
-                this.awtSystemTray.get().add(trayIcon);
-                return trayIcon;
-            }));
-    }
-
-    public void removeTrayIcon(final TrayIcon trayIcon) {
-        this.awtSystemTray.get().remove(trayIcon);
+    public CompletionStage<Void> removeTrayIcon(final TrayIcon trayIcon) {
+        return AwtUtils.asyncAwtRunnableWithRequirement(
+            SystemTray::getSystemTray,
+            systemTray -> systemTray.remove(trayIcon)
+        );
     }
 
     public List<TrayIcon> getTrayIcons() {
-        return Arrays.stream(this.awtSystemTray.get().getTrayIcons()).collect(Collectors.toList());
+        final CompletionStage<TrayIcon[]> trayIconsAwait = AwtUtils.asyncAwtCallbackWithRequirement(
+            SystemTray::getSystemTray,
+            SystemTray::getTrayIcons
+        );
+
+        TrayIcon[] icons = new TrayIcon[0];
+        try {
+            icons = trayIconsAwait.toCompletableFuture().get(2, TimeUnit.SECONDS);
+        } catch (Exception ignored) {}
+
+        return Arrays.stream(icons).collect(Collectors.toList());
     }
 
-    @Override
-    public boolean isSupported() {
-        return SystemTray.isSupported();
+    private CompletionStage<TrayIcon> mapTrayIcon(final SystemTrayIcon systemTrayIcon) {
+        return AwtUtils.asyncAwtCallbackWithRequirement(
+            java.awt.Toolkit::getDefaultToolkit,
+            toolkit -> {
+                final PopupMenu popupMenu = registerPopUpMenuListeners(systemTrayIcon.getMenuItems());
+                final Image iconImage = toolkit.getImage(systemTrayIcon.getIcon());
+                return new TrayIcon(iconImage, systemTrayIcon.getLabel(), popupMenu);
+            }
+        );
     }
 
-    private TrayIcon mapTrayIcon(final SystemTrayIcon systemTrayIcon) {
+    private PopupMenu registerPopUpMenuListeners(final Map<MenuItem, ActionListener> items) {
         final PopupMenu popupMenu = new PopupMenu();
-        systemTrayIcon.getMenuItems().entrySet().stream()
-            .map(entry -> {
-                entry.getKey().addActionListener(entry.getValue());
-                return entry.getKey();
-            })
-            .forEach(popupMenu::add);
-
-        final Image iconImage = this.awtToolkit.getImage(systemTrayIcon.getIcon());
-
-        return new TrayIcon(iconImage, systemTrayIcon.getLabel(), popupMenu);
+        items.forEach((menuItem, actionListener) -> {
+            menuItem.addActionListener(actionListener);
+            popupMenu.add(menuItem);
+        });
+        return popupMenu;
     }
 }

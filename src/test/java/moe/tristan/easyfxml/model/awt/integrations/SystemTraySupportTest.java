@@ -1,11 +1,8 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
 import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.AwtAccess;
 import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
-import moe.tristan.easyfxml.model.awt.interfaces.SystemTrayIcon;
 import moe.tristan.easyfxml.spring.SpringContext;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.awt.MenuItem;
-import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.HashMap;
@@ -36,17 +32,6 @@ public class SystemTraySupportTest extends HeadlessIncompatibleTest {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @BeforeClass
-    public static void enableAwt() {
-        AwtAccess.enableAwt();
-    }
-
-    @Test
-    public void awt_system_tray_supported_on_local_testing() {
-        final SystemTraySupport systemTraySupport = this.applicationContext.getBean(SystemTraySupport.class);
-        assertThat(systemTraySupport.isSupported()).isTrue();
-    }
-
     @Test
     public void register_system_tray_icon() {
         final SystemTraySupport systemTraySupport = this.applicationContext.getBean(SystemTraySupport.class);
@@ -59,13 +44,12 @@ public class SystemTraySupportTest extends HeadlessIncompatibleTest {
         }};
 
         final SystemTrayIcon trayIcon = this.systemTrayIconWith(menuItems);
-        final Try<TrayIcon> registrationResult = systemTraySupport.registerTrayIcon(trayIcon);
-        assertThat(registrationResult.isSuccess()).isTrue();
-        registrationResult.andThen(loadedIcon -> {
-            assertThat(systemTraySupport.getTrayIcons()).containsExactly(loadedIcon);
-            systemTraySupport.removeTrayIcon(loadedIcon);
-            assertThat(systemTraySupport.getTrayIcons()).isEmpty();
-        });
+        systemTraySupport.registerTrayIcon(trayIcon)
+            .whenComplete((res, err) -> assertThat(res.isSuccess()).isTrue())
+            .thenApply(Try::get)
+            .whenComplete((res, err) -> assertThat(systemTraySupport.getTrayIcons()).containsExactly(res))
+            .whenComplete((res, err) -> systemTraySupport.removeTrayIcon(res))
+            .thenAccept(icon -> assertThat(systemTraySupport.getTrayIcons()).doesNotContain(icon));
     }
 
     private SystemTrayIcon systemTrayIconWith(final Map<MenuItem, ActionListener> menuItems) {

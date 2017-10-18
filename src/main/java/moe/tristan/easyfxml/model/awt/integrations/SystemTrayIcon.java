@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model.awt.interfaces;
+package moe.tristan.easyfxml.model.awt.integrations;
 
 import java.awt.MenuItem;
 import java.awt.event.ActionListener;
