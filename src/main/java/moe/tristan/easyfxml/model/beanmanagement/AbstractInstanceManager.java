@@ -72,9 +72,9 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * {@link #registerMultiple(TYPE_COMMON_INST, Supplier, TYPE_COMMON_INST)}. Look at it if you think about writing
      * something like a {@link Function} &lt; {@link TYPE_COMMON_INST} , {@link Object} &gt; to compute selectors.
      *
-     * @param parent An instance, typically an enum member
-     * @param selector   The selector that you have to provide to recover this particular instance later
-     * @param instance   The instance to save.
+     * @param parent   An instance, typically an enum member
+     * @param selector The selector that you have to provide to recover this particular instance later
+     * @param instance The instance to save.
      * @return A map entry containing the selector and the controller registered in case you need it.
      * @throws RuntimeException in case there was an error in saving the instance.
      */
@@ -100,8 +100,8 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * <p>
      * Look at {@link Option} for information on how to use it.
      *
-     * @param parent The instance who's children you look for.
-     * @param selector   The selector previously used in {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}
+     * @param parent   The instance who's children you look for.
+     * @param selector The selector previously used in {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}
      * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty ({@link Option.None, which means
      * it was not found or at some point in the hierarchy there has been an exception).
      */

@@ -16,7 +16,6 @@ public interface EasyFxml {
      * It returns a {@link Try} which is a monadic structure which allows us to do clean exception-handling.
      *
      * @param node The element's {@link FxmlNode} counterpart.
-     *
      * @return A {@link Try} containing either the file {@link Try.Success} or the exception that was first
      * raised during the chain of nested function calls needed to load it. See {@link Try#getOrElse(Object)}
      * and related methods for how to handle {@link Try.Failure}.

@@ -1,9 +1,9 @@
 package moe.tristan.easyfxml.model.awt;
 
+import org.junit.Before;
+
 import java.awt.Desktop;
 import java.awt.SystemTray;
-
-import org.junit.Before;
 
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;

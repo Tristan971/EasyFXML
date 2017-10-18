@@ -1,12 +1,5 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import java.awt.MenuItem;
-import java.awt.TrayIcon;
-import java.awt.event.ActionListener;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import io.vavr.control.Try;
 import moe.tristan.easyfxml.model.awt.AwtAccess;
 import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
@@ -19,6 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.awt.MenuItem;
+import java.awt.TrayIcon;
+import java.awt.event.ActionListener;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,7 +1,5 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import java.net.URL;
-
 import javafx.embed.swing.JFXPanel;
 import moe.tristan.easyfxml.model.awt.AwtAccess;
 import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
@@ -12,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

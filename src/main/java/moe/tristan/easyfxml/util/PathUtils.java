@@ -1,5 +1,7 @@
 package moe.tristan.easyfxml.util;
 
+import io.vavr.control.Try;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
@@ -10,8 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import io.vavr.control.Try;
 
 /**
  * This class is because Brian Goetz doesn't like you reading files from the classpath

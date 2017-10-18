@@ -1,7 +1,5 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import java.net.URL;
-
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import javafx.scene.Node;
@@ -16,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+
+import java.net.URL;
 
 /**
  * This is the standard implementation of {@link EasyFxml}.
@@ -71,7 +71,7 @@ public class BaseEasyFxml implements EasyFxml {
      * This method acts just like {@link #loadNode(FxmlNode)} but with no
      * autoconfiguration of controller binding and stylesheet application.
      */
-    private  <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode, final Class<T> clazz) {
+    private <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode, final Class<T> clazz) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));
         final Try<T> loadResult = Try.of(fxmlLoader::load).map(clazz::cast);
@@ -85,9 +85,9 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> nodeLoadResult) {
-         nodeInfo.getStylesheet().peek(
+        nodeInfo.getStylesheet().peek(
             stylesheet -> nodeLoadResult.peek(
-                    loadedNode -> loadedNode.setStyle(stylesheet.getStyle())
+                loadedNode -> loadedNode.setStyle(stylesheet.getStyle())
             )
         );
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-
 <Button mnemonicParsing="false"
         text="TEST_BUTTON"
         xmlns="http://javafx.com/javafx/8.0.111"/>
