@@ -1,12 +1,15 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import java.util.function.Consumer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
+import java.util.function.Consumer;
+
 public class FxmlLoader extends FXMLLoader {
-    private Consumer<Node> onSuccess = node -> {};
-    private Consumer<Throwable> onFailure = cause -> {};
+    private Consumer<Node> onSuccess = node -> {
+    };
+    private Consumer<Throwable> onFailure = cause -> {
+    };
 
     public void setOnSuccess(final Consumer<Node> onSuccess) {
         this.onSuccess = onSuccess;

@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * as this test checks whether the non-Spring projects
  * can work normally with the library...
  */
-@SuppressWarnings({"SpringJavaAutowiredMembersInspection", "CodeBlock2Expr"})
+@SuppressWarnings({ "SpringJavaAutowiredMembersInspection", "CodeBlock2Expr" })
 public class NoSpringSupportTest {
 
     @Autowired

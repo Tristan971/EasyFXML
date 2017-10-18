@@ -26,6 +26,6 @@ public class SAMPLE_CONTROL_CLASS implements FxmlController {
     @SuppressWarnings("unused")
     private void hasClickedHandler(final MouseEvent event) {
         this.hasBeenClicked = true;
-        System.out.println("<HANDLED CLICK ON INSTANCE : "+this.toString()+">");
+        System.out.println("<HANDLED CLICK ON INSTANCE : " + this.toString() + ">");
     }
 }

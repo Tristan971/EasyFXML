@@ -1,16 +1,16 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import java.awt.Desktop;
-import java.net.URI;
-import java.net.URL;
-import java.util.Objects;
-
 import io.vavr.CheckedFunction1;
 import io.vavr.control.Try;
 import moe.tristan.easyfxml.model.awt.AwtRequired;
 import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URL;
+import java.util.Objects;
 
 import static io.vavr.API.unchecked;
 import static java.awt.Desktop.Action.BROWSE;
