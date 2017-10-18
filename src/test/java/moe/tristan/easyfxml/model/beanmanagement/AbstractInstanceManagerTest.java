@@ -7,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.function.Supplier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
@@ -22,8 +20,6 @@ public class AbstractInstanceManagerTest {
     private static final Object SEL_1 = new Object();
     private static final Object ACTUAL_2 = new Object();
     private static final Object SEL_2 = new Object();
-    private static final Supplier<Object> SEL_PROVIDER_1 = () -> SEL_1;
-    private static final Supplier<Object> SEL_PROVIDER_2 = () -> SEL_2;
 
     @Before
     public void setUp() {
@@ -41,21 +37,6 @@ public class AbstractInstanceManagerTest {
     public void registerMultiple() {
         this.instanceManager.registerMultiple(PARENT, SEL_1, ACTUAL_1);
         this.instanceManager.registerMultiple(PARENT, SEL_2, ACTUAL_2);
-
-        assertThat(this.instanceManager.getMultiple(PARENT, SEL_1).get()).isEqualTo(ACTUAL_1);
-        assertThat(this.instanceManager.getMultiple(PARENT, SEL_2).get()).isEqualTo(ACTUAL_2);
-    }
-
-    @Test
-    public void selector_provider_has_no_influence() {
-        assertThat(SEL_PROVIDER_1.get()).isEqualTo(SEL_1);
-        assertThat(SEL_PROVIDER_2.get()).isEqualTo(SEL_2);
-    }
-
-    @Test
-    public void registerMultiple_withSelectorProvider() {
-        this.instanceManager.registerMultiple(PARENT, SEL_PROVIDER_1, ACTUAL_1);
-        this.instanceManager.registerMultiple(PARENT, SEL_PROVIDER_2, ACTUAL_2);
 
         assertThat(this.instanceManager.getMultiple(PARENT, SEL_1).get()).isEqualTo(ACTUAL_1);
         assertThat(this.instanceManager.getMultiple(PARENT, SEL_2).get()).isEqualTo(ACTUAL_2);

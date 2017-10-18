@@ -4,8 +4,6 @@ import io.vavr.control.Option;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * This class is aimed at helping you store references to various kinds of class instances.
@@ -19,44 +17,34 @@ import java.util.function.Supplier;
  * <p>
  * In case you have stages multiple instances for the same parent instance, we cannot keep doing that.
  * This is why we need to make sure we can store them in an easy wa that can allow distinction
- * between those when needed afterwards.
- * See {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)} for this.
+ * between those when needed afterwards. See the #registerMultiple method for that.
  */
 public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST, TYPE_SELECTOR> {
 
     private final Map<TYPE_COMMON_INST, TYPE_ACTUAL_INST> singletons = new ConcurrentHashMap<>();
     private final Map<TYPE_COMMON_INST, Map<TYPE_SELECTOR, TYPE_ACTUAL_INST>> prototypes = new ConcurrentHashMap<>();
 
+    /**
+     * Registers a single instance of type {@link TYPE_ACTUAL_INST} under the {@link TYPE_COMMON_INST} category.
+     *
+     * @param parent   The parent of this instance
+     * @param instance The instance to register
+     * @return The instance registered
+     */
     public TYPE_ACTUAL_INST registerSingle(final TYPE_COMMON_INST parent, final TYPE_ACTUAL_INST instance) {
         return this.singletons.put(parent, instance);
     }
 
     /**
-     * Should you have a premade method that supplies you with selectors so you can choose your own management system,
-     * then you can give access to a lambda version of it in the form of a {@link Supplier} instead of giving the actual
-     * value directly. This is marginal but if you wished for it, here it is.
-     * <p>
-     * Apart from this, the way this method works is strictly identical to
-     * {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}.
-     */
-    public Map.Entry<?, TYPE_ACTUAL_INST> registerMultiple(
-        final TYPE_COMMON_INST parent,
-        final Supplier<TYPE_SELECTOR> selector,
-        final TYPE_ACTUAL_INST instance
-    ) {
-        return this.registerMultiple(parent, selector.get(), instance);
-    }
-
-    /**
      * This method stores your instances in a {@link ConcurrentHashMap} that looks like this :<br>
      * |-- CommonInst1 --<br>
-     * |                |-- Selector1 -> Instance 1 of class {@link TYPE_ACTUAL_INST}<br>
-     * |                |-- Selector2 -> Instance 2 of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- Selector1 -&gt; Instance 1 of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- Selector2 -&gt; Instance 2 of class {@link TYPE_ACTUAL_INST}<br>
      * |<br>
      * |-- CommonInst2 --<br>
-     * |                |-- Selector# -> Instance # of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- Selector# -&gt; Instance # of class {@link TYPE_ACTUAL_INST}<br>
      * |                ...<br>
-     * |                |-- SelectorN -> Instance N of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- SelectorN -&gt; Instance N of class {@link TYPE_ACTUAL_INST}<br>
      * ...<br>
      * |<br>
      * <br>
@@ -68,9 +56,6 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * Be wary of collisions (i.e. Instance 1 and 2 having the same selector) as it replaces instances in case of collision.
      * <p>
      * You are responsible for providing correct and non-colliding selectors.
-     * We also offer a sloght variation in the method with
-     * {@link #registerMultiple(TYPE_COMMON_INST, Supplier, TYPE_COMMON_INST)}. Look at it if you think about writing
-     * something like a {@link Function} &lt; {@link TYPE_COMMON_INST} , {@link Object} &gt; to compute selectors.
      *
      * @param parent   An instance, typically an enum member
      * @param selector The selector that you have to provide to recover this particular instance later
@@ -101,26 +86,40 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * Look at {@link Option} for information on how to use it.
      *
      * @param parent   The instance who's children you look for.
-     * @param selector The selector previously used in {@link #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST)}
-     * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty ({@link Option.None, which means
-     * it was not found or at some point in the hierarchy there has been an exception).
+     * @param selector The selector previously used in #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR, TYPE_ACTUAL_INST).
+     * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty. That is,
+     * {@link Option.None}, which means that it was not found or at some point in the hierarchy there
+     * has been an exception).
      */
     public Option<TYPE_ACTUAL_INST> getMultiple(final TYPE_COMMON_INST parent, final TYPE_SELECTOR selector) {
         return Option.of(this.prototypes.get(parent)).map(selectorMap -> selectorMap.get(selector));
     }
 
+    /**
+     * @param parent The parent instance of all the nodes sought
+     * @return All the nodes registered under the given parent instance or an empty list if there are none.
+     */
     public List<TYPE_ACTUAL_INST> getAll(final TYPE_COMMON_INST parent) {
         final List<TYPE_ACTUAL_INST> all = this.getMultiples(parent);
         this.getSingle(parent).peek(all::add);
         return all;
     }
 
+    /**
+     * @param parent The parent instance of all the nodes sought
+     * @return All the multiple-type nodes under the given parent instance, or an empty list if there are none.
+     */
     public List<TYPE_ACTUAL_INST> getMultiples(final TYPE_COMMON_INST parent) {
         return new ArrayList<>(Option.of(this.prototypes.get(parent))
             .map(Map::values)
             .getOrElse(Collections.emptyList()));
     }
 
+    /**
+     * @param parent The parent instance of the node sought
+     * @return {@link Option.Some} filled with the unique node of single-type under this instance,
+     * or {@link Option.None}.
+     */
     public Option<TYPE_ACTUAL_INST> getSingle(final TYPE_COMMON_INST parent) {
         return Option.of(this.singletons.get(parent));
     }
