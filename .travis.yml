@@ -1,6 +1,4 @@
 language: java
-env:
-  global:
 
 os: linux
 dist: yaketty
@@ -14,7 +12,8 @@ addons:
   apt:
     packages:
       - maven
-      - oracle-java8-installer
+      - gtk+3.0
+      - stalonetray
 
 before_script:
   - "export DISPLAY=:99.0"
