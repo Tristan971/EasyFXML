@@ -26,4 +26,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn -DargLine="-Denv=ci" package
+  - mvn clean package
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t 1edc2828-d9b8-4d0f-9407-31f4b583a663
