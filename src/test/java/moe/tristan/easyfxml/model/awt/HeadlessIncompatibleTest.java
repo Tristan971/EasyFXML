@@ -7,7 +7,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.awt.Desktop;
 import java.awt.SystemTray;
 
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 /**
@@ -20,14 +19,9 @@ import static org.junit.Assume.assumeTrue;
 public class HeadlessIncompatibleTest extends ApplicationTest {
     @Before
     public void ensureNotCi() {
-        final String envProperty = System.getProperty("env");
-        if (envProperty != null) {
-            assumeFalse("ci".equals(envProperty));
-        } else {
-            assumeTrue(SystemTray.isSupported());
-            assumeTrue(Desktop.isDesktopSupported());
-        }
-        System.out.println("Not CI env, executing non-headless test.");
+        assumeTrue(SystemTray.isSupported());
+        assumeTrue(Desktop.isDesktopSupported());
+        System.out.println("Headed env, executing AWT tests.");
     }
 
     @Override

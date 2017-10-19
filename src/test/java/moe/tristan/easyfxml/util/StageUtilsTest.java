@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,33 +35,33 @@ public class StageUtilsTest extends ApplicationTest {
     }
 
     @Test
-    public void stageOf() {
-        final CompletionStage<Stage> stageReq = StageUtils.stageOf(STAGE_TITLE, STAGE_PANE);
-        stageReq.thenAccept(stage -> {
-            assertThat(stage.getScene().getRoot()).isEqualTo(STAGE_PANE);
-            assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE);
-        });
+    public void stageOf() throws ExecutionException, InterruptedException {
+        StageUtils.stageOf(STAGE_TITLE, STAGE_PANE)
+            .thenAccept(stage -> {
+                assertThat(stage.getScene().getRoot()).isEqualTo(STAGE_PANE);
+                assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE);
+            })
+            .toCompletableFuture().get();
     }
 
     @Test
-    public void scheduleDisplaying() {
-        StageUtils.scheduleDisplaying(TEST_STAGE).thenAccept(
-            stage -> assertThat(TEST_STAGE.isShowing()).isTrue()
-        );
+    public void scheduleDisplaying() throws ExecutionException, InterruptedException {
+        StageUtils.scheduleDisplaying(TEST_STAGE)
+            .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isTrue())
+            .toCompletableFuture().get();
     }
 
     @Test
-    public void scheduleHiding() {
-        StageUtils.scheduleHiding(TEST_STAGE).thenAccept(
-            stage -> assertThat(TEST_STAGE.isShowing()).isTrue()
-        );
+    public void scheduleHiding() throws ExecutionException, InterruptedException {
+        StageUtils.scheduleHiding(TEST_STAGE)
+            .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isFalse())
+            .toCompletableFuture().get();
     }
 
     @Test
-    public void asyncStageOperation() {
-        StageUtils.asyncStageOperation(
-            TEST_STAGE,
-            stage -> stage.setTitle(STAGE_TITLE_2)
-        ).thenAccept(stage -> assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE_2));
+    public void asyncStageOperation() throws ExecutionException, InterruptedException {
+        StageUtils.asyncStageOperation(TEST_STAGE, stage -> stage.setTitle(STAGE_TITLE_2))
+            .thenAccept(stage -> assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE_2))
+            .toCompletableFuture().get();
     }
 }

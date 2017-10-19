@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 import static io.vavr.API.unchecked;
 import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
@@ -55,7 +56,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_single() {
+    public void load_as_pane_single() throws ExecutionException, InterruptedException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE));
 
         this.assertAppliedStyle(testPane, TEST_NODES.PANE);
@@ -67,7 +68,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_multiple() {
+    public void load_as_pane_multiple() throws ExecutionException, InterruptedException {
         final Pane testPane = this.assertSuccessAndGet(
             this.easyFxml.loadNode(TEST_NODES.PANE, SELECTOR)
         );
@@ -85,7 +86,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_success() {
+    public void load_with_type_success() throws ExecutionException, InterruptedException {
         final Pane testPane = this.assertSuccessAndGet(
             this.easyFxml.loadNode(TEST_NODES.PANE, Pane.class)
         );
@@ -169,23 +170,39 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(loadedElement.getStyle()).isEqualToIgnoringWhitespace(expectedStyle);
     }
 
+    /**
+     * We have to sleep here because the event firing in JavaFX can't be waited on all the way.
+     * So if we don't wait, as soon as the click is actually sent, but not yet registered,
+     * we are already asserting.
+     * The wait is a horrific thing that the whole async life promised to save us from. But it did
+     * not deliver (yet).
+     * @param testPane The pane to test bounding on
+     * @param controllerLookup The controller as an {@link Option} so we can know if the test
+     *                         actually failed because of some outside reason.
+     * @throws ExecutionException If thread dies, or something.
+     * @throws InterruptedException same as the ExecutionException.
+     */
     private void assertControllerBoundToTestPane(
         final Pane testPane,
         final Option<FxmlController> controllerLookup
-    ) {
+    ) throws ExecutionException, InterruptedException {
         assertThat(controllerLookup.isDefined()).isTrue();
         assertThat(controllerLookup.get().getClass()).isEqualTo(SAMPLE_CONTROL_CLASS.class);
 
         StageUtils.stageOf("TEST_PANE", testPane)
-            .thenCompose(StageUtils::scheduleDisplaying)
+            .whenCompleteAsync((stage, err) -> StageUtils.scheduleDisplaying(stage))
             .thenCompose(stage -> {
                 final Button btn = (Button) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
                 return this.clickOnNode(stage, btn);
             })
-            .thenRun(() -> {
+            .whenCompleteAsync((stage, err) -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {}
                 final SAMPLE_CONTROL_CLASS testController = (SAMPLE_CONTROL_CLASS) controllerLookup.get();
                 assertThat(testController.hasBeenClicked).isTrue();
-            });
+            })
+            .toCompletableFuture().get();
     }
 
     private void assertPaneFailedLoadingAndDidNotRegister(

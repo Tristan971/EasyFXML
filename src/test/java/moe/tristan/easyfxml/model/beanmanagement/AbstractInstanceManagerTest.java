@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
@@ -49,8 +51,9 @@ public class AbstractInstanceManagerTest {
         this.instanceManager.registerMultiple(PARENT, SEL_1, ACTUAL_1);
         this.instanceManager.registerMultiple(PARENT, SEL_2, ACTUAL_2);
 
+        final List<Object> all = this.instanceManager.getAll(PARENT);
         // Only one exemplary of ACTUAL_1 since the second call to register single overrides the first one
-        assertThat(this.instanceManager.getAll(PARENT)).containsExactlyInAnyOrder(
+        assertThat(all).containsExactlyInAnyOrder(
             ACTUAL_1, ACTUAL_2, ACTUAL_2
         );
     }

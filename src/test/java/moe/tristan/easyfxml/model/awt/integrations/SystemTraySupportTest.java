@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,7 +34,7 @@ public class SystemTraySupportTest extends HeadlessIncompatibleTest {
     private ApplicationContext applicationContext;
 
     @Test
-    public void register_system_tray_icon() {
+    public void register_system_tray_icon() throws ExecutionException, InterruptedException {
         final SystemTraySupport systemTraySupport = this.applicationContext.getBean(SystemTraySupport.class);
 
         final MenuItem testItem = new MenuItem("DISABLED_ON_CLICK");
@@ -45,11 +46,12 @@ public class SystemTraySupportTest extends HeadlessIncompatibleTest {
 
         final SystemTrayIcon trayIcon = this.systemTrayIconWith(menuItems);
         systemTraySupport.registerTrayIcon(trayIcon)
-            .whenComplete((res, err) -> assertThat(res.isSuccess()).isTrue())
+            .whenCompleteAsync((res, err) -> assertThat(res.isSuccess()).isTrue())
             .thenApply(Try::get)
-            .whenComplete((res, err) -> assertThat(systemTraySupport.getTrayIcons()).containsExactly(res))
-            .whenComplete((res, err) -> systemTraySupport.removeTrayIcon(res))
-            .thenAccept(icon -> assertThat(systemTraySupport.getTrayIcons()).doesNotContain(icon));
+            .whenCompleteAsync((res, err) -> assertThat(systemTraySupport.getTrayIcons()).containsExactly(res))
+            .whenCompleteAsync((res, err) -> systemTraySupport.removeTrayIcon(res))
+            .thenAccept(icon -> assertThat(systemTraySupport.getTrayIcons()).doesNotContain(icon))
+            .toCompletableFuture().get();
     }
 
     private SystemTrayIcon systemTrayIconWith(final Map<MenuItem, ActionListener> menuItems) {
