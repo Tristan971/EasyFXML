@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model;
+package moe.tristan.easyfxml.api;
 
 public interface FxmlStylesheet {
     /**

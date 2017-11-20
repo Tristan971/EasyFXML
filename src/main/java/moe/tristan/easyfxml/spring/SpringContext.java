@@ -2,7 +2,7 @@ package moe.tristan.easyfxml.spring;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import moe.tristan.easyfxml.model.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import moe.tristan.easyfxml.model.fxml.FxmlLoader;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

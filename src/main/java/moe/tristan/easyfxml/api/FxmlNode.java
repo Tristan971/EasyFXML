@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model;
+package moe.tristan.easyfxml.api;
 
 import io.vavr.control.Option;
 

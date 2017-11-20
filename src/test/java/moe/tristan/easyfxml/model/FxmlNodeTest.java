@@ -1,6 +1,9 @@
 package moe.tristan.easyfxml.model;
 
 import io.vavr.control.Option;
+import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlFile;
+import moe.tristan.easyfxml.api.FxmlNode;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
