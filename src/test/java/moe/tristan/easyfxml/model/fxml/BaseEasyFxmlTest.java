@@ -3,11 +3,9 @@ package moe.tristan.easyfxml.model.fxml;
 import io.vavr.CheckedFunction1;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import javafx.application.Platform;
 import javafx.fxml.LoadException;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import moe.tristan.easyfxml.api.FxmlController;
@@ -29,15 +27,12 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutionException;
 
 import static io.vavr.API.unchecked;
 import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = { SpringContext.class, SAMPLE_CONTROL_CLASS.class })
+@ContextConfiguration(classes = {SpringContext.class, SAMPLE_CONTROL_CLASS.class})
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
 
@@ -56,7 +51,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_single() throws ExecutionException, InterruptedException {
+    public void load_as_pane_single() {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE));
 
         this.assertAppliedStyle(testPane, TEST_NODES.PANE);
@@ -64,11 +59,14 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(testPane.getChildren()).hasSize(1);
         assertThat(testPane.getChildren().get(0).getClass()).isEqualTo(Button.class);
 
-        this.assertControllerBoundToTestPane(testPane, this.controllerManager.getSingle(TEST_NODES.PANE));
+        this.assertControllerBoundToTestPane(
+            testPane,
+            this.controllerManager.getSingle(TEST_NODES.PANE)
+        );
     }
 
     @Test
-    public void load_as_pane_multiple() throws ExecutionException, InterruptedException {
+    public void load_as_pane_multiple() {
         final Pane testPane = this.assertSuccessAndGet(
             this.easyFxml.loadNode(TEST_NODES.PANE, SELECTOR)
         );
@@ -86,7 +84,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_success() throws ExecutionException, InterruptedException {
+    public void load_with_type_success() {
         final Pane testPane = this.assertSuccessAndGet(
             this.easyFxml.loadNode(TEST_NODES.PANE, Pane.class)
         );
@@ -176,33 +174,28 @@ public class BaseEasyFxmlTest extends ApplicationTest {
      * we are already asserting.
      * The wait is a horrific thing that the whole async life promised to save us from. But it did
      * not deliver (yet).
-     * @param testPane The pane to test bounding on
+     *
+     * @param testPane         The pane to test bounding on
      * @param controllerLookup The controller as an {@link Option} so we can know if the test
      *                         actually failed because of some outside reason.
-     * @throws ExecutionException If thread dies, or something.
-     * @throws InterruptedException same as the ExecutionException.
      */
-    private void assertControllerBoundToTestPane(
-        final Pane testPane,
-        final Option<FxmlController> controllerLookup
-    ) throws ExecutionException, InterruptedException {
+    private void assertControllerBoundToTestPane(final Pane testPane, final Option<FxmlController> controllerLookup) {
         assertThat(controllerLookup.isDefined()).isTrue();
         assertThat(controllerLookup.get().getClass()).isEqualTo(SAMPLE_CONTROL_CLASS.class);
 
         StageUtils.stageOf("TEST_PANE", testPane)
             .whenCompleteAsync((stage, err) -> StageUtils.scheduleDisplaying(stage))
-            .thenCompose(stage -> {
+            .whenCompleteAsync((stage, err) -> {
                 final Button btn = (Button) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
-                return this.clickOnNode(stage, btn);
+                btn.fire();
+                StageUtils.asyncStageOperation(stage, Stage::hide);
             })
             .whenCompleteAsync((stage, err) -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ignored) {}
                 final SAMPLE_CONTROL_CLASS testController = (SAMPLE_CONTROL_CLASS) controllerLookup.get();
-                assertThat(testController.hasBeenClicked).isTrue();
+                assertThat(testController.locatedInstance).isTrue();
             })
-            .toCompletableFuture().get();
+            .toCompletableFuture()
+            .join();
     }
 
     private void assertPaneFailedLoadingAndDidNotRegister(
@@ -213,15 +206,6 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(failingLoadResult.isFailure()).isTrue();
         assertThat(failingLoadResult.getCause()).isInstanceOf(expectedExceptionClass);
         assertThat(controllerLookup.isEmpty()).isTrue();
-    }
-
-    private CompletionStage<Stage> clickOnNode(final Stage stage, final Node node) {
-        final CompletableFuture<Stage> clickRequest = new CompletableFuture<>();
-        Platform.runLater(() -> {
-            this.clickOn(node, MouseButton.PRIMARY);
-            clickRequest.complete(stage);
-        });
-        return clickRequest;
     }
 
     @Ignore("This is not a test class")

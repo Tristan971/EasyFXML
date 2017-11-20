@@ -1,8 +1,8 @@
 package moe.tristan.easyfxml.model.fxml;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import moe.tristan.easyfxml.api.FxmlController;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,16 +16,16 @@ public class SAMPLE_CONTROL_CLASS implements FxmlController {
     @FXML
     private Button button;
 
-    public boolean hasBeenClicked = false;
+    public boolean locatedInstance = false;
 
     @Override
     public void initialize() {
-        this.button.setOnMouseClicked(this::hasClickedHandler);
+        this.button.setOnAction(this::onActionHandler);
     }
 
     @SuppressWarnings("unused")
-    private void hasClickedHandler(final MouseEvent event) {
-        this.hasBeenClicked = true;
-        System.out.println("<HANDLED CLICK ON INSTANCE : " + this.toString() + ">");
+    private void onActionHandler(final Event event) {
+        this.locatedInstance = true;
+        System.out.println("<HANDLED ACTION ON INSTANCE : " + this.toString() + ">");
     }
 }
