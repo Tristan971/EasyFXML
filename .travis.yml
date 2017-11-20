@@ -1,19 +1,28 @@
 language: java
 
-os: osx
-osx_image: xcode9.1
+os: linux
+dist: yaketty
 sudo: false
 
 cache:
   directories:
   - $HOME/.m2
 
+addons:
+  apt:
+    packages:
+      - maven
+      - gtk+3.0
+      - stalonetray
+
 before_script:
-  - brew install maven
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
   - rm ~/.m2/settings.xml
+
+jdk:
+  - oraclejdk8
 
 script:
   - mvn clean package
