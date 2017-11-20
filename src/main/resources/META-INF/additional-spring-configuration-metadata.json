@@ -13,7 +13,7 @@
         {
             "name": "moe.tristan.easyfxml.fxml.fxml_root_path",
             "type": "java.lang.String",
-            "description": "Root path for FXML files. Considered empt string for non-custom manipulation of fxml files."
+            "description": "Root path for FXML files. Considered empty string for non-custom manipulation of fxml files."
         }
     ]
 }
