@@ -1,7 +1,7 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import moe.tristan.easyfxml.model.FxmlController;
-import moe.tristan.easyfxml.model.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlNode;
 import org.springframework.stereotype.Component;
 
 /**

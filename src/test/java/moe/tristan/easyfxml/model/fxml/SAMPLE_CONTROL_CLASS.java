@@ -3,7 +3,7 @@ package moe.tristan.easyfxml.model.fxml;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import moe.tristan.easyfxml.model.FxmlController;
+import moe.tristan.easyfxml.api.FxmlController;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
