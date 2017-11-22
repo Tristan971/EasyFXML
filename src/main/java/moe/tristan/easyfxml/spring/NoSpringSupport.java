@@ -17,8 +17,7 @@ public final class NoSpringSupport {
 
     private static ApplicationContext applicationContext;
 
-    private NoSpringSupport() {
-    }
+    private NoSpringSupport() {}
 
     public static <T> T getInstance(final Class<? extends T> instanceClass) {
         return getApplicationContext().getBean(instanceClass);
