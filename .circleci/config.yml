@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/EasyFXML
 
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      - image: circleci/jdk8:0.1.1
 
     steps:
 
