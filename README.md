@@ -18,7 +18,7 @@ that it felt, in a lot of ways,  unfinished.
 
 - **FXMLLoader** is terribly unenjoyable to use
 - It is hard to make sense of how to do the appropriate **context switching** 
-requiredby a lot of GUIs
+required by a lot of GUIs
 - Many system integration features like having a status bar icon, or even simply
 opening the browser when your user clicks a link are buried into **deep
 incompatibility with the model that AWT used to provide decades ago**.
@@ -133,10 +133,9 @@ public class SomeClass {
 }
 ```
 
-And finally here is how you would completely load and display a window component and get
-its owning stage back, showing an error window instead if there was an issue during
-loading :
+And finally here is how you would use some of the utilitaristic methods provided as well to display and hide the just-made window:
 ```java
+// supposing we still are in that same class for simplicity
 public class SomeClass {
     
     /***/
@@ -144,8 +143,19 @@ public class SomeClass {
     public CompletableFuture<Stage> displayLoginWindow() {
         Stage loginStage = new Stage();
         loginStage.setTitle("Login");
-        loginStage.setScene(getRootScene);
+        loginStage.setScene(this.getRootScene());
         return StageUtils.scheduleDisplaying(loginStage);
+    }
+    
+    public CompletableFuture<Stage> hideLoginWindow() {
+        Stage loginStage = StageManager.get(Views.LOGIN);
+        StageUtils.scheduleHiding(loginStage);
+    }
+    
+    // Here the async is necessary to ensure we don't hide before shown
+    // or simply wait too long
+    public void showThenHideLoginWindow() {
+        displayLoginWindow().thenRun(this::hideLoginWindow);
     }
 }
 ```
