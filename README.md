@@ -214,4 +214,5 @@ mostly for getting a general idea I'd say.
 #### Misc
 
 Licence : Apache (see LICENSE, tl;dr : don't be evil :)
+
 Credits : Tristan Deloche (I hope this list grows by a lot in some time)
