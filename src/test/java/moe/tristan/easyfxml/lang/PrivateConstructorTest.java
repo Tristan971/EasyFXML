@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,11 +34,10 @@ public class PrivateConstructorTest {
     @Test
     public void assertExistsPrivateCtor() {
         reflections.getSubTypesOf(Object.class).stream()
-            .filter(clazz -> !clazz.isAnnotationPresent(SpringBootTest.class))
             .filter(clazz -> !clazz.isAnnotationPresent(Configuration.class))
             .filter(clazz -> !clazz.isAnnotationPresent(Component.class))
-            .filter(clazz -> !clazz.isAnnotationPresent(ContextConfiguration.class))
             .filter(clazz -> !clazz.isAnnotationPresent(SpringBootApplication.class))
+            .filter(clazz -> !clazz.getName().endsWith("Test"))
             .filter(clazz -> !clazz.isInterface())
             .filter(clazz ->
                 Arrays.stream(clazz.getDeclaredFields())
