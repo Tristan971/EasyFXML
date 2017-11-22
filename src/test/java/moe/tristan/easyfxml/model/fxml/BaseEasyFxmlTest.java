@@ -54,7 +54,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     public void load_as_pane_single() {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE));
 
-        this.assertAppliedStyle(testPane, TEST_NODES.PANE);
+        this.assertAppliedStyle(testPane, "");
 
         assertThat(testPane.getChildren()).hasSize(1);
         assertThat(testPane.getChildren().get(0).getClass()).isEqualTo(Button.class);
@@ -71,7 +71,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             this.easyFxml.loadNode(TEST_NODES.PANE, SELECTOR)
         );
 
-        this.assertAppliedStyle(testPane, TEST_NODES.PANE);
+        this.assertAppliedStyle(testPane, "");
 
         this.assertControllerBoundToTestPane(
             testPane,
@@ -89,7 +89,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             this.easyFxml.loadNode(TEST_NODES.PANE, Pane.class)
         );
 
-        this.assertAppliedStyle(testPane, TEST_NODES.PANE);
+        this.assertAppliedStyle(testPane, ""); //expect inherit parent
 
         this.assertControllerBoundToTestPane(
             testPane,
@@ -103,7 +103,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             this.easyFxml.loadNode(TEST_NODES.BUTTON, Button.class)
         );
 
-        this.assertAppliedStyle(testButton, TEST_NODES.BUTTON);
+        this.assertAppliedStyle(testButton, TEST_NODES.BUTTON.getStylesheet().getStyle());
     }
 
     @Test
@@ -160,11 +160,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         return loadResult.get();
     }
 
-    private <T extends Node> void assertAppliedStyle(final T loadedElement, final FxmlNode expectedData) {
-        final String expectedStyle = expectedData.getStylesheet().isDefined() ?
-            expectedData.getStylesheet().get().getStyle() :
-            "";
-
+    private <T extends Node> void assertAppliedStyle(final T loadedElement, final String expectedStyle) {
         assertThat(loadedElement.getStyle()).isEqualToIgnoringWhitespace(expectedStyle);
     }
 
@@ -212,45 +208,45 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     private enum TEST_NODES implements FxmlNode {
         PANE(
             () -> "fxml/test_pane.fxml",
-            Option.of(SAMPLE_CONTROL_CLASS.class),
-            Option.none()
+            SAMPLE_CONTROL_CLASS.class,
+            FxmlStylesheet.INHERIT
         ),
 
         BUTTON(
             () -> "fxml/button.fxml",
-            Option.none(),
-            Option.of(() -> loadStyleFromFile("fxml/test_style.css"))
+            NoControllerClass.class,
+            () -> loadStyleFromFile("fxml/test_style.css")
         ),
 
         INVALID(
             () -> "fxml/invalid_file.fxml",
-            Option.none(),
-            Option.none()
+            NoControllerClass.class,
+            FxmlStylesheet.INHERIT
         );
 
         private final FxmlFile fxmlFile;
-        private final Option<Class<? extends FxmlController>> controllerClass;
+        private final Class<? extends FxmlController> controllerClass;
 
-        private final Option<FxmlStylesheet> stylesheet;
+        private final FxmlStylesheet stylesheet;
 
-        TEST_NODES(final FxmlFile fxmlFile, final Option<Class<? extends FxmlController>> controllerClass, final Option<FxmlStylesheet> stylesheet) {
+        TEST_NODES(final FxmlFile fxmlFile, final Class<? extends FxmlController> controllerClass, final FxmlStylesheet stylesheet) {
             this.fxmlFile = fxmlFile;
             this.controllerClass = controllerClass;
             this.stylesheet = stylesheet;
         }
 
         @Override
-        public FxmlFile getFxmlFile() {
+        public FxmlFile getFile() {
             return this.fxmlFile;
         }
 
         @Override
-        public Option<Class<? extends FxmlController>> getControllerClass() {
+        public Class<? extends FxmlController> getControllerClass() {
             return this.controllerClass;
         }
 
         @Override
-        public Option<FxmlStylesheet> getStylesheet() {
+        public FxmlStylesheet getStylesheet() {
             return this.stylesheet;
         }
 
