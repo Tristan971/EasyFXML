@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class AwtUtils {
+public final class AwtUtils {
     private static final Logger LOG = LoggerFactory.getLogger(AwtUtils.class);
 
     private static final java.awt.Toolkit awtTk = java.awt.Toolkit.getDefaultToolkit();

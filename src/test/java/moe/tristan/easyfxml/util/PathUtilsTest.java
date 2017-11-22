@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -51,7 +52,7 @@ public class PathUtilsTest {
     }
 
     @Test
-    public void listFiles_existing_folder() {
+    public void listFiles_existing_folder() throws IOException {
         final Try<Path> pathUtilsTestFolder = PathUtils.getPathForResource(PATH_UTIL_TESTS_FOLDER);
         assertThat(pathUtilsTestFolder.isSuccess()).isTrue();
 
