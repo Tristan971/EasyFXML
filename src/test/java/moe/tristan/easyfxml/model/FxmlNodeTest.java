@@ -1,9 +1,9 @@
 package moe.tristan.easyfxml.model;
 
-import io.vavr.control.Option;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlStylesheet;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,18 +12,18 @@ public class FxmlNodeTest {
 
     private final FxmlNode testNode = new FxmlNode() {
         @Override
-        public FxmlFile getFxmlFile() {
+        public FxmlFile getFile() {
             return null;
         }
 
         @Override
-        public Option<Class<? extends FxmlController>> getControllerClass() {
+        public Class<? extends FxmlController> getControllerClass() {
             return null;
         }
     };
 
     @Test
     public void non_overriden_css() {
-        assertThat(this.testNode.getStylesheet().isEmpty()).isTrue();
+        assertThat(this.testNode.getStylesheet()).isEqualTo(FxmlStylesheet.INHERIT);
     }
 }

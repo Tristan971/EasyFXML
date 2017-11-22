@@ -1,12 +1,12 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlStylesheet;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +35,8 @@ public class BaseEasyFxml implements EasyFxml {
         this.controllerManager = controllerManager;
     }
 
-    private Option<FxmlController> makeControllerForNode(final FxmlNode node) {
-        return node.getControllerClass().map(this.context::getBean);
+    private Try<FxmlController> makeControllerForNode(final FxmlNode node) {
+        return Try.of(node::getControllerClass).map(this.context::getBean);
     }
 
     @Override
@@ -85,18 +85,22 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> nodeLoadResult) {
-        nodeInfo.getStylesheet().peek(
-            stylesheet -> nodeLoadResult.peek(
-                loadedNode -> loadedNode.setStyle(stylesheet.getStyle())
-            )
-        );
+        final FxmlStylesheet stylesheet = nodeInfo.getStylesheet();
+
+        if (!stylesheet.equals(FxmlStylesheet.INHERIT)) {
+            if (stylesheet.equals(FxmlStylesheet.DEFAULT)) {
+                nodeLoadResult.peek(loadedNode -> loadedNode.setStyle(""));
+            } else {
+                nodeLoadResult.peek(loadedNode -> loadedNode.setStyle(stylesheet.getStyle()));
+            }
+        }
 
         return nodeLoadResult;
     }
 
     private FxmlLoader getSingleStageFxmlLoader(final FxmlNode node) {
         final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
-        final Option<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
+        final Try<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
         instanceLoadingResult.peek(instance -> {
             loader.setControllerFactory(clazz -> instance);
             loader.setOnSuccess(elem -> this.controllerManager.registerSingle(node, instance));
@@ -107,7 +111,7 @@ public class BaseEasyFxml implements EasyFxml {
 
     private FxmlLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
         final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
-        final Option<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
+        final Try<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
         instanceLoadingResult.peek(instance -> {
             loader.setControllerFactory(clazz -> instance);
             loader.setOnSuccess(elem -> this.controllerManager.registerMultiple(node, selector, instance));
@@ -118,7 +122,7 @@ public class BaseEasyFxml implements EasyFxml {
 
     /**
      * @param fxmlNode The node who's filepath we look for
-     * @return The node's {@link FxmlNode#getFxmlFile()} path prepended with the views root folder,
+     * @return The node's {@link FxmlNode#getFile()} path prepended with the views root folder,
      * as defined by environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
      */
     private String filePath(final FxmlNode fxmlNode) {
@@ -126,7 +130,7 @@ public class BaseEasyFxml implements EasyFxml {
             .map(this.environment::getRequiredProperty)
             .getOrElse("");
 
-        return rootPath + fxmlNode.getFxmlFile().getPath();
+        return rootPath + fxmlNode.getFile().getPath();
     }
 
     private static URL getUrlForResource(final String filePathString) {

@@ -13,11 +13,11 @@ import io.vavr.control.Option;
  */
 public interface FxmlNode {
 
-    FxmlFile getFxmlFile();
+    FxmlFile getFile();
 
-    Option<Class<? extends FxmlController>> getControllerClass();
+    Class<? extends FxmlController> getControllerClass();
 
-    default Option<FxmlStylesheet> getStylesheet() {
-        return Option.none();
+    default FxmlStylesheet getStylesheet() {
+        return FxmlStylesheet.INHERIT;
     }
 }
