@@ -1,7 +1,7 @@
 # EasyFXML
 All the _JavaFX_ base building blocks in one library
 
-[![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML) [![codecov](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graph/badge.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
+[![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
 
 Maven dependency : (soon)
 ```xml
