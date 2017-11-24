@@ -3,7 +3,7 @@ An opinionated framework for building modern _JavaFX_ apps.
 
 [![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
 
-Maven dependency : (soon)
+Maven dependency :
 ```xml
 <dependency>
     <groupId>moe.tristan</groupId>
