@@ -40,6 +40,8 @@ public final class PathUtils {
      * @param directory The directory to iterate over
      * @return A stream of the files under the given directory or an empty stream if
      * the {@link Path} was not a directory.
+     *
+     * @throws IOException when accessing privileged paths with non-privileged user
      */
     public static List<Path> listFiles(final Path directory) throws IOException {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
