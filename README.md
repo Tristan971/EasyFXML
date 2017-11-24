@@ -124,7 +124,7 @@ public class SomeClass {
     private Scene getRootScene() {
             final Try<Pane> rootPane = this.easyFxml
                     .loadNode(Views.ROOT)
-                    .recover(err -> new ErrorPane(err)); //load an error pane instead of just crashing
+                    .recover(err -> new ExceptionHandler(err).asPane()); //load an error pane instead of just crashing
                     //.onError(Consumer<Throwable>)
                     //.onSuccess(Consumer<Pane>)
                     //.isSuccess() etc etc
