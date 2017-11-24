@@ -133,7 +133,7 @@ public class SomeClass {
 }
 ```
 
-And finally here is how you would use some of the utilitaristic methods provided as well to display and hide the just-made window:
+And finally here is how you would use some of the utility methods provided as well to display and hide the just-made window:
 ```java
 // supposing we still are in that same class for simplicity
 public class SomeClass {
