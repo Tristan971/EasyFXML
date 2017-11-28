@@ -36,12 +36,7 @@ public final class StageUtils {
     }
 
     public static CompletionStage<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
-        final CompletableFuture<Stage> onAsyncOpDone = new CompletableFuture<>();
-        Platform.runLater(() -> {
-            asyncOp.accept(stage);
-            onAsyncOpDone.complete(stage);
-        });
-        return onAsyncOpDone;
+        return FxAsyncUtils.doOnFxThread(stage, asyncOp);
     }
 
     public static CompletionStage<Stage> scheduleHiding(final Stage stage) {
