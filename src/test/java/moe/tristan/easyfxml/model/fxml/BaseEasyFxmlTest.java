@@ -14,8 +14,8 @@ import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.spring.SpringContext;
-import moe.tristan.easyfxml.util.PathUtils;
-import moe.tristan.easyfxml.util.StageUtils;
+import moe.tristan.easyfxml.util.Paths;
+import moe.tristan.easyfxml.util.Stages;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -179,12 +179,12 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(controllerLookup.isDefined()).isTrue();
         assertThat(controllerLookup.get().getClass()).isEqualTo(SAMPLE_CONTROL_CLASS.class);
 
-        StageUtils.stageOf("TEST_PANE", testPane)
-            .whenCompleteAsync((stage, err) -> StageUtils.scheduleDisplaying(stage))
+        Stages.stageOf("TEST_PANE", testPane)
+            .whenCompleteAsync((stage, err) -> Stages.scheduleDisplaying(stage))
             .whenCompleteAsync((stage, err) -> {
                 final Button btn = (Button) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
                 btn.fire();
-                StageUtils.asyncStageOperation(stage, Stage::hide);
+                Stages.asyncStageOperation(stage, Stage::hide);
             })
             .whenCompleteAsync((stage, err) -> {
                 final SAMPLE_CONTROL_CLASS testController = (SAMPLE_CONTROL_CLASS) controllerLookup.get();
@@ -251,7 +251,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         }
 
         private static String loadStyleFromFile(final String path) {
-            return PathUtils.getPathForResource(path)
+            return Paths.getPathForResource(path)
                 .map(unchecked((CheckedFunction1<Path, byte[]>) Files::readAllBytes))
                 .map(String::new)
                 .get();

@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringRunner.class)
-public class PathUtilsTest {
+public class PathsTest {
 
     private static final String PATH_UTIL_TESTS_FOLDER = "PathUtilsTests/";
 
@@ -30,7 +30,7 @@ public class PathUtilsTest {
 
     @Test
     public void path_of_existing_file() {
-        final Try<Path> fileThatExists = PathUtils.getPathForResource(
+        final Try<Path> fileThatExists = Paths.getPathForResource(
             PATH_UTIL_TESTS_FOLDER + EXISTING_FILE_NAME
         );
 
@@ -44,7 +44,7 @@ public class PathUtilsTest {
 
     @Test
     public void path_of_nonexisting_file() {
-        final Try<Path> fileThatDoesntExist = PathUtils.getPathForResource(
+        final Try<Path> fileThatDoesntExist = Paths.getPathForResource(
             PATH_UTIL_TESTS_FOLDER + NONEXISTING_FILE_NAME
         );
 
@@ -53,10 +53,10 @@ public class PathUtilsTest {
 
     @Test
     public void listFiles_existing_folder() throws IOException {
-        final Try<Path> pathUtilsTestFolder = PathUtils.getPathForResource(PATH_UTIL_TESTS_FOLDER);
+        final Try<Path> pathUtilsTestFolder = Paths.getPathForResource(PATH_UTIL_TESTS_FOLDER);
         assertThat(pathUtilsTestFolder.isSuccess()).isTrue();
 
-        final List<Path> files = PathUtils.listFiles(pathUtilsTestFolder.get());
+        final List<Path> files = Paths.listFiles(pathUtilsTestFolder.get());
         assertThat(files.size()).isEqualTo(2);
 
         final List<String> fileNames = files.stream()

@@ -7,7 +7,6 @@ import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -15,9 +14,9 @@ import java.util.stream.StreamSupport;
 /**
  * This class is because Brian Goetz doesn't like you reading files from the classpath
  */
-public final class PathUtils {
+public final class Paths {
 
-    private PathUtils() {}
+    private Paths() {}
 
     /**
      * This method gets the {@link Path} associated to a classpath-located file.
@@ -27,10 +26,10 @@ public final class PathUtils {
      * @return The path associated with resource at said relative path to classpath.
      */
     public static Try<Path> getPathForResource(final String resourceName) {
-        return Try.of(PathUtils.class::getClassLoader)
+        return Try.of(Paths.class::getClassLoader)
             .map(cl -> cl.getResource(resourceName))
             .mapTry(URL::toURI)
-            .mapTry(Paths::get);
+            .mapTry(java.nio.file.Paths::get);
     }
 
     /**

@@ -7,9 +7,9 @@ import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class FxAsyncUtils {
+public final class FxAsync {
 
-    private FxAsyncUtils() {}
+    private FxAsync() {}
 
     public static <T> CompletionStage<T> doOnFxThread(final T element, final Consumer<T> action) {
         CompletableFuture<T> asyncOp = new CompletableFuture<>();
