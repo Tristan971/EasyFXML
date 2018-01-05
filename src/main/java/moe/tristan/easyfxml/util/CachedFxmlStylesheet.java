@@ -1,7 +1,9 @@
 package moe.tristan.easyfxml.util;
 
 import moe.tristan.easyfxml.api.FxmlStylesheet;
+import moe.tristan.easyfxml.spring.InheritedComponent;
 
+@InheritedComponent
 public abstract class CachedFxmlStylesheet implements FxmlStylesheet {
 
     private String cachedInstance = null;
