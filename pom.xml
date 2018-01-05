@@ -39,7 +39,7 @@
 
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <properties>

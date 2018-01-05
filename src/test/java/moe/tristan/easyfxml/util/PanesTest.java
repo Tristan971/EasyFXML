@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.util.lang;
+package moe.tristan.easyfxml.util;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;

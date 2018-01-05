@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.lang;
+package moe.tristan.easyfxml;
 
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;

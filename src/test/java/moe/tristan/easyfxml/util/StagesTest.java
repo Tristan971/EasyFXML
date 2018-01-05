@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringRunner.class)
-public class StageUtilsTest extends ApplicationTest {
+public class StagesTest extends ApplicationTest {
 
     private static String STAGE_TITLE;
     private static String STAGE_TITLE_2;
@@ -36,7 +36,7 @@ public class StageUtilsTest extends ApplicationTest {
 
     @Test
     public void stageOf() throws ExecutionException, InterruptedException {
-        StageUtils.stageOf(STAGE_TITLE, STAGE_PANE)
+        Stages.stageOf(STAGE_TITLE, STAGE_PANE)
             .thenAccept(stage -> {
                 assertThat(stage.getScene().getRoot()).isEqualTo(STAGE_PANE);
                 assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE);
@@ -46,21 +46,21 @@ public class StageUtilsTest extends ApplicationTest {
 
     @Test
     public void scheduleDisplaying() throws ExecutionException, InterruptedException {
-        StageUtils.scheduleDisplaying(TEST_STAGE)
+        Stages.scheduleDisplaying(TEST_STAGE)
             .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isTrue())
             .toCompletableFuture().get();
     }
 
     @Test
     public void scheduleHiding() throws ExecutionException, InterruptedException {
-        StageUtils.scheduleHiding(TEST_STAGE)
+        Stages.scheduleHiding(TEST_STAGE)
             .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isFalse())
             .toCompletableFuture().get();
     }
 
     @Test
     public void asyncStageOperation() throws ExecutionException, InterruptedException {
-        StageUtils.asyncStageOperation(TEST_STAGE, stage -> stage.setTitle(STAGE_TITLE_2))
+        Stages.asyncStageOperation(TEST_STAGE, stage -> stage.setTitle(STAGE_TITLE_2))
             .thenAccept(stage -> assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE_2))
             .toCompletableFuture().get();
     }

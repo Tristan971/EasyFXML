@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import moe.tristan.easyfxml.util.DomUtils;
-import moe.tristan.easyfxml.util.StageUtils;
+import moe.tristan.easyfxml.util.Stages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +45,8 @@ public final class ExceptionHandler {
         final Throwable exception
     ) {
         final Pane exceptionPane = new ExceptionHandler(exception).asPane(readable);
-        final CompletionStage<Stage> exceptionStage = StageUtils.stageOf(title, exceptionPane);
-        return exceptionStage.thenCompose(StageUtils::scheduleDisplaying);
+        final CompletionStage<Stage> exceptionStage = Stages.stageOf(title, exceptionPane);
+        return exceptionStage.thenCompose(Stages::scheduleDisplaying);
     }
 
     private static String formatErrorMessage(final Throwable throwable) {
