@@ -57,7 +57,7 @@ public enum Views implements FxmlNode {
     ROOT("RootView.fxml", RootController.class, Stylesheets.BASE_STYLE),
     LOGIN("Login.fxml", LoginController.class),
     TIMELINE("Timeline.fxml", TimelineController.class),
-    SETTINGS("Tweet.fxml", SettingsController.class);
+    SETTINGS("Settings.fxml", SettingsController.class);
 
     private static final String VIEWS_ROOT = "components/";
     
