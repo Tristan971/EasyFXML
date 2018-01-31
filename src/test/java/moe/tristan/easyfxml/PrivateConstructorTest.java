@@ -52,7 +52,7 @@ public class PrivateConstructorTest {
                 assertThat(constructors).hasSize(1);
                 System.out.println("[*]");
                 System.out.print("\t-> and that this constructor is private ");
-                assertThat(Modifier.isPrivate(constructors[0].getModifiers()));
+                assertThat(Modifier.isPrivate(constructors[0].getModifiers())).isTrue();
                 System.out.println("[*]");
             });
     }
