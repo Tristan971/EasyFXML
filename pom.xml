@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -137,18 +137,18 @@
         <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
-            <version>0.9.1</version>
+            <version>0.9.2</version>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.8-alpha</version>
+            <version>4.0.11-alpha</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit</artifactId>
-            <version>4.0.8-alpha</version>
+            <version>4.0.11-alpha</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -208,7 +208,6 @@
                 </repository>
             </distributionManagement>
         </profile>
-
     </profiles>
 
 </project>
