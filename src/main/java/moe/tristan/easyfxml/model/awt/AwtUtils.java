@@ -15,6 +15,8 @@ public final class AwtUtils {
 
     private static final java.awt.Toolkit awtTk = java.awt.Toolkit.getDefaultToolkit();
 
+    private AwtUtils() {}
+
     public static <RES> CompletionStage<RES> asyncAwtOperation(final Supplier<RES> awtOperation) {
         final CompletableFuture<RES> futureResult = new CompletableFuture<>();
         SwingUtilities.invokeLater(() -> {
