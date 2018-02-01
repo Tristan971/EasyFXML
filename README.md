@@ -8,7 +8,7 @@ Maven dependency :
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
