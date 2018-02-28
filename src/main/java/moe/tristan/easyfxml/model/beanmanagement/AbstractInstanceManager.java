@@ -19,7 +19,6 @@ import io.vavr.control.Option;
  * <p>
  * - Multiple/Prototype = any number of instances active at the same time
  * <p>
- * <p>
  * In case all is well, you only use Single and getting the instance is as easy as providing the instance that it is a
  * children of.
  * <p>
