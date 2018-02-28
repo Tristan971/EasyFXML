@@ -1,19 +1,18 @@
 package moe.tristan.easyfxml.model.awt;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public final class AwtUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(AwtUtils.class);
+import javax.swing.SwingUtilities;
 
-    private static final java.awt.Toolkit awtTk = java.awt.Toolkit.getDefaultToolkit();
+public final class AwtUtils {
+
+    static {
+        java.awt.Toolkit.getDefaultToolkit();
+    }
 
     private AwtUtils() {}
 
