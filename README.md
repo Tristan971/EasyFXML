@@ -137,12 +137,12 @@ public class SomeClass {
         Stage loginStage = new Stage();
         loginStage.setTitle("Login");
         loginStage.setScene(this.getRootScene());
-        return StageUtils.scheduleDisplaying(loginStage);
+        return Stages.scheduleDisplaying(loginStage);
     }
     
     public CompletableFuture<Stage> hideLoginWindow() {
-        Stage loginStage = StageManager.get(Views.LOGIN);
-        StageUtils.scheduleHiding(loginStage);
+        Stage loginStage = StageManager.getSingle(Views.LOGIN);
+        Stages.scheduleHiding(loginStage);
     }
     
     // Here the async is necessary to ensure we don't hide before shown
