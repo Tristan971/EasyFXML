@@ -1,17 +1,17 @@
 package moe.tristan.easyfxml.util;
 
-import javafx.application.Platform;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import moe.tristan.easyfxml.spring.SpringContext;
+import java.util.concurrent.ExecutionException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.concurrent.ExecutionException;
-
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import moe.tristan.easyfxml.spring.SpringContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
@@ -60,7 +60,7 @@ public class StagesTest extends ApplicationTest {
 
     @Test
     public void asyncStageOperation() throws ExecutionException, InterruptedException {
-        Stages.asyncStageOperation(TEST_STAGE, stage -> stage.setTitle(STAGE_TITLE_2))
+        FxAsync.doOnFxThread(TEST_STAGE, stage -> stage.setTitle(STAGE_TITLE_2))
             .thenAccept(stage -> assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE_2))
             .toCompletableFuture().get();
     }

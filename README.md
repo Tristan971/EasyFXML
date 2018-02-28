@@ -46,15 +46,13 @@ An `FxmlNode` is the declarative interface for:
 - An `FxmlFile` - that is, a supplier for the access scheme of the `.fxml` file
 - An `FxmlController` - that is, a `@Component` annotated (for Spring) class that
 contains the controller logic/binding
-- An (_optional_) `FxmlStylesheet` - if you need to override parent node's style 
-in this one.
 
 Thus, here's what using an `FxmlNode`-implementing `enum` to declare all your
 components looks like.
 
 ```java
 public enum Views implements FxmlNode {
-    ROOT("RootView.fxml", RootController.class, Stylesheets.BASE_STYLE),
+    ROOT("RootView.fxml", RootController.class),
     LOGIN("Login.fxml", LoginController.class),
     TIMELINE("Timeline.fxml", TimelineController.class),
     SETTINGS("Settings.fxml", SettingsController.class);
@@ -71,11 +69,6 @@ public enum Views implements FxmlNode {
     @Override
     public Class<? extends FxmlController> getControllerClass() {
         return controllerClass;
-    }
-
-    @Override
-    public FxmlStylesheet getStylesheet() {
-        return stylesheet;
     }
 }
 ```

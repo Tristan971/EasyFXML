@@ -1,31 +1,33 @@
 package moe.tristan.easyfxml.util;
 
-import javafx.application.Platform;
+import java.util.concurrent.CompletionStage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.vavr.Tuple;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.function.Consumer;
+import moe.tristan.easyfxml.api.FxmlStylesheet;
 
 public final class Stages {
+
     private static final Logger LOG = LoggerFactory.getLogger(Stages.class);
 
     private Stages() {}
 
     public static CompletionStage<Stage> stageOf(final String title, final Pane rootPane) {
-        final CompletableFuture<Stage> upcomingStage = new CompletableFuture<>();
-        Platform.runLater(() -> {
-            final Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle(title);
-            stage.setScene(new Scene(rootPane));
-            upcomingStage.complete(stage);
-        });
-        return upcomingStage;
+        return FxAsync.computeOnFxThread(
+            Tuple.of(title, rootPane),
+            titleAndPane -> {
+                final Stage stage = new Stage(StageStyle.DECORATED);
+                stage.setTitle(title);
+                stage.setScene(new Scene(rootPane));
+                return stage;
+            }
+        );
     }
 
     public static CompletionStage<Stage> scheduleDisplaying(final Stage stage) {
@@ -34,11 +36,10 @@ public final class Stages {
             stage,
             stage.getTitle()
         );
-        return asyncStageOperation(stage, Stage::show);
-    }
-
-    public static CompletionStage<Stage> asyncStageOperation(final Stage stage, final Consumer<Stage> asyncOp) {
-        return FxAsync.doOnFxThread(stage, asyncOp);
+        return FxAsync.doOnFxThread(
+            stage,
+            Stage::show
+        );
     }
 
     public static CompletionStage<Stage> scheduleHiding(final Stage stage) {
@@ -47,6 +48,26 @@ public final class Stages {
             stage,
             stage.getTitle()
         );
-        return asyncStageOperation(stage, Stage::hide);
+        return FxAsync.doOnFxThread(
+            stage,
+            Stage::hide
+        );
+    }
+
+    public static CompletionStage<Stage> setStylesheet(final Stage stage, final FxmlStylesheet stylesheet) {
+        LOG.info(
+            "Setting stylesheet {} for stage {}({})",
+            stylesheet.getPath().toAbsolutePath().toString(),
+            stage.toString(),
+            stage.getTitle()
+        );
+        return FxAsync.doOnFxThread(
+            stage,
+            theStage -> {
+                final Scene stageScene = theStage.getScene();
+                stageScene.getStylesheets().clear();
+                stageScene.getStylesheets().add(stylesheet.getPath().toString());
+            }
+        );
     }
 }

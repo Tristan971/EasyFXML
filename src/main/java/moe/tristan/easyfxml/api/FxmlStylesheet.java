@@ -1,11 +1,21 @@
 package moe.tristan.easyfxml.api;
 
-public interface FxmlStylesheet {
-    FxmlStylesheet INHERIT = () -> "INHERIT_PARENT";
-    FxmlStylesheet DEFAULT = () -> "USE_DEFAULT_JAVAFX_STYLE";
+import java.nio.file.Path;
 
+import javafx.stage.Stage;
+import moe.tristan.easyfxml.util.Stages;
+
+/**
+ * Represents a stylesheet a supplier of Path. What this means is that any protocol is acceptable.
+ * Whether it is local file-based or remote URI-based.
+ * See {@link Stages#setStylesheet(Stage, FxmlStylesheet)} for usage.
+ *
+ * Previously strongly linked to {@link FxmlNode} but the html-like implementation of the JavaFX DOM makes it
+ * so stylesheets are window-bound rather than component-bound.
+ */
+public interface FxmlStylesheet {
     /**
-     * @return the CSS content that composes the stylesheet
+     * @return the CSS file that composes the stylesheet
      */
-    String getStyle();
+    Path getPath();
 }
