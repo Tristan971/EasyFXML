@@ -1,13 +1,7 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import io.vavr.control.Try;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.api.FxmlNode;
-import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +9,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
+import io.vavr.control.Try;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 
 /**
  * This is the standard implementation of {@link EasyFxml}.
@@ -76,26 +76,10 @@ public class BaseEasyFxml implements EasyFxml {
         fxmlLoader.setLocation(getUrlForResource(filePath));
         final Try<T> loadResult = Try.of(fxmlLoader::load).map(clazz::cast);
 
-        loadResult.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
+        loadResult.onSuccess(fxmlLoader::onSuccess)
+                  .onFailure(fxmlLoader::onFailure);
 
-        return this.applyStylesheetIfNeeded(
-            fxmlNode,
-            loadResult
-        );
-    }
-
-    private <T extends Node> Try<T> applyStylesheetIfNeeded(final FxmlNode nodeInfo, final Try<T> nodeLoadResult) {
-        final FxmlStylesheet stylesheet = nodeInfo.getStylesheet();
-
-        if (!stylesheet.equals(FxmlStylesheet.INHERIT)) {
-            if (stylesheet.equals(FxmlStylesheet.DEFAULT)) {
-                nodeLoadResult.peek(loadedNode -> loadedNode.setStyle(""));
-            } else {
-                nodeLoadResult.peek(loadedNode -> loadedNode.setStyle(stylesheet.getStyle()));
-            }
-        }
-
-        return nodeLoadResult;
+        return loadResult;
     }
 
     private FxmlLoader getSingleStageFxmlLoader(final FxmlNode node) {
