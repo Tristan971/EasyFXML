@@ -1,12 +1,12 @@
 package moe.tristan.easyfxml.model.fxml;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import moe.tristan.easyfxml.api.FxmlController;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 @Component

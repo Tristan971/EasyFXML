@@ -1,7 +1,8 @@
 package moe.tristan.easyfxml.util;
 
-import javafx.application.Platform;
-import moe.tristan.easyfxml.spring.SpringContext;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,9 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
+import javafx.application.Platform;
+import moe.tristan.easyfxml.spring.SpringContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
@@ -24,7 +24,7 @@ public class FxAsyncTest extends ApplicationTest {
     public void setUp() throws ExecutionException, InterruptedException {
         final CompletableFuture<Thread> fxThreadFetch = new CompletableFuture<>();
         Platform.runLater(() -> fxThreadFetch.complete(Thread.currentThread()));
-        fxThread =fxThreadFetch.get();
+        fxThread = fxThreadFetch.get();
     }
 
     @Test

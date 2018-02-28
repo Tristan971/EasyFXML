@@ -152,18 +152,18 @@ public class BaseEasyFxmlTest extends ApplicationTest {
         assertThat(controllerLookup.get().getClass()).isEqualTo(SAMPLE_CONTROL_CLASS.class);
 
         Stages.stageOf("TEST_PANE", testPane)
-            .whenCompleteAsync((stage, err) -> Stages.scheduleDisplaying(stage))
-            .whenCompleteAsync((stage, err) -> {
-                final Button btn = (Button) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
-                btn.fire();
-                Stages.scheduleHiding(stage);
-            })
-            .whenCompleteAsync((stage, err) -> {
-                final SAMPLE_CONTROL_CLASS testController = (SAMPLE_CONTROL_CLASS) controllerLookup.get();
-                assertThat(testController.locatedInstance).isTrue();
-            })
-            .toCompletableFuture()
-            .join();
+              .whenCompleteAsync((stage, err) -> Stages.scheduleDisplaying(stage))
+              .whenCompleteAsync((stage, err) -> {
+                  final Button btn = (Button) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
+                  btn.fire();
+                  Stages.scheduleHiding(stage);
+              })
+              .whenCompleteAsync((stage, err) -> {
+                  final SAMPLE_CONTROL_CLASS testController = (SAMPLE_CONTROL_CLASS) controllerLookup.get();
+                  assertThat(testController.locatedInstance).isTrue();
+              })
+              .toCompletableFuture()
+              .join();
     }
 
     private void assertPaneFailedLoadingAndDidNotRegister(

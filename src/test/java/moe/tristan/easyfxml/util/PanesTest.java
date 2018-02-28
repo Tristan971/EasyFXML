@@ -53,14 +53,14 @@ public class PanesTest extends ApplicationTest {
         embedded = new Pane();
 
         Panes.setContent(container, embedded)
-            .whenCompleteAsync((res, err) -> {
-                assertThat(err).isNull();
-                assertThat(res).isNotNull();
-                assertThat(res).isEqualTo(container);
-                assertThat(container.getChildren())
-                    .hasSize(1)
-                    .hasOnlyElementsOfType(embedded.getClass());
-            });
+             .whenCompleteAsync((res, err) -> {
+                 assertThat(err).isNull();
+                 assertThat(res).isNotNull();
+                 assertThat(res).isEqualTo(container);
+                 assertThat(container.getChildren())
+                     .hasSize(1)
+                     .hasOnlyElementsOfType(embedded.getClass());
+             });
 
     }
 }
