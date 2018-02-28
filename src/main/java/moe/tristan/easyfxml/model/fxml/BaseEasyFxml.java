@@ -22,6 +22,7 @@ import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
  */
 @Component
 public class BaseEasyFxml implements EasyFxml {
+
     private static final Logger LOG = LoggerFactory.getLogger(BaseEasyFxml.class);
 
     private final ApplicationContext context;
@@ -29,7 +30,11 @@ public class BaseEasyFxml implements EasyFxml {
     private final ControllerManager controllerManager;
 
     @Autowired
-    protected BaseEasyFxml(final ApplicationContext context, final Environment environment, final ControllerManager controllerManager) {
+    protected BaseEasyFxml(
+        final ApplicationContext context,
+        final Environment environment,
+        final ControllerManager controllerManager
+    ) {
         this.context = context;
         this.environment = environment;
         this.controllerManager = controllerManager;
@@ -68,10 +73,22 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     /**
-     * This method acts just like {@link #loadNode(FxmlNode)} but with no
-     * autoconfiguration of controller binding and stylesheet application.
+     * This method acts just like {@link #loadNode(FxmlNode)} but with no autoconfiguration of controller binding and
+     * stylesheet application.
+     *
+     * @param fxmlLoader The loader to use. See {@link FxmlLoader} for why this matters.
+     * @param fxmlNode   The node to load as declared in some enum most likely
+     * @param clazz      The class to try to cast it to
+     * @param <T>        The type of the class to cast to
+     *
+     * @return The node in a type-safe "computation attempt" view style ({@link Try} with {@link FxmlLoader#onSuccess}
+     * or {@link FxmlLoader#onFailure} executed depending on {@link Try#isSuccess()}.
      */
-    private <T extends Node> Try<T> loadNodeImpl(final FxmlLoader fxmlLoader, final FxmlNode fxmlNode, final Class<T> clazz) {
+    private <T extends Node> Try<T> loadNodeImpl(
+        final FxmlLoader fxmlLoader,
+        final FxmlNode fxmlNode,
+        final Class<T> clazz
+    ) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));
         final Try<T> loadResult = Try.of(fxmlLoader::load).map(clazz::cast);
@@ -106,13 +123,14 @@ public class BaseEasyFxml implements EasyFxml {
 
     /**
      * @param fxmlNode The node who's filepath we look for
-     * @return The node's {@link FxmlNode#getFile()} path prepended with the views root folder,
-     * as defined by environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
+     *
+     * @return The node's {@link FxmlNode#getFile()} path prepended with the views root folder, as defined by
+     * environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
      */
     private String filePath(final FxmlNode fxmlNode) {
         final String rootPath = Try.of(() -> "moe.tristan.easyfxml.fxml.fxml_root_path")
-            .map(this.environment::getRequiredProperty)
-            .getOrElse("");
+                                   .map(this.environment::getRequiredProperty)
+                                   .getOrElse("");
 
         return rootPath + fxmlNode.getFile().getPath();
     }

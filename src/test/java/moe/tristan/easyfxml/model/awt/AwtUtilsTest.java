@@ -1,9 +1,5 @@
 package moe.tristan.easyfxml.model.awt;
 
-import io.vavr.control.Try;
-import org.junit.Test;
-
-import javax.swing.*;
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -11,6 +7,11 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.JFrame;
+
+import org.junit.Test;
+
+import io.vavr.control.Try;
 import static io.vavr.API.unchecked;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,8 +48,8 @@ public class AwtUtilsTest extends HeadlessIncompatibleTest {
         ).thenCompose(
             __ -> AwtUtils.asyncAwtRunnableWithRequirement(
                 () -> Try.of(Toolkit::getDefaultToolkit)
-                    .map(Toolkit::getSystemClipboard)
-                    .map(unchecked(cb -> cb.getData(DataFlavor.stringFlavor))),
+                         .map(Toolkit::getSystemClipboard)
+                         .map(unchecked(cb -> cb.getData(DataFlavor.stringFlavor))),
                 cbContentReq -> {
                     assertThat(cbContentReq.isSuccess()).isTrue();
                     assertThat(cbContentReq.get()).isEqualTo("TEST");
@@ -64,7 +65,7 @@ public class AwtUtilsTest extends HeadlessIncompatibleTest {
 
                 @Override
                 public DataFlavor[] getTransferDataFlavors() {
-                    return new DataFlavor[] { DataFlavor.stringFlavor };
+                    return new DataFlavor[]{DataFlavor.stringFlavor};
                 }
 
                 @Override
@@ -77,7 +78,8 @@ public class AwtUtilsTest extends HeadlessIncompatibleTest {
                     return value;
                 }
             },
-            (t, co) -> {}
+            (t, co) -> {
+            }
         );
     }
 }

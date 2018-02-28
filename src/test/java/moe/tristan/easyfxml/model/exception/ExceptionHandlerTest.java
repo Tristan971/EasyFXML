@@ -1,13 +1,13 @@
 package moe.tristan.easyfxml.model.exception;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import java.util.concurrent.ExecutionException;
+
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.concurrent.ExecutionException;
-
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExceptionHandlerTest extends ApplicationTest {
@@ -36,7 +36,9 @@ public class ExceptionHandlerTest extends ApplicationTest {
 
     @Test
     public void asPane_with_user_readable() {
-        final Label errLabel = (Label) this.ERR_PANE_READBLE.getChildren().filtered(node -> node instanceof Label).get(0);
+        final Label errLabel = (Label) this.ERR_PANE_READBLE.getChildren()
+                                                            .filtered(node -> node instanceof Label)
+                                                            .get(0);
         assertThat(errLabel.getText()).isEqualTo(this.EXCEPTION_TEXT_READABLE);
     }
 

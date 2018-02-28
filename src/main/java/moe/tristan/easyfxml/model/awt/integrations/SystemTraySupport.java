@@ -1,9 +1,5 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.AwtUtils;
-import org.springframework.stereotype.Component;
-
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -17,20 +13,43 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
+import io.vavr.control.Try;
+import moe.tristan.easyfxml.model.awt.AwtUtils;
+
+/**
+ * Allows creation/management of a custom system tray icon.
+ */
 @Component
 public class SystemTraySupport {
 
+    /**
+     * Loads the tray icon.
+     *
+     * @param systemTrayIcon The icon to load
+     *
+     * @return A {@link CompletionStage} that returns the awt-typed reference to the icon. This is to be kept if you
+     * wish to call {@link #removeTrayIcon(TrayIcon)} later.
+     */
     public CompletionStage<Try<TrayIcon>> registerTrayIcon(final SystemTrayIcon systemTrayIcon) {
-        return this.mapTrayIcon(systemTrayIcon).thenCompose(trayIcon ->
-            AwtUtils.asyncAwtCallbackWithRequirement(
-                SystemTray::getSystemTray,
-                systemTray -> Try.of(() -> {
-                    systemTray.add(trayIcon);
-                    return trayIcon;
-                })
-        ));
+        return this.mapTrayIcon(systemTrayIcon)
+                   .thenCompose(trayIcon -> AwtUtils.asyncAwtCallbackWithRequirement(
+                       SystemTray::getSystemTray,
+                       systemTray -> Try.of(() -> {
+                           systemTray.add(trayIcon);
+                           return trayIcon;
+                       })
+                   ));
     }
 
+    /**
+     * Removes the tray icon previously added.
+     *
+     * @param trayIcon The previously added TrayIcon (see {@link #registerTrayIcon(SystemTrayIcon)}
+     *
+     * @return A {@link CompletionStage} that finished upon effective removal.
+     */
     public CompletionStage<Void> removeTrayIcon(final TrayIcon trayIcon) {
         return AwtUtils.asyncAwtRunnableWithRequirement(
             SystemTray::getSystemTray,
@@ -38,6 +57,9 @@ public class SystemTraySupport {
         );
     }
 
+    /**
+     * @return the currently owned and registered tray icons.
+     */
     public List<TrayIcon> getTrayIcons() {
         final CompletionStage<TrayIcon[]> trayIconsAwait = AwtUtils.asyncAwtCallbackWithRequirement(
             SystemTray::getSystemTray,
@@ -47,7 +69,9 @@ public class SystemTraySupport {
         TrayIcon[] icons = new TrayIcon[0];
         try {
             icons = trayIconsAwait.toCompletableFuture().get(2, TimeUnit.SECONDS);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            // system issue
+        }
 
         return Arrays.stream(icons).collect(Collectors.toList());
     }

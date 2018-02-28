@@ -37,31 +37,31 @@ public class StagesTest extends ApplicationTest {
     @Test
     public void stageOf() throws ExecutionException, InterruptedException {
         Stages.stageOf(STAGE_TITLE, STAGE_PANE)
-            .thenAccept(stage -> {
-                assertThat(stage.getScene().getRoot()).isEqualTo(STAGE_PANE);
-                assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE);
-            })
-            .toCompletableFuture().get();
+              .thenAccept(stage -> {
+                  assertThat(stage.getScene().getRoot()).isEqualTo(STAGE_PANE);
+                  assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE);
+              })
+              .toCompletableFuture().get();
     }
 
     @Test
     public void scheduleDisplaying() throws ExecutionException, InterruptedException {
         Stages.scheduleDisplaying(TEST_STAGE)
-            .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isTrue())
-            .toCompletableFuture().get();
+              .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isTrue())
+              .toCompletableFuture().get();
     }
 
     @Test
     public void scheduleHiding() throws ExecutionException, InterruptedException {
         Stages.scheduleHiding(TEST_STAGE)
-            .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isFalse())
-            .toCompletableFuture().get();
+              .thenAccept(stage -> assertThat(TEST_STAGE.isShowing()).isFalse())
+              .toCompletableFuture().get();
     }
 
     @Test
     public void asyncStageOperation() throws ExecutionException, InterruptedException {
         FxAsync.doOnFxThread(TEST_STAGE, stage -> stage.setTitle(STAGE_TITLE_2))
-            .thenAccept(stage -> assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE_2))
-            .toCompletableFuture().get();
+               .thenAccept(stage -> assertThat(stage.getTitle()).isEqualTo(STAGE_TITLE_2))
+               .toCompletableFuture().get();
     }
 }

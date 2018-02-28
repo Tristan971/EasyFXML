@@ -8,6 +8,9 @@ import java.util.function.Supplier;
 
 import javax.swing.SwingUtilities;
 
+/**
+ * This class provides an asynchronous view or UI operations relating to AWT.
+ */
 public final class AwtUtils {
 
     static {

@@ -1,8 +1,9 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
+import org.springframework.stereotype.Component;
+
 import javafx.stage.Stage;
 import moe.tristan.easyfxml.api.FxmlNode;
-import org.springframework.stereotype.Component;
 
 /**
  * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
@@ -11,4 +12,5 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class StageManager extends AbstractInstanceManager<FxmlNode, Stage, Object> {
+
 }
