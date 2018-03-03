@@ -2,6 +2,7 @@ package moe.tristan.easyfxml.spring;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,10 +19,11 @@ public class __main_stub {
     public static void main(final String... args) {
         final SpringApplicationBuilder sab = new SpringApplicationBuilder(__main_stub.class)
             .headless(false)
-            .web(false);
+            .web(WebApplicationType.NONE);
 
         try (ConfigurableApplicationContext ctx = sab.run(args)) {
             LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINGS.");
+            ctx.close();
             throw new RuntimeException("NOT TO BE EXECUTED");
         }
     }
