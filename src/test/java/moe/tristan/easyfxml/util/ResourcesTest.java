@@ -1,23 +1,22 @@
 package moe.tristan.easyfxml.util;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import io.vavr.control.Try;
+import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.vavr.control.Try;
-import moe.tristan.easyfxml.spring.SpringContext;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringRunner.class)
-public class PathsTest {
+public class ResourcesTest {
 
     private static final String PATH_UTIL_TESTS_FOLDER = "PathUtilsTests/";
 
@@ -30,7 +29,7 @@ public class PathsTest {
 
     @Test
     public void path_of_existing_file() {
-        final Try<Path> fileThatExists = Paths.getPathForResource(
+        final Try<Path> fileThatExists = Resources.getResourcePath(
             PATH_UTIL_TESTS_FOLDER + EXISTING_FILE_NAME
         );
 
@@ -44,22 +43,24 @@ public class PathsTest {
 
     @Test
     public void path_of_nonexisting_file() {
-        final Try<Path> fileThatDoesntExist = Paths.getPathForResource(
+        final Try<Path> fileThatDoesntExist = Resources.getResourcePath(
             PATH_UTIL_TESTS_FOLDER + NONEXISTING_FILE_NAME
         );
 
         assertThat(fileThatDoesntExist.isFailure()).isTrue();
+        assertThat(fileThatDoesntExist.getCause().getMessage()).contains(PATH_UTIL_TESTS_FOLDER+NONEXISTING_FILE_NAME);
     }
 
     @Test
-    public void listFiles_existing_folder() throws IOException {
-        final Try<Path> pathUtilsTestFolder = Paths.getPathForResource(PATH_UTIL_TESTS_FOLDER);
+    public void listFiles_existing_folder() {
+        final Try<Path> pathUtilsTestFolder = Resources.getResourcePath(PATH_UTIL_TESTS_FOLDER);
         assertThat(pathUtilsTestFolder.isSuccess()).isTrue();
 
-        final List<Path> files = Paths.listFiles(pathUtilsTestFolder.get());
-        assertThat(files.size()).isEqualTo(2);
+        final Try<List<Path>> files = Resources.listFiles(pathUtilsTestFolder.get());
+        assertThat(files.isSuccess()).isTrue();
+        assertThat(files.get().size()).isEqualTo(2);
 
-        final List<String> fileNames = files.stream()
+        final List<String> fileNames = files.get().stream()
                                             .map(Path::getFileName)
                                             .map(Path::toString)
                                             .collect(Collectors.toList());

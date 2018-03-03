@@ -1,9 +1,14 @@
 package moe.tristan.easyfxml.api;
 
-import java.nio.file.Path;
-
 import javafx.stage.Stage;
+import moe.tristan.easyfxml.util.Resources;
 import moe.tristan.easyfxml.util.Stages;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Represents a stylesheet a supplier of Path. What this means is that any protocol is acceptable.
@@ -11,13 +16,32 @@ import moe.tristan.easyfxml.util.Stages;
  * <p>
  * See {@link Stages#setStylesheet(Stage, FxmlStylesheet)} for usage.
  * <p>
- * Previously strongly linked to {@link FxmlNode} but the html-like implementation of the JavaFX DOM makes it so
- * stylesheets are window-bound rather than component-bound.
+ *
+ * You can override one or each of these methods as they depend on each other and thus overriding at least one will make
+ * the other (and thus both) valid.
  */
 public interface FxmlStylesheet {
 
     /**
-     * @return the CSS file that composes the stylesheet
+     * @return the CSS file that composes the stylesheet as a {@link Path}.
+     * <p>
+     * See {@link Resources#getResourcePath(String)}
      */
-    Path getPath();
+    default Path getPath() {
+        return Paths.get(URI.create(getExternalForm()));
+    }
+
+    /**
+     * @return the CSS file in external form (i.e. with the file:/, http:/...) protocol info before it.
+     * <p>
+     * See {@link Resources#getResourceURL(String)} and {@link URL#toExternalForm()}
+     */
+    default String getExternalForm() {
+        try {
+            return getPath().toUri().toURL().toExternalForm();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
