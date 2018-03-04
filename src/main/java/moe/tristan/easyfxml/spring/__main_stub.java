@@ -24,7 +24,7 @@ public class __main_stub {
         try (ConfigurableApplicationContext ctx = sab.run(args)) {
             LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINGS.");
             ctx.close();
-            throw new RuntimeException("NOT TO BE EXECUTED");
+            throw new IllegalStateException("NOT TO BE EXECUTED");
         }
     }
 }

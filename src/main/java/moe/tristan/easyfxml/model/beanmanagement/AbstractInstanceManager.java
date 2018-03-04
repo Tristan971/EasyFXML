@@ -1,14 +1,9 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-
 import io.vavr.control.Option;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class is aimed at helping you store references to various kinds of class instances.
@@ -72,11 +67,12 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
         final TYPE_SELECTOR selector,
         final TYPE_ACTUAL_INST instance
     ) {
+        final HashMap<TYPE_SELECTOR, TYPE_ACTUAL_INST> newEntryMap = new HashMap<>();
+        newEntryMap.put(selector, instance);
+
         final Optional<Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST>> newEntry = this.prototypes.merge(
             parent,
-            new HashMap<TYPE_SELECTOR, TYPE_ACTUAL_INST>() {{
-                this.put(selector, instance);
-            }},
+            newEntryMap,
             this::mergePrototypes
         ).entrySet().stream().filter(entry -> entry.getKey().equals(selector)).findAny();
         return newEntry.orElseThrow(RuntimeException::new);
