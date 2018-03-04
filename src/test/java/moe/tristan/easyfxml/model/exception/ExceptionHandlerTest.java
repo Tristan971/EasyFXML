@@ -1,13 +1,14 @@
 package moe.tristan.easyfxml.model.exception;
 
-import java.util.concurrent.ExecutionException;
-
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
+
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExceptionHandlerTest extends ApplicationTest {
@@ -44,10 +45,14 @@ public class ExceptionHandlerTest extends ApplicationTest {
 
     @Test
     public void displayExceptionPane() throws ExecutionException, InterruptedException {
-        ExceptionHandler.displayExceptionPane(
+        final CompletionStage<Stage> asyncDisplayedStage = ExceptionHandler.displayExceptionPane(
             this.EXCEPTION_TEXT,
             this.EXCEPTION_TEXT_READABLE,
             this.EXCEPTION
-        ).thenAccept(stage -> assertThat(stage.isShowing()).isTrue()).toCompletableFuture().get();
+        );
+
+        final Stage errStage = asyncDisplayedStage.toCompletableFuture().get();
+
+        assertThat(errStage.isShowing()).isTrue();
     }
 }

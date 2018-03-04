@@ -1,12 +1,8 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import java.awt.MenuItem;
-import java.awt.event.ActionListener;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
+import io.vavr.control.Try;
+import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
+import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +10,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
-import moe.tristan.easyfxml.spring.SpringContext;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -39,19 +40,20 @@ public class SystemTraySupportTest extends HeadlessIncompatibleTest {
         final MenuItem testItem = new MenuItem("DISABLED_ON_CLICK");
         final ActionListener disableOnClick = e -> testItem.setEnabled(false);
 
-        final Map<MenuItem, ActionListener> menuItems = new HashMap<MenuItem, ActionListener>() {{
-            this.put(testItem, disableOnClick);
-        }};
+        final Map<MenuItem, ActionListener> menuItems = new HashMap<>();
+        menuItems.put(testItem, disableOnClick);
 
         final SystemTrayIcon trayIcon = this.systemTrayIconWith(menuItems);
-        systemTraySupport.registerTrayIcon(trayIcon)
-                         .whenCompleteAsync((res, err) -> assertThat(res.isSuccess()).isTrue())
-                         .thenApply(Try::get)
-                         .whenCompleteAsync((res, err) -> assertThat(systemTraySupport.getTrayIcons()).containsExactly(
-                             res))
-                         .whenCompleteAsync((res, err) -> systemTraySupport.removeTrayIcon(res))
-                         .thenAccept(icon -> assertThat(systemTraySupport.getTrayIcons()).doesNotContain(icon))
-                         .toCompletableFuture().get();
+        final CompletionStage<Try<TrayIcon>> asyncRegistrationRes = systemTraySupport.registerTrayIcon(trayIcon);
+        final Try<TrayIcon> registrationRes = asyncRegistrationRes.toCompletableFuture().get();
+
+        assertThat(registrationRes.isSuccess()).isTrue();
+        assertThat(systemTraySupport.getTrayIcons()).containsExactly(registrationRes.get());
+
+        final CompletionStage<Void> asyncRemove = systemTraySupport.removeTrayIcon(registrationRes.get());
+        asyncRemove.toCompletableFuture().get();
+
+        assertThat(systemTraySupport.getTrayIcons()).doesNotContain(registrationRes.get());
     }
 
     private SystemTrayIcon systemTrayIconWith(final Map<MenuItem, ActionListener> menuItems) {
