@@ -1,23 +1,23 @@
 package moe.tristan.easyfxml.util;
 
 import io.vavr.control.Try;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
 
 /**
  * This class is for classpath-based files simpler access (i.e. resources).
  */
 public final class Resources {
-
-    private static final Logger LOG = LoggerFactory.getLogger(Resources.class);
 
     private Resources() {
     }
@@ -33,12 +33,13 @@ public final class Resources {
             .mapTry(URL::toURI)
             .mapTry(Paths::get)
             .map(resPath -> {
-                final String actualPath = resPath.toAbsolutePath().toString() + File.separator + resourceRelativePath;
-                LOG.debug("Trying to load file path : {}", actualPath);
                 try {
-                    return Paths.get(actualPath).toRealPath();
-                } catch (IOException e) {
-                    throw new RuntimeException("Could not load file at " + actualPath, e);
+                    return Paths.get(getBaseURL().toURI()).resolve(resourceRelativePath).toRealPath();
+                } catch (IOException | URISyntaxException e) {
+                    throw new RuntimeException(
+                        "Could not load file at " + getBaseURL() + resourceRelativePath,
+                        e
+                    );
                 }
             });
     }
@@ -54,8 +55,23 @@ public final class Resources {
      * @return The path associated with resource at said relative path to classpath.
      */
     public static Try<URL> getResourceURL(final String resourceRelativePath) {
-        return Try.of(Resources.class::getClassLoader)
-            .map(cl -> cl.getResource(resourceRelativePath));
+        final ClassLoader classLoader = Resources.class.getClassLoader();
+        return Try.of(() -> classLoader)
+            .map(cl -> cl.getResource(resourceRelativePath))
+            .map(Objects::requireNonNull)
+            .mapFailure(
+                Case(
+                    $(err -> err instanceof NullPointerException | err instanceof NoSuchFileException),
+                    err -> new RuntimeException(
+                        "Error loading file at: " + getBaseURL().toExternalForm() + resourceRelativePath,
+                        err
+                    )
+                )
+            );
+    }
+
+    private static URL getBaseURL() {
+        return Resources.class.getClassLoader().getResource(".");
     }
 
     /**
