@@ -12,6 +12,9 @@ import moe.tristan.easyfxml.api.FxmlController;
 @Component
 public class NoControllerClass implements FxmlController {
 
+    /**
+     * Empty voluntarily as no logic is to be included in this class.
+     */
     @Override
     public void initialize() {
     }

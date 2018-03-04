@@ -36,7 +36,7 @@ public final class Resources {
                 try {
                     return Paths.get(getBaseURL().toURI()).resolve(resourceRelativePath).toRealPath();
                 } catch (IOException | URISyntaxException e) {
-                    throw new RuntimeException(
+                    throw new IllegalArgumentException(
                         "Could not load file at " + getBaseURL() + resourceRelativePath,
                         e
                     );
@@ -62,7 +62,7 @@ public final class Resources {
             .mapFailure(
                 Case(
                     $(err -> err instanceof NullPointerException | err instanceof NoSuchFileException),
-                    err -> new RuntimeException(
+                    err -> new IllegalArgumentException(
                         "Error loading file at: " + getBaseURL().toExternalForm() + resourceRelativePath,
                         err
                     )

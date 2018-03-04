@@ -1,17 +1,16 @@
 package moe.tristan.easyfxml.model.awt;
 
-import java.awt.Cursor;
-import java.awt.Toolkit;
+import io.vavr.control.Try;
+import org.junit.Test;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
-import javax.swing.JFrame;
-
-import org.junit.Test;
-
-import io.vavr.control.Try;
 import static io.vavr.API.unchecked;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,12 +31,12 @@ public class AwtUtilsTest extends HeadlessIncompatibleTest {
 
     @Test
     public void asyncAwtCallbackWithRequirement() throws ExecutionException, InterruptedException {
-        AwtUtils.asyncAwtCallbackWithRequirement(
+        final CompletionStage<Integer> cursorType = AwtUtils.asyncAwtCallbackWithRequirement(
             Cursor::getDefaultCursor,
             Cursor::getType
-        ).thenAccept(
-            cursorType -> assertThat(cursorType).isEqualTo(Cursor.DEFAULT_CURSOR)
-        ).toCompletableFuture().get();
+        );
+
+        assertThat(cursorType.toCompletableFuture().get()).isEqualTo(Cursor.DEFAULT_CURSOR);
     }
 
     @Test
