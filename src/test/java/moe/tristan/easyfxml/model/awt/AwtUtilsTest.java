@@ -11,22 +11,20 @@ import java.awt.datatransfer.Transferable;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
-import static io.vavr.API.unchecked;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AwtUtilsTest extends HeadlessIncompatibleTest {
 
     @Test
     public void asyncAwtOperation() throws ExecutionException, InterruptedException {
-        AwtUtils.asyncAwtOperation(
+        final CompletionStage<JFrame> frame = AwtUtils.asyncAwtOperation(
             () -> {
                 final JFrame testFrame = new JFrame();
                 testFrame.setVisible(true);
                 return testFrame;
             }
-        ).thenAccept(
-            frame -> assertThat(frame.isVisible()).isTrue()
-        ).toCompletableFuture().get();
+        );
+        assertThat(frame.toCompletableFuture().get().isVisible()).isTrue();
     }
 
     @Test
@@ -39,22 +37,23 @@ public class AwtUtilsTest extends HeadlessIncompatibleTest {
         assertThat(cursorType.toCompletableFuture().get()).isEqualTo(Cursor.DEFAULT_CURSOR);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
-    public void asyncAwtRunnableWithRequirement() throws ExecutionException, InterruptedException {
+    public void asyncAwtRunnableWithRequirement() {
         AwtUtils.asyncAwtRunnableWithRequirement(
             Toolkit.getDefaultToolkit()::getSystemClipboard,
             this::pushClipboardTestData
-        ).thenCompose(
-            __ -> AwtUtils.asyncAwtRunnableWithRequirement(
-                () -> Try.of(Toolkit::getDefaultToolkit)
-                         .map(Toolkit::getSystemClipboard)
-                         .map(unchecked(cb -> cb.getData(DataFlavor.stringFlavor))),
-                cbContentReq -> {
-                    assertThat(cbContentReq.isSuccess()).isTrue();
-                    assertThat(cbContentReq.get()).isEqualTo("TEST");
-                }
-            )
-        ).toCompletableFuture().get();
+        );
+
+        final CompletionStage<Try<Object>> asyncCb = AwtUtils.asyncAwtCallbackWithRequirement(
+            Toolkit.getDefaultToolkit()::getSystemClipboard,
+            cb -> Try.of(() -> cb.getData(DataFlavor.stringFlavor))
+        );
+
+        final Try<Object> clipboardLoad = Try.of(asyncCb.toCompletableFuture()::get);
+
+        assertThat(clipboardLoad.isSuccess()).isTrue();
+        assertThat(((Try<Object>) clipboardLoad.get()).get()).isEqualTo("TEST");
     }
 
     private void pushClipboardTestData(Clipboard clipboard) {
