@@ -17,6 +17,7 @@ public class NoControllerClass implements FxmlController {
      */
     @Override
     public void initialize() {
+        //see doc
     }
 
 }

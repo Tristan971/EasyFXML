@@ -7,7 +7,11 @@ import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import moe.tristan.easyfxml.model.fxml.FxmlLoader;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 
 /**
  * {@link Configuration} class for non-autonomous {@link Bean}s. Useful to bean-ify the JDK classes as can sometimes be
@@ -42,7 +46,6 @@ public class SpringContext {
      * BaseEasyFxml#getMultiStageFxmlLoader(FxmlNode, Object)}
      *
      * @param context The application's context for controller instanciation
-     *
      * @return A spring-enabled {@link FXMLLoader}.
      */
     @Bean
