@@ -4,6 +4,7 @@ import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
@@ -32,7 +33,7 @@ public final class Resources {
             .mapTry(URL::toURI)
             .mapTry(Paths::get)
             .map(resPath -> {
-                final String actualPath = resPath.toAbsolutePath().toString() + '/' + resourceRelativePath;
+                final String actualPath = resPath.toAbsolutePath().toString() + File.separator + resourceRelativePath;
                 LOG.debug("Trying to load file path : {}", actualPath);
                 try {
                     return Paths.get(actualPath).toRealPath();
