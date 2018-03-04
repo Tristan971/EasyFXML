@@ -1,19 +1,13 @@
 package moe.tristan.easyfxml.spring;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import moe.tristan.easyfxml.model.fxml.FxmlLoader;
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.*;
 
 /**
  * {@link Configuration} class for non-autonomous {@link Bean}s. Useful to bean-ify the JDK classes as can sometimes be
@@ -52,7 +46,7 @@ public class SpringContext {
      * @return A spring-enabled {@link FXMLLoader}.
      */
     @Bean
-    @Scope(scopeName = SCOPE_PROTOTYPE)
+    @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     @SuppressWarnings("unchecked")
     public FxmlLoader fxmlLoader(final ApplicationContext context) {
         final FxmlLoader fxmlLoader = new FxmlLoader();

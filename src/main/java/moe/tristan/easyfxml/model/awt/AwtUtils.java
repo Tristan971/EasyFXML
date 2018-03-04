@@ -1,12 +1,11 @@
 package moe.tristan.easyfxml.model.awt;
 
+import javax.swing.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import javax.swing.SwingUtilities;
 
 /**
  * This class provides an asynchronous view or UI operations relating to AWT.

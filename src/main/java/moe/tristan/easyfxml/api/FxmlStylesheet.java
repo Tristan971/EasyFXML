@@ -40,7 +40,7 @@ public interface FxmlStylesheet {
         try {
             return getPath().toUri().toURL().toExternalForm();
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
