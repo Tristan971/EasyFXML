@@ -1,14 +1,19 @@
 # EasyFXML
 An opinionated framework for building modern _JavaFX_ apps.
 
-[![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
+Last build's statuses:
 
+[![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
+[![codecov](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graph/badge.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/18f5d4a8602a48cb9ccb1fa5e0215cd4)](https://www.codacy.com/app/Tristan971/EasyFXML)
+[![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
+ 
 Maven dependency :
 ```xml
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
 </dependency>
 ```
 
