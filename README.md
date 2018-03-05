@@ -7,6 +7,8 @@ Last build's statuses:
 [![codecov](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graph/badge.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/18f5d4a8602a48cb9ccb1fa5e0215cd4)](https://www.codacy.com/app/Tristan971/EasyFXML)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
+
+[![Coverage Graph](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
  
 Maven dependency :
 ```xml
