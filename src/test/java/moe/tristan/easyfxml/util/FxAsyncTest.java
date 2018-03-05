@@ -1,9 +1,10 @@
 package moe.tristan.easyfxml.util;
 
-import javafx.application.Platform;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
+
+import javafx.application.Platform;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;

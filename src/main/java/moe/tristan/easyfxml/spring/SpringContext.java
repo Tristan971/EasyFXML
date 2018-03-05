@@ -1,10 +1,5 @@
 package moe.tristan.easyfxml.spring;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import moe.tristan.easyfxml.api.FxmlNode;
-import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
-import moe.tristan.easyfxml.model.fxml.FxmlLoader;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
+import moe.tristan.easyfxml.model.fxml.FxmlLoader;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 
 /**
  * {@link Configuration} class for non-autonomous {@link Bean}s. Useful to bean-ify the JDK classes as can sometimes be
@@ -21,8 +22,8 @@ import org.springframework.context.annotation.Scope;
  * <p>
  * All beans are initialized lazily so that only the used parts of the library are generated.
  * <p>
- * This will add a few slowdown moments in the beginning of an application's lifecycle, but yield lower memory usage
- * and avoir bean name conflicts and other things like it.
+ * This will add a few slowdown moments in the beginning of an application's lifecycle, but yield lower memory usage and
+ * avoir bean name conflicts and other things like it.
  */
 @Lazy
 @Configuration
@@ -46,6 +47,7 @@ public class SpringContext {
      * BaseEasyFxml#getMultiStageFxmlLoader(FxmlNode, Object)}
      *
      * @param context The application's context for controller instanciation
+     *
      * @return A spring-enabled {@link FXMLLoader}.
      */
     @Bean

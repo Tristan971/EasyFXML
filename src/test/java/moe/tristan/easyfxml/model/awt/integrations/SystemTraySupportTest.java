@@ -1,16 +1,17 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
-import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
-import moe.tristan.easyfxml.spring.SpringContext;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
+import moe.tristan.easyfxml.spring.SpringContext;
+import io.vavr.control.Try;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import java.awt.*;
+import java.awt.MenuItem;
+import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.HashMap;

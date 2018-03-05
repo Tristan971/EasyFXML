@@ -1,9 +1,9 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import java.util.function.Consumer;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+
+import java.util.function.Consumer;
 
 /**
  * Subclass of {@link FXMLLoader} to add post-load operations depending on success or failure.
@@ -43,4 +43,5 @@ public class FxmlLoader extends FXMLLoader {
     public void onFailure(final Throwable cause) {
         this.onFailure.accept(cause);
     }
+
 }

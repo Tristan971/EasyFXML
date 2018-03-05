@@ -1,18 +1,18 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
+import org.springframework.stereotype.Component;
+import moe.tristan.easyfxml.model.awt.AwtUtils;
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
+import io.vavr.CheckedFunction1;
+import io.vavr.control.Try;
+
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.CompletionStage;
 
-import org.springframework.stereotype.Component;
-
-import io.vavr.CheckedFunction1;
-import io.vavr.control.Try;
 import static io.vavr.API.unchecked;
-import moe.tristan.easyfxml.model.awt.AwtUtils;
-import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 
 /**
  * This class contains some utility methods to open URLs with the default web browser of the user.
@@ -22,6 +22,7 @@ public class BrowserSupport {
 
     /**
      * Opens a given URL or a pop-up with the error if it could not do so.
+     *
      * @param url The URL as a String. Must conform to {@link URL#URL(String)}.
      */
     public void openUrl(final String url) {
@@ -33,6 +34,7 @@ public class BrowserSupport {
 
     /**
      * Opens a given URL or a pop-up with the error if it could not do so.
+     *
      * @param url The URL as an {@link URL}.
      */
     public void openUrl(final URL url) {

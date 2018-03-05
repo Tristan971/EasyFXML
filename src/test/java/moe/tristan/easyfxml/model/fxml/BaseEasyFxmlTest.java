@@ -1,28 +1,29 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
-
-import io.vavr.control.Option;
-import io.vavr.control.Try;
-import javafx.fxml.LoadException;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.spring.SpringContext;
 import moe.tristan.easyfxml.util.Stages;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.testfx.framework.junit.ApplicationTest;
+
+import javafx.fxml.LoadException;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = {SpringContext.class, SAMPLE_CONTROL_CLASS.class})

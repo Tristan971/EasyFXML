@@ -1,13 +1,14 @@
 package moe.tristan.easyfxml.util;
 
+import moe.tristan.easyfxml.api.FxmlStylesheet;
 import io.vavr.Tuple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import moe.tristan.easyfxml.api.FxmlStylesheet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.concurrent.CompletionStage;
@@ -27,6 +28,7 @@ public final class Stages {
      *
      * @param title    The title of the stage
      * @param rootPane The scene's base
+     *
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous creation. It will
      * eventually contain the newly created stage.
      */
@@ -46,6 +48,7 @@ public final class Stages {
      * Schedules a stage for displaying.
      *
      * @param stage The stage to schedule displaying of.
+     *
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous operation
      */
     public static CompletionStage<Stage> scheduleDisplaying(final Stage stage) {
@@ -64,6 +67,7 @@ public final class Stages {
      * Schedules a stage for hiding
      *
      * @param stage The stage to shcedule hiding of.
+     *
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous operation
      */
     public static CompletionStage<Stage> scheduleHiding(final Stage stage) {
@@ -82,10 +86,10 @@ public final class Stages {
      * Boilerplate for setting the stylesheet of a given stage via Java rather than FXML.
      *
      * @param stage      The stage whose stylesheet we are changing
-     * @param stylesheet The new stylesheet in external form. That is, if it is a file, including the protocol
-     *                   info "file:/" before the actual path.
-     *                   Use {@link Resources#getResourceURL(String)} and {@link URL#toExternalForm()} if your css file
-     *                   is included in the classpath.
+     * @param stylesheet The new stylesheet in external form. That is, if it is a file, including the protocol info
+     *                   "file:/" before the actual path. Use {@link Resources#getResourceURL(String)} and {@link
+     *                   URL#toExternalForm()} if your css file is included in the classpath.
+     *
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous operation
      */
     public static CompletionStage<Stage> setStylesheet(final Stage stage, final String stylesheet) {
@@ -107,8 +111,10 @@ public final class Stages {
 
     /**
      * See {@link #setStylesheet(Stage, String)}
-     * @param stage The stage to apply the style to
+     *
+     * @param stage      The stage to apply the style to
      * @param stylesheet The {@link FxmlStylesheet} pointing to the stylesheet to apply
+     *
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous operation
      */
     public static CompletionStage<Stage> setStylesheet(final Stage stage, final FxmlStylesheet stylesheet) {

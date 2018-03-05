@@ -1,5 +1,9 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
+import org.springframework.stereotype.Component;
+import moe.tristan.easyfxml.model.awt.AwtUtils;
+import io.vavr.control.Try;
+
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -12,11 +16,6 @@ import java.util.Map;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
-import io.vavr.control.Try;
-import moe.tristan.easyfxml.model.awt.AwtUtils;
 
 /**
  * Allows creation/management of a custom system tray icon.

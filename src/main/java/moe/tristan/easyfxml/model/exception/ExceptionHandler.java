@@ -1,9 +1,7 @@
 package moe.tristan.easyfxml.model.exception;
 
-import java.util.Arrays;
-import java.util.concurrent.CompletionStage;
-import java.util.stream.Collectors;
-
+import moe.tristan.easyfxml.util.Nodes;
+import moe.tristan.easyfxml.util.Stages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +10,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import moe.tristan.easyfxml.util.DomUtils;
-import moe.tristan.easyfxml.util.Stages;
+
+import java.util.Arrays;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 /**
  * Utility class to quickly turn an exception into a readable error pop-up.
@@ -55,7 +55,7 @@ public final class ExceptionHandler {
         final TextArea throwableDataLabel = new TextArea(formatErrorMessage(this.exception));
 
         AnchorPane.setLeftAnchor(messageLabel, ERROR_FIELD_MARGIN_SIZE);
-        DomUtils.centerNode(throwableDataLabel, ERROR_FIELD_MARGIN_SIZE);
+        Nodes.centerNode(throwableDataLabel, ERROR_FIELD_MARGIN_SIZE);
         return new AnchorPane(messageLabel, throwableDataLabel);
     }
 

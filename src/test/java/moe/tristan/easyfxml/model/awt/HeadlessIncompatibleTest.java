@@ -1,12 +1,13 @@
 package moe.tristan.easyfxml.model.awt;
 
-import java.awt.Desktop;
-import java.awt.SystemTray;
-
 import org.junit.Before;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.stage.Stage;
+
+import java.awt.Desktop;
+import java.awt.SystemTray;
+
 import static org.junit.Assume.assumeTrue;
 
 /**

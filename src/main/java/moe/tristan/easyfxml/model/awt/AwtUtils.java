@@ -1,6 +1,6 @@
 package moe.tristan.easyfxml.model.awt;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
@@ -16,7 +16,8 @@ public final class AwtUtils {
         java.awt.Toolkit.getDefaultToolkit();
     }
 
-    private AwtUtils() {}
+    private AwtUtils() {
+    }
 
     public static <RES> CompletionStage<RES> asyncAwtOperation(final Supplier<RES> awtOperation) {
         final CompletableFuture<RES> futureResult = new CompletableFuture<>();

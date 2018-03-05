@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class DomUtilsTest extends ApplicationTest {
+public class NodesTest extends ApplicationTest {
 
     private static final double MARGIN = 5d;
     private static final int WIDTH_PANE = 200;
@@ -26,6 +26,6 @@ public class DomUtilsTest extends ApplicationTest {
 
     @Test
     public void centerNode() {
-        DomUtils.centerNode(this.testButton, MARGIN);
+        Nodes.centerNode(this.testButton, MARGIN);
     }
 }

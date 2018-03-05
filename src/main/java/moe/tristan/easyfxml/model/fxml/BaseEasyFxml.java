@@ -1,21 +1,21 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import java.net.URL;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-
-import io.vavr.control.Try;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+
+import java.net.URL;
 
 /**
  * This is the standard implementation of {@link EasyFxml}.
@@ -93,8 +93,7 @@ public class BaseEasyFxml implements EasyFxml {
         fxmlLoader.setLocation(getUrlForResource(filePath));
         final Try<T> loadResult = Try.of(fxmlLoader::load).map(clazz::cast);
 
-        loadResult.onSuccess(fxmlLoader::onSuccess)
-                  .onFailure(fxmlLoader::onFailure);
+        loadResult.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
 
         return loadResult;
     }

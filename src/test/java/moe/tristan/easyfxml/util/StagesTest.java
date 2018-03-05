@@ -1,17 +1,18 @@
 package moe.tristan.easyfxml.util;
 
-import java.util.concurrent.ExecutionException;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import moe.tristan.easyfxml.spring.SpringContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import moe.tristan.easyfxml.spring.SpringContext;
+
+import java.util.concurrent.ExecutionException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = SpringContext.class)

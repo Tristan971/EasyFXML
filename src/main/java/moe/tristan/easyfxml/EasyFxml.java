@@ -1,13 +1,14 @@
 package moe.tristan.easyfxml;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import io.vavr.control.Try;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import io.vavr.control.Try;
+
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public interface EasyFxml {
 

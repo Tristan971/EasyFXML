@@ -4,11 +4,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Small DOM-related utils for the JavaFX DOM.
+ * Small DOM-related utils for JavaFX nodes.
  */
-public final class DomUtils {
+public final class Nodes {
 
-    private DomUtils() {
+    private Nodes() {
     }
 
     /**
