@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
 import moe.tristan.easyfxml.spring.SpringContext;
 import io.vavr.control.Try;
 import org.junit.Test;
@@ -26,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringRunner.class)
-public class SystemTraySupportTest extends HeadlessIncompatibleTest {
+public class SystemTraySupportTest {
 
     private static final String TRAY_LABEL = "TEST_LABEL";
     private static final URL TRAY_ICON_URL = getTrayIcon();
