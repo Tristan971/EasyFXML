@@ -1,23 +1,15 @@
 language: java
 
 os: linux
-dist: yaketty
-sudo: false
+dist: zesty
+sudo: required
 
 cache:
   directories:
   - $HOME/.m2
 
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - maven
-      - gtk+3.0
-      - stalonetray
-
 before_script:
+  - apt install -y maven gtk+3.0 stalonetray
   - "export DISPLAY=:99.0"
   - "Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &"
   - sleep 3
