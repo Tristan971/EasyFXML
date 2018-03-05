@@ -3,7 +3,6 @@ package moe.tristan.easyfxml.model.awt.integrations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import moe.tristan.easyfxml.model.awt.HeadlessIncompatibleTest;
 import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,7 @@ import java.net.URL;
 
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class BrowserSupportTest extends HeadlessIncompatibleTest {
+public class BrowserSupportTest {
 
     @Autowired
     private BrowserSupport browserSupport;
