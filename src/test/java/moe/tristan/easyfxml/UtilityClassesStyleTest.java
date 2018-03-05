@@ -1,8 +1,5 @@
 package moe.tristan.easyfxml;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import moe.tristan.easyfxml.spring.SpringContext;
@@ -11,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -23,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ContextConfiguration(classes = SpringContext.class)
 @RunWith(SpringRunner.class)
-public class PrivateConstructorTest {
+public class UtilityClassesStyleTest {
 
     private static final Reflections reflections = new Reflections(
         "moe.tristan.easyfxml",
@@ -33,10 +31,8 @@ public class PrivateConstructorTest {
     @Test
     public void assertExistsPrivateCtor() {
         reflections.getSubTypesOf(Object.class).stream()
-                   .filter(clazz -> !clazz.isAnnotationPresent(Configuration.class))
-                   .filter(clazz -> !clazz.isAnnotationPresent(Component.class))
-                   .filter(clazz -> !clazz.isAnnotationPresent(SpringBootApplication.class))
-                   .filter(clazz -> !clazz.getName().endsWith("Test"))
+                   .filter(UtilityClassesStyleTest::isNotTestClass)
+                   .filter(UtilityClassesStyleTest::isNotSpringClass)
                    .filter(clazz -> !clazz.isInterface())
                    .filter(clazz ->
                        Arrays.stream(clazz.getDeclaredFields())
@@ -54,6 +50,20 @@ public class PrivateConstructorTest {
                        assertThat(Modifier.isPrivate(constructors[0].getModifiers())).isTrue();
                        System.out.println("[*]");
                    });
+    }
+
+    private static boolean isNotTestClass(final Class<?> clazz) {
+        if (clazz.getName().endsWith("Test")) {
+            return false;
+        }
+        return !clazz.getName().split("\\$")[0].endsWith("Test");
+    }
+
+    private static boolean isNotSpringClass(final Class<?> clazz) {
+        final Annotation[] annotations = clazz.getDeclaredAnnotations();
+        return Arrays.stream(annotations)
+                     .map(Annotation::toString)
+                     .noneMatch(name -> name.contains("org.springframework"));
     }
 
 }
