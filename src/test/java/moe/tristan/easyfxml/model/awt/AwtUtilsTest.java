@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AwtUtilsTest extends HeadlessIncompatibleTest {
+public class AwtUtilsTest {
 
     @Test
     public void asyncAwtOperation() throws ExecutionException, InterruptedException {
