@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.net.URL;
 import java.util.concurrent.CompletionStage;
 
 /**
@@ -88,7 +87,7 @@ public final class Stages {
      * @param stage      The stage whose stylesheet we are changing
      * @param stylesheet The new stylesheet in external form. That is, if it is a file, including the protocol info
      *                   "file:/" before the actual path. Use {@link Resources#getResourceURL(String)} and {@link
-     *                   URL#toExternalForm()} if your css file is included in the classpath.
+     *                   java.net.URL#toExternalForm()} if your css file is included in the classpath.
      *
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous operation
      */
