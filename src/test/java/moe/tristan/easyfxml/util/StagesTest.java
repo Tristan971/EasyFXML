@@ -30,14 +30,13 @@ public class StagesTest extends ApplicationTest {
     private Stage testStage;
     private String stageTitle;
     private String stageTitle2;
-    private Pane stagePane;
 
     @Override
     public void start(final Stage stage) {
         Platform.setImplicitExit(false);
         stageTitle = "stageTitle";
         stageTitle2 = "stageTitle2";
-        stagePane = new Pane();
+        Pane stagePane = new Pane();
         testStage = stage;
         testStage.setScene(new Scene(stagePane));
         stage.show();
