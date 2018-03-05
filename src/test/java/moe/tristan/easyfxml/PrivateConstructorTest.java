@@ -1,15 +1,15 @@
 package moe.tristan.easyfxml;
 
-import moe.tristan.easyfxml.spring.SpringContext;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import moe.tristan.easyfxml.spring.SpringContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -39,8 +39,8 @@ public class PrivateConstructorTest {
                    .filter(clazz -> !clazz.getName().endsWith("Test"))
                    .filter(clazz -> !clazz.isInterface())
                    .filter(clazz ->
-                               Arrays.stream(clazz.getDeclaredFields())
-                                     .allMatch(field -> Modifier.isStatic(field.getModifiers())))
+                       Arrays.stream(clazz.getDeclaredFields())
+                             .allMatch(field -> Modifier.isStatic(field.getModifiers())))
                    .forEach(clazz -> {
                        System.out.println("Expecting class " + clazz.getName() + " to :");
                        System.out.print("\t-> be final ");

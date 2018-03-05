@@ -2,7 +2,12 @@ package moe.tristan.easyfxml.model.beanmanagement;
 
 import io.vavr.control.Option;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,9 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * In case all is well, you only use Single and getting the instance is as easy as providing the instance that it is a
  * children of.
  * <p>
- * In case you have multiple instances for the same parent type, we cannot keep doing that. This is why we
- * need to make sure we can store them in an easy way that can allow distinction between those when needed afterwards.
- * See the {@link #registerMultiple(Object, Object, Object)} method for that.
+ * In case you have multiple instances for the same parent type, we cannot keep doing that. This is why we need to make
+ * sure we can store them in an easy way that can allow distinction between those when needed afterwards. See the {@link
+ * #registerMultiple(Object, Object, Object)} method for that.
  */
 public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST, TYPE_SELECTOR> {
 
@@ -39,12 +44,17 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
     }
 
     /**
-     * This method stores your instances in a {@link ConcurrentHashMap} that looks like this :<br> |-- CommonInst1
-     * --<br> |                |-- Selector1 -&gt; Instance 1 of class {@link TYPE_ACTUAL_INST}<br> |                |--
-     * Selector2 -&gt; Instance 2 of class {@link TYPE_ACTUAL_INST}<br> |<br> |-- CommonInst2 --<br> |
-     * |-- Selector# -&gt; Instance # of class {@link TYPE_ACTUAL_INST}<br> |                ...<br> |
-     * |-- SelectorN -&gt; Instance N of class {@link TYPE_ACTUAL_INST}<br> ...<br> |<br>
-     * <br>
+     * This method stores your instances in a {@link ConcurrentHashMap} that looks like this :<br>
+     * |-- CommonInst1 --<br>
+     * |                |-- Selector1 -&gt; Instance 1 of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- Selector2 -&gt; Instance 2 of class {@link TYPE_ACTUAL_INST}<br>
+     * |<br>
+     * |-- CommonInst2 --<br>
+     * |                |-- Selector# -&gt; Instance # of class {@link TYPE_ACTUAL_INST}<br>
+     * |                ...<br>
+     * |                |-- SelectorN -&gt; Instance N of class {@link TYPE_ACTUAL_INST}<br>
+     * ...<br>
+     * |<br>
      * <p>
      * The point is that "selectors" are anything you want them to be, whether it be the hashcode of the instance (but
      * you won't be able to access it easily later), or some kind of related Node. Whatever fits your model in the best

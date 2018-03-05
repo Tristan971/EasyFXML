@@ -1,7 +1,6 @@
 package moe.tristan.easyfxml.model.fxml;
 
 import org.springframework.stereotype.Component;
-
 import moe.tristan.easyfxml.api.FxmlController;
 
 /**

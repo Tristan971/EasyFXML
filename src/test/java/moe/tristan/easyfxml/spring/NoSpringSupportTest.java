@@ -1,23 +1,24 @@
 package moe.tristan.easyfxml.spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.StageManager;
+import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javafx.fxml.FXMLLoader;
+
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javafx.fxml.FXMLLoader;
-import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
-import moe.tristan.easyfxml.model.beanmanagement.StageManager;
-import moe.tristan.easyfxml.model.fxml.BaseEasyFxml;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

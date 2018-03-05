@@ -1,10 +1,11 @@
 package moe.tristan.easyfxml.model.exception;
 
+import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;

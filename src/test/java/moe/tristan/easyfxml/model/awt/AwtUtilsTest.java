@@ -3,8 +3,9 @@ package moe.tristan.easyfxml.model.awt;
 import io.vavr.control.Try;
 import org.junit.Test;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;

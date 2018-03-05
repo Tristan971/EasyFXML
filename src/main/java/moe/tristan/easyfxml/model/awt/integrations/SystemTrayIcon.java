@@ -6,8 +6,7 @@ import java.net.URL;
 import java.util.Map;
 
 /**
- * A SystemTrayIcon is a UI object owned by this application that lies in the operating system's (if supported)
- * tray.
+ * A SystemTrayIcon is a UI object owned by this application that lies in the operating system's (if supported) tray.
  * <p>
  * On macOS it's the upper-right of the status bar, on Windows the bottom right of the taskbar and on most Linux
  * distributions that are Gnome/KDE-based it's an on-screen system tray.

@@ -1,9 +1,9 @@
 package moe.tristan.easyfxml.util;
 
-import java.util.concurrent.CompletionStage;
-
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+
+import java.util.concurrent.CompletionStage;
 
 /**
  * Utility class that provides convenience methods over {@link Pane}-based components.

@@ -1,8 +1,9 @@
 package moe.tristan.easyfxml.api;
 
-import javafx.stage.Stage;
 import moe.tristan.easyfxml.util.Resources;
 import moe.tristan.easyfxml.util.Stages;
+
+import javafx.stage.Stage;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -11,12 +12,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Represents a stylesheet a supplier of Path. What this means is that any protocol is acceptable.
- * Whether it is local file-based or remote URI-based.
+ * Represents a stylesheet a supplier of Path. What this means is that any protocol is acceptable. Whether it is local
+ * file-based or remote URI-based.
  * <p>
  * See {@link Stages#setStylesheet(Stage, FxmlStylesheet)} for usage.
  * <p>
- *
  * You can override one or each of these methods as they depend on each other and thus overriding at least one will make
  * the other (and thus both) valid.
  */

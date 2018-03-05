@@ -1,12 +1,13 @@
 package moe.tristan.easyfxml.util;
 
+import io.vavr.Tuple2;
+
+import javafx.application.Platform;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import io.vavr.Tuple2;
-import javafx.application.Platform;
 
 /**
  * Convenience utility methods for cleaner asynchronous cross-thread calls.
