@@ -52,7 +52,6 @@ public class SpringContext {
      */
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    @SuppressWarnings("unchecked")
     public FxmlLoader fxmlLoader(final ApplicationContext context) {
         final FxmlLoader fxmlLoader = new FxmlLoader();
         fxmlLoader.setControllerFactory(context::getBean);

@@ -14,6 +14,7 @@ public class NoControllerClass implements FxmlController {
     /**
      * Empty voluntarily as no logic is to be included in this class.
      */
+    @SuppressWarnings("EmptyMethod")
     @Override
     public void initialize() {
         //see doc

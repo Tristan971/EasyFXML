@@ -18,7 +18,7 @@ public class AwtUtilsTest {
 
     @Test
     public void asyncAwtOperation() throws ExecutionException, InterruptedException {
-        final CompletionStage<JFrame> frame = AwtUtils.asyncAwtOperation(
+        final CompletionStage<JFrame> frame = AwtUtils.asyncAwtCallback(
             () -> {
                 final JFrame testFrame = new JFrame();
                 testFrame.setVisible(true);

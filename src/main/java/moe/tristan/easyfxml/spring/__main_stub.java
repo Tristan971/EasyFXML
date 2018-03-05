@@ -16,6 +16,11 @@ public class __main_stub {
 
     private static final Logger LOG = LoggerFactory.getLogger(__main_stub.class);
 
+    /**
+     * This is the main for this config class. It's somewhat useless and thus directly throws and quits.
+     *
+     * @param args launch args
+     */
     public static void main(final String... args) {
         final SpringApplicationBuilder sab = new SpringApplicationBuilder(__main_stub.class)
             .headless(false)

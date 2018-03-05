@@ -10,6 +10,15 @@ import javafx.scene.layout.Pane;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * This class is the base entry point of the library.
+ *
+ * It is expected to be acquired from the Spring context or via {@link moe.tristan.easyfxml.spring.NoSpringSupport} if
+ * the project does not use Spring.
+ *
+ * @see FxmlNode
+ * @see Try
+ */
 public interface EasyFxml {
 
     /**

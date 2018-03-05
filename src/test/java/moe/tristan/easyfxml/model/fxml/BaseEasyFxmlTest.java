@@ -39,6 +39,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     @Autowired
     private ControllerManager controllerManager;
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public void start(final Stage stage) {
         // initializes JavaFX Platform

@@ -11,6 +11,6 @@ public final class TestUtils {
         final Object bean1 = context.getBean(beanClazz);
         final Object bean2 = context.getBean(beanClazz);
 
-        return (bean1 != null && bean2 != null) && bean1.equals(bean2);
+        return bean1.equals(bean2);
     }
 }
