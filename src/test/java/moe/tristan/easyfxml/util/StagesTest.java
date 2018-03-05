@@ -12,20 +12,14 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 
+import static moe.tristan.easyfxml.util.Resources.getResourcePath;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StagesTest extends ApplicationTest {
 
-    private static final FxmlStylesheet TEST_STYLE = new FxmlStylesheet() {
-        @Override
-        public String getExternalForm() {
-            return Resources.getResourceURL("fxml/test_style.css")
-                            .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new)
-                            .toExternalForm();
-        }
-    };
+    private static final String RES_REL_PATH_TEST_STYLE = "fxml/test_style.css";
+    private static final FxmlStylesheet TEST_STYLE = () -> getResourcePath(RES_REL_PATH_TEST_STYLE).get();
 
     private Stage testStage;
     private String stageTitle;
