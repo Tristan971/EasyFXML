@@ -15,7 +15,7 @@ Maven dependency :
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
 </dependency>
 ```
 
@@ -38,14 +38,14 @@ This is where EasyFXML comes. It aims at taking the role of both a helping libra
 and a framework for how to do things right before regretting having gone another
 way a few months back.
 
-Hopefully this ends up becoming a community effort as having one single person
-doing that can only lead to tunnel vision. I tried to avoid that, but feel 
-free to point out anything that you dislike or would have done differently.
-
 ## Quick documentation
 
 The aim is to mimick, when it makes sense, modern web development frameworks.
 That is because they already worked out how to organise UI components well.
+
+There is though a quick caveat to it as it is very impractical to style an
+individual `Node` in JavaFX so we only support styling at the `Stage` (Window)
+level for now.
 
 #### Declaring a UI component (i.e. an `FxmlNode`) :
 
