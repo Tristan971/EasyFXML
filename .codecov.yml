@@ -1,0 +1,2 @@
+ignore:
+    - "src/test/java/model/awt/**/* # AWT tests can't run on Travis-CI and thus report 0% coverage
