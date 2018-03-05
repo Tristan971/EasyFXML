@@ -25,6 +25,7 @@ public class PanesTest extends ApplicationTest {
 
     @Autowired
     private EasyFxml easyFxml;
+
     private final FxmlNode testPaneInfo = new FxmlNode() {
         @Override
         public FxmlFile getFile() {

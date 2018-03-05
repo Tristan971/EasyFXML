@@ -1,10 +1,6 @@
 package moe.tristan.easyfxml;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.spring.SpringContext;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -19,8 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Asserts the presence of a private constructor on all classes without non-static fields. Partly because I'm getting
  * lowered coverage for this as well...
  */
-@ContextConfiguration(classes = SpringContext.class)
-@RunWith(SpringRunner.class)
 public class UtilityClassesStyleTest {
 
     private static final Reflections reflections = new Reflections(
