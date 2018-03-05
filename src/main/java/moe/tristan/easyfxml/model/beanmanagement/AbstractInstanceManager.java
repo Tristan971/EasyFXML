@@ -1,6 +1,7 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
 import io.vavr.control.Option;
+import org.assertj.core.util.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -146,7 +147,8 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      *
      * @return The merge result to be stored (a simple result of a null-check followed by a {@link Map#putAll(Map)}).
      */
-    private Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> mergePrototypes(
+    @VisibleForTesting
+    public Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> mergePrototypes(
         final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> oldValue,
         final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> newValue
     ) {
