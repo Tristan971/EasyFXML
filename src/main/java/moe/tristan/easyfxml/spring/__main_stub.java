@@ -21,10 +21,9 @@ public class __main_stub {
             .headless(false)
             .web(WebApplicationType.NONE);
 
-        try (ConfigurableApplicationContext ctx = sab.run(args)) {
-            LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINGS.");
-            ctx.close();
-            throw new IllegalStateException("NOT TO BE EXECUTED");
-        }
+        final ConfigurableApplicationContext ctx = sab.run(args);
+        LOG.info("STUB CLASS. USELESS EXCEPT FOR A FEW CONFIG THINGS.");
+        ctx.close();
+        throw new IllegalStateException("NOT TO BE EXECUTED");
     }
 }

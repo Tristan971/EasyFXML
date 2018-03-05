@@ -9,8 +9,9 @@ import org.junit.runner.RunWith;
 @ContextConfiguration(classes = SpringContext.class)
 public class __main_stubTest {
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = IllegalStateException.class)
     public void main() {
         __main_stub.main();
     }
+
 }
