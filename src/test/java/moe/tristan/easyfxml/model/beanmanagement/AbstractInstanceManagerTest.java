@@ -7,9 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -66,16 +64,5 @@ public class AbstractInstanceManagerTest {
         this.instanceManager.registerMultiple(PARENT, SEL_2, ACTUAL_2);
 
         assertThat(this.instanceManager.getMultiples(PARENT)).containsExactlyInAnyOrder(ACTUAL_1, ACTUAL_2);
-    }
-
-    @Test
-    public void merge_prototypes() {
-        final Object inst = "INST";
-        final Object elem1 = "ELEM_1";
-        final HashMap<Object, Object> testMap = new HashMap<>();
-        testMap.put(inst, elem1);
-
-        final Map<Object, Object> mergeRes = this.instanceManager.mergePrototypes(testMap, new HashMap<>());
-        assertThat(mergeRes).containsExactly((Map.Entry<?, ?>) testMap.entrySet().toArray()[0]);
     }
 }
