@@ -9,7 +9,7 @@ Last build's statuses:
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
 [![Coverage Graph](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
- 
+
 Maven dependency :
 ```xml
 <dependency>
@@ -206,8 +206,8 @@ to be exposed.
 
 #### F.A.Q.
 
-Well, none so far, but you can check out my project Tristan971/Lyrebird to see
-what usage looks like.
+Well, none so far, but you can check out my [twitter client project (Lyrebird)](https://github.com/Tristan971/Lyrebird)
+to see what usage looks like.
 It is not nearly advanced nor up to date with this library for now though. It's
 mostly for getting a general idea I'd say.
 
