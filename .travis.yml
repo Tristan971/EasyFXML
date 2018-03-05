@@ -1,7 +1,7 @@
 language: java
 
 os: linux
-dist: zesty
+dist: trusty
 sudo: required
 
 cache:
@@ -9,13 +9,13 @@ cache:
   - $HOME/.m2
 
 before_script:
-  - apt install -y maven gtk+3.0 stalonetray
+  - "sudo apt install -y maven gtk+3.0 stalonetray"
   - "export DISPLAY=:99.0"
   - "Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &"
-  - sleep 3
-  - stalonetray &
-  - sleep 3
-  - rm ~/.m2/settings.xml
+  - "sleep 3"
+  - "stalonetray &"
+  - "sleep 3"
+  - "rm ~/.m2/settings.xml"
 
 jdk:
   - oraclejdk8
