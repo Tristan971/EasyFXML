@@ -2,10 +2,11 @@ package moe.tristan.easyfxml.api;
 
 import moe.tristan.easyfxml.util.Resources;
 import moe.tristan.easyfxml.util.Stages;
+import io.vavr.control.Try;
 
 import javafx.stage.Stage;
 
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Path;
 
@@ -26,16 +27,23 @@ public interface FxmlStylesheet {
     Path getPath();
 
     /**
+     * This method is a sample implementation that should work in almost all general cases.
+     * An {@link java.io.IOException} can be thrown in very rare cases.
+     *
+     * If you encounter them, post an issue with system details.
+     *
      * @return the CSS file in external form (i.e. with the file:/, http:/...) protocol info before it.
      * <p>
-     * See {@link Resources#getResourceURL(String)} and {@link URL#toExternalForm()}
+     *
+     * @see Resources#getResourceURL(String)
+     * @see URL#toExternalForm()
      */
     default String getExternalForm() {
-        try {
-            return getPath().toUri().toURL().toExternalForm();
-        } catch (MalformedURLException e) {
-            throw new IllegalArgumentException(e);
-        }
+        return Try.of(this::getPath)
+            .map(Path::toUri)
+            .mapTry(URI::toURL)
+            .map(URL::toExternalForm)
+            .get();
     }
 
 }
