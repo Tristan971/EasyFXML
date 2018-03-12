@@ -8,7 +8,7 @@ import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.NoControllerClass;
-import moe.tristan.easyfxml.spring.SpringContext;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = SpringContext.class)
+@ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringRunner.class)
 public class PanesTest extends ApplicationTest {
 

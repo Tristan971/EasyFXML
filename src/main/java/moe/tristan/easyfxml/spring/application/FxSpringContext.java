@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.spring;
+package moe.tristan.easyfxml.spring.application;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -28,7 +28,7 @@ import javafx.scene.Node;
 @Lazy
 @Configuration
 @ComponentScan(basePackages = "moe.tristan.easyfxml", lazyInit = true)
-public class SpringContext {
+public class FxSpringContext {
 
     /**
      * The {@link FxmlLoader} object is a /SINGLE-USE/ object to load a FXML file and deserialize it as an instance of

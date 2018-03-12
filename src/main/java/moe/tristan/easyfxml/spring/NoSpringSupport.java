@@ -3,6 +3,7 @@ package moe.tristan.easyfxml.spring;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,8 @@ public final class NoSpringSupport {
 
     private static ApplicationContext getApplicationContext() {
         if (applicationContext == null) {
-            applicationContext = new AnnotationConfigApplicationContext(SpringContext.class);
-            LOG.info("Created ApplicationContext from {}", SpringContext.class.getName());
+            applicationContext = new AnnotationConfigApplicationContext(FxSpringContext.class);
+            LOG.info("Created ApplicationContext from {}", FxSpringContext.class.getName());
             LOG.info("Available beans are : {}", Arrays.toString(applicationContext.getBeanDefinitionNames()));
         }
 

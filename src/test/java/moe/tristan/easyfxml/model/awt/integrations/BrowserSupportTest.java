@@ -3,14 +3,14 @@ package moe.tristan.easyfxml.model.awt.integrations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import moe.tristan.easyfxml.spring.SpringContext;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.net.URL;
 
-@ContextConfiguration(classes = SpringContext.class)
+@ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BrowserSupportTest extends ApplicationTest {
 

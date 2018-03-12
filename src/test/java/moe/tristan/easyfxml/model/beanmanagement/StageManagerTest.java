@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.spring.SpringContext;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = SpringContext.class)
+@ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringRunner.class)
 public class StageManagerTest {
 
