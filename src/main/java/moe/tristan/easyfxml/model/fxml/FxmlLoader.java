@@ -3,6 +3,7 @@ package moe.tristan.easyfxml.model.fxml;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -44,4 +45,22 @@ public class FxmlLoader extends FXMLLoader {
         this.onFailure.accept(cause);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FxmlLoader)) return false;
+        if (!super.equals(o)) return false;
+
+        FxmlLoader that = (FxmlLoader) o;
+
+        if (!onSuccess.equals(that.onSuccess)) return false;
+        return onFailure.equals(that.onFailure);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = onSuccess.hashCode();
+        result = 31 * result + onFailure.hashCode();
+        return result;
+    }
 }

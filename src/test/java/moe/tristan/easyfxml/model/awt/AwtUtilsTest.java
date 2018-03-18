@@ -16,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AwtUtilsTest {
 
+    private static final String TEST_CB_VALUE = "TEST";
+
     @Test
     public void asyncAwtOperation() throws ExecutionException, InterruptedException {
         final CompletionStage<JFrame> frame = AwtUtils.asyncAwtCallback(
@@ -54,13 +56,12 @@ public class AwtUtilsTest {
         final Try<Object> clipboardLoad = Try.of(asyncCb.toCompletableFuture()::get);
 
         assertThat(clipboardLoad.isSuccess()).isTrue();
-        assertThat(((Try<Object>) clipboardLoad.get()).get()).isEqualTo("TEST");
+        assertThat(((Try<Object>) clipboardLoad.get()).get()).isEqualTo(TEST_CB_VALUE);
     }
 
     private void pushClipboardTestData(Clipboard clipboard) {
         clipboard.setContents(
             new Transferable() {
-                private final String value = "TEST";
 
                 @Override
                 public DataFlavor[] getTransferDataFlavors() {
@@ -74,7 +75,7 @@ public class AwtUtilsTest {
 
                 @Override
                 public Object getTransferData(DataFlavor flavor) {
-                    return value;
+                    return TEST_CB_VALUE;
                 }
             },
             (t, co) -> {
