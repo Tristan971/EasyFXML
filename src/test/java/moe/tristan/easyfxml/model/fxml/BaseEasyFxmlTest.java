@@ -179,7 +179,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Ignore("This is not a test class")
-    private enum TEST_NODES implements FxmlNode {
+    public enum TEST_NODES implements FxmlNode {
         PANE(
             () -> "fxml/test_pane.fxml",
             SAMPLE_CONTROL_CLASS.class
