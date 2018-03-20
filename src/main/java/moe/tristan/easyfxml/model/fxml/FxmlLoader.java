@@ -81,8 +81,7 @@ public class FxmlLoader extends FXMLLoader {
         if (!(o instanceof FxmlLoader)) return false;
         if (!super.equals(o)) return false;
         FxmlLoader that = (FxmlLoader) o;
-        return Objects.equals(onSuccess, that.onSuccess) &&
-            Objects.equals(onFailure, that.onFailure);
+        return Objects.equals(onSuccess, that.onSuccess) && Objects.equals(onFailure, that.onFailure);
     }
 
     @Override

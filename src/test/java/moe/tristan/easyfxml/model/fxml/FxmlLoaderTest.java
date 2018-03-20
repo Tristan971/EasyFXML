@@ -68,6 +68,10 @@ public class FxmlLoaderTest {
         final URL testURL = new URL("https://www.example.com");
         final Consumer<Node> testConsumer = System.out::println;
 
+        assertThat(fl1).isEqualTo(fl1);
+        assertThat(new Object()).isNotEqualTo(fl1);
+        assertThat(fl1).isNotEqualTo(null);
+
         assertThat(fl1).isEqualTo(fl2);
         assertThat(fl1.hashCode()).isEqualTo(fl2.hashCode());
 
