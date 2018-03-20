@@ -10,8 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,6 +40,10 @@ public class FxmlLoaderTest {
 
     @Test
     public void onSuccess() {
+        new FxmlLoader(context).onSuccess(null);
+        assertThat(succ).isEqualTo(0);
+        assertThat(fail).isEqualTo(0);
+
         fxmlLoader.onSuccess(null);
         assertThat(succ).isEqualTo(1);
         assertThat(fail).isEqualTo(0);
@@ -43,6 +51,10 @@ public class FxmlLoaderTest {
 
     @Test
     public void onFailure() {
+        new FxmlLoader(context).onFailure(null);
+        assertThat(succ).isEqualTo(0);
+        assertThat(fail).isEqualTo(0);
+
         fxmlLoader.onFailure(null);
         assertThat(succ).isEqualTo(0);
         assertThat(fail).isEqualTo(1);
@@ -54,11 +66,26 @@ public class FxmlLoaderTest {
         final FxmlLoader fl2 = new FxmlLoader(context);
 
         final URL testURL = new URL("https://www.example.com");
+        final Consumer<Node> testConsumer = System.out::println;
 
         assertThat(fl1).isEqualTo(fl2);
+        assertThat(fl1.hashCode()).isEqualTo(fl2.hashCode());
 
+        fl1.setLocation(testURL);
+        assertThat((FXMLLoader) fl1).isNotEqualTo(fl2);
+        assertThat(fl1.hashCode()).isNotEqualTo(fl2.hashCode());
 
-        assertThat(fl1.equals())
+        fl2.setLocation(testURL);
+        assertThat((FXMLLoader) fl1).isEqualTo(fl2);
+        assertThat(fl1.hashCode()).isEqualTo(fl2.hashCode());
+
+        fl1.setOnSuccess(testConsumer);
+        assertThat(fl1).isNotEqualTo(fl2);
+        assertThat(fl1.hashCode()).isNotEqualTo(fl2.hashCode());
+
+        fl2.setOnSuccess(testConsumer);
+        assertThat(fl2).isEqualTo(fl1);
+        assertThat(fl1.hashCode()).isEqualTo(fl2.hashCode());
     }
 
 }

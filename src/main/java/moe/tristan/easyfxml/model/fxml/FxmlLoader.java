@@ -10,6 +10,7 @@ import moe.tristan.easyfxml.api.FxmlNode;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
@@ -79,17 +80,13 @@ public class FxmlLoader extends FXMLLoader {
         if (this == o) return true;
         if (!(o instanceof FxmlLoader)) return false;
         if (!super.equals(o)) return false;
-
         FxmlLoader that = (FxmlLoader) o;
-
-        if (!onSuccess.equals(that.onSuccess)) return false;
-        return onFailure.equals(that.onFailure);
+        return Objects.equals(onSuccess, that.onSuccess) &&
+            Objects.equals(onFailure, that.onFailure);
     }
 
     @Override
     public int hashCode() {
-        int result = onSuccess.hashCode();
-        result = 31 * result + onFailure.hashCode();
-        return result;
+        return Objects.hash(getLocation(), onSuccess, onFailure);
     }
 }
