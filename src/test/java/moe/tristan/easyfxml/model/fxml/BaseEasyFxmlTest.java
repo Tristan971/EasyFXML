@@ -8,7 +8,7 @@ import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
-import moe.tristan.easyfxml.spring.SpringContext;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import moe.tristan.easyfxml.util.Stages;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = {SpringContext.class, SAMPLE_CONTROL_CLASS.class})
+@ContextConfiguration(classes = {FxSpringContext.class, SAMPLE_CONTROL_CLASS.class})
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
 
@@ -179,7 +179,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Ignore("This is not a test class")
-    private enum TEST_NODES implements FxmlNode {
+    public enum TEST_NODES implements FxmlNode {
         PANE(
             () -> "fxml/test_pane.fxml",
             SAMPLE_CONTROL_CLASS.class

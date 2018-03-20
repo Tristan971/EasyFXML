@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.spring.SpringContext;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import io.vavr.control.Try;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * This test is wholly incomplete. Consider it absent for now.
  */
-@ContextConfiguration(classes = SpringContext.class)
+@ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringRunner.class)
 public class SystemTraySupportTest {
 

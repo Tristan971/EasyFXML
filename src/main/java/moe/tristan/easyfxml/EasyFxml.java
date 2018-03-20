@@ -13,7 +13,7 @@ import java.util.function.Function;
 /**
  * This class is the base entry point of the library.
  *
- * It is expected to be acquired from the Spring context or via {@link moe.tristan.easyfxml.spring.NoSpringSupport} if
+ * It is expected to be acquired from the Spring springContext or via {@link moe.tristan.easyfxml.spring.NoSpringSupport} if
  * the project does not use Spring.
  *
  * @see FxmlNode
