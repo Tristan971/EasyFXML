@@ -1,18 +1,13 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
 import org.springframework.stereotype.Component;
-import moe.tristan.easyfxml.model.awt.AwtUtils;
 import moe.tristan.easyfxml.model.exception.ExceptionHandler;
-import io.vavr.CheckedFunction1;
 import io.vavr.control.Try;
 
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URL;
 import java.util.Objects;
-import java.util.concurrent.CompletionStage;
-
-import static io.vavr.API.unchecked;
 
 /**
  * This class contains some utility methods to open URLs with the default web browser of the user.
@@ -25,11 +20,11 @@ public class BrowserSupport {
      *
      * @param url The URL as a String. Must conform to {@link URL#URL(String)}.
      */
-    public void openUrl(final String url) {
-        Try.of(() -> url)
-           .map(unchecked((CheckedFunction1<String, URL>) URL::new))
-           .onSuccess(this::openUrl)
-           .onFailure(cause -> this.onException(cause, url));
+    public Try<Void> openUrl(final String url) {
+        return Try.of(() -> url)
+                  .mapTry(URL::new)
+                  .flatMap(this::openUrl)
+                  .onFailure(cause -> this.onException(cause, url));
     }
 
     /**
@@ -37,11 +32,16 @@ public class BrowserSupport {
      *
      * @param url The URL as an {@link URL}.
      */
-    public void openUrl(final URL url) {
-        Try.of(() -> url)
-           .map(unchecked(URL::toURI))
-           .onSuccess(this::browse)
-           .onFailure(cause -> this.onException(cause, Objects.toString(url)));
+    public Try<Void> openUrl(final URL url) {
+        return Try.of(() -> url)
+                  .mapTry(URL::toURI)
+                  .flatMap(this::browse)
+                  .onFailure(cause -> this.onException(cause, Objects.toString(url)));
+    }
+
+    private Try<Void> browse(final URI uri) {
+        return Try.run(() -> Desktop.getDesktop().browse(uri))
+                  .onFailure(cause -> onException(cause, uri.toString()));
     }
 
     private void onException(final Throwable cause, final String url) {
@@ -49,17 +49,6 @@ public class BrowserSupport {
             "Browser error",
             "We could not open the following url in the browser : " + url,
             cause
-        );
-    }
-
-    private void browse(final URI uri) {
-        final CompletionStage<Try<Void>> browserOpeningResult = AwtUtils.asyncAwtCallbackWithRequirement(
-            Desktop::getDesktop,
-            desktop -> Try.run(() -> desktop.browse(uri))
-        );
-
-        browserOpeningResult.thenAccept(
-            result -> result.onFailure(cause -> onException(cause, uri.toString()))
         );
     }
 }
