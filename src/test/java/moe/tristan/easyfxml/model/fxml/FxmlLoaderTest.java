@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -44,4 +47,18 @@ public class FxmlLoaderTest {
         assertThat(succ).isEqualTo(0);
         assertThat(fail).isEqualTo(1);
     }
+
+    @Test
+    public void eqHashCode() throws MalformedURLException {
+        final FxmlLoader fl1 = new FxmlLoader(context);
+        final FxmlLoader fl2 = new FxmlLoader(context);
+
+        final URL testURL = new URL("https://www.example.com");
+
+        assertThat(fl1).isEqualTo(fl2);
+
+
+        assertThat(fl1.equals())
+    }
+
 }
