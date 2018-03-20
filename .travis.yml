@@ -9,7 +9,7 @@ cache:
   - $HOME/.m2
 
 before_script:
-  - "sudo apt install -qq -y maven gtk+3.0 stalonetray"
+  - "sudo apt install -qq -y maven gtk+3.0 stalonetray libgnome-2-0 chromium-browser"
   - "touch ~/.stalonetrayrc"
   - "export DISPLAY=:99.0"
   - "Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &"
