@@ -24,7 +24,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn clean package
+  - mvn -e clean package
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
