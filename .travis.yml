@@ -11,7 +11,7 @@ cache:
 install: /bin/true
 
 before_script:
-  - "sudo apt-get install -qq -o=Dpkg::Use-Pty=0 -y maven gtk+3.0 stalonetray xorg gnome-core gnome-system-tools gnome-app-install chromium-browser"
+  - "sudo apt-get install -qq -o=Dpkg::Use-Pty=0 -y maven gtk+3.0 stalonetray libgnome2-0 chromium-browser"
   - "touch ~/.stalonetrayrc"
   - "export DISPLAY=:99.0"
   - "Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &"
