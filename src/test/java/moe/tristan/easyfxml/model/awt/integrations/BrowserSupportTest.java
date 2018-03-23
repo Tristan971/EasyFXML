@@ -22,13 +22,8 @@ public class BrowserSupportTest extends ApplicationTest {
     private BrowserSupport browserSupport;
 
     @Test
-    public void openUrl_good_url() throws Throwable {
-        Try<Void> validUrlOpen = browserSupport.openUrl("https://www.google.fr");
-
-        if (validUrlOpen.isFailure()) {
-            throw validUrlOpen.getCause();
-        }
-        assertThat(validUrlOpen.isSuccess()).isTrue();
+    public void openUrl_good_url() {
+        browserSupport.openUrl("https://www.google.fr");
     }
 
     @Test
