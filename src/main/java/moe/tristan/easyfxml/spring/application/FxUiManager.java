@@ -21,9 +21,9 @@ import java.util.function.Function;
  * <p>
  * The minimal overriding is that of :
  * <p>
- * - {@link #getTitle()} for the main stage's title.
+ * - {@link #title()} for the main stage's title.
  * <p>
- * - {@link #getMainScene()} for the main scene info as a {@link FxmlNode}.
+ * - {@link #mainComponent()} for the main scene info as a {@link FxmlNode}.
  * <p>
  * - {@link #getStylesheet()} that is optionally overriden if you use a custom stylesheet. If you don't need one, ignore
  * it.
@@ -60,10 +60,13 @@ public abstract class FxUiManager {
      * @param mainStage The main stage of the application feeded by JavaFX
      */
     public void startGui(final Stage mainStage) {
-        final Scene mainScene = getScene(getMainScene());
-        mainStage.setScene(mainScene);
+        onStageCreated(mainStage);
 
-        mainStage.setTitle(getTitle());
+        final Scene mainScene = getScene(mainComponent());
+        onSceneCreated(mainScene);
+
+        mainStage.setScene(mainScene);
+        mainStage.setTitle(title());
 
         getStylesheet().ifPresent(stylesheet -> Stages.setStylesheet(mainStage, stylesheet));
 
@@ -73,12 +76,31 @@ public abstract class FxUiManager {
     /**
      * @return The title to give the main stage
      */
-    protected abstract String getTitle();
+    protected abstract String title();
 
     /**
      * @return The component to load in the main stage upon startup
      */
-    protected abstract FxmlNode getMainScene();
+    protected abstract FxmlNode mainComponent();
+
+    /**
+     * Called right after the main {@link Scene} was created if you want to edit it.
+     *
+     * @param mainScene The main scene of the application
+     */
+    protected void onSceneCreated(final Scene mainScene) {
+        //do nothing by default
+    }
+
+    /**
+     * Called as we enter the {@link #startGui(Stage)} method.
+     *
+     * @param mainStage The main stage, supplied by JavaFX's {@link javafx.application.Application#start(Stage)}
+     *                  method.
+     */
+    protected void onStageCreated(final Stage mainStage) {
+        //do nothing by default
+    }
 
     /**
      * @return If overriden, this function returns the {@link FxmlStylesheet} to apply to the main window.
@@ -88,12 +110,11 @@ public abstract class FxUiManager {
     }
 
     /**
-     * Simple utility class to load an {@link FxmlNode} as a {@link Scene} for use with {@link #getMainScene()}
+     * Simple utility class to load an {@link FxmlNode} as a {@link Scene} for use with {@link #mainComponent()}
      *
      * @param node the node to load in the {@link Scene}
      *
      * @return The ready-to-use {@link Scene}
-     *
      * @throws RuntimeException if the scene could not be loaded properly
      */
     protected Scene getScene(final FxmlNode node) {

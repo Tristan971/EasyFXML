@@ -44,12 +44,12 @@ public class FxUiManagerTest extends ApplicationTest {
         }
 
         @Override
-        protected String getTitle() {
+        protected String title() {
             return TEST_TITLE;
         }
 
         @Override
-        protected FxmlNode getMainScene() {
+        protected FxmlNode mainComponent() {
             return TEST_NODE;
         }
     }
