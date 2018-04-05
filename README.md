@@ -6,6 +6,7 @@ Last build's statuses:
 [![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
 [![codecov](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graph/badge.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/18f5d4a8602a48cb9ccb1fa5e0215cd4)](https://www.codacy.com/app/Tristan971/EasyFXML)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a6c92baa8d7b365b9b6b/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
 [![Coverage Graph](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
