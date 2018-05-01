@@ -44,7 +44,6 @@ public class ResourcesTest {
         assertThat(fileThatDoesntExist.isFailure()).isTrue();
         assertThat(fileThatDoesntExist.getCause().getMessage()).contains(PATH_UTIL_TESTS_FOLDER +
             NONEXISTING_FILE_NAME);
-        fileThatDoesntExist.getCause().printStackTrace();
     }
 
     @Test
