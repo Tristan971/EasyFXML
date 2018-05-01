@@ -7,8 +7,6 @@ import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-
 /**
  * Used for non-Spring projects in replacement of DI system. If you have Spring, simply autowire {@link EasyFxml}.
  */
@@ -37,7 +35,6 @@ public final class NoSpringSupport {
         if (applicationContext == null) {
             applicationContext = new AnnotationConfigApplicationContext(FxSpringContext.class);
             LOG.info("Created ApplicationContext from {}", FxSpringContext.class.getName());
-            LOG.info("Available beans are : {}", Arrays.toString(applicationContext.getBeanDefinitionNames()));
         }
 
         return applicationContext;
