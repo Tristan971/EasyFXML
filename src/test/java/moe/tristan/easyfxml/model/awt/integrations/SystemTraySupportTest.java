@@ -17,7 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -34,7 +36,7 @@ public class SystemTraySupportTest {
     private ApplicationContext applicationContext;
 
     @Test
-    public void register_system_tray_icon() throws ExecutionException, InterruptedException {
+    public void register_system_tray_icon() throws ExecutionException, InterruptedException, TimeoutException {
         final SystemTraySupport systemTraySupport = this.applicationContext.getBean(SystemTraySupport.class);
 
         final MenuItem testItem = new MenuItem("DISABLED_ON_CLICK");
@@ -45,13 +47,13 @@ public class SystemTraySupportTest {
 
         final SystemTrayIcon trayIcon = this.systemTrayIconWith(menuItems);
         final CompletionStage<Try<TrayIcon>> asyncRegistrationRes = systemTraySupport.registerTrayIcon(trayIcon);
-        final Try<TrayIcon> registrationRes = asyncRegistrationRes.toCompletableFuture().get();
+        final Try<TrayIcon> registrationRes = asyncRegistrationRes.toCompletableFuture().get(5, SECONDS);
 
         assertThat(registrationRes.isSuccess()).isTrue();
         assertThat(systemTraySupport.getTrayIcons()).containsExactly(registrationRes.get());
 
         final CompletionStage<Void> asyncRemove = systemTraySupport.removeTrayIcon(registrationRes.get());
-        asyncRemove.toCompletableFuture().get();
+        asyncRemove.toCompletableFuture().get(5, SECONDS);
 
         assertThat(systemTraySupport.getTrayIcons()).doesNotContain(registrationRes.get());
     }

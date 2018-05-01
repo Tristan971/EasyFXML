@@ -11,7 +11,10 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AwtUtilsTest {
@@ -19,7 +22,7 @@ public class AwtUtilsTest {
     private static final String TEST_CB_VALUE = "TEST";
 
     @Test
-    public void asyncAwtOperation() throws ExecutionException, InterruptedException {
+    public void asyncAwtOperation() throws ExecutionException, InterruptedException, TimeoutException {
         final CompletionStage<JFrame> frame = AwtUtils.asyncAwtCallback(
             () -> {
                 final JFrame testFrame = new JFrame();
@@ -27,17 +30,17 @@ public class AwtUtilsTest {
                 return testFrame;
             }
         );
-        assertThat(frame.toCompletableFuture().get().isVisible()).isTrue();
+        assertThat(frame.toCompletableFuture().get(5, SECONDS).isVisible()).isTrue();
     }
 
     @Test
-    public void asyncAwtCallbackWithRequirement() throws ExecutionException, InterruptedException {
+    public void asyncAwtCallbackWithRequirement() throws ExecutionException, InterruptedException, TimeoutException {
         final CompletionStage<Integer> cursorType = AwtUtils.asyncAwtCallbackWithRequirement(
             Cursor::getDefaultCursor,
             Cursor::getType
         );
 
-        assertThat(cursorType.toCompletableFuture().get()).isEqualTo(Cursor.DEFAULT_CURSOR);
+        assertThat(cursorType.toCompletableFuture().get(5, SECONDS)).isEqualTo(Cursor.DEFAULT_CURSOR);
     }
 
     @SuppressWarnings("unchecked")
@@ -53,7 +56,7 @@ public class AwtUtilsTest {
             cb -> Try.of(() -> cb.getData(DataFlavor.stringFlavor))
         );
 
-        final Try<Object> clipboardLoad = Try.of(asyncCb.toCompletableFuture()::get);
+        final Try<Object> clipboardLoad = Try.of(() -> asyncCb.toCompletableFuture().get(5, SECONDS));
 
         assertThat(clipboardLoad.isSuccess()).isTrue();
         assertThat(((Try<Object>) clipboardLoad.get()).get()).isEqualTo(TEST_CB_VALUE);
