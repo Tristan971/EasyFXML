@@ -4,6 +4,7 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
 import moe.tristan.easyfxml.util.Stages;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static moe.tristan.easyfxml.api.FxmlStylesheet.DEFAULT_JAVAFX_STYLE;
 import static moe.tristan.easyfxml.model.exception.ExceptionHandler.displayExceptionPane;
 
 /**
@@ -71,7 +73,9 @@ public abstract class FxUiManager {
         mainStage.setScene(mainScene);
         mainStage.setTitle(title());
 
-        getStylesheet().ifPresent(stylesheet -> this.setTheme(stylesheet, mainStage));
+        Option.ofOptional(getStylesheet())
+              .filter(style -> !DEFAULT_JAVAFX_STYLE.equals(style))
+              .peek(stylesheet -> this.setTheme(stylesheet, mainStage));
 
         mainStage.show();
     }
