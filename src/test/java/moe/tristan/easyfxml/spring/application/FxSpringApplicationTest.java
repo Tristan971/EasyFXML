@@ -24,7 +24,7 @@ public class FxSpringApplicationTest {
     @SpringBootApplication
     @Import(TestFxUiManager.class)
     public static class TestFxSpringApplication extends FxSpringApplication {
-        public static void main(String ... args) throws Exception {
+        public static void main(String... args) throws Exception {
             ApplicationTest.launch(TestFxSpringApplication.class, args);
         }
 

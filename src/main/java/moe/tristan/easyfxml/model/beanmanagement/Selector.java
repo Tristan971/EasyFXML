@@ -6,11 +6,10 @@ import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 /**
- * Selectors are special wrappers around a value used in an {@link AbstractInstanceManager} to distinguish
- * multiple children of the mapped class amongst themselves.
- * It uses a weak reference as a way to store the actual selector value.
- * The overriding of equals and hashCode makes it transparent to use.
- *
+ * Selectors are special wrappers around a value used in an {@link AbstractInstanceManager} to distinguish multiple
+ * children of the mapped class amongst themselves. It uses a weak reference as a way to store the actual selector
+ * value. The overriding of equals and hashCode makes it transparent to use.
+ * <p>
  * Its main use is to avoid confusion in the multiple signatures of {@link EasyFxml}.
  *
  * @see AbstractInstanceManager
@@ -22,6 +21,7 @@ public class Selector {
 
     /**
      * Creates a Selector from a given object.
+     *
      * @param reference The actual value of the selector to use in map-based storage implementations.
      */
     public Selector(Object reference) {
@@ -37,9 +37,10 @@ public class Selector {
     }
 
     /**
-     * Two Selectors are equals iff the values backing their weak references are the same.
-     * Null is supported.
+     * Two Selectors are equals iff the values backing their weak references are the same. Null is supported.
+     *
      * @param o The other selector to check for equality with.
+     *
      * @return true if this selector and the one passed as parameter have the same backing value.
      */
     @Override

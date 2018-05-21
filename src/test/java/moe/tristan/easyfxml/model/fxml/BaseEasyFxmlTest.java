@@ -129,7 +129,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_multiple_invalid_file_failure() {
-        final Try<Pane> testPaneLoadResult = this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR)).getNode();
+        final Try<Pane> testPaneLoadResult = this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR))
+                                                          .getNode();
 
         this.assertPaneFailedLoadingAndDidNotRegister(
             testPaneLoadResult,
