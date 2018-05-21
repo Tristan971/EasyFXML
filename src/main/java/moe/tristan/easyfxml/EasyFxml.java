@@ -3,6 +3,7 @@ package moe.tristan.easyfxml;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.Selector;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 import io.vavr.control.Try;
 
@@ -52,7 +53,7 @@ public interface EasyFxml {
      * @return A Try of the {@link Pane} to be loaded. See {@link #loadNode(FxmlNode)} for more information on {@link
      * Try}.
      */
-    FxmlLoadResult<Pane, FxmlController> loadNode(final FxmlNode node, final Object selector);
+    FxmlLoadResult<Pane, FxmlController> loadNode(final FxmlNode node, final Selector selector);
 
     /**
      * Same as {@link #loadNode(FxmlNode)} except you can choose the return type wished for instead of just {@link
@@ -67,8 +68,8 @@ public interface EasyFxml {
      * @param <N_CLAZZ>       The type of the node. Mostly for type safety.
      * @param <C_CLAZZ>       The type of the controller. Mostly for type safety.
      *
-     * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for
-     * its controller. This allows for granular load error management.
+     * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for its
+     * controller. This allows for granular load error management.
      */
     <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
     FxmlLoadResult<N_CLAZZ, C_CLAZZ>
@@ -79,7 +80,7 @@ public interface EasyFxml {
     );
 
     /**
-     * This is to {@link #loadNode(FxmlNode, Class, Class)} just what {@link #loadNode(FxmlNode, Object)} is to {@link
+     * This is to {@link #loadNode(FxmlNode, Class, Class)} just what {@link #loadNode(FxmlNode, Selector)} is to {@link
      * #loadNode(FxmlNode)}.
      *
      * @param node            The element's {@link FxmlNode} counterpart.
@@ -89,8 +90,8 @@ public interface EasyFxml {
      * @param <N_CLAZZ>       The type of the node. Mostly for type safety.
      * @param <C_CLAZZ>       The type of the controller. Mostly for type safety.
      *
-     * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for
-     * its controller. This allows for granular load error management.
+     * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for its
+     * controller. This allows for granular load error management.
      */
     <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
     FxmlLoadResult<N_CLAZZ, C_CLAZZ>
@@ -98,7 +99,7 @@ public interface EasyFxml {
         final FxmlNode node,
         final Class<N_CLAZZ> nodeClass,
         final Class<C_CLAZZ> controllerClass,
-        final Object selector
+        final Selector selector
     );
 
 }

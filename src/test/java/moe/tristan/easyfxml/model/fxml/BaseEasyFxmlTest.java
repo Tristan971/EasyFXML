@@ -8,6 +8,7 @@ import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.Selector;
 import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import moe.tristan.easyfxml.util.Stages;
 import io.vavr.control.Option;
@@ -60,11 +61,12 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_as_pane_multiple() {
-        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE, SELECTOR).getNode());
+        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE, new Selector(SELECTOR))
+                                                                    .getNode());
 
         this.assertControllerBoundToTestPane(
             testPane,
-            this.controllerManager.getMultiple(TEST_NODES.PANE, SELECTOR)
+            this.controllerManager.getMultiple(TEST_NODES.PANE, new Selector(SELECTOR))
         );
 
         assertThat(testPane.getChildren()).hasSize(1);
@@ -74,7 +76,11 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_success() {
-        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE, Pane.class, FxmlController.class).getNode());
+        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(
+            TEST_NODES.PANE,
+            Pane.class,
+            FxmlController.class
+        ).getNode());
 
         this.assertControllerBoundToTestPane(
             testPane,
@@ -84,7 +90,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_single_invalid_class_failure() {
-        final Try<Pane> testPane = this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class).getNode();
+        final Try<Pane> testPane = this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, FxmlController.class)
+                                                .getNode();
 
         this.assertPaneFailedLoadingAndDidNotRegister(
             testPane,
@@ -110,23 +117,23 @@ public class BaseEasyFxmlTest extends ApplicationTest {
             TEST_NODES.BUTTON,
             Pane.class,
             NoControllerClass.class,
-            SELECTOR
+            new Selector(SELECTOR)
         ).getNode();
 
         this.assertPaneFailedLoadingAndDidNotRegister(
             testPane,
-            this.controllerManager.getMultiple(TEST_NODES.BUTTON, SELECTOR),
+            this.controllerManager.getMultiple(TEST_NODES.BUTTON, new Selector(SELECTOR)),
             ClassCastException.class
         );
     }
 
     @Test
     public void load_with_type_multiple_invalid_file_failure() {
-        final Try<Pane> testPaneLoadResult = this.easyFxml.loadNode(TEST_NODES.INVALID, SELECTOR).getNode();
+        final Try<Pane> testPaneLoadResult = this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR)).getNode();
 
         this.assertPaneFailedLoadingAndDidNotRegister(
             testPaneLoadResult,
-            this.controllerManager.getMultiple(TEST_NODES.INVALID, SELECTOR),
+            this.controllerManager.getMultiple(TEST_NODES.INVALID, new Selector(SELECTOR)),
             LoadException.class
         );
     }

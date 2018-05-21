@@ -8,6 +8,7 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.Selector;
 import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     @Override
-    public FxmlLoadResult<Pane, FxmlController> loadNode(final FxmlNode node, final Object selector) {
+    public FxmlLoadResult<Pane, FxmlController> loadNode(final FxmlNode node, final Selector selector) {
         return this.loadNode(node, Pane.class, FxmlController.class, selector);
     }
 
@@ -77,7 +78,7 @@ public class BaseEasyFxml implements EasyFxml {
         final FxmlNode node,
         final Class<N_CLAZZ> nodeClass,
         final Class<C_CLAZZ> controllerClass,
-        final Object selector
+        final Selector selector
     ) {
         return this.loadNodeImpl(
             this.getMultiStageFxmlLoader(node, selector),
@@ -98,11 +99,10 @@ public class BaseEasyFxml implements EasyFxml {
      * @param <N_CLAZZ>       The type of the node to load
      * @param <C_CLAZZ>       The type of the controller to bind to the node
      *
-     * @return The {@link FxmlLoadResult} related to this node attempt. Containing a load result for both the node
-     * and the controller loaded, exposed through two {@link Try} instances.
+     * @return The {@link FxmlLoadResult} related to this node attempt. Containing a load result for both the node and
+     * the controller loaded, exposed through two {@link Try} instances.
      */
-    private
-    <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
+    private <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
     FxmlLoadResult<N_CLAZZ, C_CLAZZ>
     loadNodeImpl(
         final FxmlLoader fxmlLoader,
@@ -131,7 +131,7 @@ public class BaseEasyFxml implements EasyFxml {
         return loader;
     }
 
-    private FxmlLoader getMultiStageFxmlLoader(final FxmlNode node, final Object selector) {
+    private FxmlLoader getMultiStageFxmlLoader(final FxmlNode node, final Selector selector) {
         final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
         final Try<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
         instanceLoadingResult.peek(instance -> {

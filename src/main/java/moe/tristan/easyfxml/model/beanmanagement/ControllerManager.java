@@ -8,6 +8,6 @@ import moe.tristan.easyfxml.api.FxmlNode;
  * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
  */
 @Component
-public class ControllerManager extends AbstractInstanceManager<FxmlNode, FxmlController, Object> {
+public class ControllerManager extends AbstractInstanceManager<FxmlNode, FxmlController, Selector> {
 
 }
