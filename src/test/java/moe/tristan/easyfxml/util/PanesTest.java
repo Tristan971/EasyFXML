@@ -43,7 +43,7 @@ public class PanesTest extends ApplicationTest {
 
     @Before
     public void setUp() {
-        container = easyFxml.loadNode(testPaneInfo).get();
+        container = easyFxml.loadNode(testPaneInfo).getNode().get();
     }
 
     @Test

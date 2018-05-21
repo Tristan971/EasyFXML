@@ -126,6 +126,7 @@ public abstract class FxUiManager {
      */
     protected Scene getScene(final FxmlNode node) {
         return easyFxml.loadNode(node)
+                       .getNode()
                        .map(Scene::new)
                        .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
     }
