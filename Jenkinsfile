@@ -26,7 +26,7 @@ pipeline {
         }
         stage('PackageInstall') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn install -DskipTests'
             }
         }
         stage('Cleanup') {
@@ -37,6 +37,13 @@ pipeline {
         stage('Archive artifacts') {
             steps {
                 archiveArtifacts 'target/easyfxml*.jar'
+            }
+        }
+    }
+    post {
+        always {
+            always {
+                junit 'target/surefire-reports/**/*.xml'
             }
         }
     }
