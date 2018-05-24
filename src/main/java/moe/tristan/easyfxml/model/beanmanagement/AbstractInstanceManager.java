@@ -24,35 +24,39 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>
  * In case you have multiple instances for the same parent type, we cannot keep doing that. This is why we need to make
  * sure we can store them in an easy way that can allow distinction between those when needed afterwards. See the {@link
- * #registerMultiple(Object, Object, Object)} method for that.
+ * #registerMultiple(Object, Selector, Object)} method for that.
+ *
+ * Types are expected to be defined in the following way :
+ * @param <K> The common supertype of classes that will bind to an instance
+ * @param <V> The common supertype of instances which will be bound to an instance
  */
-public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST, TYPE_SELECTOR> {
+public abstract class AbstractInstanceManager<K, V> {
 
-    private final Map<TYPE_COMMON_INST, TYPE_ACTUAL_INST> singletons = new ConcurrentHashMap<>();
-    private final Map<TYPE_COMMON_INST, Map<TYPE_SELECTOR, TYPE_ACTUAL_INST>> prototypes = new ConcurrentHashMap<>();
+    private final Map<K, V> singletons = new ConcurrentHashMap<>();
+    private final Map<K, Map<Selector, V>> prototypes = new ConcurrentHashMap<>();
 
     /**
-     * Registers a single instance of type {@link TYPE_ACTUAL_INST} under the {@link TYPE_COMMON_INST} category.
+     * Registers a single instance of type {@link V} under the {@link K} category.
      *
      * @param parent   The parent of this instance
      * @param instance The instance to register
      *
      * @return The instance registered
      */
-    public TYPE_ACTUAL_INST registerSingle(final TYPE_COMMON_INST parent, final TYPE_ACTUAL_INST instance) {
+    public V registerSingle(final K parent, final V instance) {
         return this.singletons.put(parent, instance);
     }
 
     /**
      * This method stores your instances in a {@link ConcurrentHashMap} that looks like this :<br>
      * |-- CommonInst1 --<br>
-     * |                |-- Selector1 -&gt; Instance 1 of class {@link TYPE_ACTUAL_INST}<br>
-     * |                |-- Selector2 -&gt; Instance 2 of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- Selector1 -&gt; Instance 1 of class {@link V}<br>
+     * |                |-- Selector2 -&gt; Instance 2 of class {@link V}<br>
      * |<br>
      * |-- CommonInst2 --<br>
-     * |                |-- Selector# -&gt; Instance # of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- Selector# -&gt; Instance # of class {@link V}<br>
      * |                ...<br>
-     * |                |-- SelectorN -&gt; Instance N of class {@link TYPE_ACTUAL_INST}<br>
+     * |                |-- SelectorN -&gt; Instance N of class {@link V}<br>
      * ...<br>
      * |<br>
      * <p>
@@ -72,15 +76,15 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * @return A map entry containing the selector and the controller registered in case you need it.
      * @throws RuntimeException in case there was an error in saving the instance.
      */
-    public Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST> registerMultiple(
-        final TYPE_COMMON_INST parent,
-        final TYPE_SELECTOR selector,
-        final TYPE_ACTUAL_INST instance
+    public Map.Entry<Selector, V> registerMultiple(
+        final K parent,
+        final Selector selector,
+        final V instance
     ) {
-        final HashMap<TYPE_SELECTOR, TYPE_ACTUAL_INST> newEntryMap = new HashMap<>();
+        final HashMap<Selector, V> newEntryMap = new HashMap<>();
         newEntryMap.put(selector, instance);
 
-        final Optional<Map.Entry<TYPE_SELECTOR, TYPE_ACTUAL_INST>> newEntry = this.prototypes.merge(
+        final Optional<Map.Entry<Selector, V>> newEntry = this.prototypes.merge(
             parent,
             newEntryMap,
             this::mergePrototypes
@@ -95,13 +99,13 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * Look at {@link Option} for information on how to use it.
      *
      * @param parent   The instance who's children you look for.
-     * @param selector The selector previously used in #registerMultiple(TYPE_COMMON_INST, TYPE_SELECTOR,
+     * @param selector The selector previously used in #registerMultiple(TYPE_COMMON_INST, TYPE_Selector,
      *                 TYPE_ACTUAL_INST).
      *
      * @return The {@link Option} that either contains it ({@link Option.Some}) or is empty. That is, {@link
      * Option.None}, which means that it was not found or at some point in the hierarchy there has been an exception).
      */
-    public Option<TYPE_ACTUAL_INST> getMultiple(final TYPE_COMMON_INST parent, final TYPE_SELECTOR selector) {
+    public Option<V> getMultiple(final K parent, final Selector selector) {
         return Option.of(this.prototypes.get(parent)).map(selectorMap -> selectorMap.get(selector));
     }
 
@@ -110,8 +114,8 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      *
      * @return All the nodes registered under the given parent instance or an empty list if there are none.
      */
-    public List<TYPE_ACTUAL_INST> getAll(final TYPE_COMMON_INST parent) {
-        final List<TYPE_ACTUAL_INST> all = this.getMultiples(parent);
+    public List<V> getAll(final K parent) {
+        final List<V> all = this.getMultiples(parent);
         this.getSingle(parent).peek(all::add);
         return all;
     }
@@ -121,7 +125,7 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      *
      * @return All the multiple-type nodes under the given parent instance, or an empty list if there are none.
      */
-    public List<TYPE_ACTUAL_INST> getMultiples(final TYPE_COMMON_INST parent) {
+    public List<V> getMultiples(final K parent) {
         return new ArrayList<>(Option.of(this.prototypes.get(parent))
                                      .map(Map::values)
                                      .getOrElse(Collections.emptyList()));
@@ -133,12 +137,12 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      * @return {@link Option.Some} filled with the unique node of single-type under this instance, or {@link
      * Option.None}.
      */
-    public Option<TYPE_ACTUAL_INST> getSingle(final TYPE_COMMON_INST parent) {
+    public Option<V> getSingle(final K parent) {
         return Option.of(this.singletons.get(parent));
     }
 
     /**
-     * This is a very basic and simple merge for the {@link Map} &lt; {@link TYPE_SELECTOR} , {@link TYPE_COMMON_INST}
+     * This is a very basic and simple merge for the {@link Map} &lt; {@link Selector} , {@link K}
      * &gt; that contains the instances organized per parent instance and distinct by selector.
      *
      * @param oldValue The old map provided by Java
@@ -146,11 +150,11 @@ public abstract class AbstractInstanceManager<TYPE_COMMON_INST, TYPE_ACTUAL_INST
      *
      * @return The merge result to be stored (a simple result of a null-check followed by a {@link Map#putAll(Map)}).
      */
-    private Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> mergePrototypes(
-        final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> oldValue,
-        final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> newValue
+    private Map<Selector, V> mergePrototypes(
+        final Map<Selector, V> oldValue,
+        final Map<Selector, V> newValue
     ) {
-        final Map<TYPE_SELECTOR, TYPE_ACTUAL_INST> finalValue = new ConcurrentHashMap<>(oldValue);
+        final Map<Selector, V> finalValue = new ConcurrentHashMap<>(oldValue);
         finalValue.putAll(newValue);
         return finalValue;
     }

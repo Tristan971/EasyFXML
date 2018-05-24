@@ -15,7 +15,7 @@ import java.util.Objects;
  * @see AbstractInstanceManager
  * @see EasyFxml
  */
-public class Selector {
+public final class Selector {
 
     private final WeakReference<?> reference;
 
