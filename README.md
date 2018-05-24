@@ -3,13 +3,19 @@ An opinionated framework for building modern _JavaFX_ apps.
 
 Last build's statuses:
 
-[![Build Status](https://travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
-[![codecov](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graph/badge.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/18f5d4a8602a48cb9ccb1fa5e0215cd4)](https://www.codacy.com/app/Tristan971/EasyFXML)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a6c92baa8d7b365b9b6b/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
+Build : 
+[![Build Status](https://jenkins.tristan.moe/job/EasyFXML/job/master/badge/icon)](https://jenkins.tristan.moe/job/EasyFXML/job/master)
+
+Quality : 
+[![Coverage](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=coverage)](https://sonar.tristan.moe/project/activity?graph=coverage&id=moe.tristan%3Aeasyfxml)
+[![Sonar bugs](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=bugs)](https://sonar.tristan.moe/project/issues?id=moe.tristan%3Aeasyfxml&resolved=false&types=BUG)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
-[![Coverage Graph](https://codecov.io/gh/Tristan971/EasyFXML/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Tristan971/EasyFXML)
+Trivia : 
+[![LoC](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=ncloc)](https://sonar.tristan.moe/project/activity?graph=coverage&id=moe.tristan%3Aeasyfxml)
+[![Technical debt](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=sqale_index)](https://sonar.tristan.moe/project/issues?facetMode=effort&id=moe.tristan%3Aeasyfxml&resolved=false&types=CODE_SMELL)
+
+[![Quality gate status](https://sonar.tristan.moe/api/project_badges/quality_gate?project=moe.tristan%3Aeasyfxml)](https://sonar.tristan.moe/dashboard?id=moe.tristan%3Aeasyfxml)
 
 Maven dependency :
 ```xml
