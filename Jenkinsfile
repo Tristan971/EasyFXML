@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn clean test'
+                sh 'mvn clean test -Djava.awt.headless=false'
             }
         }
         stage('Code quality') {
@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Cleanup') {
             steps {
-                sh 'kill -15 $(pgrep stalonetray)'
+                sh 'kill -15 $(pgrep stalonetray) && rm .stalonetrayrc'
                 sh 'kill -15 $(pgrep Xvfb)'
             }
         }
