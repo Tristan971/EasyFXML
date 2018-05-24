@@ -32,7 +32,7 @@ public final class Selector {
      * @return the backing reference.
      */
     @SuppressWarnings("WeakerAccess")
-    public WeakReference<?> getReference() {
+    public WeakReference getReference() {
         return reference;
     }
 
