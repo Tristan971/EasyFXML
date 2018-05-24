@@ -31,8 +31,7 @@ pipeline {
         }
         stage('Cleanup') {
             steps {
-                sh 'kill -15 $(pgrep stalonetray) && rm .stalonetrayrc'
-                sh 'kill -15 $(pgrep Xvfb)'
+                sh 'kill -15 $(pgrep stalonetray) && rm .stalonetrayrc && kill -15 $(pgrep Xvfb)'
             }
         }
         stage('Archive artifacts') {
