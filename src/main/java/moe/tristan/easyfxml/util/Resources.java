@@ -24,6 +24,7 @@ import static io.vavr.API.Case;
 public final class Resources {
 
     private Resources() {
+        throw new UnsupportedOperationException("Utility class should not be instanciated.");
     }
 
     /**
@@ -68,7 +69,7 @@ public final class Resources {
                   .map(Objects::requireNonNull)
                   .mapFailure(
                       Case(
-                          $(err -> err instanceof NullPointerException | err instanceof NoSuchFileException),
+                          $(err -> err instanceof NullPointerException || err instanceof NoSuchFileException),
                           err -> new IllegalArgumentException(
                               "Error loading file at: " + getBaseURL().toExternalForm() + resourceRelativePath,
                               err
