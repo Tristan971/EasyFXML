@@ -4,7 +4,6 @@ import io.vavr.control.Option;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -49,14 +48,14 @@ public abstract class AbstractInstanceManager<K, V> {
 
     /**
      * This method stores your instances in a {@link ConcurrentHashMap} that looks like this :<br>
-     * |-- CommonInst1 --<br>
-     * |                |-- Selector1 -&gt; Instance 1 of class {@link V}<br>
-     * |                |-- Selector2 -&gt; Instance 2 of class {@link V}<br>
+     * |-- K1 --<br>
+     * |        |-- Selector1 -&gt; Instance 1 of class {@link V}<br>
+     * |        |-- Selector2 -&gt; Instance 2 of class {@link V}<br>
      * |<br>
-     * |-- CommonInst2 --<br>
-     * |                |-- Selector# -&gt; Instance # of class {@link V}<br>
-     * |                ...<br>
-     * |                |-- SelectorN -&gt; Instance N of class {@link V}<br>
+     * |-- K2 --<br>
+     * |        |-- Selector# -&gt; Instance # of class {@link V}<br>
+     * |        ...<br>
+     * |        |-- SelectorN -&gt; Instance N of class {@link V}<br>
      * ...<br>
      * |<br>
      * <p>
@@ -76,20 +75,15 @@ public abstract class AbstractInstanceManager<K, V> {
      * @return A map entry containing the selector and the controller registered in case you need it.
      * @throws RuntimeException in case there was an error in saving the instance.
      */
-    public Map.Entry<Selector, V> registerMultiple(
+    public V registerMultiple(
         final K parent,
         final Selector selector,
         final V instance
     ) {
-        final HashMap<Selector, V> newEntryMap = new HashMap<>();
-        newEntryMap.put(selector, instance);
-
-        final Optional<Map.Entry<Selector, V>> newEntry = this.prototypes.merge(
-            parent,
-            newEntryMap,
-            this::mergePrototypes
-        ).entrySet().stream().filter(entry -> entry.getKey().equals(selector)).findAny();
-        return newEntry.orElseThrow(RuntimeException::new);
+        if (!this.prototypes.containsKey(parent)) {
+            this.prototypes.put(parent, new ConcurrentHashMap<>());
+        }
+        return this.prototypes.get(parent).put(selector, instance);
     }
 
     /**
@@ -139,23 +133,5 @@ public abstract class AbstractInstanceManager<K, V> {
      */
     public Option<V> getSingle(final K parent) {
         return Option.of(this.singletons.get(parent));
-    }
-
-    /**
-     * This is a very basic and simple merge for the {@link Map} &lt; {@link Selector} , {@link K}
-     * &gt; that contains the instances organized per parent instance and distinct by selector.
-     *
-     * @param oldValue The old map provided by Java
-     * @param newValue The new map to be added
-     *
-     * @return The merge result to be stored (a simple result of a null-check followed by a {@link Map#putAll(Map)}).
-     */
-    private Map<Selector, V> mergePrototypes(
-        final Map<Selector, V> oldValue,
-        final Map<Selector, V> newValue
-    ) {
-        final Map<Selector, V> finalValue = new ConcurrentHashMap<>(oldValue);
-        finalValue.putAll(newValue);
-        return finalValue;
     }
 }

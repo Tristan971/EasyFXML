@@ -15,18 +15,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AbstractInstanceManagerTest {
 
-    private AbstractInstanceManager<Object, Object, Object> instanceManager;
+    private AbstractInstanceManager<String, String> instanceManager;
 
-    private static final Object PARENT = new Object();
-    private static final Object ACTUAL_1 = new Object();
-    private static final Object SEL_1 = new Object();
-    private static final Object ACTUAL_2 = new Object();
-    private static final Object SEL_2 = new Object();
+    private static final String PARENT = "PARENT";
+    private static final String ACTUAL_1 = "ACTUAL1";
+    private static final String ACTUAL_2 = "ACTUAL2";
+    private static final Selector SEL_1 = new Selector("SEL1");
+    private static final Selector SEL_2 = new Selector("SEL2");
 
     @Before
     public void setUp() {
-        this.instanceManager = new AbstractInstanceManager<Object, Object, Object>() {
-        };
+        this.instanceManager = new AbstractInstanceManager<String, String>() {};
     }
 
     @Test
@@ -51,7 +50,7 @@ public class AbstractInstanceManagerTest {
         this.instanceManager.registerMultiple(PARENT, SEL_1, ACTUAL_1);
         this.instanceManager.registerMultiple(PARENT, SEL_2, ACTUAL_2);
 
-        final List<Object> all = this.instanceManager.getAll(PARENT);
+        final List<String> all = this.instanceManager.getAll(PARENT);
         // Only one exemplary of ACTUAL_1 since the second call to register single overrides the first one
         assertThat(all).containsExactlyInAnyOrder(
             ACTUAL_1, ACTUAL_2, ACTUAL_2
