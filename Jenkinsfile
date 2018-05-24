@@ -18,6 +18,11 @@ pipeline {
             steps {
                 sh 'mvn clean test -Djava.awt.headless=false'
             }
+            post {
+                always {
+                    junit 'target/surefire-reports/**/*.xml'
+                }
+            }
         }
         stage('Code quality') {
             steps {
@@ -26,7 +31,7 @@ pipeline {
         }
         stage('PackageInstall') {
             steps {
-                sh 'mvn install -DskipTests'
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('Cleanup') {
@@ -37,13 +42,6 @@ pipeline {
         stage('Archive artifacts') {
             steps {
                 archiveArtifacts 'target/easyfxml*.jar'
-            }
-        }
-    }
-    post {
-        always {
-            always {
-                junit 'target/surefire-reports/**/*.xml'
             }
         }
     }
