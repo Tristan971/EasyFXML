@@ -3,6 +3,8 @@ package moe.tristan.easyfxml.spring.application;
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
+import moe.tristan.easyfxml.model.fxml.FxmlStylesheets;
 import moe.tristan.easyfxml.util.Stages;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -12,9 +14,6 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 import java.util.function.Function;
-
-import static moe.tristan.easyfxml.api.FxmlStylesheet.DEFAULT_JAVAFX_STYLE;
-import static moe.tristan.easyfxml.model.exception.ExceptionHandler.displayExceptionPane;
 
 /**
  * The {@link FxUiManager} is one take on a bootstrapping class for the JavaFX UI.
@@ -74,7 +73,7 @@ public abstract class FxUiManager {
         mainStage.setTitle(title());
 
         Option.ofOptional(getStylesheet())
-              .filter(style -> !DEFAULT_JAVAFX_STYLE.equals(style))
+              .filter(style -> !FxmlStylesheets.DEFAULT_JAVAFX_STYLE.equals(style))
               .peek(stylesheet -> this.setTheme(stylesheet, mainStage));
 
         mainStage.show();
@@ -135,7 +134,7 @@ public abstract class FxUiManager {
         Try.of(() -> stylesheet)
            .mapTry(FxmlStylesheet::getExternalForm)
            .mapTry(stylesheetUri -> Stages.setStylesheet(mainStage, stylesheetUri))
-           .orElseRun(err -> displayExceptionPane(
+           .orElseRun(err -> ExceptionHandler.displayExceptionPane(
                "Could not load theme!",
                "Could not load theme file with description : " + stylesheet,
                err
