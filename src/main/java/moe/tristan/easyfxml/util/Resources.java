@@ -23,9 +23,7 @@ import static io.vavr.API.Case;
  */
 public final class Resources {
 
-    private Resources() {
-        throw new UnsupportedOperationException("Utility class should not be instanciated.");
-    }
+    private Resources() {}
 
     /**
      * This method gets the {@link Path} associated to a classpath-located file.
