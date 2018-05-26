@@ -65,18 +65,18 @@ public interface EasyFxml {
      * @param node            The element's {@link FxmlNode} counterpart.
      * @param nodeClass       The class of the JavaFX {@link Node} represented by this {@link FxmlNode}.
      * @param controllerClass The class of the {@link FxmlController} managing this {@link FxmlNode}.
-     * @param <N_CLAZZ>       The type of the node. Mostly for type safety.
-     * @param <C_CLAZZ>       The type of the controller. Mostly for type safety.
+     * @param <NODE>       The type of the node. Mostly for type safety.
+     * @param <CONTROLLER>       The type of the controller. Mostly for type safety.
      *
      * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for its
      * controller. This allows for granular load error management.
      */
-    <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
-    FxmlLoadResult<N_CLAZZ, C_CLAZZ>
+    <NODE extends Node, CONTROLLER extends FxmlController>
+    FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<N_CLAZZ> nodeClass,
-        final Class<C_CLAZZ> controllerClass
+        final Class<NODE> nodeClass,
+        final Class<CONTROLLER> controllerClass
     );
 
     /**
@@ -87,18 +87,18 @@ public interface EasyFxml {
      * @param nodeClass       The class of the JavaFX {@link Node} represented by this {@link FxmlNode}.
      * @param controllerClass The class of the {@link FxmlController} managing this {@link FxmlNode}.
      * @param selector        The selector for deduplication of Panes sharing the same {@link FxmlNode}.
-     * @param <N_CLAZZ>       The type of the node. Mostly for type safety.
-     * @param <C_CLAZZ>       The type of the controller. Mostly for type safety.
+     * @param <NODE>       The type of the node. Mostly for type safety.
+     * @param <CONTROLLER>       The type of the controller. Mostly for type safety.
      *
      * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for its
      * controller. This allows for granular load error management.
      */
-    <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
-    FxmlLoadResult<N_CLAZZ, C_CLAZZ>
+    <NODE extends Node, CONTROLLER extends FxmlController>
+    FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<N_CLAZZ> nodeClass,
-        final Class<C_CLAZZ> controllerClass,
+        final Class<NODE> nodeClass,
+        final Class<CONTROLLER> controllerClass,
         final Selector selector
     );
 

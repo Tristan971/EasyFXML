@@ -56,12 +56,13 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     @Override
-    public <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
-    FxmlLoadResult<N_CLAZZ, C_CLAZZ>
+    public
+    <NODE extends Node, CONTROLLER extends FxmlController>
+    FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<N_CLAZZ> nodeClass,
-        final Class<C_CLAZZ> controllerClass
+        final Class<NODE> nodeClass,
+        final Class<CONTROLLER> controllerClass
     ) {
         return this.loadNodeImpl(
             this.getSingleStageFxmlLoader(node),
@@ -72,12 +73,13 @@ public class BaseEasyFxml implements EasyFxml {
     }
 
     @Override
-    public <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
-    FxmlLoadResult<N_CLAZZ, C_CLAZZ>
+    public
+    <NODE extends Node, CONTROLLER extends FxmlController>
+    FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<N_CLAZZ> nodeClass,
-        final Class<C_CLAZZ> controllerClass,
+        final Class<NODE> nodeClass,
+        final Class<CONTROLLER> controllerClass,
         final Selector selector
     ) {
         return this.loadNodeImpl(
@@ -96,24 +98,25 @@ public class BaseEasyFxml implements EasyFxml {
      * @param fxmlNode        The node to load as declared in some enum most likely
      * @param nodeClass       The class to try to cast the node to
      * @param controllerClass The class to try to cast the controller to
-     * @param <N_CLAZZ>       The type of the node to load
-     * @param <C_CLAZZ>       The type of the controller to bind to the node
+     * @param <NODE>       The type of the node to load
+     * @param <CONTROLLER>       The type of the controller to bind to the node
      *
      * @return The {@link FxmlLoadResult} related to this node attempt. Containing a load result for both the node and
      * the controller loaded, exposed through two {@link Try} instances.
      */
-    private <N_CLAZZ extends Node, C_CLAZZ extends FxmlController>
-    FxmlLoadResult<N_CLAZZ, C_CLAZZ>
+    private
+    <NODE extends Node, CONTROLLER extends FxmlController>
+    FxmlLoadResult<NODE, CONTROLLER>
     loadNodeImpl(
         final FxmlLoader fxmlLoader,
         final FxmlNode fxmlNode,
-        final Class<N_CLAZZ> nodeClass,
-        final Class<C_CLAZZ> controllerClass
+        final Class<NODE> nodeClass,
+        final Class<CONTROLLER> controllerClass
     ) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));
-        final Try<N_CLAZZ> nodeLoad = Try.of(fxmlLoader::load).map(nodeClass::cast);
-        final Try<C_CLAZZ> controllerLoad = Try.of(fxmlLoader::getController).map(controllerClass::cast);
+        final Try<NODE> nodeLoad = Try.of(fxmlLoader::load).map(nodeClass::cast);
+        final Try<CONTROLLER> controllerLoad = Try.of(fxmlLoader::getController).map(controllerClass::cast);
 
         nodeLoad.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
 

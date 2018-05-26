@@ -9,6 +9,6 @@ import javafx.stage.Stage;
  * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
  */
 @Component
-public class StageManager extends AbstractInstanceManager<FxmlNode, Stage, Selector> {
+public class StageManager extends AbstractInstanceManager<FxmlNode, Stage> {
 
 }

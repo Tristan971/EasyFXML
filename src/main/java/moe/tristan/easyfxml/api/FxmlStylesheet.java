@@ -18,8 +18,6 @@ import java.nio.file.Path;
  */
 public interface FxmlStylesheet {
 
-    FxmlStylesheet DEFAULT_JAVAFX_STYLE = () -> null;
-
     /**
      * @return the CSS file that composes the stylesheet as a {@link Path}. See {@link
      * Resources#getResourcePath(String)}

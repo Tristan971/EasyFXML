@@ -15,7 +15,7 @@ import java.util.Objects;
  * @see AbstractInstanceManager
  * @see EasyFxml
  */
-public class Selector {
+public final class Selector {
 
     private final WeakReference<?> reference;
 
@@ -32,7 +32,7 @@ public class Selector {
      * @return the backing reference.
      */
     @SuppressWarnings("WeakerAccess")
-    public WeakReference<?> getReference() {
+    public WeakReference getReference() {
         return reference;
     }
 
