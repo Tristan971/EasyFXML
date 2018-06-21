@@ -1,6 +1,7 @@
 package moe.tristan.easyfxml.model.fxml;
 
 import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 import io.vavr.Tuple;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
@@ -8,6 +9,7 @@ import io.vavr.control.Try;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 /**
  * This class wraps a node load result as a tuple of {@link Try} instances. Respectively one for the node itself (loaded
@@ -44,6 +46,11 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
      */
     public Try<CONTROLLER> getController() {
         return controller;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Try<Pane> orExceptionPane() {
+        return ((Try<Pane>) getNode()).recover(ExceptionHandler::fromThrowable);
     }
 
     /**
