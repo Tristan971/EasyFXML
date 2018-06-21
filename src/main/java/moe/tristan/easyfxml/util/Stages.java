@@ -62,6 +62,10 @@ public final class Stages {
         );
     }
 
+    public static CompletionStage<Stage> scheduleDisplaying(final CompletionStage<Stage> stageCreationResult) {
+        return stageCreationResult.whenCompleteAsync((res, err) -> scheduleDisplaying(res));
+    }
+
     /**
      * Schedules a stage for hiding
      *
@@ -79,6 +83,10 @@ public final class Stages {
             stage,
             Stage::hide
         );
+    }
+
+    public static CompletionStage<Stage> scheduleHiding(final CompletionStage<Stage> stageCreationResult) {
+        return stageCreationResult.whenCompleteAsync((res, err) -> scheduleHiding(res));
     }
 
     /**
@@ -108,6 +116,10 @@ public final class Stages {
         );
     }
 
+    public static CompletionStage<Stage> setStylesheet(final CompletionStage<Stage> stageCreationResult, final String stylesheet) {
+        return stageCreationResult.whenCompleteAsync((res, err) -> setStylesheet(res, stylesheet));
+    }
+
     /**
      * See {@link #setStylesheet(Stage, String)}
      *
@@ -118,6 +130,10 @@ public final class Stages {
      */
     public static CompletionStage<Stage> setStylesheet(final Stage stage, final FxmlStylesheet stylesheet) {
         return setStylesheet(stage, stylesheet.getExternalForm());
+    }
+
+    public static CompletionStage<Stage> setStylesheet(final CompletionStage<Stage> stageCreationResult, final FxmlStylesheet stylesheet) {
+        return stageCreationResult.whenCompleteAsync((res, err) -> setStylesheet(res, stylesheet));
     }
 
 }
