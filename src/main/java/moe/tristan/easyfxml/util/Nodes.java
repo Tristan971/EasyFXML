@@ -1,5 +1,6 @@
 package moe.tristan.easyfxml.util;
 
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -22,6 +23,29 @@ public final class Nodes {
         AnchorPane.setBottomAnchor(node, marginSize);
         AnchorPane.setLeftAnchor(node, marginSize);
         AnchorPane.setRightAnchor(node, marginSize);
+    }
+
+    public static void hideAndResizeParentIf(
+        final Node node,
+        final ObservableValue<? extends Boolean> condition
+    ) {
+        autoresizeContainerOn(node, condition);
+        bindContentBiasCalculationTo(node, condition);
+    }
+
+    public static void autoresizeContainerOn(
+        final Node node,
+        final ObservableValue<?> observableValue
+    ) {
+        observableValue.addListener((observable, oldValue, newValue) -> node.autosize());
+    }
+
+    public static void bindContentBiasCalculationTo(
+        final Node node,
+        final ObservableValue<? extends Boolean> observableValue
+    ) {
+        node.visibleProperty().bind(observableValue);
+        node.managedProperty().bind(node.visibleProperty());
     }
 
 }
