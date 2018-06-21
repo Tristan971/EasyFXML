@@ -59,6 +59,10 @@ public final class ExceptionHandler {
         return new AnchorPane(messageLabel, throwableDataLabel);
     }
 
+    public static Pane fromThrowable(final Throwable throwable) {
+        return new ExceptionHandler(throwable).asPane();
+    }
+
     /**
      * Creates a pop-up and displays it based on a given exception, pop-up title and custom error message.
      *
