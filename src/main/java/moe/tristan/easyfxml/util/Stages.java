@@ -133,7 +133,7 @@ public final class Stages {
     }
 
     public static CompletionStage<Stage> setStylesheet(final CompletionStage<Stage> stageCreationResult, final FxmlStylesheet stylesheet) {
-        return stageCreationResult.whenCompleteAsync((res, err) -> setStylesheet(res, stylesheet));
+        return setStylesheet(stageCreationResult, stylesheet.getExternalForm());
     }
 
 }

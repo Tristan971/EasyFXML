@@ -1,6 +1,7 @@
 package moe.tristan.easyfxml.util;
 
 import moe.tristan.easyfxml.api.FxmlStylesheet;
+import io.vavr.control.Try;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -56,10 +57,36 @@ public class StagesTest extends ApplicationTest {
     }
 
     @Test
+    public void scheduleDisplayingPostAsync() throws ExecutionException, InterruptedException {
+        Try.of(() -> testStage)
+           .map(Stages::scheduleHiding)
+           .map(Stages::scheduleDisplaying)
+           .get()
+           .toCompletableFuture()
+           .get();
+
+        Thread.sleep(200);
+        assertThat(testStage.isShowing()).isTrue();
+    }
+
+    @Test
     public void scheduleHiding() throws ExecutionException, InterruptedException {
         Stages.scheduleHiding(testStage)
               .thenAccept(stage -> assertThat(testStage.isShowing()).isFalse())
               .toCompletableFuture().get();
+    }
+
+    @Test
+    public void scheduleHidingPostAsync() throws ExecutionException, InterruptedException {
+        Try.of(() -> testStage)
+           .map(Stages::scheduleDisplaying)
+           .map(Stages::scheduleHiding)
+           .get()
+           .toCompletableFuture()
+           .get();
+
+        Thread.sleep(200);
+        assertThat(testStage.isShowing()).isFalse();
     }
 
     @Test
@@ -76,5 +103,18 @@ public class StagesTest extends ApplicationTest {
         final ObservableList<String> stylesheets = stage.getScene().getStylesheets();
         assertThat(stylesheets).hasSize(1);
         assertThat(stylesheets).containsExactly(TEST_STYLE.getExternalForm());
+    }
+
+    @Test
+    public void setStylesheetPostAsync() throws ExecutionException, InterruptedException {
+        Try.of(() -> testStage)
+           .map(Stages::scheduleDisplaying)
+           .map(cs -> Stages.setStylesheet(cs, TEST_STYLE))
+           .get()
+           .toCompletableFuture()
+           .get();
+
+        Thread.sleep(500);
+        assertThat(testStage.getScene().getStylesheets()).containsExactly(TEST_STYLE.getExternalForm());
     }
 }
