@@ -1,16 +1,12 @@
 package moe.tristan.easyfxml.model.fxml;
 
 import moe.tristan.easyfxml.api.FxmlController;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
 import io.vavr.control.Try;
 import org.junit.Before;
 import org.junit.Test;
 
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.nio.file.Paths;
 
@@ -18,27 +14,7 @@ import static org.testfx.assertions.api.Assertions.assertThat;
 
 public class FxmlLoadResultTest {
 
-    private static final Node TEST_NODE = new Node() {
-        @Override
-        protected NGNode impl_createPeer() {
-            return null;
-        }
-
-        @Override
-        public BaseBounds impl_computeGeomBounds(BaseBounds bounds, BaseTransform tx) {
-            return null;
-        }
-
-        @Override
-        protected boolean impl_computeContains(double localX, double localY) {
-            return false;
-        }
-
-        @Override
-        public Object impl_processMXNode(MXNodeAlgorithm alg, MXNodeAlgorithmContext ctx) {
-            return null;
-        }
-    };
+    private static final Node TEST_NODE = new Pane();
     private static final FxmlController TEST_CONTROLLER = () -> Paths.get("fakepath");
 
     private FxmlLoadResult<Node, FxmlController> fxmlLoadResult;
