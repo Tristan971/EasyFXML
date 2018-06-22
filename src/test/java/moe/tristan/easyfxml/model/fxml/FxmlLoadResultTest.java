@@ -4,6 +4,7 @@ import moe.tristan.easyfxml.api.FxmlController;
 import io.vavr.control.Try;
 import org.junit.Before;
 import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
-public class FxmlLoadResultTest {
+public class FxmlLoadResultTest extends ApplicationTest {
 
     private static final Node TEST_NODE = new Pane();
     private static final FxmlController TEST_CONTROLLER = () -> Paths.get("fakepath");
@@ -30,6 +31,16 @@ public class FxmlLoadResultTest {
     @Test
     public void getNode() {
         assertThat(fxmlLoadResult.getNode().get()).isEqualTo(TEST_NODE);
+    }
+
+    @Test
+    public void orExceptionPane() {
+        final FxmlLoadResult<Node, FxmlController> loadResult = new FxmlLoadResult<>(
+                Try.failure(new RuntimeException("TEST")),
+                Try.failure(new RuntimeException("TEST"))
+        );
+
+        assertThat(loadResult.orExceptionPane().isSuccess()).isTrue();
     }
 
     @Test
