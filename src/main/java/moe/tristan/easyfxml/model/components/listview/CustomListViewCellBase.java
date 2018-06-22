@@ -15,14 +15,21 @@ public abstract class CustomListViewCellBase<T> extends ListCell<T> {
 
     @SuppressWarnings("unchecked")
     public CustomListViewCellBase(final EasyFxml easyFxml, final FxmlNode cellNode) {
-        final FxmlLoadResult<Pane, CustomListViewCellController> loadResult = easyFxml.loadNode(
-            cellNode,
-            Pane.class,
-            CustomListViewCellController.class
-        );
+        this(easyFxml.loadNode(
+                cellNode,
+                Pane.class,
+                CustomListViewCellController.class
+        ));
+    }
 
-        this.cellNode = loadResult.getNode().get();
-        this.cellController = (CustomListViewCellController<T>) loadResult.getController().get();
+    @SuppressWarnings("unchecked")
+    public CustomListViewCellBase(final FxmlLoadResult<Pane, CustomListViewCellController> loadResult) {
+        this(loadResult.getNode().get(), loadResult.getController().get());
+    }
+
+    public CustomListViewCellBase(final Pane cellNode, final CustomListViewCellController<T> controller) {
+        this.cellNode = cellNode;
+        this.cellController = controller;
     }
 
     @Override
@@ -31,19 +38,14 @@ public abstract class CustomListViewCellBase<T> extends ListCell<T> {
 
         if (item == null) {
             setGraphic(null);
-        } else {
-            Platform.runLater(() -> {
-                cellController.updateWithValue(item);
-                cellController.selectedProperty(selectedProperty());
-            });
-            Platform.runLater(() -> {
-                cellController.updateWithValue(item);
-                cellController.selectedProperty(selectedProperty());
-                if (getGraphic() == null) {
-                    setGraphic(cellNode);
-                }
-            });
         }
+        Platform.runLater(() -> {
+            cellController.updateWithValue(item);
+            cellController.selectedProperty(selectedProperty());
+            if (getGraphic() == null) {
+                setGraphic(cellNode);
+            }
+        });
     }
 
 }
