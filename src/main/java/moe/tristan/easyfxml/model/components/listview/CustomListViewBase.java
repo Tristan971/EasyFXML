@@ -58,7 +58,7 @@ public abstract class CustomListViewBase<T> implements FxmlController {
                   final String effectiveScope = beanFactory.getBeanDefinition(pBean).getScope();
                   if (ConfigurableBeanFactory.SCOPE_PROTOTYPE.equals(effectiveScope)) {
                       LOG.warn(
-                              "Custom ListView cells wrapper and controllers should be prototype-scoped bean. " +
+                              "Custom ListView cells wrappers and controllers should be prototype-scoped bean. " +
                               "See @Scope annotation.\n" +
                               "Faulty bean was named : \"{}\"",
                               pBean
