@@ -20,7 +20,7 @@ public abstract class CustomListViewBase<T> implements FxmlController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomListViewBase.class);
 
-    private static AtomicBoolean HAS_CHECKED_BEAN_DEFINITIONS = new AtomicBoolean(false);
+    private static final AtomicBoolean HAS_CHECKED_BEAN_DEFINITIONS = new AtomicBoolean(false);
 
     @FXML
     protected ListView<T> listView;
@@ -48,24 +48,26 @@ public abstract class CustomListViewBase<T> implements FxmlController {
      * not make any assumption and expect all of them to be different and not singletons.
      */
     protected void ensureCorrectSpringScoping() {
-        if (HAS_CHECKED_BEAN_DEFINITIONS.get()) return;
+        synchronized (HAS_CHECKED_BEAN_DEFINITIONS) {
+            if (HAS_CHECKED_BEAN_DEFINITIONS.get()) return;
 
-        final ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
-        Stream.of(CustomListViewCellController.class, CustomListViewCellBase.class)
-              .map(beanFactory::getBeanNamesForType)
-              .flatMap(Arrays::stream)
-              .forEach(pBean -> {
-                  final String effectiveScope = beanFactory.getBeanDefinition(pBean).getScope();
-                  if (ConfigurableBeanFactory.SCOPE_PROTOTYPE.equals(effectiveScope)) {
-                      LOG.warn(
-                              "Custom ListView cells wrappers and controllers should be prototype-scoped bean. " +
-                              "See @Scope annotation.\n" +
-                              "Faulty bean was named : \"{}\"",
-                              pBean
-                      );
-                  }
-              });
-        HAS_CHECKED_BEAN_DEFINITIONS.set(true);
+            final ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
+            Stream.of(CustomListViewCellController.class, CustomListViewCellBase.class)
+                  .map(beanFactory::getBeanNamesForType)
+                  .flatMap(Arrays::stream)
+                  .forEach(pBean -> {
+                      final String effectiveScope = beanFactory.getBeanDefinition(pBean).getScope();
+                      if (ConfigurableBeanFactory.SCOPE_PROTOTYPE.equals(effectiveScope)) {
+                          LOG.warn(
+                                  "Custom ListView cells wrappers and controllers should be prototype-scoped bean. " +
+                                  "See @Scope annotation.\n" +
+                                  "Faulty bean was named : \"{}\"",
+                                  pBean
+                          );
+                      }
+                  });
+            HAS_CHECKED_BEAN_DEFINITIONS.set(true);
+        }
     }
 
     @Override
