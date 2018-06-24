@@ -4,6 +4,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import moe.tristan.easyfxml.model.components.listview.ComponentCellFxmlController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanExpression;
@@ -16,6 +18,8 @@ import java.util.concurrent.atomic.AtomicReference;
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ComponentCellFxmlSampleController implements ComponentCellFxmlController<String> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ComponentCellFxmlSampleController.class);
+
     public static final AtomicReference<Button> LAST_UPD_ITS_UGLY = new AtomicReference<>(null);
 
     @FXML
@@ -23,7 +27,7 @@ public class ComponentCellFxmlSampleController implements ComponentCellFxmlContr
 
     @Override
     public void updateWithValue(final String newValue) {
-        System.out.println("Set value of cell ["+this.hashCode()+"] to ["+newValue+"]");
+        LOG.debug("Set value of cell [{}] to [{}]", this.hashCode(), newValue);
         if (newValue == null) return;
 
         LAST_UPD_ITS_UGLY.set(testButton);
@@ -37,7 +41,7 @@ public class ComponentCellFxmlSampleController implements ComponentCellFxmlContr
 
     @Override
     public void initialize() {
-        System.out.println("Initialized cell [" + this.hashCode() + "]");
+        LOG.debug("Initialized cell [{}]", this.hashCode());
     }
 
 }

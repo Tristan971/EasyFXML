@@ -9,6 +9,8 @@ import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,6 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = FxSpringContext.class)
 public class FxmlLoaderTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FxmlLoaderTest.class);
 
     @Autowired
     private ApplicationContext context;
@@ -66,7 +70,7 @@ public class FxmlLoaderTest {
         final FxmlLoader fl2 = new FxmlLoader(context);
 
         final URL testURL = new URL("https://www.example.com");
-        final Consumer<Node> testConsumer = System.out::println;
+        final Consumer<Node> testConsumer = node -> LOG.debug(node.toString());
 
         assertThat(fl1).isEqualTo(fl1);
         assertThat(new Object()).isNotEqualTo(fl1);

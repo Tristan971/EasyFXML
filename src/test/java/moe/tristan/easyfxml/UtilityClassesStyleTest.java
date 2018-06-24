@@ -3,6 +3,8 @@ package moe.tristan.easyfxml;
 import org.junit.Test;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -16,6 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * lowered coverage for this as well...
  */
 public class UtilityClassesStyleTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UtilityClassesStyleTest.class);
 
     private static final Reflections reflections = new Reflections(
         "moe.tristan.easyfxml",
@@ -32,17 +36,14 @@ public class UtilityClassesStyleTest {
                        Arrays.stream(clazz.getDeclaredFields())
                              .allMatch(field -> Modifier.isStatic(field.getModifiers())))
                    .forEach(clazz -> {
-                       System.out.println("Expecting class " + clazz.getName() + " to :");
-                       System.out.print("\t-> be final ");
+                       LOG.debug("Expecting class {} to :\n" + clazz.getName());
+                       LOG.debug("\t-> be final ");
                        assertThat(clazz).isFinal();
-                       System.out.println("[*]");
-                       System.out.print("\t-> have exactly one constructor ");
+                       LOG.debug("\t-> have exactly one constructor ");
                        Constructor<?>[] constructors = clazz.getDeclaredConstructors();
                        assertThat(constructors).hasSize(1);
-                       System.out.println("[*]");
-                       System.out.print("\t-> and that this constructor is private ");
+                       LOG.debug("\t-> and that this constructor is private ");
                        assertThat(Modifier.isPrivate(constructors[0].getModifiers())).isTrue();
-                       System.out.println("[*]");
                    });
     }
 
