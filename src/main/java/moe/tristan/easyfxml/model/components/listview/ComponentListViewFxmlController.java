@@ -67,6 +67,8 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
                   }).forEach(BADLY_SCOPED_BEANS::add);
 
             HAS_CHECKED_BEAN_DEFINITIONS.set(true);
+            if (BADLY_SCOPED_BEANS.isEmpty()) return;
+
             final String faulties = String.join(",", BADLY_SCOPED_BEANS);
             LOG.warn(
                     "Custom ListView cells wrappers and controllers " +
