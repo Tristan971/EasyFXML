@@ -36,7 +36,7 @@ public class UtilityClassesStyleTest {
                        Arrays.stream(clazz.getDeclaredFields())
                              .allMatch(field -> Modifier.isStatic(field.getModifiers())))
                    .forEach(clazz -> {
-                       LOG.debug("Expecting class {} to :\n" + clazz.getName());
+                       LOG.debug("Expecting class {} to :", clazz.getName());
                        LOG.debug("\t-> be final ");
                        assertThat(clazz).isFinal();
                        LOG.debug("\t-> have exactly one constructor ");
