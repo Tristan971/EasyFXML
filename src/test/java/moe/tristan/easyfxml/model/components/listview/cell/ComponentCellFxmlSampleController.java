@@ -10,15 +10,23 @@ import javafx.beans.binding.BooleanExpression;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ComponentCellFxmlSampleController implements ComponentCellFxmlController<String> {
+
+    public static final AtomicReference<Button> LAST_UPD_ITS_UGLY = new AtomicReference<>(null);
 
     @FXML
     private Button testButton;
 
     @Override
     public void updateWithValue(final String newValue) {
+        System.out.println("Set value of cell ["+this.hashCode()+"] to ["+newValue+"]");
+        if (newValue == null) return;
+
+        LAST_UPD_ITS_UGLY.set(testButton);
         Platform.runLater(() -> testButton.setText(newValue));
     }
 
@@ -29,7 +37,7 @@ public class ComponentCellFxmlSampleController implements ComponentCellFxmlContr
 
     @Override
     public void initialize() {
-        System.out.println("Initialized cell " + this.toString());
+        System.out.println("Initialized cell [" + this.hashCode() + "]");
     }
 
 }
