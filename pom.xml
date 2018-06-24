@@ -102,6 +102,16 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
+            </testResource>
+        </testResources>
+
     </build>
 
     <dependencies>
