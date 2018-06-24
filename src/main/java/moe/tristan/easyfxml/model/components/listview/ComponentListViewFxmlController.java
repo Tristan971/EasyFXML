@@ -2,6 +2,7 @@ package moe.tristan.easyfxml.model.components.listview;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import moe.tristan.easyfxml.api.FxmlController;
 import org.slf4j.Logger;
@@ -17,7 +18,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-@SuppressWarnings("WeakerAccess")
 public abstract class ComponentListViewFxmlController<T> implements FxmlController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ComponentListViewFxmlController.class);
@@ -32,10 +32,10 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
     protected final Supplier<ComponentListCell<T>> cellSupplier;
 
     public ComponentListViewFxmlController(
-            ConfigurableApplicationContext applicationContext,
+            ApplicationContext applicationContext,
             Class<? extends ComponentListCell<T>> customCellClass
     ) {
-        this.applicationContext = applicationContext;
+        this.applicationContext = (ConfigurableApplicationContext) applicationContext;
         this.cellSupplier = () -> applicationContext.getBean(customCellClass);
         if (!HAS_CHECKED_BEAN_DEFINITIONS.get()) {
             findBadlyScopedComponents();
