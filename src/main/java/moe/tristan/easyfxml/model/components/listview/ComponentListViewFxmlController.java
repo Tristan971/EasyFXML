@@ -57,7 +57,7 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
                   .flatMap(Arrays::stream)
                   .forEach(pBean -> {
                       final String effectiveScope = beanFactory.getBeanDefinition(pBean).getScope();
-                      if (ConfigurableBeanFactory.SCOPE_PROTOTYPE.equals(effectiveScope)) {
+                      if (!ConfigurableBeanFactory.SCOPE_PROTOTYPE.equals(effectiveScope)) {
                           LOG.warn(
                                   "Custom ListView cells wrappers and controllers should be prototype-scoped bean. " +
                                   "See @Scope annotation.\n" +
