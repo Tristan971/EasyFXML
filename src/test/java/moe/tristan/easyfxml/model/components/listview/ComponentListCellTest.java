@@ -3,9 +3,9 @@ package moe.tristan.easyfxml.model.components.listview;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
+import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
-public class CustomListViewCellBaseTest extends ApplicationTest {
+public class ComponentListCellTest extends ApplicationTest {
 
     @Test
     public void updateItem() throws InterruptedException {
@@ -22,14 +22,14 @@ public class CustomListViewCellBaseTest extends ApplicationTest {
         final AtomicReference<String> value = new AtomicReference<>("");
 
         final Pane pane = new Pane();
-        final CustomListViewCellController<String> clvcc = new CustomListViewCellController<String>() {
+        final ComponentCellFxmlController<String> clvcc = new ComponentCellFxmlController<String>() {
             @Override
             public void updateWithValue(String newValue) {
                 value.set(newValue);
             }
 
             @Override
-            public <U extends ObservableValue<Boolean>> void selectedProperty(U selected) {
+            public void selectedProperty(final BooleanExpression selected) {
                 readProp.bind(selected);
             }
 
@@ -42,7 +42,7 @@ public class CustomListViewCellBaseTest extends ApplicationTest {
             }
         };
 
-        final TestListViewCell testListViewCell = new TestListViewCell(pane, clvcc);
+        final TestListCell testListViewCell = new TestListCell(pane, clvcc);
 
         testListViewCell.updateItem("TEST", false);
         Thread.sleep(200);
@@ -57,9 +57,9 @@ public class CustomListViewCellBaseTest extends ApplicationTest {
         assertThat(value.get()).isEqualTo(null);
     }
 
-    public class TestListViewCell extends CustomListViewCellBase<String> {
+    public class TestListCell extends ComponentListCell<String> {
 
-        public TestListViewCell(Pane cellNode, CustomListViewCellController<String> controller) {
+        public TestListCell(Pane cellNode, ComponentCellFxmlController<String> controller) {
             super(cellNode, controller);
         }
 
