@@ -61,8 +61,8 @@ public class BaseEasyFxml implements EasyFxml {
     FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<NODE> nodeClass,
-        final Class<CONTROLLER> controllerClass
+        final Class<? extends NODE> nodeClass,
+        final Class<? extends CONTROLLER> controllerClass
     ) {
         return this.loadNodeImpl(
             this.getSingleStageFxmlLoader(node),
@@ -78,8 +78,8 @@ public class BaseEasyFxml implements EasyFxml {
     FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<NODE> nodeClass,
-        final Class<CONTROLLER> controllerClass,
+        final Class<? extends NODE> nodeClass,
+        final Class<? extends CONTROLLER> controllerClass,
         final Selector selector
     ) {
         return this.loadNodeImpl(
@@ -110,8 +110,8 @@ public class BaseEasyFxml implements EasyFxml {
     loadNodeImpl(
         final FxmlLoader fxmlLoader,
         final FxmlNode fxmlNode,
-        final Class<NODE> nodeClass,
-        final Class<CONTROLLER> controllerClass
+        final Class<? extends NODE> nodeClass,
+        final Class<? extends CONTROLLER> controllerClass
     ) {
         final String filePath = this.filePath(fxmlNode);
         fxmlLoader.setLocation(getUrlForResource(filePath));

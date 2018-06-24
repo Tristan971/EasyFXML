@@ -59,7 +59,8 @@ public abstract class FxSpringApplication extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        this.springContext.getBean(FxUiManager.class).startGui(primaryStage);
+        this.springContext.getBean(FxUiManager.class)
+                          .startGui(primaryStage);
     }
 
     @Override

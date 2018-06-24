@@ -75,8 +75,8 @@ public interface EasyFxml {
     FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<NODE> nodeClass,
-        final Class<CONTROLLER> controllerClass
+        final Class<? extends NODE> nodeClass,
+        final Class<? extends CONTROLLER> controllerClass
     );
 
     /**
@@ -97,8 +97,8 @@ public interface EasyFxml {
     FxmlLoadResult<NODE, CONTROLLER>
     loadNode(
         final FxmlNode node,
-        final Class<NODE> nodeClass,
-        final Class<CONTROLLER> controllerClass,
+        final Class<? extends NODE> nodeClass,
+        final Class<? extends CONTROLLER> controllerClass,
         final Selector selector
     );
 

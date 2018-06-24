@@ -1,44 +1,21 @@
 package moe.tristan.easyfxml.model.fxml;
 
 import moe.tristan.easyfxml.api.FxmlController;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
 import io.vavr.control.Try;
 import org.junit.Before;
 import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.nio.file.Paths;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
-public class FxmlLoadResultTest {
+public class FxmlLoadResultTest extends ApplicationTest {
 
-    private static final Node TEST_NODE = new Node() {
-        @Override
-        protected NGNode impl_createPeer() {
-            return null;
-        }
-
-        @Override
-        public BaseBounds impl_computeGeomBounds(BaseBounds bounds, BaseTransform tx) {
-            return null;
-        }
-
-        @Override
-        protected boolean impl_computeContains(double localX, double localY) {
-            return false;
-        }
-
-        @Override
-        public Object impl_processMXNode(MXNodeAlgorithm alg, MXNodeAlgorithmContext ctx) {
-            return null;
-        }
-    };
+    private static final Node TEST_NODE = new Pane();
     private static final FxmlController TEST_CONTROLLER = () -> Paths.get("fakepath");
 
     private FxmlLoadResult<Node, FxmlController> fxmlLoadResult;
@@ -54,6 +31,16 @@ public class FxmlLoadResultTest {
     @Test
     public void getNode() {
         assertThat(fxmlLoadResult.getNode().get()).isEqualTo(TEST_NODE);
+    }
+
+    @Test
+    public void orExceptionPane() {
+        final FxmlLoadResult<Node, FxmlController> loadResult = new FxmlLoadResult<>(
+                Try.failure(new RuntimeException("TEST")),
+                Try.failure(new RuntimeException("TEST"))
+        );
+
+        assertThat(loadResult.orExceptionPane().isSuccess()).isTrue();
     }
 
     @Test

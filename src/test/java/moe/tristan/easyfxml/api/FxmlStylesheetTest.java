@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FxmlStylesheetTest {
 
-    private static String RES_REL_PATH = "fxml/test_style.css";
+    private static final String RES_REL_PATH = "fxml/test_style.css";
 
     private String cssFile;
 
