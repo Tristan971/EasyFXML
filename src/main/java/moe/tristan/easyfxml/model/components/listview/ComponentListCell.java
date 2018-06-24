@@ -8,26 +8,26 @@ import javafx.application.Platform;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
 
-public abstract class CustomListViewCellBase<T> extends ListCell<T> {
+public abstract class ComponentListCell<T> extends ListCell<T> {
 
     private final Pane cellNode;
-    private final CustomListViewCellController<T> cellController;
+    private final ComponentCellFxmlController<T> cellController;
 
     @SuppressWarnings("unchecked")
-    public CustomListViewCellBase(final EasyFxml easyFxml, final FxmlNode cellNode) {
+    public ComponentListCell(final EasyFxml easyFxml, final FxmlNode cellNode) {
         this(easyFxml.loadNode(
                 cellNode,
                 Pane.class,
-                CustomListViewCellController.class
+                ComponentCellFxmlController.class
         ));
     }
 
     @SuppressWarnings("unchecked")
-    public CustomListViewCellBase(final FxmlLoadResult<Pane, CustomListViewCellController> loadResult) {
+    public ComponentListCell(final FxmlLoadResult<Pane, ComponentCellFxmlController> loadResult) {
         this(loadResult.getNode().get(), loadResult.getController().get());
     }
 
-    public CustomListViewCellBase(final Pane cellNode, final CustomListViewCellController<T> controller) {
+    public ComponentListCell(final Pane cellNode, final ComponentCellFxmlController<T> controller) {
         this.cellNode = cellNode;
         this.cellController = controller;
     }

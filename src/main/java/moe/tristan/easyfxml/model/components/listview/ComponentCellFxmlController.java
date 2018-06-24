@@ -4,7 +4,7 @@ import moe.tristan.easyfxml.api.FxmlController;
 
 import javafx.beans.value.ObservableValue;
 
-public interface CustomListViewCellController<T> extends FxmlController {
+public interface ComponentCellFxmlController<T> extends FxmlController {
 
     void updateWithValue(final T newValue);
     <U extends ObservableValue<Boolean>> void selectedProperty(final U selected);

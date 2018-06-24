@@ -16,9 +16,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class CustomListViewBase<T> implements FxmlController {
+public abstract class ComponentListViewFxmlController<T> implements FxmlController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CustomListViewBase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ComponentListViewFxmlController.class);
 
     private static final AtomicBoolean HAS_CHECKED_BEAN_DEFINITIONS = new AtomicBoolean(false);
 
@@ -26,11 +26,11 @@ public abstract class CustomListViewBase<T> implements FxmlController {
     protected ListView<T> listView;
 
     protected final ConfigurableApplicationContext applicationContext;
-    protected final Supplier<CustomListViewCellBase<T>> cellSupplier;
+    protected final Supplier<ComponentListCell<T>> cellSupplier;
 
-    public CustomListViewBase(
+    public ComponentListViewFxmlController(
         ConfigurableApplicationContext applicationContext,
-        Class<? extends CustomListViewCellBase<T>> customCellClass
+        Class<? extends ComponentListCell<T>> customCellClass
     ) {
         this.applicationContext = applicationContext;
         this.cellSupplier = () -> applicationContext.getBean(customCellClass);
@@ -52,7 +52,7 @@ public abstract class CustomListViewBase<T> implements FxmlController {
             if (HAS_CHECKED_BEAN_DEFINITIONS.get()) return;
 
             final ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
-            Stream.of(CustomListViewCellController.class, CustomListViewCellBase.class)
+            Stream.of(ComponentCellFxmlController.class, ComponentListCell.class)
                   .map(beanFactory::getBeanNamesForType)
                   .flatMap(Arrays::stream)
                   .forEach(pBean -> {
