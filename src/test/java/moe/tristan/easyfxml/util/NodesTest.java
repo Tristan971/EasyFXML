@@ -17,13 +17,12 @@ public class NodesTest extends ApplicationTest {
 
     private static final double MARGIN = 5d;
 
-    private Pane container;
     private Button testButton;
 
     @Override
     public void start(final Stage stage) {
         this.testButton = new Button();
-        container = new AnchorPane(this.testButton);
+        Pane container = new AnchorPane(this.testButton);
         stage.setScene(new Scene(container));
         stage.show();
     }
