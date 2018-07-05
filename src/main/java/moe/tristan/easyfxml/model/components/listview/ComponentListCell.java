@@ -10,8 +10,8 @@ import javafx.scene.layout.Pane;
 
 public abstract class ComponentListCell<T> extends ListCell<T> {
 
-    private final Pane cellNode;
-    private final ComponentCellFxmlController<T> cellController;
+    protected final Pane cellNode;
+    protected final ComponentCellFxmlController<T> cellController;
 
     @SuppressWarnings("unchecked")
     public ComponentListCell(final EasyFxml easyFxml, final FxmlNode cellNode) {
