@@ -7,6 +7,6 @@ import javafx.beans.binding.BooleanExpression;
 public interface ComponentCellFxmlController<T> extends FxmlController {
 
     void updateWithValue(final T newValue);
-    void selectedProperty(final BooleanExpression selected);
+    default void selectedProperty(final BooleanExpression selected) {}
 
 }
