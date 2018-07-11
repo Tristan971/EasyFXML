@@ -8,19 +8,28 @@ import moe.tristan.easyfxml.api.FxmlController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static org.awaitility.Awaitility.with;
+
 public abstract class ComponentListViewFxmlController<T> implements FxmlController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ComponentListViewFxmlController.class);
+
+    private static final String SCROLL_BAR_SELECTOR = ".scroll-bar";
+    private static final double SCROLL_BAR_END_VALUE = 1.;
 
     static final AtomicBoolean HAS_CHECKED_BEAN_DEFINITIONS = new AtomicBoolean(false);
     static final Set<String> BADLY_SCOPED_BEANS = new HashSet<>();
@@ -67,7 +76,9 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
                   }).forEach(BADLY_SCOPED_BEANS::add);
 
             HAS_CHECKED_BEAN_DEFINITIONS.set(true);
-            if (BADLY_SCOPED_BEANS.isEmpty()) return;
+            if (BADLY_SCOPED_BEANS.isEmpty()) {
+                return;
+            }
 
             final String faulties = String.join(",", BADLY_SCOPED_BEANS);
             LOG.warn(
@@ -83,10 +94,43 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
     @Override
     public void initialize() {
         setCustomCellFactory();
+        listenToScroll();
     }
 
     private void setCustomCellFactory() {
         listView.setCellFactory(list -> cellSupplier.get());
+    }
+
+    protected void onScrolledToEndOfListView() {
+        // nothing there by default
+    }
+
+    private void listenToScroll() {
+        CompletableFuture.runAsync(this::awaitScrollBarLoaded)
+                         .thenRunAsync(this::listenToScrollBarValue, Platform::runLater);
+    }
+
+    private void awaitScrollBarLoaded() {
+        with().pollDelay(1, TimeUnit.SECONDS)
+              .pollInterval(500, TimeUnit.MILLISECONDS)
+              .await()
+              .atMost(30, TimeUnit.SECONDS)
+              .until(() -> {
+                  LOG.debug("Looking for scrollbar !");
+                  return listView.lookup(SCROLL_BAR_SELECTOR) != null;
+              });
+    }
+
+    private void listenToScrollBarValue() {
+        LOG.debug("Found scrollbar !");
+        ScrollBar bar = (ScrollBar) listView.lookup(SCROLL_BAR_SELECTOR);
+        bar.valueProperty().addListener((src, ov, nv) -> {
+            LOG.trace("Scrolled to position : {}", nv);
+            if (nv.doubleValue() == SCROLL_BAR_END_VALUE) {
+                LOG.debug("Scrolled to the end of the list!");
+                onScrolledToEndOfListView();
+            }
+        });
     }
 
 }

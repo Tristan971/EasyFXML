@@ -2,7 +2,6 @@ package moe.tristan.easyfxml.model.components.listview;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,9 +28,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import static moe.tristan.easyfxml.model.components.listview.CustomListViewTestComponents.VIEW;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @ContextConfiguration(classes = FxSpringContext.class)
 @SpringBootTest
@@ -41,10 +42,8 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     @Autowired
     private EasyFxml easyFxml;
 
-    @Autowired
-    private ConfigurableApplicationContext context;
-
     private Stage stage;
+    private ComponentListViewSampleFxmlController clvsfc;
 
     @Override
     public void start(Stage stage) {
@@ -56,7 +55,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         final String TEST_BUTTON_SUCCESS_TEXT = "TEST_SUCCESS";
 
         final ComponentListViewSampleFxmlController ctrl = setUpStage();
-        ctrl.addValue(TEST_BUTTON_SUCCESS_TEXT);
+        IntStream.range(0, 100).forEach(i -> ctrl.addValue(TEST_BUTTON_SUCCESS_TEXT));
 
         Thread.sleep(3000);
 
@@ -69,6 +68,13 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         assertThat(testButton).isNotNull();
         assertThat(testButton).isInstanceOf(Button.class);
         assertThat(testButton.getText()).isEqualTo(TEST_BUTTON_SUCCESS_TEXT);
+
+        assertThat(clvsfc.scrolledToEnd.get()).isFalse();
+        clvsfc.listView.scrollTo(1);
+        assertThat(clvsfc.scrolledToEnd.get()).isFalse();
+        clvsfc.listView.scrollTo(99);
+
+        await().atMost(1, TimeUnit.SECONDS).until(() -> clvsfc.scrolledToEnd.get());
     }
 
     private ComponentListViewSampleFxmlController setUpStage() throws InterruptedException, ExecutionException, TimeoutException {
@@ -87,6 +93,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         final ComponentListViewSampleFxmlController clvsfc =
                 res.getController()
                    .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+        this.clvsfc = clvsfc;
 
         Platform.runLater(() -> {
             final Scene scene = new Scene(listView);
