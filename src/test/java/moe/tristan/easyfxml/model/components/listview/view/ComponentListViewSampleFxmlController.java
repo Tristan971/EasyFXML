@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import moe.tristan.easyfxml.model.components.listview.ComponentListViewFxmlController;
 import moe.tristan.easyfxml.model.components.listview.cell.ComponentListCellSample;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,6 +15,7 @@ import javafx.collections.ObservableList;
 public class ComponentListViewSampleFxmlController extends ComponentListViewFxmlController<String> {
 
     private final ObservableList<String> values = FXCollections.observableArrayList();
+    public final BooleanProperty scrolledToEnd = new SimpleBooleanProperty(false);
 
     public ComponentListViewSampleFxmlController(ConfigurableApplicationContext applicationContext) {
         super(applicationContext, ComponentListCellSample.class);
@@ -28,4 +31,8 @@ public class ComponentListViewSampleFxmlController extends ComponentListViewFxml
         values.add(value);
     }
 
+    @Override
+    protected void onScrolledToEndOfListView() {
+        scrolledToEnd.setValue(true);
+    }
 }
