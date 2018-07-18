@@ -2,6 +2,7 @@ package moe.tristan.easyfxml.model.fxml;
 
 import moe.tristan.easyfxml.api.FxmlController;
 import io.vavr.control.Try;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
@@ -9,22 +10,24 @@ import org.testfx.framework.junit.ApplicationTest;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
 public class FxmlLoadResultTest extends ApplicationTest {
 
     private static final Node TEST_NODE = new Pane();
-    private static final FxmlController TEST_CONTROLLER = () -> Paths.get("fakepath");
+    private static final FxmlController TEST_CONTROLLER = () -> {
+        throw new RuntimeException("Force failure on initialize call.");
+    };
 
     private FxmlLoadResult<Node, FxmlController> fxmlLoadResult;
 
     @Before
     public void setUp() {
         fxmlLoadResult = new FxmlLoadResult<>(
-            Try.of(() -> TEST_NODE),
-            Try.of(() -> TEST_CONTROLLER)
+                Try.of(() -> TEST_NODE),
+                Try.of(() -> TEST_CONTROLLER)
         );
     }
 
@@ -56,10 +59,49 @@ public class FxmlLoadResultTest extends ApplicationTest {
     @Test
     public void toSeq() {
         assertThat(
-            fxmlLoadResult.toSeq()
-                          .map(Try.class::cast)
-                          .map(Try::get)
-                          .toJavaList()
+                fxmlLoadResult.toSeq()
+                              .map(Try.class::cast)
+                              .map(Try::get)
+                              .toJavaList()
         ).containsExactlyInAnyOrder(TEST_NODE, TEST_CONTROLLER);
     }
+
+    @Test
+    public void testPostProcessWithSuccessfulLoad() {
+        final String propToSet = "testPostProcessWithSuccessfulLoad";
+        final Object expectedPropValue = new Object();
+
+        final FxmlLoadResult<Node, FxmlController> stillSuccessful = fxmlLoadResult.afterNodeLoaded(
+                node -> node.getProperties().put(propToSet, expectedPropValue)
+        );
+        assertThat(stillSuccessful.getNode().isSuccess()).isTrue();
+        assertThat(TEST_NODE.getProperties().getOrDefault(propToSet, null)).isEqualTo(expectedPropValue);
+
+        final FxmlLoadResult<Node, FxmlController> shouldBeFailure = stillSuccessful.afterControllerLoaded(
+                FxmlController::initialize
+        );
+        assertThat(shouldBeFailure.getController().isFailure()).isTrue();
+
+        final AtomicBoolean didCallPostProcess = new AtomicBoolean(false);
+        Assertions.assertThatThrownBy(() -> shouldBeFailure.afterControllerLoaded(ctrl -> didCallPostProcess.set(true)))
+                  .isInstanceOf(IllegalStateException.class)
+                  .hasCauseInstanceOf(RuntimeException.class);
+        assertThat(didCallPostProcess).isFalse();
+    }
+
+    @Test
+    public void testPostProcessWithFailingLoad() {
+        final FxmlLoadResult<Node, FxmlController> failedLoad = new FxmlLoadResult<>(
+                Try.failure(new RuntimeException()),
+                Try.failure(new RuntimeException())
+        );
+
+        Assertions.assertThatThrownBy(() -> failedLoad.afterControllerLoaded(FxmlController::initialize))
+                  .isInstanceOf(IllegalStateException.class)
+                  .hasCauseInstanceOf(RuntimeException.class);
+        Assertions.assertThatThrownBy(() -> failedLoad.afterNodeLoaded(Node::getProperties))
+                  .isInstanceOf(IllegalStateException.class)
+                  .hasCauseInstanceOf(RuntimeException.class);
+    }
+
 }
