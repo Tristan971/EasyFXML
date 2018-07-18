@@ -65,19 +65,28 @@ Thus, here's what using an `FxmlNode`-implementing `enum` to declare all your
 components looks like.
 
 ```java
-public enum Views implements FxmlNode {
-    ROOT("RootView.fxml", RootController.class),
-    LOGIN("Login.fxml", LoginController.class),
-    TIMELINE("Timeline.fxml", TimelineController.class),
-    SETTINGS("Settings.fxml", SettingsController.class);
+public enum Components implements FxmlNode {
+    CONTROL_BAR("controlbar/ControlBar.fxml", ControlBarController.class),
+    CURRENT_ACCOUNT("currentaccount/CurrentAccount.fxml", CurrentAccountController.class)
 
-    private static final String VIEWS_ROOT = "components/";
-    
-    /** constructor, fields... **/
+    /*...*/
+
+    USER_TIMELINE("usertimeline/UserTimeline.fxml", UserTimelineController.class),
+    NOTIFICATIONS_PANE("notifications/NotificationPane.fxml", NotificationsController.class);
+
+    private static final String COMPONENTS_BASE_PATH = "moe/lyrebird/view/components/";
+
+    private final String filePath;
+    private final Class<? extends FxmlController> controllerClass;
+
+    Components(final String filePath, final Class<? extends FxmlController> controllerClass) {
+        this.filePath = filePath;
+        this.controllerClass = controllerClass;
+    }
 
     @Override
-    public FxmlFile getFxmlFile() {
-        return () -> VIEWS_ROOT + fxmlFile;
+    public FxmlFile getFile() {
+        return () -> COMPONENTS_BASE_PATH + filePath;
     }
 
     @Override
@@ -85,6 +94,7 @@ public enum Views implements FxmlNode {
         return controllerClass;
     }
 }
+
 ```
 
 #### Loading a UI component with `EasyFxml`
@@ -109,7 +119,7 @@ public class SomeClass {
     /* ... */
     
     private Try<Node> loadLoginNode() {
-        return easyFxml.load(Views.LOGIN);
+        return easyFxml.load(Views.LOGIN).getNode();
     }
 }
 ```
@@ -131,6 +141,7 @@ public class SomeClass {
     private Scene getRootScene() {
             final Try<Pane> rootPane = this.easyFxml
                     .loadNode(Views.ROOT)
+                    .getNode()
                     .recover(err -> new ExceptionHandler(err).asPane()); //load an error pane instead of just crashing
                     //.onError(Consumer<Throwable>)
                     //.onSuccess(Consumer<Pane>)
