@@ -42,6 +42,14 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
         this.controller = controller;
     }
 
+    /**
+     * Applies the given {@link Consumer} to the wrapped {@link Node} if its load (and its controller's) was
+     * successful.
+     *
+     * @param onNodeLoaded The post-processing to execute on the node
+     *
+     * @return A new instance of {@link FxmlLoadResult} with updated internal state.
+     */
     public FxmlLoadResult<NODE, CONTROLLER> afterNodeLoaded(final Consumer<Node> onNodeLoaded) {
         ensureCorrectlyLoaded();
         return new FxmlLoadResult<>(
@@ -53,6 +61,14 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
         );
     }
 
+    /**
+     * Applies the given {@link Consumer} to the wrapped {@link FxmlController} if its load (and its node's) was
+     * successful.
+     *
+     * @param onControllerLoaded The post-processing to execute on the controller
+     *
+     * @return A new instance of {@link FxmlLoadResult} with updated internal state.
+     */
     public FxmlLoadResult<NODE, CONTROLLER> afterControllerLoaded(final Consumer<CONTROLLER> onControllerLoaded) {
         ensureCorrectlyLoaded();
         return new FxmlLoadResult<>(
@@ -64,6 +80,11 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
         );
     }
 
+    /**
+     * Performs an unsafe (in the sense that it will throw a {@link RuntimeException} on failure) check of whether both
+     * the {@link #node} and the {@link #controller} loaded successfully. The condition is that they must both be
+     * successes (in the sense of {@link Try#isSuccess()} and be non-null values.
+     */
     private void ensureCorrectlyLoaded() {
         if (node.isFailure()) {
             LOG.error("Node did not properly load!", node.getCause());
