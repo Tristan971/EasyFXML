@@ -224,10 +224,9 @@ to be exposed.
 
 #### F.A.Q.
 
-Well, none so far, but you can check out my [twitter client project (Lyrebird)](https://github.com/Tristan971/Lyrebird)
+Well, none so far, but you can check out [Lyrebird, an open-source cross-platform JavaFX-based Twitter client for the desktop](https://github.com/Tristan971/Lyrebird)
 to see what usage looks like.
-It is not nearly advanced nor up to date with this library for now though. It's
-mostly for getting a general idea I'd say.
+It might be a bit convoluted at first look so start with the `Components` and `Screens` classes to get a general feel of how it works.
 
 #### Misc
 
