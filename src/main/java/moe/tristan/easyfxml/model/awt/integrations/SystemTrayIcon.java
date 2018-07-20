@@ -33,7 +33,7 @@ public interface SystemTrayIcon {
     Map<MenuItem, ActionListener> getMenuItems();
 
     /**
-     * The {@link MouseListener} called when a click is detected on the {@link TrayIcon}.
+     * @return The {@link MouseListener} called when a click is detected on the {@link TrayIcon}.
      *
      * @see moe.tristan.easyfxml.model.awt.objects.OnMouseClickListener
      * @see TrayIcon#addMouseListener(java.awt.event.MouseListener)
