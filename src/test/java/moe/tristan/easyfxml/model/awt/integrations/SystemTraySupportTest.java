@@ -65,6 +65,11 @@ public class SystemTraySupportTest {
         }).andThenTry(mouseListener -> {
             assertThat(mouseListener).isSameAs(sysTrayIcon.onMouseClickListener());
             mouseListener.mousePressed(null);
+            mouseListener.mouseEntered(null);
+            mouseListener.mouseExited(null);
+            mouseListener.mouseReleased(null);
+            assertThat(clickRegistered.getValue()).isFalse();
+            mouseListener.mouseClicked(null);
             assertThat(clickRegistered.getValue()).isTrue();
         });
 
