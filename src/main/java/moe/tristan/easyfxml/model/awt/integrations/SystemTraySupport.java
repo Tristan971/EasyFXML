@@ -41,6 +41,7 @@ public class SystemTraySupport {
                            })
                    )).thenApplyAsync(trayIconRes -> trayIconRes.map(icon -> {
                     icon.setImageAutoSize(true);
+                    icon.addMouseListener(systemTrayIcon.onMouseClickListener());
                     return icon;
                 }));
     }

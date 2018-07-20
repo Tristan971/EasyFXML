@@ -1,7 +1,9 @@
 package moe.tristan.easyfxml.model.awt.integrations;
 
 import java.awt.MenuItem;
+import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.Map;
 
@@ -29,5 +31,13 @@ public interface SystemTrayIcon {
      * @return The elements that the user sees on click.
      */
     Map<MenuItem, ActionListener> getMenuItems();
+
+    /**
+     * The {@link MouseListener} called when a click is detected on the {@link TrayIcon}.
+     *
+     * @see moe.tristan.easyfxml.model.awt.objects.OnMouseClickListener
+     * @see TrayIcon#addMouseListener(java.awt.event.MouseListener)
+     */
+    MouseListener onMouseClickListener();
 
 }
