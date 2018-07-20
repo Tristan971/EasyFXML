@@ -4,14 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import moe.tristan.easyfxml.model.awt.objects.OnMouseClickListener;
 import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import io.vavr.control.Try;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.awt.MenuItem;
 import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +37,8 @@ public class SystemTraySupportTest {
     private static final String TRAY_LABEL = "TEST_LABEL";
     private static final URL TRAY_ICON_URL = getTrayIcon();
 
+    private BooleanProperty clickRegistered = new SimpleBooleanProperty(false);
+
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -45,12 +52,21 @@ public class SystemTraySupportTest {
         final Map<MenuItem, ActionListener> menuItems = new HashMap<>();
         menuItems.put(testItem, disableOnClick);
 
-        final SystemTrayIcon trayIcon = this.systemTrayIconWith(menuItems);
-        final CompletionStage<Try<TrayIcon>> asyncRegistrationRes = systemTraySupport.registerTrayIcon(trayIcon);
+        final SystemTrayIcon sysTrayIcon = this.systemTrayIconWith(menuItems);
+        final CompletionStage<Try<TrayIcon>> asyncRegistrationRes = systemTraySupport.registerTrayIcon(sysTrayIcon);
         final Try<TrayIcon> registrationRes = asyncRegistrationRes.toCompletableFuture().get(5, SECONDS);
 
         assertThat(registrationRes.isSuccess()).isTrue();
         assertThat(systemTraySupport.getTrayIcons()).containsExactly(registrationRes.get());
+
+        registrationRes.map(trayIcon -> {
+            assertThat(trayIcon.getMouseListeners()).hasSize(1);
+            return trayIcon.getMouseListeners()[0];
+        }).andThenTry(mouseListener -> {
+            assertThat(mouseListener).isSameAs(sysTrayIcon.onMouseClickListener());
+            mouseListener.mousePressed(null);
+            assertThat(clickRegistered.getValue()).isTrue();
+        });
 
         final CompletionStage<Void> asyncRemove = systemTraySupport.removeTrayIcon(registrationRes.get());
         asyncRemove.toCompletableFuture().get(5, SECONDS);
@@ -59,6 +75,9 @@ public class SystemTraySupportTest {
     }
 
     private SystemTrayIcon systemTrayIconWith(final Map<MenuItem, ActionListener> menuItems) {
+
+        final MouseListener onMouseClickListener = new OnMouseClickListener(e -> clickRegistered.setValue(true));
+
         return new SystemTrayIcon() {
             @Override
             public String getLabel() {
@@ -73,6 +92,11 @@ public class SystemTraySupportTest {
             @Override
             public Map<MenuItem, ActionListener> getMenuItems() {
                 return menuItems;
+            }
+
+            @Override
+            public MouseListener onMouseClickListener() {
+                return onMouseClickListener;
             }
         };
     }
