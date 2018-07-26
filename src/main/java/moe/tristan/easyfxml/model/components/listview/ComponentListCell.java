@@ -36,7 +36,7 @@ public abstract class ComponentListCell<T> extends ListCell<T> {
     protected void updateItem(final T item, final boolean empty) {
         super.updateItem(item, empty);
 
-        if (item == null) {
+        if (item == null || empty) {
             setGraphic(null);
         }
         Platform.runLater(() -> {
