@@ -17,12 +17,12 @@ Trivia :
 
 [![Quality gate status](https://sonar.tristan.moe/api/project_badges/quality_gate?project=moe.tristan%3Aeasyfxml)](https://sonar.tristan.moe/dashboard?id=moe.tristan%3Aeasyfxml)
 
-Maven dependency : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/moe.tristan/easyfxml/badge.svg)](http://search.maven.org/#artifactdetails%7Cmoe.tristan%7Ceasyfxml%7C1.1.6%7Cjar)
+Maven dependency : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/moe.tristan/easyfxml/badge.svg)](http://search.maven.org/#artifactdetails%7Cmoe.tristan%7Ceasyfxml%7C1.1.7%7Cjar)
 ```xml
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
 </dependency>
 ```
 
