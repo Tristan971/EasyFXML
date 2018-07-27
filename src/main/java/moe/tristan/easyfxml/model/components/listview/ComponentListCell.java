@@ -38,6 +38,11 @@ public abstract class ComponentListCell<T> extends ListCell<T> {
 
         if (item == null || empty) {
             setGraphic(null);
+            setVisible(false);
+            setManaged(false);
+        } else {
+            setVisible(true);
+            setManaged(true);
         }
         Platform.runLater(() -> {
             cellController.updateWithValue(item);
