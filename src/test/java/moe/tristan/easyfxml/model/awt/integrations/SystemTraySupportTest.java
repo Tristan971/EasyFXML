@@ -20,6 +20,7 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -101,8 +102,8 @@ public class SystemTraySupportTest {
             }
 
             @Override
-            public MouseListener onMouseClickListener() {
-                return onMouseClickListener;
+            public Optional<MouseListener> onMouseClickListener() {
+                return Optional.of(onMouseClickListener);
             }
         };
     }
