@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.model.awt.integrations;
+package moe.tristan.easyfxml.model.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
