@@ -69,12 +69,14 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         assertThat(testButton).isInstanceOf(Button.class);
         assertThat(testButton.getText()).isEqualTo(TEST_BUTTON_SUCCESS_TEXT);
 
-        assertThat(clvsfc.scrolledToEnd.get()).isFalse();
-        clvsfc.listView.scrollTo(1);
-        assertThat(clvsfc.scrolledToEnd.get()).isFalse();
-        clvsfc.listView.scrollTo(99);
+        Platform.runLater(() -> {
+            assertThat(clvsfc.scrolledToEnd.get()).isFalse();
+            clvsfc.listView.scrollTo(1);
+            assertThat(clvsfc.scrolledToEnd.get()).isFalse();
+            clvsfc.listView.scrollTo(99);
 
-        await().atMost(1, TimeUnit.SECONDS).until(() -> clvsfc.scrolledToEnd.get());
+            await().atMost(1, TimeUnit.SECONDS).until(() -> clvsfc.scrolledToEnd.get());
+        });
     }
 
     private ComponentListViewSampleFxmlController setUpStage() throws InterruptedException, ExecutionException, TimeoutException {

@@ -19,7 +19,10 @@ import java.util.stream.Collectors;
 
 /**
  * Allows creation/management of a custom system tray icon.
+ *
+ * @deprecated Check out Dorkbox's SystemTray library for that matter. It is much more resilient.
  */
+@Deprecated
 @Component
 public class SystemTraySupport {
 
@@ -41,7 +44,7 @@ public class SystemTraySupport {
                            })
                    )).thenApplyAsync(trayIconRes -> trayIconRes.map(icon -> {
                     icon.setImageAutoSize(true);
-                    icon.addMouseListener(systemTrayIcon.onMouseClickListener());
+                    systemTrayIcon.onMouseClickListener().ifPresent(icon::addMouseListener);
                     return icon;
                 }));
     }
