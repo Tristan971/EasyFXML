@@ -11,11 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
