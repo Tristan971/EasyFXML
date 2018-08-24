@@ -3,6 +3,8 @@ package moe.tristan.easyfxml.model.awt.integrations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import moe.tristan.easyfxml.model.system.BrowserSupport;
 import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import io.vavr.control.Try;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,8 +33,8 @@ public class BrowserSupportTest extends ApplicationTest {
     public void openUrl_bad_url() {
         Try<Void> invalidUrlOpening = browserSupport.openUrl("not_a_url");
 
-        assertThat(invalidUrlOpening.isFailure()).isTrue();
-        assertThat(invalidUrlOpening.getCause()).isInstanceOf(MalformedURLException.class);
+        // JFX url opening works for anything, it will just basically try to open it in browser and that's it
+        assertThat(invalidUrlOpening.isFailure()).isFalse();
     }
 
     @Test
