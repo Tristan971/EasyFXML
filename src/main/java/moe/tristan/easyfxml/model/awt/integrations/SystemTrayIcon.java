@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * A SystemTrayIcon is a UI object owned by this application that lies in the operating system's (if supported) tray.
@@ -33,11 +34,18 @@ public interface SystemTrayIcon {
     Map<MenuItem, ActionListener> getMenuItems();
 
     /**
+     * Allows setting up an action on mouse click on the tray icon.
+     * Please note that this is only effective on Windows and some Linux tray implementations.
+     * <p>
+     * On macOS and some other Linux tray implementations, this is ineffective as left click will always only open the menu panel.
+     * <p>
+     * On top of that, trying to force its usage on these platforms can lead to UI glitches.
+     *
      * @return The {@link MouseListener} called when a click is detected on the {@link TrayIcon}.
      *
      * @see moe.tristan.easyfxml.model.awt.objects.OnMouseClickListener
      * @see TrayIcon#addMouseListener(java.awt.event.MouseListener)
      */
-    MouseListener onMouseClickListener();
+    Optional<MouseListener> onMouseClickListener();
 
 }
