@@ -85,11 +85,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <additionalOptions>
-                        <additionalOption>-html5</additionalOption>
-                    </additionalOptions>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
