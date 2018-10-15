@@ -45,6 +45,7 @@ public abstract class FxSpringApplication extends Application {
 
     protected SpringApplicationBuilder getSab() {
         return new SpringApplicationBuilder(getClass())
+            .main(getClass())
             .headless(false)
             .web(WebApplicationType.NONE);
     }
