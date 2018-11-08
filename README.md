@@ -17,12 +17,12 @@ Trivia :
 
 [![Quality gate status](https://sonar.tristan.moe/api/project_badges/quality_gate?project=moe.tristan%3Aeasyfxml)](https://sonar.tristan.moe/dashboard?id=moe.tristan%3Aeasyfxml)
 
-Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central-1.1.9-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/1.1.9/jar)
+Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central-2.0.0-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/2.0.0/jar)
 ```xml
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>1.1.9</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -211,16 +211,9 @@ to evaluate...
 
 #### What if I don't use Spring ?
 
-The good news is, it's a beatiful day to start doing so :)
+Starting with EasyFXML 2.0.0, you need to use Spring to rely on it.
 
-But then again I can understand so Spring is absolutely not required from your
-code's standpoint. That said, this library has a dependency to Spring Boot so
-you should keep that in mind if you create custom JVM images or tomcat containers
-so that it doesn't crash with these sweet sweet `ClassNotFoundException`s :)
-
-Acting like a Spring Context is `NoSpringSupport` class's `#getInstance(Class)`
-method. It should successfully supply any component of the library that is meant
-to be exposed.
+You can still use the latest 1.X.X version and `NoSpringSupport` utility class for non-spring projects.
 
 #### F.A.Q.
 
@@ -230,6 +223,6 @@ It might be a bit convoluted at first look so start with the `Components` and `S
 
 #### Misc
 
-Licence : Apache (see LICENSE, tl;dr : don't be evil :)
+Licence : Apache
 
 Credits : Tristan Deloche (I hope this list grows by a lot in some time)
