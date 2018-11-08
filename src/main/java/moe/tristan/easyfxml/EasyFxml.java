@@ -13,12 +13,12 @@ import javafx.scene.layout.Pane;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.springframework.context.ApplicationContext;
+
 /**
  * This class is the base entry point of the library.
  * <p>
- * It is expected to be acquired from the Spring springContext or via
- * {@link moe.tristan.easyfxml.spring.NoSpringSupport}
- * if the project does not use Spring.
+ * It is expected to be acquired from the Spring {@link ApplicationContext}.
  *
  * @see Try
  * @see FxmlNode
