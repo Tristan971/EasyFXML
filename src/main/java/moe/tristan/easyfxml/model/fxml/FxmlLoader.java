@@ -5,8 +5,6 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import moe.tristan.easyfxml.api.FxmlNode;
-import moe.tristan.easyfxml.model.beanmanagement.Selector;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,8 +27,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  * This pre-made instance will be preloaded with {@link ApplicationContext#getBean(Class)} as the default way to
  * fabricate the controller classes which handle the UI's state.
  * <p>
- * See further configuration in {@link BaseEasyFxml#getSingleStageFxmlLoader(FxmlNode)} and {@link
- * BaseEasyFxml#getMultiStageFxmlLoader(FxmlNode, Selector)}
+ * See further configuration in {@link BaseEasyFxml}.
  */
 
 @Component

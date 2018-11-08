@@ -22,7 +22,7 @@ public class ComponentListCellTest extends ApplicationTest {
         final AtomicReference<String> value = new AtomicReference<>("");
 
         final Pane pane = new Pane();
-        final ComponentCellFxmlController<String> clvcc = new ComponentCellFxmlController<String>() {
+        final ComponentCellFxmlController<String> clvcc = new ComponentCellFxmlController<>() {
             @Override
             public void updateWithValue(String newValue) {
                 value.set(newValue);

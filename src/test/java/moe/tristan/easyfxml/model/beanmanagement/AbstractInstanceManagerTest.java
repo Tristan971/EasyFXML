@@ -25,7 +25,8 @@ public class AbstractInstanceManagerTest {
 
     @Before
     public void setUp() {
-        this.instanceManager = new AbstractInstanceManager<String, String>() {};
+        this.instanceManager = new AbstractInstanceManager<>() {
+        };
     }
 
     @Test
