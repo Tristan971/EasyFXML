@@ -141,7 +141,7 @@
         </dependency>
         <!-- endregion -->
 
-        <!-- region OpenJFX -->
+        <!-- region OpenJFX 11 -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>

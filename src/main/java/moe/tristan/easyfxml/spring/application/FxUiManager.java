@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The {@link FxUiManager} is one take on a bootstrapping class for the JavaFX UI.
  * <p>
@@ -33,6 +36,8 @@ import java.util.function.Function;
  * it.
  */
 public abstract class FxUiManager {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FxUiManager.class);
 
     protected final EasyFxml easyFxml;
 
@@ -64,19 +69,21 @@ public abstract class FxUiManager {
      * @param mainStage The main stage of the application feeded by JavaFX
      */
     public void startGui(final Stage mainStage) {
-        onStageCreated(mainStage);
+        try {
+            onStageCreated(mainStage);
+            final Scene mainScene = getScene(mainComponent());
+            onSceneCreated(mainScene);
+            mainStage.setScene(mainScene);
+            mainStage.setTitle(title());
 
-        final Scene mainScene = getScene(mainComponent());
-        onSceneCreated(mainScene);
+            Option.ofOptional(getStylesheet())
+                  .filter(style -> !FxmlStylesheets.DEFAULT_JAVAFX_STYLE.equals(style))
+                  .peek(stylesheet -> this.setTheme(stylesheet, mainStage));
 
-        mainStage.setScene(mainScene);
-        mainStage.setTitle(title());
-
-        Option.ofOptional(getStylesheet())
-              .filter(style -> !FxmlStylesheets.DEFAULT_JAVAFX_STYLE.equals(style))
-              .peek(stylesheet -> this.setTheme(stylesheet, mainStage));
-
-        mainStage.show();
+            mainStage.show();
+        } catch (Throwable t) {
+            LOGGER.error("There was a failure during start-up.", t);
+        }
     }
 
     /**
