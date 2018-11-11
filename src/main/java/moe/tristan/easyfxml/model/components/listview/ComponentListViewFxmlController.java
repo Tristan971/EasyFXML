@@ -1,17 +1,6 @@
 package moe.tristan.easyfxml.model.components.listview;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import moe.tristan.easyfxml.api.FxmlController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
+import static org.awaitility.Awaitility.with;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,7 +11,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static org.awaitility.Awaitility.with;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+
+import moe.tristan.easyfxml.api.FxmlController;
 
 public abstract class ComponentListViewFxmlController<T> implements FxmlController {
 
@@ -114,7 +115,7 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
         with().pollDelay(1, TimeUnit.SECONDS)
               .pollInterval(500, TimeUnit.MILLISECONDS)
               .await()
-              .atMost(30, TimeUnit.SECONDS)
+              .atMost(5, TimeUnit.SECONDS)
               .until(() -> {
                   LOG.debug("Looking for scrollbar !");
                   return listView.lookup(SCROLL_BAR_SELECTOR) != null;

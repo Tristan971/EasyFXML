@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:latest as EasyFXML
 
 # Use JDK12 as there are no musl-compatible JDK11 releases for now
 RUN wget "https://download.java.net/java/early_access/alpine/18/binaries/openjdk-12-ea+18_linux-x64-musl_bin.tar.gz" -O jdk12.tar.gz
@@ -29,10 +29,10 @@ ENV term=linux
 ADD . /EasyFXML
 RUN chmod +x ./EasyFXML/docker-util/*
 
-# Move into repo and pre-download required maven dependencies to limit dependency resolution output
-# in compile-test step
+# Copy local maven repo
+# Move into repo
+# Pre-download required maven dependencies to limit dependency resolution output in compile-test step
 WORKDIR /EasyFXML
-RUN mvn dependency:go-offline -T4C
 
 # Start tests
 ENTRYPOINT ["./docker-util/run_tests.sh"]

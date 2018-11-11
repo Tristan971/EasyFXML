@@ -7,6 +7,8 @@ import static org.awaitility.Awaitility.await;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -50,7 +52,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void rough_integration_test() throws InterruptedException {
+    public void rough_integration_test() throws InterruptedException, TimeoutException, ExecutionException {
         final String TEST_BUTTON_SUCCESS_TEXT = "TEST_SUCCESS";
 
         final ComponentListViewSampleFxmlController ctrl = setUpStage();
@@ -78,7 +80,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         });
     }
 
-    private ComponentListViewSampleFxmlController setUpStage() {
+    private ComponentListViewSampleFxmlController setUpStage() throws InterruptedException, ExecutionException, TimeoutException {
         final CompletableFuture<ComponentListViewSampleFxmlController> setUpAsyncWait = new CompletableFuture<>();
 
         final FxmlLoadResult<Pane, ComponentListViewSampleFxmlController> res = easyFxml.loadNode(
@@ -103,7 +105,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             setUpAsyncWait.complete(clvsfc);
         });
 
-        return setUpAsyncWait.join();
+        return setUpAsyncWait.get(5, SECONDS);
     }
 
     @Component

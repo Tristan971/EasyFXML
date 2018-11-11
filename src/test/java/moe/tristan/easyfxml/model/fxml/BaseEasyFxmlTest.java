@@ -4,6 +4,9 @@ import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
 import org.junit.Ignore;
@@ -56,7 +59,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_single() {
+    public void load_as_pane_single() throws InterruptedException, ExecutionException, TimeoutException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE).getNode());
 
         assertThat(testPane.getChildren()).hasSize(1);
@@ -69,7 +72,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_multiple() {
+    public void load_as_pane_multiple() throws InterruptedException, ExecutionException, TimeoutException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE, new Selector(SELECTOR))
                                                                     .getNode());
 
@@ -84,7 +87,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_success() {
+    public void load_with_type_success() throws InterruptedException, ExecutionException, TimeoutException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(
             TEST_NODES.PANE,
             Pane.class,
@@ -152,7 +155,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
      * @param controllerLookup The controller as an {@link Option} so we can know if the test actually failed because of
      *                         some outside reason.
      */
-    private void assertControllerBoundToTestPane(final Pane testPane, final Option<FxmlController> controllerLookup) {
+    private void assertControllerBoundToTestPane(final Pane testPane, final Option<FxmlController> controllerLookup)
+    throws InterruptedException, ExecutionException, TimeoutException {
         assertThat(controllerLookup.isDefined()).isTrue();
         assertThat(controllerLookup.get().getClass()).isEqualTo(SAMPLE_CONTROL_CLASS.class);
 
@@ -168,7 +172,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
                   assertThat(testController.locatedInstance).isTrue();
               })
               .toCompletableFuture()
-              .join();
+              .get(5, TimeUnit.SECONDS);
     }
 
     private void assertPaneFailedLoadingAndDidNotRegister(
