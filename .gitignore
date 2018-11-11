@@ -24,7 +24,6 @@ $RECYCLE.BIN/
 *.lnk
 ### NetBeans template
 nbproject/private/
-util/
 nbbuild/
 dist/
 nbdist/
@@ -595,7 +594,6 @@ flycheck_*.el
 .dir-locals.el
 ### Gradle template
 .gradle
-/util/
 
 # Ignore Gradle GUI config
 gradle-app.setting

@@ -13,7 +13,6 @@ ENV term=linux
 COPY . /root
 WORKDIR /root
 
-RUN ["/usr/bin/Xvfb", ":99", "&"]
-RUN ["sleep", "3"]
+RUN chmod +x docker-util/xvfb-run.sh
 
-ENTRYPOINT ["mvn", "clean", "install"]
+ENTRYPOINT ["sh", "-c", "echo $(pwd) && ls && ./docker-util/xvfb-run.sh mvn clean install"]
