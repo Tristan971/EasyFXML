@@ -4,12 +4,14 @@ echo "Info for runtime config of tests in $(pwd)"
 echo "Bash at $(which bash)"
 echo "Maven at $(which mvn) with config $(mvn -version)"
 
-XVFB="./docker-util/xvfb-run.sh"
-CMD="mvn clean install -Dprism.order=sw"
+PREFLIGHT="mvn -q dependency:go-offline"
+CMD="mvn clean install"
 
-echo "- xvfb-run.sh ran at $(pwd)/${XVFB}"
-echo "- test command = ${CMD}"
+echo "Test command = ${CMD}"
 
-${XVFB} ${CMD}
+set -x
+${PREFLIGHT}
+./docker-util/xvfb-run.sh ${CMD}
+set +x
 
 echo "Finished running tests!"
