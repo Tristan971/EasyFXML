@@ -1,23 +1,20 @@
 package moe.tristan.easyfxml.model.fxml;
 
+import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.function.Supplier;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
-import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
-import moe.tristan.easyfxml.model.beanmanagement.Selector;
-import moe.tristan.easyfxml.spring.application.FxSpringContext;
-import moe.tristan.easyfxml.util.Stages;
-import io.vavr.control.Option;
-import io.vavr.control.Try;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.fxml.LoadException;
@@ -26,10 +23,16 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
-import static org.assertj.core.api.Assertions.assertThat;
+import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlFile;
+import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
+import moe.tristan.easyfxml.model.beanmanagement.Selector;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
+import moe.tristan.easyfxml.util.Stages;
 
-import java.util.function.Supplier;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 @ContextConfiguration(classes = {FxSpringContext.class, SAMPLE_CONTROL_CLASS.class})
 @RunWith(SpringRunner.class)
@@ -171,21 +174,12 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     private void assertPaneFailedLoadingAndDidNotRegister(
         final Supplier<Try<? extends Node>> failingLoadResultSupplier,
         final Option<FxmlController> controllerLookup,
-        final Class<? extends Throwable> expectedExceptionClass
+        final Class<? extends Throwable> expectedFailureCauseClass
     ) {
-        try {
-            LOGGER.debug("Expecting load exception of type {}", expectedExceptionClass);
-            final Try<? extends Node> failingLoadResult = failingLoadResultSupplier.get();
-            assertThat(failingLoadResult.isFailure()).isTrue();
-            assertThat(failingLoadResult.getCause()).isInstanceOf(expectedExceptionClass);
-            assertThat(controllerLookup.isEmpty()).isTrue();
-        } catch (Throwable err) {
-            if (!err.getClass().equals(expectedExceptionClass)) {
-                LOGGER.error("Expected exception of type {} but got {}", expectedExceptionClass, err.getClass());
-                throw err;
-            }
-            LOGGER.debug("Caught exception of expected type. All good.");
-        }
+        assertThatThrownBy(failingLoadResultSupplier::get)
+            .isInstanceOf(FxmlNodeLoadException.class)
+            .hasCauseInstanceOf(expectedFailureCauseClass);
+        assertThat(controllerLookup.isEmpty()).isTrue();
     }
 
     @Ignore("This is not a test class")
