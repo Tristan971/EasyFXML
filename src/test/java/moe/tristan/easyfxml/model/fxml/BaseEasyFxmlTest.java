@@ -1,5 +1,7 @@
 package moe.tristan.easyfxml.model.fxml;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,9 +29,13 @@ import javafx.stage.Stage;
 import static moe.tristan.easyfxml.TestUtils.isSpringSingleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.function.Supplier;
+
 @ContextConfiguration(classes = {FxSpringContext.class, SAMPLE_CONTROL_CLASS.class})
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseEasyFxmlTest.class);
 
     private static final Object SELECTOR = new Object();
 
@@ -90,11 +96,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_single_invalid_class_failure() {
-        final Try<Pane> testPane = this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, FxmlController.class)
-                                                .getNode();
-
         this.assertPaneFailedLoadingAndDidNotRegister(
-            testPane,
+            () -> this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, FxmlController.class).getNode(),
             this.controllerManager.getSingle(TEST_NODES.BUTTON),
             ClassCastException.class
         );
@@ -102,10 +105,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_single_invalid_file_failure() {
-        final Try<? extends Node> failingLoadResult = this.easyFxml.loadNode(TEST_NODES.INVALID).getNode();
-
         this.assertPaneFailedLoadingAndDidNotRegister(
-            failingLoadResult,
+            () -> this.easyFxml.loadNode(TEST_NODES.INVALID).getNode(),
             this.controllerManager.getSingle(TEST_NODES.INVALID),
             LoadException.class
         );
@@ -113,15 +114,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_multiple_invalid_class_failure() {
-        final Try<Pane> testPane = this.easyFxml.loadNode(
-            TEST_NODES.BUTTON,
-            Pane.class,
-            NoControllerClass.class,
-            new Selector(SELECTOR)
-        ).getNode();
-
         this.assertPaneFailedLoadingAndDidNotRegister(
-            testPane,
+            () -> this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, NoControllerClass.class, new Selector(SELECTOR)).getNode(),
             this.controllerManager.getMultiple(TEST_NODES.BUTTON, new Selector(SELECTOR)),
             ClassCastException.class
         );
@@ -129,11 +123,8 @@ public class BaseEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void load_with_type_multiple_invalid_file_failure() {
-        final Try<Pane> testPaneLoadResult = this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR))
-                                                          .getNode();
-
         this.assertPaneFailedLoadingAndDidNotRegister(
-            testPaneLoadResult,
+            () -> this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR)).getNode(),
             this.controllerManager.getMultiple(TEST_NODES.INVALID, new Selector(SELECTOR)),
             LoadException.class
         );
@@ -178,13 +169,23 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     private void assertPaneFailedLoadingAndDidNotRegister(
-        final Try<? extends Node> failingLoadResult,
+        final Supplier<Try<? extends Node>> failingLoadResultSupplier,
         final Option<FxmlController> controllerLookup,
         final Class<? extends Throwable> expectedExceptionClass
     ) {
-        assertThat(failingLoadResult.isFailure()).isTrue();
-        assertThat(failingLoadResult.getCause()).isInstanceOf(expectedExceptionClass);
-        assertThat(controllerLookup.isEmpty()).isTrue();
+        try {
+            LOGGER.debug("Expecting load exception of type {}", expectedExceptionClass);
+            final Try<? extends Node> failingLoadResult = failingLoadResultSupplier.get();
+            assertThat(failingLoadResult.isFailure()).isTrue();
+            assertThat(failingLoadResult.getCause()).isInstanceOf(expectedExceptionClass);
+            assertThat(controllerLookup.isEmpty()).isTrue();
+        } catch (Throwable err) {
+            if (!err.getClass().equals(expectedExceptionClass)) {
+                LOGGER.error("Expected exception of type {} but got {}", expectedExceptionClass, err.getClass());
+                throw err;
+            }
+            LOGGER.debug("Caught exception of expected type. All good.");
+        }
     }
 
     @Ignore("This is not a test class")
