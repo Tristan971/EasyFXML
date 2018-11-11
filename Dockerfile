@@ -13,7 +13,10 @@ RUN apk -q add \
     gcompat \
     gtk+3.0 \
     gtk+2.0 \
-    firefox-esr
+    firefox-esr \
+    msttcorefonts-installer
+
+RUN update-ms-fonts && fc-cache -f
 
 ENV JAVA_HOME="/jdk-12"
 ENV PATH="$PATH:$JAVA_HOME/bin"
