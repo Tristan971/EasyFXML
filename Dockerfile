@@ -2,7 +2,7 @@ FROM alpine:latest
 
 # Use JDK12 as there are no musl-compatible JDK11 releases for now
 RUN wget "https://download.java.net/java/early_access/alpine/18/binaries/openjdk-12-ea+18_linux-x64-musl_bin.tar.gz" -O jdk12.tar.gz
-RUN bash -c "tar xzf jdk12.tar.gz && rm jdk12.tar.gz"
+RUN tar xzf jdk12.tar.gz && rm jdk12.tar.gz
 RUN mkdir /opt
 RUN mv jdk-12 /opt/
 
