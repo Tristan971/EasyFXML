@@ -30,6 +30,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static moe.tristan.easyfxml.model.components.listview.CustomListViewTestComponents.VIEW;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -51,7 +52,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void rough_integration_test() throws InterruptedException, ExecutionException, TimeoutException {
+    public void rough_integration_test() throws InterruptedException {
         final String TEST_BUTTON_SUCCESS_TEXT = "TEST_SUCCESS";
 
         final ComponentListViewSampleFxmlController ctrl = setUpStage();
@@ -75,11 +76,11 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             assertThat(clvsfc.scrolledToEnd.get()).isFalse();
             clvsfc.listView.scrollTo(99);
 
-            await().atMost(1, TimeUnit.SECONDS).until(() -> clvsfc.scrolledToEnd.get());
+            await().atMost(1, SECONDS).until(() -> clvsfc.scrolledToEnd.get());
         });
     }
 
-    private ComponentListViewSampleFxmlController setUpStage() throws InterruptedException, ExecutionException, TimeoutException {
+    private ComponentListViewSampleFxmlController setUpStage() {
         final CompletableFuture<ComponentListViewSampleFxmlController> setUpAsyncWait = new CompletableFuture<>();
 
         final FxmlLoadResult<Pane, ComponentListViewSampleFxmlController> res = easyFxml.loadNode(
@@ -104,27 +105,21 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             setUpAsyncWait.complete(clvsfc);
         });
 
-        return setUpAsyncWait.get(5, TimeUnit.SECONDS);
+        return setUpAsyncWait.join();
     }
 
     @Component
     public static class BadlyScopedController implements ComponentCellFxmlController<String> {
-
-
-
         @Override
         public void updateWithValue(String newValue) {
-
         }
 
         @Override
         public void selectedProperty(BooleanExpression selected) {
-
         }
 
         @Override
         public void initialize() {
-
         }
     }
 
