@@ -6,12 +6,14 @@ RUN mkdir /opt
 RUN tar xzf jdk12.tar.gz && rm jdk12.tar.gz
 
 ENV JAVA_HOME="/jdk-12"
-
 ENV PATH="$PATH:$JAVA_HOME/bin"
+ENV DISPLAY=:99
+ENV term=linux
 
 COPY . /root
 WORKDIR /root
 
-RUN chmod +x ./run_tests_docker.sh
+RUN ["/usr/bin/Xvfb", ":99", "&"]
+RUN ["sleep", "3"]
 
-ENTRYPOINT ["./run_tests_docker.sh"]
+ENTRYPOINT ["mvn", "clean", "install"]
