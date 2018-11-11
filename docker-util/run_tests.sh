@@ -11,7 +11,7 @@ echo "Test command = ${CMD}"
 
 set -x
 ${PREFLIGHT}
-./docker-util/xvfb-run.sh ${CMD}
+bash -c "./docker-util/xvfb-run.sh -a ${CMD}"
 set +x
 
 echo "Finished running tests!"

@@ -1,29 +1,22 @@
-FROM alpine:latest as EasyFXML
+FROM fedora:latest
 
-# Use JDK12 as there are no musl-compatible JDK11 releases for now
-RUN wget "https://download.java.net/java/early_access/alpine/18/binaries/openjdk-12-ea+18_linux-x64-musl_bin.tar.gz" -O jdk12.tar.gz
-RUN tar xzf jdk12.tar.gz && rm jdk12.tar.gz
-RUN mkdir /opt
-RUN mv jdk-12 /opt/
+RUN dnf update -y
 
-# Set required packages
-RUN apk -q add \
+RUN dnf install -y \
     maven \
     bash \
-    xvfb \
+    xorg-x11-server-Xvfb \
     dbus-x11 \
-    fontconfig \
-    gcompat \
-    gtk+3.0 \
-    gtk+2.0 \
-    firefox-esr
-RUN fc-cache -f
+    gtk3 \
+    gtk2 \
+    firefox
 
-# Set required environment variables
-ENV JAVA_HOME="/opt/jdk-12"
-ENV PATH="$PATH:$JAVA_HOME/bin"
-ENV DISPLAY=:99
-ENV term=linux
+# Set up OpenJDK 11
+RUN dnf install -y java-11-openjdk java-11-openjdk-devel
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
+
+# Enable colored output
+ENV term xterm
 
 # Copy current version of git repo
 ADD . /EasyFXML
