@@ -42,29 +42,29 @@ error () {
 
 # Display a usage message.
 usage () {
-    if [ -n "$*" ]; then
+    if [[ -n "$*" ]]; then
         message "usage error: $*"
     fi
     cat <<EOF
-Usage: $PROGNAME [OPTION ...] COMMAND
+Usage: ${PROGNAME} [OPTION ...] COMMAND
 Run COMMAND (usually an X client) in a virtual X server environment.
 Options:
 -a        --auto-servernum          try to get a free server number, starting at
                                     --server-num
 -e FILE   --error-file=FILE         file used to store xauth errors and Xvfb
-                                    output (default: $ERRORFILE)
+                                    output (default: ${ERRORFILE})
 -f FILE   --auth-file=FILE          file used to store auth cookie
                                     (default: ./.Xauthority)
 -h        --help                    display this usage message and exit
--n NUM    --server-num=NUM          server number to use (default: $SERVERNUM)
+-n NUM    --server-num=NUM          server number to use (default: ${SERVERNUM})
 -l        --listen-tcp              enable TCP port listening in the X server
 -p PROTO  --xauth-protocol=PROTO    X authority protocol name to use
-                                    (default: xauth command's default)
+                                    (default: xauth command\'s default)
 -s ARGS   --server-args=ARGS        arguments (other than server number and
                                     "-nolisten tcp") to pass to the Xvfb server
-                                    (default: "$XVFBARGS")
+                                    (default: "${XVFBARGS}")
 -w DELAY  --wait=DELAY              delay in seconds to wait for Xvfb to start
-                                    before running COMMAND (default: $STARTWAIT)
+                                    before running COMMAND (default: ${STARTWAIT})
 EOF
 }
 
@@ -75,19 +75,19 @@ find_free_servernum() {
     # anyway.
     #local i
 
-    i=$SERVERNUM
-    while [ -f /tmp/.X$i-lock ]; do
+    i=${SERVERNUM}
+    while [[ -f /tmp/.X${i}-lock ]]; do
         i=$(($i + 1))
     done
-    echo $i
+    echo ${i}
 }
 
 # Clean up files
 clean_up() {
-    if [ -e "$AUTHFILE" ]; then
-        XAUTHORITY=$AUTHFILE xauth remove ":$SERVERNUM" >>"$ERRORFILE" 2>&1
+    if [[ -e "$AUTHFILE" ]]; then
+        XAUTHORITY=${AUTHFILE} xauth remove ":$SERVERNUM" >>"$ERRORFILE" 2>&1
     fi
-    if [ -n "$XVFB_RUN_TMPDIR" ]; then
+    if [[ -n "$XVFB_RUN_TMPDIR" ]]; then
         if ! rm -r "$XVFB_RUN_TMPDIR"; then
             error "problem while cleaning up temporary directory"
             exit 5
@@ -101,12 +101,12 @@ ARGS=$(getopt --options +ae:f:hn:lp:s:w: \
        --name "$PROGNAME" -- "$@")
 GETOPT_STATUS=$?
 
-if [ $GETOPT_STATUS -ne 0 ]; then
+if [[ ${GETOPT_STATUS} -ne 0 ]]; then
     error "internal error; getopt exited with status $GETOPT_STATUS"
     exit 6
 fi
 
-eval set -- "$ARGS"
+eval set -- "${ARGS}"
 
 while :; do
     case "$1" in
@@ -127,12 +127,12 @@ while :; do
     shift
 done
 
-if [ "$SHOWHELP" ]; then
+if [[ "$SHOWHELP" ]]; then
     usage
     exit 0
 fi
 
-if [ -z "$*" ]; then
+if [[ -z "$*" ]]; then
     usage "need a command to run" >&2
     exit 2
 fi
@@ -147,8 +147,8 @@ trap clean_up EXIT
 
 # If the user did not specify an X authorization file to use, set up a temporary
 # directory to house one.
-if [ -z "$AUTHFILE" ]; then
-    XVFB_RUN_TMPDIR="$(mktemp -d -t $PROGNAME.XXXXXX)"
+if [[ -z "$AUTHFILE" ]]; then
+    XVFB_RUN_TMPDIR="$(mktemp -d -t ${PROGNAME}.XXXXXX)"
     # Create empty file to avoid xauth warning
     #AUTHFILE=$(tempfile -n "$XVFB_RUN_TMPDIR/Xauthority")
     AUTHFILE=$(mktemp -p "$XVFB_RUN_TMPDIR" Xauthority.XXXXXXXX)
@@ -158,18 +158,18 @@ fi
 # Start Xvfb.
 MCOOKIE=$(mcookie)
 tries=10
-while [ $tries -gt 0 ]; do
+while [[ ${tries} -gt 0 ]]; do
     tries=$(( $tries - 1 ))
-    XAUTHORITY=$AUTHFILE xauth source - << EOF >>"$ERRORFILE" 2>&1
-add :$SERVERNUM $XAUTHPROTO $MCOOKIE
+    XAUTHORITY=${AUTHFILE} xauth source - << EOF >>"$ERRORFILE" 2>&1
+add :${SERVERNUM} ${XAUTHPROTO} ${MCOOKIE}
 EOF
-    XAUTHORITY=$AUTHFILE Xvfb ":$SERVERNUM" $XVFBARGS $LISTENTCP >>"$ERRORFILE" 2>&1 &
+    XAUTHORITY=${AUTHFILE} Xvfb ":$SERVERNUM" ${XVFBARGS} ${LISTENTCP} >>"$ERRORFILE" 2>&1 &
     XVFBPID=$!
 
     sleep "$STARTWAIT"
-    if kill -0 $XVFBPID 2>/dev/null; then
+    if kill -0 ${XVFBPID} 2>/dev/null; then
         break
-    elif [ -n "$AUTONUM" ]; then
+    elif [[ -n "$AUTONUM" ]]; then
         # The display is in use so try another one (if '-a' was specified).
         SERVERNUM=$((SERVERNUM + 1))
         SERVERNUM=$(find_free_servernum)
@@ -181,14 +181,14 @@ done
 
 # Start the command and save its exit status.
 set +e
-DISPLAY=:$SERVERNUM XAUTHORITY=$AUTHFILE "$@" 2>&1
+DISPLAY=:${SERVERNUM} XAUTHORITY=${AUTHFILE} "$@" 2>&1
 RETVAL=$?
 set -e
 
 # Kill Xvfb now that the command has exited.
-kill $XVFBPID
+kill ${XVFBPID}
 
 # Return the executed command's exit status.
-exit $RETVAL
+exit ${RETVAL}
 
 # vim:set ai et sts=4 sw=4 tw=80:

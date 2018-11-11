@@ -10,9 +10,9 @@ ENV PATH="$PATH:$JAVA_HOME/bin"
 ENV DISPLAY=:99
 ENV term=linux
 
-COPY . /root
-WORKDIR /root
+ADD . /EasyFXML
+WORKDIR /EasyFXML
 
-RUN chmod +x docker-util/xvfb-run.sh
+RUN chmod +x docker-util/*
 
-ENTRYPOINT ["sh", "-c", "echo $(pwd) && ls && ./docker-util/xvfb-run.sh mvn clean install"]
+ENTRYPOINT ["./docker-util/run_tests.sh"]
