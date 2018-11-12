@@ -9,3 +9,8 @@ before_install:
 script:
     - docker build -t easyfxml/test .
     - docker run -v ~/.m2:/root/.m2 easyfxml/test:latest
+
+cache:
+    bundler: true
+    directories:
+        - ~/.m2
