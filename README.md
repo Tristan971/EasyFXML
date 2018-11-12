@@ -4,18 +4,12 @@ An opinionated framework for building modern _JavaFX_ apps.
 Last build's statuses:
 
 Build : 
-[![Build Status](https://jenkins.tristan.moe/job/EasyFXML/job/master/badge/icon)](https://jenkins.tristan.moe/job/EasyFXML/job/master)
+[![Build Status](https://api.travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
 
 Quality : 
-[![Coverage](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=coverage)](https://sonar.tristan.moe/project/activity?graph=coverage&id=moe.tristan%3Aeasyfxml)
-[![Sonar bugs](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=bugs)](https://sonar.tristan.moe/project/issues?id=moe.tristan%3Aeasyfxml&resolved=false&types=BUG)
+[![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
-
-Trivia : 
-[![LoC](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=ncloc)](https://sonar.tristan.moe/project/activity?graph=coverage&id=moe.tristan%3Aeasyfxml)
-[![Technical debt](https://sonar.tristan.moe/api/project_badges/measure?project=moe.tristan%3Aeasyfxml&metric=sqale_index)](https://sonar.tristan.moe/project/issues?facetMode=effort&id=moe.tristan%3Aeasyfxml&resolved=false&types=CODE_SMELL)
-
-[![Quality gate status](https://sonar.tristan.moe/api/project_badges/quality_gate?project=moe.tristan%3Aeasyfxml)](https://sonar.tristan.moe/dashboard?id=moe.tristan%3Aeasyfxml)
 
 Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central-2.0.0-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/2.0.0/jar)
 ```xml
