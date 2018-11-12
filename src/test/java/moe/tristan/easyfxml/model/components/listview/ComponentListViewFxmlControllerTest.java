@@ -1,17 +1,24 @@
 package moe.tristan.easyfxml.model.components.listview;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static moe.tristan.easyfxml.model.components.listview.CustomListViewTestComponents.VIEW;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
+
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Function;
+import java.util.stream.IntStream;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.model.components.listview.cell.ComponentCellFxmlSampleController;
-import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
-import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
-import moe.tristan.easyfxml.spring.application.FxSpringContext;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.application.Platform;
@@ -22,17 +29,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Function;
-import java.util.stream.IntStream;
-
-import static moe.tristan.easyfxml.model.components.listview.CustomListViewTestComponents.VIEW;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
+import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.model.components.listview.cell.ComponentCellFxmlSampleController;
+import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
+import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
 
 @ContextConfiguration(classes = FxSpringContext.class)
 @SpringBootTest
@@ -51,7 +52,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void rough_integration_test() throws InterruptedException, ExecutionException, TimeoutException {
+    public void ensureLoadsAndMapsProperly() throws InterruptedException, TimeoutException, ExecutionException {
         final String TEST_BUTTON_SUCCESS_TEXT = "TEST_SUCCESS";
 
         final ComponentListViewSampleFxmlController ctrl = setUpStage();
@@ -75,7 +76,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             assertThat(clvsfc.scrolledToEnd.get()).isFalse();
             clvsfc.listView.scrollTo(99);
 
-            await().atMost(1, TimeUnit.SECONDS).until(() -> clvsfc.scrolledToEnd.get());
+            await().atMost(1, SECONDS).until(() -> clvsfc.scrolledToEnd.get());
         });
     }
 
@@ -104,29 +105,22 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             setUpAsyncWait.complete(clvsfc);
         });
 
-        return setUpAsyncWait.get(5, TimeUnit.SECONDS);
+        return setUpAsyncWait.get(5, SECONDS);
     }
 
     @Component
     public static class BadlyScopedController implements ComponentCellFxmlController<String> {
-
-
-
         @Override
         public void updateWithValue(String newValue) {
-
         }
 
         @Override
         public void selectedProperty(BooleanExpression selected) {
-
         }
 
         @Override
         public void initialize() {
-
         }
     }
 
 }
-
