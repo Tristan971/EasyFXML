@@ -1,19 +1,19 @@
 package moe.tristan.easyfxml.model.system;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import moe.tristan.easyfxml.model.system.BrowserSupport;
-import moe.tristan.easyfxml.spring.application.FxSpringContext;
-import io.vavr.control.Try;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.testfx.framework.junit.ApplicationTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URL;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.testfx.framework.junit.ApplicationTest;
+
+import moe.tristan.easyfxml.spring.application.FxSpringContext;
+
+import io.vavr.control.Try;
 
 @ContextConfiguration(classes = FxSpringContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,7 +52,7 @@ public class BrowserSupportTest extends ApplicationTest {
             exec.run();
         } catch (Exception e) {
             if (e.getClass().equals(Exception.class) && e.getMessage().equals("No web browser found")) {
-                throw new RuntimeException("Tests require the installation of at least one valid web browser. See HostServicesDelegate#browsers");
+                throw new IllegalStateException("Tests require the installation of at least one valid web browser. See HostServicesDelegate#browsers");
             } else {
                 throw e;
             }

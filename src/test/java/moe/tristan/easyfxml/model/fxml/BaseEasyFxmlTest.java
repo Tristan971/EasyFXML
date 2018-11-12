@@ -12,8 +12,6 @@ import java.util.function.Supplier;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,8 +39,6 @@ import io.vavr.control.Try;
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseEasyFxmlTest.class);
-
     private static final Object SELECTOR = new Object();
 
     @Autowired
@@ -59,7 +55,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_single() throws InterruptedException, ExecutionException, TimeoutException {
+    public void loadAsPaneSingle() throws InterruptedException, ExecutionException, TimeoutException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE).getNode());
 
         assertThat(testPane.getChildren()).hasSize(1);
@@ -72,7 +68,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_as_pane_multiple() throws InterruptedException, ExecutionException, TimeoutException {
+    public void loadAsPaneMultiple() throws InterruptedException, ExecutionException, TimeoutException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE, new Selector(SELECTOR))
                                                                     .getNode());
 
@@ -87,7 +83,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_success() throws InterruptedException, ExecutionException, TimeoutException {
+    public void loadWithTypeSuccess() throws InterruptedException, ExecutionException, TimeoutException {
         final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(
             TEST_NODES.PANE,
             Pane.class,
@@ -101,7 +97,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_single_invalid_class_failure() {
+    public void loadWithTypeSingleInvalidClassFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
             () -> this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, FxmlController.class).getNode(),
             this.controllerManager.getSingle(TEST_NODES.BUTTON),
@@ -110,7 +106,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_single_invalid_file_failure() {
+    public void loadWithTypeSingleInvalidFileFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
             () -> this.easyFxml.loadNode(TEST_NODES.INVALID).getNode(),
             this.controllerManager.getSingle(TEST_NODES.INVALID),
@@ -119,7 +115,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_multiple_invalid_class_failure() {
+    public void loadWithTypeMultipleInvalidClassFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
             () -> this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, NoControllerClass.class, new Selector(SELECTOR)).getNode(),
             this.controllerManager.getMultiple(TEST_NODES.BUTTON, new Selector(SELECTOR)),
@@ -128,7 +124,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void load_with_type_multiple_invalid_file_failure() {
+    public void loadWithTypeMultipleInvalidFileFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
             () -> this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR)).getNode(),
             this.controllerManager.getMultiple(TEST_NODES.INVALID, new Selector(SELECTOR)),
@@ -137,7 +133,7 @@ public class BaseEasyFxmlTest extends ApplicationTest {
     }
 
     @Test
-    public void can_instantiate_controller_as_prototype() {
+    public void canInstantiateControllerAsPrototype() {
         assertThat(isSpringSingleton(this.context, SAMPLE_CONTROL_CLASS.class)).isFalse();
     }
 

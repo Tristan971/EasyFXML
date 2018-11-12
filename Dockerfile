@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:29
 
 RUN dnf update -y
 
@@ -20,7 +20,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
 ENV term xterm
 
 # Copy current version of git repo
-ADD . /EasyFXML
+COPY . /EasyFXML
 RUN chmod +x ./EasyFXML/docker-util/*
 
 # Copy local maven repo

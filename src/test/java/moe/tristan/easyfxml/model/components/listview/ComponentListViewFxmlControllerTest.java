@@ -52,7 +52,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void rough_integration_test() throws InterruptedException, TimeoutException, ExecutionException {
+    public void ensureLoadsAndMapsProperly() throws InterruptedException, TimeoutException, ExecutionException {
         final String TEST_BUTTON_SUCCESS_TEXT = "TEST_SUCCESS";
 
         final ComponentListViewSampleFxmlController ctrl = setUpStage();
