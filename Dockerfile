@@ -5,6 +5,7 @@ RUN dnf update -y
 RUN dnf install -y \
     maven \
     bash \
+    git \
     xorg-x11-server-Xvfb \
     dbus-x11 \
     gtk3 \
