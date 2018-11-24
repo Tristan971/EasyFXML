@@ -6,15 +6,15 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.Objects;
 
 import org.junit.Test;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import moe.tristan.easyfxml.api.FxmlController;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.annotation.AnnotationUtils;
 
 /**
  * Asserts the presence of a private constructor on all classes without non-static fields. Partly because I'm getting
@@ -64,8 +64,9 @@ public class UtilityClassesStyleTest {
     }
 
     private static boolean isNotSpringBean(final Class<?> clazz) {
-        final Set<Class<?>> filteredBeanTypes = Set.of(FxApplication.class, FxUiManager.class, FxmlController.class);
-        for (Class<?> filteredBeanType : filteredBeanTypes) {
+        final ComponentScan componentScanConfig = AnnotationUtils.findAnnotation(EasyFxmlAutoConfiguration.class, ComponentScan.class);
+        final ComponentScan.Filter componentScanFilter = Objects.requireNonNull(componentScanConfig).includeFilters()[0];
+        for (Class<?> filteredBeanType : componentScanFilter.classes()) {
             if (filteredBeanType.isAssignableFrom(clazz)) {
                 return false;
             }
