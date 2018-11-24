@@ -13,8 +13,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -29,13 +29,12 @@ import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.Selector;
-import moe.tristan.easyfxml.spring.application.FxSpringContext;
 import moe.tristan.easyfxml.util.Stages;
 
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 
-@ContextConfiguration(classes = {FxSpringContext.class, SAMPLE_CONTROL_CLASS.class})
+@SpringBootTest
 @RunWith(SpringRunner.class)
 public class BaseEasyFxmlTest extends ApplicationTest {
 

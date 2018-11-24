@@ -1,7 +1,9 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import moe.tristan.easyfxml.api.FxmlController;
-import io.vavr.control.Try;
+import static org.testfx.assertions.api.Assertions.assertThat;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,15 +12,18 @@ import org.testfx.framework.junit.ApplicationTest;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import moe.tristan.easyfxml.api.FxmlController;
 
-import static org.testfx.assertions.api.Assertions.assertThat;
+import io.vavr.control.Try;
 
 public class FxmlLoadResultTest extends ApplicationTest {
 
     private static final Node TEST_NODE = new Pane();
-    private static final FxmlController TEST_CONTROLLER = () -> {
-        throw new RuntimeException("Force failure on initialize call.");
+    private static final FxmlController TEST_CONTROLLER = new FxmlController() {
+        @Override
+        public void initialize() {
+            throw new RuntimeException("Force failure on initialize call.");
+        }
     };
 
     private FxmlLoadResult<Node, FxmlController> fxmlLoadResult;
@@ -26,8 +31,8 @@ public class FxmlLoadResultTest extends ApplicationTest {
     @Before
     public void setUp() {
         fxmlLoadResult = new FxmlLoadResult<>(
-                Try.of(() -> TEST_NODE),
-                Try.of(() -> TEST_CONTROLLER)
+            Try.of(() -> TEST_NODE),
+            Try.of(() -> TEST_CONTROLLER)
         );
     }
 
@@ -39,8 +44,8 @@ public class FxmlLoadResultTest extends ApplicationTest {
     @Test
     public void orExceptionPane() {
         final FxmlLoadResult<Node, FxmlController> loadResult = new FxmlLoadResult<>(
-                Try.failure(new RuntimeException("TEST")),
-                Try.failure(new RuntimeException("TEST"))
+            Try.failure(new RuntimeException("TEST")),
+            Try.failure(new RuntimeException("TEST"))
         );
 
         assertThat(loadResult.orExceptionPane().isSuccess()).isTrue();
@@ -59,10 +64,10 @@ public class FxmlLoadResultTest extends ApplicationTest {
     @Test
     public void toSeq() {
         assertThat(
-                fxmlLoadResult.toSeq()
-                              .map(Try.class::cast)
-                              .map(Try::get)
-                              .toJavaList()
+            fxmlLoadResult.toSeq()
+                          .map(Try.class::cast)
+                          .map(Try::get)
+                          .toJavaList()
         ).containsExactlyInAnyOrder(TEST_NODE, TEST_CONTROLLER);
     }
 
@@ -72,13 +77,13 @@ public class FxmlLoadResultTest extends ApplicationTest {
         final Object expectedPropValue = new Object();
 
         final FxmlLoadResult<Node, FxmlController> stillSuccessful = fxmlLoadResult.afterNodeLoaded(
-                node -> node.getProperties().put(propToSet, expectedPropValue)
+            node -> node.getProperties().put(propToSet, expectedPropValue)
         );
         assertThat(stillSuccessful.getNode().isSuccess()).isTrue();
         assertThat(TEST_NODE.getProperties().getOrDefault(propToSet, null)).isEqualTo(expectedPropValue);
 
         final FxmlLoadResult<Node, FxmlController> shouldBeFailure = stillSuccessful.afterControllerLoaded(
-                FxmlController::initialize
+            FxmlController::initialize
         );
         assertThat(shouldBeFailure.getController().isFailure()).isTrue();
 
@@ -92,8 +97,8 @@ public class FxmlLoadResultTest extends ApplicationTest {
     @Test
     public void testPostProcessWithFailingLoad() {
         final FxmlLoadResult<Node, FxmlController> failedLoad = new FxmlLoadResult<>(
-                Try.failure(new RuntimeException()),
-                Try.failure(new RuntimeException())
+            Try.failure(new RuntimeException()),
+            Try.failure(new RuntimeException())
         );
 
         Assertions.assertThatThrownBy(() -> failedLoad.afterControllerLoaded(FxmlController::initialize))

@@ -1,9 +1,10 @@
-package moe.tristan.easyfxml.spring.application;
+package moe.tristan.easyfxml;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -31,8 +32,8 @@ import javafx.stage.Stage;
  *
  * @see FxUiManager
  */
-@SpringBootApplication
-public abstract class FxSpringApplication extends Application {
+@Import(EasyFxmlAutoConfiguration.class)
+public abstract class FxApplication extends Application {
 
     protected ConfigurableApplicationContext springContext;
 
