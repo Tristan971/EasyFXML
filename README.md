@@ -16,7 +16,7 @@ Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
 </dependency>
 ```
 
@@ -136,7 +136,7 @@ public class SomeClass {
             final Try<Pane> rootPane = this.easyFxml
                     .loadNode(Views.ROOT)
                     .getNode()
-                    .recover(err -> new ExceptionHandler(err).asPane()); //load an error pane instead of just crashing
+                    .recover(ExceptionHandler::fromThrowable); //load an error pane instead of just crashing
                     //.onError(Consumer<Throwable>)
                     //.onSuccess(Consumer<Pane>)
                     //.isSuccess() etc etc
