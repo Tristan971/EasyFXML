@@ -1,8 +1,8 @@
 FROM fedora:29
 
-RUN dnf update -y
+RUN dnf -q update -y
 
-RUN dnf install -y \
+RUN dnf -q install -y \
     maven \
     bash \
     git \
@@ -13,7 +13,7 @@ RUN dnf install -y \
     firefox
 
 # Set up OpenJDK 11
-RUN dnf install -y java-11-openjdk java-11-openjdk-devel
+RUN dnf -q install -y java-11-openjdk java-11-openjdk-devel
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
 
 # Enable colored output
