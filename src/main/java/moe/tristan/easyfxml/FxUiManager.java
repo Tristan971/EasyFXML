@@ -46,9 +46,8 @@ public abstract class FxUiManager {
      * <p>
      * i.e.:
      * <pre>
-     * \@Component
      * public class MyUiManager extends FxUiManager {
-     *      \@Autowired
+     *
      *      public MyUiManager(EasyFxml easyFxml) {
      *          super(easyFxml);
      *      }
@@ -101,6 +100,7 @@ public abstract class FxUiManager {
      *
      * @param mainScene The main scene of the application
      */
+    @SuppressWarnings("unused")
     protected void onSceneCreated(final Scene mainScene) {
         //do nothing by default
     }
@@ -111,6 +111,7 @@ public abstract class FxUiManager {
      * @param mainStage The main stage, supplied by JavaFX's {@link javafx.application.Application#start(Stage)}
      *                  method.
      */
+    @SuppressWarnings("unused")
     protected void onStageCreated(final Stage mainStage) {
         //do nothing by default
     }

@@ -16,6 +16,8 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 
 import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
+import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
 import moe.tristan.easyfxml.util.NoSpringBean;
 
 @Configuration
@@ -28,7 +30,9 @@ import moe.tristan.easyfxml.util.NoSpringBean;
             EasyFxml.class,
             FxApplication.class,
             FxUiManager.class,
-            FxmlController.class
+            FxmlController.class,
+            AbstractInstanceManager.class,
+            ComponentListCell.class
         }
     ),
     excludeFilters = @Filter(

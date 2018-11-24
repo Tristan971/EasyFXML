@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -104,7 +103,6 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         return setUpAsyncWait.get(5, SECONDS);
     }
 
-    @Component
     public static class BadlyScopedController implements ComponentCellFxmlController<String> {
         @Override
         public void updateWithValue(String newValue) {

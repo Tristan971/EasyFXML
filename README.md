@@ -52,7 +52,7 @@ level for now.
 
 An `FxmlNode` is the declarative interface for:
 - An `FxmlFile` - that is, a supplier for the access scheme of the `.fxml` file
-- An `FxmlController` - that is, a `@Component` annotated (for Spring) class that
+- An `FxmlController` - that is, a Spring bean that
 contains the controller logic/binding
 
 Thus, here's what using an `FxmlNode`-implementing `enum` to declare all your
