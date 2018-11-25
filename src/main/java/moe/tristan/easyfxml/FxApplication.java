@@ -18,9 +18,7 @@ import javafx.stage.Stage;
  * <p>
  * The gist of it is that your "main" class is expected to extend this class instead of {@link Application} (which this
  * one does extend anyway) and that you just declare your main function with a call to {@link #launch(String...)}. Then
- * it is expected that your main class is annotated with {@link SpringBootApplication} (it is not really needed but IDEs
- * have a better time when they see it on a project class rather than in a library due to non-inheritance of annotations
- * in Java) and also with {@link org.springframework.context.annotation.Import}({@link FxSpringContext}).
+ * it is expected that your main class is annotated with {@link SpringBootApplication}.
  * <p>
  * This class initializes the application with a call to {@link #beforeSpringInit()}, then initializing Spring, then
  * calling {@link #afterSpringInit()}. These tho methods can be overriden and you can do calls to {@link #springContext}
