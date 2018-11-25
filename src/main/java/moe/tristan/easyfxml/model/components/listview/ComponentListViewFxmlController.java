@@ -42,8 +42,8 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
     protected final Supplier<ComponentListCell<T>> cellSupplier;
 
     public ComponentListViewFxmlController(
-            ApplicationContext applicationContext,
-            Class<? extends ComponentListCell<T>> customCellClass
+        ApplicationContext applicationContext,
+        Class<? extends ComponentListCell<T>> customCellClass
     ) {
         this.applicationContext = (ConfigurableApplicationContext) applicationContext;
         this.cellSupplier = () -> applicationContext.getBean(customCellClass);
@@ -83,11 +83,11 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
 
             final String faulties = String.join(",", BADLY_SCOPED_BEANS);
             LOG.warn(
-                    "Custom ListView cells wrappers and controllers " +
-                    "should be prototype-scoped bean. " +
-                    "See @Scope annotation.\n" +
-                    "Faulty beans were : [{}]",
-                    faulties
+                "Custom ListView cells wrappers and controllers " +
+                "should be prototype-scoped bean. " +
+                "See @Scope annotation.\n" +
+                "Faulty beans were : [{}]",
+                faulties
             );
         }
     }

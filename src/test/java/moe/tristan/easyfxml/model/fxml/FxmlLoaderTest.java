@@ -1,29 +1,26 @@
 package moe.tristan.easyfxml.model.fxml;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import moe.tristan.easyfxml.spring.application.FxSpringContext;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.Consumer;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = FxSpringContext.class)
 public class FxmlLoaderTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(FxmlLoaderTest.class);

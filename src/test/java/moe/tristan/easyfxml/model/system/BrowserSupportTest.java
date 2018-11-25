@@ -7,15 +7,13 @@ import java.net.URL;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
-import moe.tristan.easyfxml.spring.application.FxSpringContext;
-
 import io.vavr.control.Try;
 
-@ContextConfiguration(classes = FxSpringContext.class)
+@SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BrowserSupportTest extends ApplicationTest {
 

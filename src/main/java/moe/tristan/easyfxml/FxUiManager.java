@@ -1,22 +1,22 @@
-package moe.tristan.easyfxml.spring.application;
-
-import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.api.FxmlNode;
-import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.model.exception.ExceptionHandler;
-import moe.tristan.easyfxml.model.fxml.FxmlStylesheets;
-import moe.tristan.easyfxml.util.Stages;
-import io.vavr.control.Option;
-import io.vavr.control.Try;
-
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+package moe.tristan.easyfxml;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlStylesheet;
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
+import moe.tristan.easyfxml.model.fxml.FxmlStylesheets;
+import moe.tristan.easyfxml.util.Stages;
+
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 /**
  * The {@link FxUiManager} is one take on a bootstrapping class for the JavaFX UI.
@@ -46,9 +46,8 @@ public abstract class FxUiManager {
      * <p>
      * i.e.:
      * <pre>
-     * \@Component
      * public class MyUiManager extends FxUiManager {
-     *      \@Autowired
+     *
      *      public MyUiManager(EasyFxml easyFxml) {
      *          super(easyFxml);
      *      }
@@ -63,7 +62,7 @@ public abstract class FxUiManager {
     }
 
     /**
-     * Called by {@link FxSpringApplication} after Spring and JavaFX are started. This is the equivalent of {@link
+     * Called by {@link FxApplication} after Spring and JavaFX are started. This is the equivalent of {@link
      * javafx.application.Application#start(Stage)} in traditional JavaFX apps.
      *
      * @param mainStage The main stage of the application feeded by JavaFX
@@ -101,6 +100,7 @@ public abstract class FxUiManager {
      *
      * @param mainScene The main scene of the application
      */
+    @SuppressWarnings("unused")
     protected void onSceneCreated(final Scene mainScene) {
         //do nothing by default
     }
@@ -111,6 +111,7 @@ public abstract class FxUiManager {
      * @param mainStage The main stage, supplied by JavaFX's {@link javafx.application.Application#start(Stage)}
      *                  method.
      */
+    @SuppressWarnings("unused")
     protected void onStageCreated(final Stage mainStage) {
         //do nothing by default
     }
