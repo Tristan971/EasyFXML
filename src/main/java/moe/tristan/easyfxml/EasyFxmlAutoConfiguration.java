@@ -3,6 +3,8 @@ package moe.tristan.easyfxml;
 import static org.springframework.context.annotation.FilterType.ANNOTATION;
 import static org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,12 @@ public class EasyFxmlAutoConfiguration {
     public EasyFxmlAutoConfiguration(ApplicationContext context) {
         LOGGER.info("Loading EasyFXML auto-configuration...");
         this.context = context;
+    }
+
+    @PostConstruct
+    public void logFoundControllers() {
+        final String fxmlControllersFound = String.join("\n->\t", context.getBeanNamesForType(FxmlController.class));
+        LOGGER.info("\nFound the following FxmlControllers : \n->\t{}", fxmlControllersFound);
     }
 
     @Bean
