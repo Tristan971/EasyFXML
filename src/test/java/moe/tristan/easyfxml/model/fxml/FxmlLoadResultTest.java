@@ -19,11 +19,8 @@ import io.vavr.control.Try;
 public class FxmlLoadResultTest extends ApplicationTest {
 
     private static final Node TEST_NODE = new Pane();
-    private static final FxmlController TEST_CONTROLLER = new FxmlController() {
-        @Override
-        public void initialize() {
-            throw new RuntimeException("Force failure on initialize call.");
-        }
+    private static final FxmlController TEST_CONTROLLER = () -> {
+        throw new RuntimeException("Force failure on initialize call.");
     };
 
     private FxmlLoadResult<Node, FxmlController> fxmlLoadResult;
