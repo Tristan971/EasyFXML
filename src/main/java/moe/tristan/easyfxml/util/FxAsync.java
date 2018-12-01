@@ -1,13 +1,13 @@
 package moe.tristan.easyfxml.util;
 
-import io.vavr.Tuple2;
-
-import javafx.application.Platform;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import javafx.application.Platform;
+
+import io.vavr.Tuple2;
 
 /**
  * Convenience utility methods for cleaner asynchronous cross-thread calls.
@@ -30,12 +30,10 @@ public final class FxAsync {
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous operation.
      */
     public static <T> CompletionStage<T> doOnFxThread(final T element, final Consumer<T> action) {
-        CompletableFuture<T> asyncOp = new CompletableFuture<>();
-        Platform.runLater(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             action.accept(element);
-            asyncOp.complete(element);
-        });
-        return asyncOp;
+            return element;
+        }, Platform::runLater);
     }
 
     /**
@@ -49,8 +47,7 @@ public final class FxAsync {
      * @return A {@link CompletionStage} to have monitoring over the state of the asynchronous computation.
      */
     public static <T, U> CompletionStage<U> computeOnFxThread(final T element, final Function<T, U> compute) {
-        CompletableFuture<U> asyncComputeOp = new CompletableFuture<>();
-        Platform.runLater(() -> asyncComputeOp.complete(compute.apply(element)));
-        return asyncComputeOp;
+        return CompletableFuture.supplyAsync(() -> compute.apply(element), Platform::runLater);
     }
+
 }
