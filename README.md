@@ -11,12 +11,12 @@ Quality :
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
-Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central-2.0.1-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/2.0.1/jar)
+Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central-2.1.1-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/2.1.1/jar)
 ```xml
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
 </dependency>
 ```
 
