@@ -8,11 +8,10 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
 
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -22,11 +21,10 @@ import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
 import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
 import moe.tristan.easyfxml.util.NoSpringBean;
 
-@Configuration
 @ComponentScan(
     basePackages = "moe.tristan.easyfxml",
     lazyInit = true,
-    includeFilters = @Filter(
+    includeFilters = @ComponentScan.Filter(
         type = ASSIGNABLE_TYPE,
         classes = {
             EasyFxml.class,
@@ -37,11 +35,12 @@ import moe.tristan.easyfxml.util.NoSpringBean;
             ComponentListCell.class
         }
     ),
-    excludeFilters = @Filter(
+    excludeFilters = @ComponentScan.Filter(
         type = ANNOTATION,
         classes = NoSpringBean.class
     )
 )
+@SpringBootConfiguration
 public class EasyFxmlAutoConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EasyFxmlAutoConfiguration.class);
