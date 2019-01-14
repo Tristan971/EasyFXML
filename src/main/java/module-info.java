@@ -16,8 +16,6 @@ open module easyfxml {
     requires io.vavr;
     requires awaitility;
 
-    requires org.testfx;
-
     exports moe.tristan.easyfxml;
     exports moe.tristan.easyfxml.api;
     exports moe.tristan.easyfxml.util;
