@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -14,12 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.fxml.NoControllerClass;
 
-@SpringBootTest
+@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
 @RunWith(SpringRunner.class)
 public class PanesTest extends ApplicationTest {
 
