@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -27,11 +27,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 import moe.tristan.easyfxml.model.components.listview.cell.ComponentCellFxmlSampleController;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
-@SpringBootTest
+@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
 @RunWith(SpringRunner.class)
 public class ComponentListViewFxmlControllerTest extends ApplicationTest {
 

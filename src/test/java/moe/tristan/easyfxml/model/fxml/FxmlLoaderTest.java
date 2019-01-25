@@ -12,14 +12,16 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
-@SpringBootTest
+import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
+
+@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
 @RunWith(SpringRunner.class)
 public class FxmlLoaderTest {
 

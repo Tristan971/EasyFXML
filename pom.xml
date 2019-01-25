@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
+        <version>2.1.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -39,13 +39,14 @@
 
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>2.1.1</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
+        <openjfx.version>11.0.1</openjfx.version>
     </properties>
 
     <build>
@@ -57,6 +58,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,15 +90,16 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
+                <version>0.8.3</version>
                 <executions>
                     <execution>
+                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
+                        <id>default-report</id>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -140,22 +146,22 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>11</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>11</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>11</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>11</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <!-- endregion -->
 
@@ -168,13 +174,15 @@
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
             <version>4.0.15-alpha</version>
-            <scope>test</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit</artifactId>
             <version>4.0.15-alpha</version>
-            <scope>test</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -193,10 +201,21 @@
             <version>3.1.1</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>27.0-jre</version>
-            <scope>compile</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
