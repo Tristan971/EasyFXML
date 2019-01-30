@@ -65,7 +65,7 @@ public abstract class FxUiManager {
      * Called by {@link FxApplication} after Spring and JavaFX are started. This is the equivalent of {@link
      * javafx.application.Application#start(Stage)} in traditional JavaFX apps.
      *
-     * @param mainStage The main stage of the application feeded by JavaFX
+     * @param mainStage A reference to the main stage of the application, received from JavaFX via {@link javafx.application.Application#start(Stage)}.
      */
     public void startGui(final Stage mainStage) {
         try {
@@ -129,6 +129,7 @@ public abstract class FxUiManager {
      * @param node the node to load in the {@link Scene}
      *
      * @return The ready-to-use {@link Scene}
+     *
      * @throws RuntimeException if the scene could not be loaded properly
      */
     protected Scene getScene(final FxmlNode node) {
@@ -148,4 +149,5 @@ public abstract class FxUiManager {
                err
            ));
     }
+
 }
