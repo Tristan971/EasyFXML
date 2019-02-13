@@ -1,5 +1,9 @@
 package moe.tristan.easyfxml.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -7,14 +11,11 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class ButtonsTest extends ApplicationTest {
 
     @Override
-    public void start(Stage stage) {}
+    public void start(Stage stage) {
+    }
 
     @Test
     public void setOnClickWithNode() throws InterruptedException {
@@ -29,4 +30,5 @@ public class ButtonsTest extends ApplicationTest {
         Thread.sleep(1000);
         assertThat(success).isTrue();
     }
+
 }

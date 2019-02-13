@@ -58,8 +58,8 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
 
         final Set<String> badlyScopedBeans = ComponentListViewFxmlController.BADLY_SCOPED_BEANS;
         assertThat(badlyScopedBeans)
-                .hasSize(1)
-                .containsOnly("componentListViewFxmlControllerTest.BadlyScopedController");
+            .hasSize(1)
+            .containsOnly("componentListViewFxmlControllerTest.BadlyScopedController");
 
         final Button testButton = ComponentCellFxmlSampleController.LAST_UPD_ITS_UGLY.get();
         assertThat(testButton).isNotNull();
@@ -80,18 +80,18 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         final CompletableFuture<ComponentListViewSampleFxmlController> setUpAsyncWait = new CompletableFuture<>();
 
         final FxmlLoadResult<Pane, ComponentListViewSampleFxmlController> res = easyFxml.loadNode(
-                VIEW,
-                AnchorPane.class,
-                ComponentListViewSampleFxmlController.class
+            VIEW,
+            AnchorPane.class,
+            ComponentListViewSampleFxmlController.class
         );
 
         final Pane listView =
-                res.getNode()
-                   .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+            res.getNode()
+               .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
 
         final ComponentListViewSampleFxmlController clvsfc =
-                res.getController()
-                   .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+            res.getController()
+               .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
         this.clvsfc = clvsfc;
 
         Platform.runLater(() -> {
@@ -105,6 +105,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     }
 
     public static class BadlyScopedController implements ComponentCellFxmlController<String> {
+
         @Override
         public void updateWithValue(String newValue) {
         }
@@ -112,6 +113,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         @Override
         public void initialize() {
         }
+
     }
 
 }

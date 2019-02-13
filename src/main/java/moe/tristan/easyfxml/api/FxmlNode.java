@@ -1,8 +1,8 @@
 package moe.tristan.easyfxml.api;
 
-import moe.tristan.easyfxml.util.Stages;
-
 import javafx.stage.Stage;
+
+import moe.tristan.easyfxml.util.Stages;
 
 /**
  * A {@link FxmlNode} is any element that has a graphical representation and a controller.

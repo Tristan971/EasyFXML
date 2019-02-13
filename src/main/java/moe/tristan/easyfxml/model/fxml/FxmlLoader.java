@@ -1,5 +1,10 @@
 package moe.tristan.easyfxml.model.fxml;
 
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+
+import java.util.Objects;
+import java.util.function.Consumer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -8,11 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 /**
  * The {@link FxmlLoader} object is a /SINGLE-USE/ object to load a FXML file and deserialize it as an instance of
@@ -75,9 +75,15 @@ public class FxmlLoader extends FXMLLoader {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FxmlLoader)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FxmlLoader)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         FxmlLoader that = (FxmlLoader) o;
         return Objects.equals(onSuccess, that.onSuccess) && Objects.equals(onFailure, that.onFailure);
     }
@@ -86,4 +92,5 @@ public class FxmlLoader extends FXMLLoader {
     public int hashCode() {
         return Objects.hash(getLocation(), onSuccess, onFailure);
     }
+
 }

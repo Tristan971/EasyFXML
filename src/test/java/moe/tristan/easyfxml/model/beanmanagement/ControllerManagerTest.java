@@ -29,4 +29,5 @@ public class ControllerManagerTest {
     public void testSingleton() {
         assertThat(isSpringSingleton(this.context, ControllerManager.class)).isTrue();
     }
+
 }

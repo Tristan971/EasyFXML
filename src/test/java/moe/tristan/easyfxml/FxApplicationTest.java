@@ -15,6 +15,7 @@ public class FxApplicationTest {
 
     @Configuration
     public static class TestFxApplication extends FxApplication {
+
         public static void main(String... args) throws Exception {
             ApplicationTest.launch(TestFxApplication.class, args);
         }
@@ -24,6 +25,7 @@ public class FxApplicationTest {
             super.start(primaryStage);
             stop();
         }
+
     }
 
 }

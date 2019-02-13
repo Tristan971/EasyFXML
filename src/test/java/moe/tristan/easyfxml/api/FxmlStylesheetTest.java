@@ -1,14 +1,15 @@
 package moe.tristan.easyfxml.api;
 
-import moe.tristan.easyfxml.util.Resources;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+
+import moe.tristan.easyfxml.util.Resources;
 
 public class FxmlStylesheetTest {
 

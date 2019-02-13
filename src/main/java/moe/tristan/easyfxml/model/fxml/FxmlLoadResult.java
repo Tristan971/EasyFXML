@@ -3,9 +3,6 @@ package moe.tristan.easyfxml.model.fxml;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -53,11 +50,11 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
     public FxmlLoadResult<NODE, CONTROLLER> afterNodeLoaded(final Consumer<NODE> onNodeLoaded) {
         ensureCorrectlyLoaded();
         return new FxmlLoadResult<>(
-                node.map(val -> {
-                    onNodeLoaded.accept(val);
-                    return val;
-                }),
-                controller
+            node.map(val -> {
+                onNodeLoaded.accept(val);
+                return val;
+            }),
+            controller
         );
     }
 
@@ -72,11 +69,11 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
     public FxmlLoadResult<NODE, CONTROLLER> afterControllerLoaded(final Consumer<CONTROLLER> onControllerLoaded) {
         ensureCorrectlyLoaded();
         return new FxmlLoadResult<>(
-                node,
-                controller.map(val -> {
-                    onControllerLoaded.accept(val);
-                    return val;
-                })
+            node,
+            controller.map(val -> {
+                onControllerLoaded.accept(val);
+                return val;
+            })
         );
     }
 
@@ -131,4 +128,5 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
     public Seq<?> toSeq() {
         return List.of(node, controller);
     }
+
 }

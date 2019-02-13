@@ -1,14 +1,15 @@
 package moe.tristan.easyfxml.api;
 
-import moe.tristan.easyfxml.util.Resources;
-import moe.tristan.easyfxml.util.Stages;
-import io.vavr.control.Try;
-
-import javafx.stage.Stage;
-
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Path;
+
+import javafx.stage.Stage;
+
+import moe.tristan.easyfxml.util.Resources;
+import moe.tristan.easyfxml.util.Stages;
+
+import io.vavr.control.Try;
 
 /**
  * Represents a stylesheet a supplier of Path. What this means is that any protocol is acceptable. Whether it is local
@@ -32,6 +33,7 @@ public interface FxmlStylesheet {
      * If you encounter them, post an issue with system details.
      *
      * @return the CSS file in external form (i.e. with the file:/, http:/...) protocol info before it.
+     *
      * @see Resources#getResourceURL(String)
      * @see URL#toExternalForm()
      */

@@ -1,10 +1,10 @@
 package moe.tristan.easyfxml.util;
 
+import java.util.function.Consumer;
+
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-
-import java.util.function.Consumer;
 
 public final class Buttons {
 

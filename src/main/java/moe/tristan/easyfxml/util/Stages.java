@@ -1,7 +1,7 @@
 package moe.tristan.easyfxml.util;
 
-import moe.tristan.easyfxml.api.FxmlStylesheet;
-import io.vavr.Tuple;
+import java.util.concurrent.CompletionStage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +10,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.concurrent.CompletionStage;
+import moe.tristan.easyfxml.api.FxmlStylesheet;
+
+import io.vavr.Tuple;
 
 /**
  * Utility class to perform asynchronous operations on {@link Stage} instance on the JavaFX thread.

@@ -1,9 +1,9 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import moe.tristan.easyfxml.EasyFxml;
-
 import java.lang.ref.WeakReference;
 import java.util.Objects;
+
+import moe.tristan.easyfxml.EasyFxml;
 
 /**
  * Selectors are special wrappers around a value used in an {@link AbstractInstanceManager} to distinguish multiple
@@ -45,8 +45,12 @@ public final class Selector {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Selector)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Selector)) {
+            return false;
+        }
 
         final Object thisRef = reference.get();
         final Object oRef = ((Selector) o).getReference().get();

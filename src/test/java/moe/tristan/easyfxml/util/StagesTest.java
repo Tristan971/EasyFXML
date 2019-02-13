@@ -1,7 +1,11 @@
 package moe.tristan.easyfxml.util;
 
-import moe.tristan.easyfxml.api.FxmlStylesheet;
-import io.vavr.control.Try;
+import static moe.tristan.easyfxml.util.Resources.getResourcePath;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -11,11 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutionException;
+import moe.tristan.easyfxml.api.FxmlStylesheet;
 
-import static moe.tristan.easyfxml.util.Resources.getResourcePath;
-import static org.assertj.core.api.Assertions.assertThat;
+import io.vavr.control.Try;
 
 public class StagesTest extends ApplicationTest {
 
@@ -117,4 +119,5 @@ public class StagesTest extends ApplicationTest {
         Thread.sleep(500);
         assertThat(testStage.getScene().getStylesheets()).containsExactly(TEST_STYLE.getExternalForm());
     }
+
 }

@@ -1,13 +1,13 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import io.vavr.control.Option;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import io.vavr.control.Option;
 
 /**
  * This class is aimed at helping you store references to various kinds of class instances.
@@ -24,8 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * In case you have multiple instances for the same parent type, we cannot keep doing that. This is why we need to make
  * sure we can store them in an easy way that can allow distinction between those when needed afterwards. See the {@link
  * #registerMultiple(Object, Selector, Object)} method for that.
- *
+ * <p>
  * Types are expected to be defined in the following way :
+ *
  * @param <K> The common supertype of classes that will bind to an instance
  * @param <V> The common supertype of instances which will be bound to an instance
  */
@@ -73,6 +74,7 @@ public abstract class AbstractInstanceManager<K, V> {
      * @param instance The instance to save.
      *
      * @return A map entry containing the selector and the controller registered in case you need it.
+     *
      * @throws RuntimeException in case there was an error in saving the instance.
      */
     public V registerMultiple(
@@ -134,4 +136,5 @@ public abstract class AbstractInstanceManager<K, V> {
     public Option<V> getSingle(final K parent) {
         return Option.of(this.singletons.get(parent));
     }
+
 }

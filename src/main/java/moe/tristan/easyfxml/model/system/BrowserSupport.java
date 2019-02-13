@@ -1,15 +1,17 @@
 package moe.tristan.easyfxml.model.system;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import moe.tristan.easyfxml.model.exception.ExceptionHandler;
-import io.vavr.control.Try;
-
 import java.net.URI;
 import java.net.URL;
 import java.util.function.Consumer;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javafx.application.HostServices;
+
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
+
+import io.vavr.control.Try;
 
 /**
  * This class contains some utility methods to open URLs with the default web browser of the user.
@@ -31,6 +33,7 @@ public class BrowserSupport {
      *
      * @return a {@link Try} that can be either {@link Try.Success} (and empty) or {@link Try.Failure} and contain an
      * exception.
+     *
      * @see Try#onFailure(Consumer)
      */
     public Try<Void> openUrl(final String url) {
@@ -45,6 +48,7 @@ public class BrowserSupport {
      *
      * @return a {@link Try} that can be either {@link Try.Success} (and empty) or {@link Try.Failure} and contain an
      * exception.
+     *
      * @see Try#onFailure(Consumer)
      */
     public Try<Void> openUrl(final URL url) {
@@ -61,4 +65,5 @@ public class BrowserSupport {
             cause
         );
     }
+
 }

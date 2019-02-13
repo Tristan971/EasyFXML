@@ -34,4 +34,5 @@ public class ComponentListViewSampleFxmlController extends ComponentListViewFxml
     protected void onScrolledToEndOfListView() {
         scrolledToEnd.setValue(true);
     }
+
 }

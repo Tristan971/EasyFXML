@@ -29,4 +29,5 @@ public class StageManagerTest {
     public void testSingleton() {
         assertThat(isSpringSingleton(this.context, StageManager.class)).isTrue();
     }
+
 }

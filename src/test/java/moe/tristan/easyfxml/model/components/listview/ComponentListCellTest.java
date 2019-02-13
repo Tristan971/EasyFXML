@@ -1,5 +1,10 @@
 package moe.tristan.easyfxml.model.components.listview;
 
+import static org.testfx.assertions.api.Assertions.assertThat;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -7,11 +12,6 @@ import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.testfx.assertions.api.Assertions.assertThat;
 
 public class ComponentListCellTest extends ApplicationTest {
 

@@ -1,7 +1,9 @@
 package moe.tristan.easyfxml.model.exception;
 
-import moe.tristan.easyfxml.util.Nodes;
-import moe.tristan.easyfxml.util.Stages;
+import java.util.Arrays;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
-import java.util.concurrent.CompletionStage;
-import java.util.stream.Collectors;
+import moe.tristan.easyfxml.util.Nodes;
+import moe.tristan.easyfxml.util.Stages;
 
 /**
  * Utility class to quickly turn an exception into a readable error pop-up.
@@ -84,10 +85,11 @@ public final class ExceptionHandler {
 
     private static String formatErrorMessage(final Throwable throwable) {
         return "Message : \n" +
-            throwable.getMessage() +
-            "\nStackTrace:\n" +
-            Arrays.stream(throwable.getStackTrace())
-                  .map(StackTraceElement::toString)
-                  .collect(Collectors.joining("\n"));
+               throwable.getMessage() +
+               "\nStackTrace:\n" +
+               Arrays.stream(throwable.getStackTrace())
+                     .map(StackTraceElement::toString)
+                     .collect(Collectors.joining("\n"));
     }
+
 }

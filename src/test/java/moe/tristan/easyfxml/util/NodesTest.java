@@ -1,5 +1,7 @@
 package moe.tristan.easyfxml.util;
 
+import static org.testfx.assertions.api.Assertions.assertThat;
+
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -10,8 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import static org.testfx.assertions.api.Assertions.assertThat;
 
 public class NodesTest extends ApplicationTest {
 
@@ -45,4 +45,5 @@ public class NodesTest extends ApplicationTest {
         assertThat(testButton.isManaged()).isFalse();
         assertThat(testButton.isVisible()).isFalse();
     }
+
 }

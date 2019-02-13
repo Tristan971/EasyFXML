@@ -7,7 +7,8 @@ import moe.tristan.easyfxml.api.FxmlStylesheet;
  */
 public final class FxmlStylesheets {
 
-    private FxmlStylesheets() {}
+    private FxmlStylesheets() {
+    }
 
     public static final FxmlStylesheet DEFAULT_JAVAFX_STYLE = () -> null;
 

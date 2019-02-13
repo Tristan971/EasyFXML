@@ -1,6 +1,7 @@
 package moe.tristan.easyfxml.util;
 
-import io.vavr.control.Try;
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -15,15 +16,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static io.vavr.API.$;
-import static io.vavr.API.Case;
+import io.vavr.control.Try;
 
 /**
  * This class is for classpath-based files simpler access (i.e. resources).
  */
 public final class Resources {
 
-    private Resources() {}
+    private Resources() {
+    }
 
     /**
      * This method gets the {@link Path} associated to a classpath-located file.
@@ -93,4 +94,5 @@ public final class Resources {
                   .map(ds -> StreamSupport.stream(ds.spliterator(), false))
                   .map(ps -> ps.collect(Collectors.toList()));
     }
+
 }

@@ -13,4 +13,5 @@ public final class TestUtils {
 
         return bean1.equals(bean2);
     }
+
 }

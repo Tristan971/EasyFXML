@@ -66,4 +66,5 @@ public class AbstractInstanceManagerTest {
 
         assertThat(this.instanceManager.getMultiples(PARENT)).containsExactlyInAnyOrder(ACTUAL_1, ACTUAL_2);
     }
+
 }

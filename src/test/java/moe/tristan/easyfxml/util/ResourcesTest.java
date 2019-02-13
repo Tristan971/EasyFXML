@@ -1,7 +1,6 @@
 package moe.tristan.easyfxml.util;
 
-import io.vavr.control.Try;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.net.URL;
@@ -10,7 +9,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+
+import io.vavr.control.Try;
 
 public class ResourcesTest {
 
@@ -43,7 +44,7 @@ public class ResourcesTest {
 
         assertThat(fileThatDoesntExist.isFailure()).isTrue();
         assertThat(fileThatDoesntExist.getCause().getMessage()).contains(PATH_UTIL_TESTS_FOLDER +
-            NONEXISTING_FILE_NAME);
+                                                                         NONEXISTING_FILE_NAME);
     }
 
     @Test
@@ -78,4 +79,5 @@ public class ResourcesTest {
             EXISTING_ANOTHER_FILE_NAME
         );
     }
+
 }

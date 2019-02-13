@@ -32,4 +32,5 @@ public class SAMPLE_CONTROL_CLASS implements FxmlController {
         this.locatedInstance = true;
         LOG.debug("<HANDLED ACTION ON INSTANCE : {}>", this);
     }
+
 }

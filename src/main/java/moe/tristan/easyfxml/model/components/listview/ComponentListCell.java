@@ -1,24 +1,23 @@
 package moe.tristan.easyfxml.model.components.listview;
 
-import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.api.FxmlNode;
-import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
-
 import javafx.application.Platform;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
+
+import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 public abstract class ComponentListCell<T> extends ListCell<T> {
 
     protected final Pane cellNode;
     protected final ComponentCellFxmlController<T> cellController;
 
-    @SuppressWarnings("unchecked")
     public ComponentListCell(final EasyFxml easyFxml, final FxmlNode cellNode) {
         this(easyFxml.loadNode(
-                cellNode,
-                Pane.class,
-                ComponentCellFxmlController.class
+            cellNode,
+            Pane.class,
+            ComponentCellFxmlController.class
         ));
     }
 

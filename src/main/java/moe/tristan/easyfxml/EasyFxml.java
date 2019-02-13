@@ -1,19 +1,20 @@
 package moe.tristan.easyfxml;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import org.springframework.context.ApplicationContext;
+
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.Selector;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
+
 import io.vavr.control.Try;
-
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import org.springframework.context.ApplicationContext;
 
 /**
  * This class is the base entry point of the library.
@@ -65,8 +66,8 @@ public interface EasyFxml {
      * @param node            The element's {@link FxmlNode} counterpart.
      * @param nodeClass       The class of the JavaFX {@link Node} represented by this {@link FxmlNode}.
      * @param controllerClass The class of the {@link FxmlController} managing this {@link FxmlNode}.
-     * @param <NODE>       The type of the node. Mostly for type safety.
-     * @param <CONTROLLER>       The type of the controller. Mostly for type safety.
+     * @param <NODE>          The type of the node. Mostly for type safety.
+     * @param <CONTROLLER>    The type of the controller. Mostly for type safety.
      *
      * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for its
      * controller. This allows for granular load error management.
@@ -87,8 +88,8 @@ public interface EasyFxml {
      * @param nodeClass       The class of the JavaFX {@link Node} represented by this {@link FxmlNode}.
      * @param controllerClass The class of the {@link FxmlController} managing this {@link FxmlNode}.
      * @param selector        The selector for deduplication of Panes sharing the same {@link FxmlNode}.
-     * @param <NODE>       The type of the node. Mostly for type safety.
-     * @param <CONTROLLER>       The type of the controller. Mostly for type safety.
+     * @param <NODE>          The type of the node. Mostly for type safety.
+     * @param <CONTROLLER>    The type of the controller. Mostly for type safety.
      *
      * @return A {@link FxmlLoadResult} containing two {@link Try} instances. One for the node itself and one for its
      * controller. This allows for granular load error management.

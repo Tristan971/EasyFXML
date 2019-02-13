@@ -58,4 +58,5 @@ public class ExceptionHandlerTest extends ApplicationTest {
 
         assertThat(errStage.isShowing()).isTrue();
     }
+
 }

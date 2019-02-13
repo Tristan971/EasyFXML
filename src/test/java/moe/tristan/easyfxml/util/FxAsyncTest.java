@@ -1,15 +1,15 @@
 package moe.tristan.easyfxml.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.application.Platform;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class FxAsyncTest extends ApplicationTest {
 
@@ -37,4 +37,5 @@ public class FxAsyncTest extends ApplicationTest {
             expected -> assertThat(Thread.currentThread()).isEqualTo(expected)
         ).toCompletableFuture().get();
     }
+
 }

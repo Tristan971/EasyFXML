@@ -22,7 +22,9 @@ public class ComponentCellFxmlSampleController implements ComponentCellFxmlContr
 
     @Override
     public void updateWithValue(final String newValue) {
-        if (newValue == null) return;
+        if (newValue == null) {
+            return;
+        }
 
         LAST_UPD_ITS_UGLY.set(testButton);
         Platform.runLater(() -> testButton.setText(newValue));
