@@ -32,10 +32,10 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/Tristan971/EasyFXML.git</connection>
-        <developerConnection>scm:git:ssh://github.com/Tristan971/EasyFXML.git</developerConnection>
-        <url>http://github.com/Tristan971/EasyFXML/tree/master</url>
-        <tag>3.0.1-SNAPSHOT</tag>
+        <connection>scm:git:https://github.com/Tristan971/EasyFXML.git</connection>
+        <developerConnection>scm:git:https://github.com/Tristan971/EasyFXML.git</developerConnection>
+        <url>http://github.com/Tristan971/EasyFXML/tree/${project.scm.tag}</url>
+        <tag>master</tag>
     </scm>
 
     <groupId>moe.tristan</groupId>
