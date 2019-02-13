@@ -28,8 +28,6 @@ import io.vavr.control.Try;
  */
 public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController> implements Tuple {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FxmlLoadResult.class);
-
     private final Try<NODE> node;
     private final Try<CONTROLLER> controller;
 
@@ -52,7 +50,7 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
      *
      * @return A new instance of {@link FxmlLoadResult} with updated internal state.
      */
-    public FxmlLoadResult<NODE, CONTROLLER> afterNodeLoaded(final Consumer<Node> onNodeLoaded) {
+    public FxmlLoadResult<NODE, CONTROLLER> afterNodeLoaded(final Consumer<NODE> onNodeLoaded) {
         ensureCorrectlyLoaded();
         return new FxmlLoadResult<>(
                 node.map(val -> {
