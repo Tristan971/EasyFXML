@@ -110,6 +110,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <releaseProfiles>deploy-ossrh</releaseProfiles>
+                    <tagNameFormat>version</tagNameFormat>
                 </configuration>
             </plugin>
         </plugins>
