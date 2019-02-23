@@ -10,15 +10,17 @@ public final class Properties {
     private Properties() {
     }
 
-    public static <T, P extends Property<T>> P propertyWithCallbackOnSet(Supplier<P> propertyFactory, Consumer<T> callback) {
+    public static <T, P extends Property<T>> P newPropertyWithCallback(Supplier<P> propertyFactory, Consumer<T> callback) {
         final P property = propertyFactory.get();
-        if (property.getValue() != null) {
-            callback.accept(property.getValue());
-        }
-
-        property.addListener((o, prev, cur) -> callback.accept(cur));
-
+        whenPropertyIsSet(property, callback);
         return property;
+    }
+
+    public static <T, P extends Property<T>> void whenPropertyIsSet(P property, Consumer<T> doWhenSet) {
+        property.addListener((o, prev, cur) -> doWhenSet.accept(cur));
+        if (property.getValue() != null) {
+            doWhenSet.accept(property.getValue());
+        }
     }
 
 }

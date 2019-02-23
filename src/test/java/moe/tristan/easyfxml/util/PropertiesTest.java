@@ -1,5 +1,6 @@
 package moe.tristan.easyfxml.util;
 
+import static moe.tristan.easyfxml.util.Properties.whenPropertyIsSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.stream.IntStream;
@@ -13,20 +14,62 @@ public class PropertiesTest {
 
     @Test
     public void shouldCallDirectlyIfSetWithValue() {
-        Object element = new Object();
+        final Object element = new Object();
 
-        Property<Object> called = new SimpleObjectProperty<>(null);
+        final Property<Object> called = new SimpleObjectProperty<>(null);
 
-        Properties.propertyWithCallbackOnSet(() -> new SimpleObjectProperty<>(element), called::setValue);
+        Properties.newPropertyWithCallback(() -> new SimpleObjectProperty<>(element), called::setValue);
 
         assertThat(called.getValue()).isSameAs(element);
     }
 
     @Test
     public void shouldCallConsumerOnEverySetCall() {
-        Property<Integer> called = new SimpleObjectProperty<>();
+        final Property<Integer> called = new SimpleObjectProperty<>();
 
-        final Property<Integer> property = Properties.propertyWithCallbackOnSet(SimpleObjectProperty::new, called::setValue);
+        final Property<Integer> property = Properties.newPropertyWithCallback(SimpleObjectProperty::new, called::setValue);
+
+        assertThat(called.getValue()).isNull();
+
+        IntStream.range(0, 1000).forEach(value -> {
+            property.setValue(value);
+            assertThat(called.getValue()).isEqualTo(value);
+        });
+    }
+
+    @Test
+    public void awaitCallsDirectlyIfSet() {
+        final Property<Object> valuedProp = new SimpleObjectProperty<>(new Object());
+
+        final Property<Object> listener = new SimpleObjectProperty<>();
+
+        whenPropertyIsSet(valuedProp, listener::setValue);
+
+        assertThat(listener.getValue()).isEqualTo(valuedProp.getValue());
+    }
+
+    @Test
+    public void awaitCallsAwaitsSetIfNullOriginally() {
+        final Property<Object> valuedProp = new SimpleObjectProperty<>();
+
+        final Property<Object> listener = new SimpleObjectProperty<>();
+
+        whenPropertyIsSet(valuedProp, listener::setValue);
+
+        assertThat(listener.getValue()).isNull();
+
+        valuedProp.setValue(new Object());
+
+        assertThat(listener.getValue()).isEqualTo(valuedProp.getValue());
+    }
+
+    @Test
+    public void awaitShouldCallConsumerOnEverySetCall() {
+        final Property<Integer> called = new SimpleObjectProperty<>();
+
+        final Property<Integer> property = new SimpleObjectProperty<>();
+
+        whenPropertyIsSet(property, called::setValue);
 
         assertThat(called.getValue()).isNull();
 
