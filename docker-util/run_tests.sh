@@ -24,5 +24,8 @@ set +x
 echo "Finished running tests!"
 
 echo "Notifying CodeClimate of test build's end"
+
+cd easyfxml
+
 JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
 ./cc-test-reporter upload-coverage -r 9791cde00c987e47a9082b96f73a2b4eb3590f308c501a3c61d34e0276c93ec1
