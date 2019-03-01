@@ -34,6 +34,7 @@
         <junit-dep.version>4.10</junit-dep.version>
         <reflections.version>0.9.11</reflections.version>
         <testfx.version>4.0.15-alpha</testfx.version>
+        <testfx-monocle.version>jdk-11+26</testfx-monocle.version>
     </properties>
 
     <build>

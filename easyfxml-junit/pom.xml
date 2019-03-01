@@ -24,6 +24,11 @@
             <artifactId>testfx-junit</artifactId>
             <version>${testfx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>${testfx-monocle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
