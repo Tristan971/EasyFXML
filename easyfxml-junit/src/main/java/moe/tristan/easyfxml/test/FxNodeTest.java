@@ -83,6 +83,7 @@ public abstract class FxNodeTest extends ApplicationTest {
             Stage testStage = new Stage();
             testStage.setScene(new Scene(new VBox(nodes.toArray(new Node[0]))));
             testStage.show();
+            testStage.toFront();
         }
 
         private static Boolean allEvaluateToTrue(List<Supplier<Boolean>> nodesReady) {
