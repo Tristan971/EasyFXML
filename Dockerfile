@@ -20,7 +20,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
 ENV term xterm
 
 # Copy current version of git repo
+# Explicitly include .git folder as well for git info during build
 COPY . /EasyFXML
+COPY .git/ /EasyFXML/.git/
+
 RUN chmod +x ./EasyFXML/docker-util/*
 
 # Copy local maven repo

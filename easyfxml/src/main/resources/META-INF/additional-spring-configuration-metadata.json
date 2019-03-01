@@ -1,0 +1,14 @@
+{
+    "properties": [
+        {
+            "name": "moe.tristan.easyfxml.version",
+            "type": "java.lang.String",
+            "description": "Library's version."
+        },
+        {
+            "name": "moe.tristan.easyfxml.fxml.fxml_root_path",
+            "type": "java.lang.String",
+            "description": "The root folder in which to look for .fxml files. (e.g. 'views/fxml')."
+        }
+    ]
+}
