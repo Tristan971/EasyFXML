@@ -9,6 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.service.query.PointQuery;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -23,7 +24,10 @@ public abstract class FxNodeTest extends ApplicationTest {
     }
 
     protected Supplier<Boolean> showing(Node node) {
-        return () -> point(node).query() != null;
+        return () -> {
+            final PointQuery pointQuery = point(node);
+            return pointQuery.query() != null;
+        };
     }
 
     @SuppressWarnings("unchecked")

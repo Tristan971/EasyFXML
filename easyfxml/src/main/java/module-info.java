@@ -1,21 +1,4 @@
 open module easyfxml {
-    requires java.annotation;
-
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.graphics;
-
-    requires spring.beans;
-    requires spring.boot;
-    requires spring.boot.autoconfigure;
-    requires spring.context;
-    requires spring.core;
-
-    requires slf4j.api;
-
-    requires io.vavr;
-    requires awaitility;
-
     exports moe.tristan.easyfxml;
     exports moe.tristan.easyfxml.api;
     exports moe.tristan.easyfxml.util;
@@ -24,4 +7,21 @@ open module easyfxml {
     exports moe.tristan.easyfxml.model.exception;
     exports moe.tristan.easyfxml.model.fxml;
     exports moe.tristan.easyfxml.model.system;
+
+    requires java.annotation;
+
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    requires transitive javafx.graphics;
+
+    requires spring.beans;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
+    requires spring.context;
+    requires spring.core;
+
+    requires awaitility;
+    requires io.vavr;
+    requires slf4j.api;
+
 }
