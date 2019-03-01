@@ -15,7 +15,7 @@ import moe.tristan.easyfxml.model.components.listview.ComponentCellFxmlControlle
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ComponentCellFxmlSampleController implements ComponentCellFxmlController<String> {
 
-    public static final AtomicReference<Button> LAST_UPD_ITS_UGLY = new AtomicReference<>(null);
+    public static final AtomicReference<Button> REMOTE_REF = new AtomicReference<>(null);
 
     @FXML
     private Button testButton;
@@ -26,7 +26,7 @@ public class ComponentCellFxmlSampleController implements ComponentCellFxmlContr
             return;
         }
 
-        LAST_UPD_ITS_UGLY.set(testButton);
+        REMOTE_REF.set(testButton);
         Platform.runLater(() -> testButton.setText(newValue));
     }
 

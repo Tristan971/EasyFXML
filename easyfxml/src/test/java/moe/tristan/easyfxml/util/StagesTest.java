@@ -1,7 +1,9 @@
 package moe.tristan.easyfxml.util;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static moe.tristan.easyfxml.util.Resources.getResourcePath;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
@@ -67,7 +69,7 @@ public class StagesTest extends ApplicationTest {
            .toCompletableFuture()
            .get();
 
-        Thread.sleep(200);
+        await().atMost(5, SECONDS).until(testStage::isShowing);
         assertThat(testStage.isShowing()).isTrue();
     }
 
@@ -87,7 +89,7 @@ public class StagesTest extends ApplicationTest {
            .toCompletableFuture()
            .get();
 
-        Thread.sleep(200);
+        await().atMost(5, SECONDS).until(() -> !testStage.isShowing());
         assertThat(testStage.isShowing()).isFalse();
     }
 
@@ -116,7 +118,7 @@ public class StagesTest extends ApplicationTest {
            .toCompletableFuture()
            .get();
 
-        Thread.sleep(500);
+        await().atMost(5, SECONDS).until(() -> testStage.getScene().getStylesheets().contains(TEST_STYLE.getExternalForm()));
         assertThat(testStage.getScene().getStylesheets()).containsExactly(TEST_STYLE.getExternalForm());
     }
 

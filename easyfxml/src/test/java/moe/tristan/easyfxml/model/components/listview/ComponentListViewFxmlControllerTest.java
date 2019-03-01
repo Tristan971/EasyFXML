@@ -1,11 +1,12 @@
 package moe.tristan.easyfxml.model.components.listview;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static moe.tristan.easyfxml.model.components.listview.ComponentListViewFxmlController.BADLY_SCOPED_BEANS;
 import static moe.tristan.easyfxml.model.components.listview.CustomListViewTestComponents.VIEW;
+import static moe.tristan.easyfxml.model.components.listview.cell.ComponentCellFxmlSampleController.REMOTE_REF;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -28,7 +29,6 @@ import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
-import moe.tristan.easyfxml.model.components.listview.cell.ComponentCellFxmlSampleController;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
@@ -54,16 +54,15 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
         final ComponentListViewSampleFxmlController ctrl = setUpStage();
         IntStream.range(0, 100).forEach(i -> ctrl.addValue(TEST_BUTTON_SUCCESS_TEXT));
 
-        Thread.sleep(3000);
+        await().until(() -> REMOTE_REF.get() != null);
 
-        final Set<String> badlyScopedBeans = ComponentListViewFxmlController.BADLY_SCOPED_BEANS;
-        assertThat(badlyScopedBeans)
-            .hasSize(1)
-            .containsOnly("componentListViewFxmlControllerTest.BadlyScopedController");
+        assertThat(BADLY_SCOPED_BEANS).hasSize(1).containsOnly("componentListViewFxmlControllerTest.BadlyScopedController");
 
-        final Button testButton = ComponentCellFxmlSampleController.LAST_UPD_ITS_UGLY.get();
+        final Button testButton = REMOTE_REF.get();
         assertThat(testButton).isNotNull();
         assertThat(testButton).isInstanceOf(Button.class);
+
+        await().until(() -> testButton.getText().equals(TEST_BUTTON_SUCCESS_TEXT));
         assertThat(testButton.getText()).isEqualTo(TEST_BUTTON_SUCCESS_TEXT);
 
         Platform.runLater(() -> {
@@ -85,13 +84,12 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             ComponentListViewSampleFxmlController.class
         );
 
-        final Pane listView =
-            res.getNode()
-               .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+        final Pane listView = res.getNode().getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
 
-        final ComponentListViewSampleFxmlController clvsfc =
-            res.getController()
-               .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+        final ComponentListViewSampleFxmlController clvsfc = res.getController().getOrElseThrow(
+            (Function<? super Throwable, RuntimeException>) RuntimeException::new
+        );
+
         this.clvsfc = clvsfc;
 
         Platform.runLater(() -> {

@@ -1,6 +1,6 @@
 package moe.tristan.easyfxml.model.components.listview;
 
-import static org.testfx.assertions.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -45,16 +45,13 @@ public class ComponentListCellTest extends ApplicationTest {
         final TestListCell testListViewCell = new TestListCell(pane, clvcc);
 
         testListViewCell.updateItem("TEST", false);
-        Thread.sleep(200);
-        assertThat(value.get()).isEqualTo("TEST");
+        await().until(() -> value.get().equals("TEST"));
 
         testListViewCell.updateItem("TEST2", false);
-        Thread.sleep(200);
-        assertThat(value.get()).isEqualTo("TEST2");
+        await().until(() -> value.get().equals("TEST2"));
 
         testListViewCell.updateItem(null, true);
-        Thread.sleep(200);
-        assertThat(value.get()).isEqualTo(null);
+        await().until(() -> value.get() == null);
     }
 
     public class TestListCell extends ComponentListCell<String> {
