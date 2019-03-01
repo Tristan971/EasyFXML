@@ -10,7 +10,7 @@ jobs:
             - run:
                   name: Docker build
                   command: 'docker build -t easyfxml/test .'
-            - save_cache:
+            - restore_cache:
                   key: dependency-cache-{{ checksum "pom.xml" }}
                   paths:
                       - ~/.m2

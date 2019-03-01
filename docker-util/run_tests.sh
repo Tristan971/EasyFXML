@@ -12,13 +12,11 @@ echo "Will use CodeClimate's test reporter at $(pwd)/${COV_MODULE}/cc-test-repor
 echo "Set before-build notice"
 ./${COV_MODULE}/cc-test-reporter before-build
 
-PREFLIGHT="mvn -q dependency:go-offline"
-CMD="mvn clean install"
+CMD="_JAVA_OPTIONS=\"-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500\" mvn clean install"
 
 echo "Test command = ${CMD}"
 
 set -x
-${PREFLIGHT}
 bash -c "./docker-util/xvfb-run.sh -a ${CMD}"
 set +x
 
