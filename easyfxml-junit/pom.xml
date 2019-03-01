@@ -5,32 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>easyfxml</artifactId>
+        <artifactId>easyfxml-parent</artifactId>
         <groupId>moe.tristan</groupId>
         <version>3.0.5-SNAPSHOT</version>
+        <relativePath>../easyfxml-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>easyfxml-test-utils</artifactId>
-    <name>EasyFXML - Test Utils</name>
+    <artifactId>easyfxml-junit</artifactId>
 
-    <properties>
-        <testfx.version>4.0.15-alpha</testfx.version>
-    </properties>
+    <name>EasyFXML JUnit</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>${testfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit</artifactId>
             <version>${testfx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>testfx-core</artifactId>
-            <version>4.0.15-alpha</version>
         </dependency>
     </dependencies>
 
