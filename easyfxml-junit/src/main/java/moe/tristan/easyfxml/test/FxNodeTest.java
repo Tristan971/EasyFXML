@@ -71,11 +71,11 @@ public abstract class FxNodeTest extends ApplicationTest {
         private void runTestQuery(List<Node> nodes, List<Supplier<Boolean>> nodesReady, List<Runnable> actions, List<Supplier<Boolean>> witnesses) {
             CompletableFuture
                 .runAsync(() -> buildStageWithNodes(nodes), Platform::runLater)
-                .thenRun(() -> await().atMost(5, SECONDS).until(() -> allEvaluateToTrue(nodesReady)))
+                .thenRun(() -> await().until(() -> allEvaluateToTrue(nodesReady)))
                 .thenRun(() -> actions.forEach(Runnable::run)).join();
 
             for (Supplier<Boolean> witness : witnesses) {
-                await().atMost(5, SECONDS).until(witness::get);
+                await().until(witness::get);
             }
         }
 

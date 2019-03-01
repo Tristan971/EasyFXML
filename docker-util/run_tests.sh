@@ -5,11 +5,11 @@ echo "Bash at $(which bash)"
 echo "Maven at $(which mvn) with config $(mvn -version)"
 
 echo "Preparing test coverage reporting"
-curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-chmod +x ./cc-test-reporter
-echo "Will use CodeClimate's test reporter at $(pwd)/cc-test-reporter"
+curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./easyfxml/cc-test-reporter
+chmod +x ./easyfxml/cc-test-reporter
+echo "Will use CodeClimate's test reporter at $(pwd)/easyfxml/cc-test-reporter"
 echo "Set before-build notice"
-./cc-test-reporter before-build
+./easyfxml/cc-test-reporter before-build
 
 PREFLIGHT="mvn -q dependency:go-offline"
 CMD="mvn clean install"

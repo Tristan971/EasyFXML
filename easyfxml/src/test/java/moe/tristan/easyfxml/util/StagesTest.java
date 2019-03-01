@@ -69,7 +69,7 @@ public class StagesTest extends ApplicationTest {
            .toCompletableFuture()
            .get();
 
-        await().atMost(5, SECONDS).until(testStage::isShowing);
+        await().until(testStage::isShowing);
         assertThat(testStage.isShowing()).isTrue();
     }
 
@@ -89,7 +89,7 @@ public class StagesTest extends ApplicationTest {
            .toCompletableFuture()
            .get();
 
-        await().atMost(5, SECONDS).until(() -> !testStage.isShowing());
+        await().until(() -> !testStage.isShowing());
         assertThat(testStage.isShowing()).isFalse();
     }
 
@@ -118,7 +118,7 @@ public class StagesTest extends ApplicationTest {
            .toCompletableFuture()
            .get();
 
-        await().atMost(5, SECONDS).until(() -> testStage.getScene().getStylesheets().contains(TEST_STYLE.getExternalForm()));
+        await().until(() -> testStage.getScene().getStylesheets().contains(TEST_STYLE.getExternalForm()));
         assertThat(testStage.getScene().getStylesheets()).containsExactly(TEST_STYLE.getExternalForm());
     }
 

@@ -71,7 +71,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             assertThat(clvsfc.scrolledToEnd.get()).isFalse();
             clvsfc.listView.scrollTo(99);
 
-            await().atMost(1, SECONDS).until(() -> clvsfc.scrolledToEnd.get());
+            await().until(() -> clvsfc.scrolledToEnd.get());
         });
     }
 
