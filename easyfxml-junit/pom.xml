@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>easyfxml-parent</artifactId>
+        <artifactId>easyfxml-module-base</artifactId>
         <groupId>moe.tristan</groupId>
         <version>3.0.5-SNAPSHOT</version>
-        <relativePath>../easyfxml-parent/pom.xml</relativePath>
+        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
     <artifactId>easyfxml-junit</artifactId>
