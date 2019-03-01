@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>easyfxml-test-utils</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -16,7 +19,7 @@
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
     <version>3.0.5-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <licenses>
         <license>
@@ -222,6 +225,12 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-test-utils</artifactId>
+            <version>3.0.5-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

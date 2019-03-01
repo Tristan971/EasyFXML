@@ -1,33 +1,30 @@
 package moe.tristan.easyfxml.util;
 
+import static javafx.scene.input.MouseButton.PRIMARY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
 
-import javafx.application.Platform;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
-public class ButtonsTest extends ApplicationTest {
+import moe.tristan.easyfxml.test.FxNodeTest;
 
-    @Override
-    public void start(Stage stage) {
-    }
+public class ButtonsTest extends FxNodeTest {
 
     @Test
-    public void setOnClickWithNode() throws InterruptedException {
-        final Button testButton = new Button("TEST_BUTTON");
+    public void setOnClickWithNode() {
         final AtomicBoolean success = new AtomicBoolean(false);
 
-        Platform.runLater(() -> {
-            Buttons.setOnClickWithNode(testButton, null, node -> success.set(true));
-            testButton.fire();
-        });
+        final Button testButton = new Button("TEST_BUTTON");
+        Buttons.setOnClick(testButton, () -> success.set(true));
 
-        Thread.sleep(1000);
+        withNodes(testButton)
+            .startWhen(() -> point(testButton).query() != null)
+            .thenDo(() -> clickOn(testButton, PRIMARY))
+            .andFinallyAwaitFor(success::get);
+
         assertThat(success).isTrue();
     }
 
