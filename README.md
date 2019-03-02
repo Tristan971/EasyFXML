@@ -18,8 +18,8 @@ A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ togeth
 
 ## Basics
 
-The idea of EasyFXML is to leverage the current MVC model for front-end components and apply it to _JavaFX_ to avoid proper 
-separation of concerns and lifecycle management.
+The idea of EasyFXML is to leverage the current MVC model for front-end components and apply it to _JavaFX_ to enable proper 
+separation of concerns and lifecycle management in applications.
 
 There are two core parts defining a visual element (an `FxmlNode`, hereafter):
 - Its view, an FXML file described by an `FxmlFile`, that is, a `String` supplier that is in charge of providing the path to the view file as a classpath resource.
