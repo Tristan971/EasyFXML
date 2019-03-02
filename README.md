@@ -38,27 +38,29 @@ For this you will need:
 - An entrypoint for the UI
 - A main class
 
-##### Component (i.e. the `FxmlNode`):
+##### Component ([`FxmlNode`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlNode.java))
 ```java
-@Component // Note: does not have to necessarily be a Spring Bean, an enum can be used if they do not have internal state (and they should almost never do)
+@Component
 public class HelloComponent implements FxmlNode {
     
     @Override 
     public FxmlFile getFile() {
-        return () -> "my/package/view/hello/HelloView.fxml"; // The component lies in the `my.package.view.hello` package
-    }                                                        // and its FXML view file is named `HelloView.fxml`
+        return () -> "my/package/view/hello/HelloView.fxml"; 
+        // component lies in `my.package.view.hello` package
+    }   // and its FXML view file is `HelloView.fxml`
 
     @Override
     public Class<? extends FxmlController> getControllerClass() {
-        return HelloController.class; // Its controller class is `HelloController`
+        return HelloController.class; 
+        // Its controller class is `HelloController`
     }
 
 }
 ```
 
-##### Controller (`FxmlController`):
+##### Controller ([`FxmlController`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
 ```java
-@Component // Note: if you can have multiple windows that are the same view (notifications, tooltips, etc), make sure that this bean is not a singleton
+@Component
 public class HelloController implements FxmlController {
 
     @FXML 
@@ -86,8 +88,11 @@ public class HelloController implements FxmlController {
 
 }
 ```
+Note that if you can have multiple instances of a given component (a notification panel, or a individual cell in a list/table for example), 
+you need to make sure that the controller class is not a singleton with @Scope(scopeName = ConfigurableBeanFactory.PROTOTYPE)
 
-##### Entrypoint of the UI side of the application (`FxUiManager`)
+##### Entrypoint of the UI ([`FxUiManager`](./easyfxml/src/main/java/moe/tristan/easyfxml/FxUiManager.java))
+###### (called by EasyFXML once JavaFX and Spring are both ready to use)
 ```java
 @Component
 public class HelloWorldUiManager extends FxUiManager {
@@ -112,7 +117,7 @@ public class HelloWorldUiManager extends FxUiManager {
 }
 ```
 
-##### Main class (`FxApplication` extends JavaFX's `Application` and wires up Spring properly)
+##### Main class ([FxApplication](./easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
 ```java
 @SpringBootApplication // the EasyFXML Configuration class is automatically imported by Spring Boot if on the classpath
 public class HelloWorld extends FxApplication {
