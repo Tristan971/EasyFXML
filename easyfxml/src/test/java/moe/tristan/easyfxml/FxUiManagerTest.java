@@ -26,9 +26,11 @@ public class FxUiManagerTest extends ApplicationTest {
 
     @Test
     public void startGui() {
-        Platform.runLater(() ->
-                              new TestFxUiManager(easyFxml).startGui(stage)
-        );
+        Platform.runLater(() -> {
+            final TestFxUiManager uiManager = new TestFxUiManager();
+            uiManager.setEasyFxml(easyFxml);
+            uiManager.startGui(stage);
+        });
     }
 
 }
