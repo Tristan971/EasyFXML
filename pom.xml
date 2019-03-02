@@ -160,6 +160,7 @@
                 <version>${maven-release-plugin.version}</version>
                 <configuration>
                     <tagNameFormat>@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
             <plugin>
