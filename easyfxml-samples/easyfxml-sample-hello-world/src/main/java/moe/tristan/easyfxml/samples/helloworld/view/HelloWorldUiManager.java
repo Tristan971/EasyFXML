@@ -1,14 +1,11 @@
 package moe.tristan.easyfxml.samples.helloworld.view;
 
-import org.springframework.stereotype.Component;
-
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.FxUiManager;
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.samples.helloworld.view.hello.HelloComponent;
 
-@Component
 public class HelloWorldUiManager extends FxUiManager {
 
     private final HelloComponent helloComponent;

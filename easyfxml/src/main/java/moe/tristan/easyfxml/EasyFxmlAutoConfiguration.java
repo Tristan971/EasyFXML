@@ -17,6 +17,7 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 
 import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
 import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
 
@@ -25,6 +26,7 @@ import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
     lazyInit = true,
     includeFilters = @Filter(type = ASSIGNABLE_TYPE, classes = {
         EasyFxml.class,
+        FxmlNode.class,
         FxApplication.class,
         FxUiManager.class,
         FxmlController.class,
@@ -41,7 +43,6 @@ public class EasyFxmlAutoConfiguration {
 
     @Autowired
     public EasyFxmlAutoConfiguration(ApplicationContext context) {
-        LOGGER.info("Loading EasyFXML auto-configuration...");
         this.context = context;
     }
 
@@ -49,6 +50,7 @@ public class EasyFxmlAutoConfiguration {
     public void logFoundControllers() {
         final String fxmlControllersFound = String.join("\n->\t", context.getBeanNamesForType(FxmlController.class));
         LOGGER.debug("\nFound the following FxmlControllers : \n->\t{}", fxmlControllersFound);
+        LOGGER.info("EasyFXML is configured now configured with context {}", context);
     }
 
     @Bean
@@ -57,3 +59,4 @@ public class EasyFxmlAutoConfiguration {
     }
 
 }
+
