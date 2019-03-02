@@ -76,12 +76,9 @@ public class HelloController implements FxmlController {
     @Override
     public void initialize() { // called once loading is fully done
         greetingBox.setVisible(false);
-        setOnClick(helloButton, this::greet);
-    }
+        greetingName.textProperty().bind(userNameTextField.textProperty());
 
-    private void greet() {
-        greetingName.setText(userNameTextField.getText());
-        greetingBox.setVisible(true);
+        setOnClick(helloButton, () -> greetingBox.setVisible(true));
     }
 
 }
