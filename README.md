@@ -10,7 +10,7 @@ A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ togeth
 
 ## Features
 
-- Never have directly deal with `FxmlLoader` again. Yes.
+- Never have to directly deal with `FxmlLoader` again. Yes.
 - Declarative, MVC-like management of visual components
 - Fully compatible with Spring Boot 2, Java 11+ and the module path
 - Type-safe and asynchronous management of visual components from before displaying them to after disposal
@@ -28,7 +28,7 @@ There are two core parts defining a visual element (an `FxmlNode`, hereafter):
 - Its controller, a Spring Bean implementing `FxmlController`
 
 ## Getting started
-######This section is mostly a simplified version of the [Hello World](./easyfxml-samples/easyfxml-sample-hello-world) if you want to check it out for yourself
+###### This section is mostly a simplified version of the [Hello World](./easyfxml-samples/easyfxml-sample-hello-world) if you want to check it out for yourself
 
 Let's see how building a very minimal greeter window, like follows, would work:
 
