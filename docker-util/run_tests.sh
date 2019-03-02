@@ -12,7 +12,7 @@ echo "Will use CodeClimate's test reporter at $(pwd)/${COV_MODULE}/cc-test-repor
 echo "Set before-build notice"
 ./${COV_MODULE}/cc-test-reporter before-build
 
-CMD="mvn clean install -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
+CMD="mvn clean install -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=10000"
 
 echo "Test command = ${CMD}"
 
