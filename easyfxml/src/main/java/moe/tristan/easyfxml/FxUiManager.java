@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -39,27 +40,7 @@ public abstract class FxUiManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FxUiManager.class);
 
-    protected final EasyFxml easyFxml;
-
-    /**
-     * You are expected to call super() with an {@link EasyFxml} instance received from Spring.
-     * <p>
-     * i.e.:
-     * <pre>
-     * public class MyUiManager extends FxUiManager {
-     *
-     *      public MyUiManager(EasyFxml easyFxml) {
-     *          super(easyFxml);
-     *      }
-     *      ...
-     * }
-     * </pre>
-     *
-     * @param easyFxml received from Spring DI
-     */
-    protected FxUiManager(EasyFxml easyFxml) {
-        this.easyFxml = easyFxml;
-    }
+    private EasyFxml easyFxml;
 
     /**
      * Called by {@link FxApplication} after Spring and JavaFX are started. This is the equivalent of {@link
@@ -148,6 +129,11 @@ public abstract class FxUiManager {
                "Could not load theme file with description : " + stylesheet,
                err
            ));
+    }
+
+    @Autowired
+    public void setEasyFxml(EasyFxml easyFxml) {
+        this.easyFxml = easyFxml;
     }
 
 }
