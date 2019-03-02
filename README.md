@@ -113,7 +113,7 @@ public class HelloWorldUiManager extends FxUiManager {
 
 ##### Main class ([FxApplication](./easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
 ```java
-@SpringBootApplication // the EasyFXML Configuration class is automatically imported by Spring Boot if on the classpath
+@SpringBootApplication // the EasyFXML Configuration is automatically imported by Spring Boot
 public class HelloWorld extends FxApplication {
     public static void main(String[] args) {
         launch(args);
