@@ -10,11 +10,10 @@ A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ togeth
 
 ## Features
 
-- Never have to directly deal with `FxmlLoader` again. Yes.
-- Declarative, MVC-like management of visual components
+- Declarative and type-safe definition and usage of visual components
 - Fully compatible with Spring Boot 2, Java 11+ and the module path
-- Type-safe and asynchronous management of visual components from before displaying them to after disposal
-- Built with first-class support for FXML-based components
+- Easier asynchronous management of components' lifecycle
+- Built with first-class support for FXML files
 - No specific configuration needed
 
 ## Basics
