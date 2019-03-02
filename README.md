@@ -130,13 +130,11 @@ And that's about it. Feel free to look into [Hello World](./easyfxml-samples/eas
 It is very easy to use EasyFXML via Maven/Gradle. The current version can be imported into your project with:
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml</artifactId>
-        <version>3.1.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>moe.tristan</groupId>
+    <artifactId>easyfxml</artifactId>
+    <version>3.1.0</version>
+</dependency>
 ```
 
 Testing in the asynchronous world of JavaFX can be especially complicated, especially when running in a CI environment.
@@ -145,11 +143,10 @@ You also can use [EasyFXML-JUnit](./easyfxml-junit) (_experimental_), which is b
 for pre-made test infrastructure aimed at properly and predictably executing tests of EasyFXML-based JavaFX applications.
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-junit</artifactId>
-        <version>3.1.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>moe.tristan</groupId>
+    <artifactId>easyfxml-junit</artifactId>
+    <version>3.1.0</version>
+    <scope>test</scope>
+</dependency>
 ```
