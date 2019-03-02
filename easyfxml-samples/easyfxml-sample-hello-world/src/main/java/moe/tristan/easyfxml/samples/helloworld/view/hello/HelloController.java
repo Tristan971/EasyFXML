@@ -3,7 +3,7 @@ package moe.tristan.easyfxml.samples.helloworld.view.hello;
 import static java.util.function.Predicate.not;
 import static moe.tristan.easyfxml.util.Buttons.setOnClick;
 
-import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -14,8 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 import moe.tristan.easyfxml.api.FxmlController;
-
-import io.vavr.control.Option;
 
 @Component
 public class HelloController implements FxmlController {
@@ -39,7 +37,7 @@ public class HelloController implements FxmlController {
     }
 
     private void greet() {
-        final String safeName = Option.of(userNameTextField.getText()).filter(Objects::nonNull).filter(not(String::isBlank)).getOrElse("World");
+        final String safeName = Optional.of(userNameTextField.getText()).filter(not(String::isBlank)).orElse("World");
         greetingName.setText(safeName);
         greetingBox.setVisible(true);
     }

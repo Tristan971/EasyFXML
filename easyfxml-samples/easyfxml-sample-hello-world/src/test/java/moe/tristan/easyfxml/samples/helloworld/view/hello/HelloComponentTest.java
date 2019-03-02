@@ -46,4 +46,15 @@ public class HelloComponentTest extends FxNodeTest {
         assertThat(lookup("#greetingName").queryAs(Label.class)).hasText(expectedUserName);
     }
 
+    @Test
+    public void shouldGreetWithHelloWorldWhenDidNotEnterName() {
+        final String defaultGreetingName = "World";
+
+        withNodes(helloPane)
+            .willDo(() -> clickOn("#helloButton"))
+            .andAwaitFor(() -> lookup("#greetingBox").query().isVisible());
+
+        assertThat(lookup("#greetingName").queryAs(Label.class)).hasText(defaultGreetingName);
+    }
+
 }

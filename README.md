@@ -1,25 +1,51 @@
 # EasyFXML
-An opinionated framework for building modern _JavaFX_ apps.
+A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ together
 
-Last build's statuses:
-
-Build : 
 [![Build Status](https://api.travis-ci.org/Tristan971/EasyFXML.svg?branch=master)](https://travis-ci.org/Tristan971/EasyFXML)
-
-Quality : 
 [![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
-Maven dependency : [![Maven Central](https://img.shields.io/badge/maven--central-3.0.4-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.0.4/jar)
-```xml
-<dependency>
-    <groupId>moe.tristan</groupId>
-    <artifactId>easyfxml</artifactId>
-    <version>3.0.4</version>
-</dependency>
+## Features
+
+- Never have directly deal with `FxmlLoader` again. Yes.
+- Declarative, MVC-like management of visual components
+- Fully compatible with Spring Boot 2, Java 11+ and the module path
+- Type-safe and asynchronous management of visual components from before displaying them to after disposal
+- Built with first-class support for FXML-based components
+- No specific configuration needed
+
+## Getting started
+
+The idea of EasyFXML was to leverage the current MVC model for front-end components and apply it to _JavaFX_ to avoid proper 
+separation of concerns and lifecycle management.
+
+Here is how you would declare a component, called `FxmlNode`:
+```java
+public class MyComponent implements FxmlNode {
+    
+}
 ```
-(starting with version 3.0.0, `EasyFXML` has full support for Jigsaw/JPMS-modularized application! ✨🔐)
+
+## Usage
+With Maven or Gradle, you can either use only EasyFXML itself or also the JUnit DSL (experimental at the moment) as well for easier testing:
+
+[![Maven Central](https://img.shields.io/badge/maven--central-3.1.0-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.0/jar)
+```xml
+<dependencies>
+    <dependency>
+        <groupId>moe.tristan</groupId>
+        <artifactId>easyfxml</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>moe.tristan</groupId>
+        <artifactId>easyfxml-junit</artifactId>
+        <version>3.1.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
 
 ## Why ?
 If you ever programmed an application using _JavaFX_ you most likely realized 
