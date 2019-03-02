@@ -18,7 +18,6 @@ public class ClickableTextTest extends FxNodeTest {
         final ClickableText clickableText = new ClickableText("Sample text", () -> called.set(true));
 
         withNodes(clickableText)
-            .startWhen(showing(clickableText))
             .willDo(() -> clickOn(clickableText, PRIMARY))
             .andAwaitFor(called::get);
 
