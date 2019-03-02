@@ -159,7 +159,6 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${maven-release-plugin.version}</version>
                 <configuration>
-                    <tag>master</tag>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
