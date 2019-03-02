@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 public class ComponentListCellTest extends ApplicationTest {
 
     @Test
-    public void updateItem() throws InterruptedException {
+    public void updateItem() {
         final AtomicBoolean initialized = new AtomicBoolean(false);
         final BooleanProperty readProp = new SimpleBooleanProperty(false);
         final AtomicReference<String> value = new AtomicReference<>("");

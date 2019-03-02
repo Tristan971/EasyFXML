@@ -60,7 +60,6 @@ public final class Resources {
      *
      * @return The path associated with resource at said relative path to classpath.
      */
-    @SuppressWarnings("unchecked")
     public static Try<URL> getResourceURL(final String resourceRelativePath) {
         final ClassLoader classLoader = Resources.class.getClassLoader();
         return Try.of(() -> classLoader)

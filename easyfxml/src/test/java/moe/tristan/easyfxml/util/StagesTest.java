@@ -1,6 +1,5 @@
 package moe.tristan.easyfxml.util;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static moe.tristan.easyfxml.util.Resources.getResourcePath;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
