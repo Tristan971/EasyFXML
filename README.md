@@ -40,7 +40,6 @@ For this you will need:
 
 ##### Component ([`FxmlNode`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlNode.java))
 ```java
-@Component
 public class HelloComponent implements FxmlNode {
     
     @Override 
@@ -60,7 +59,6 @@ public class HelloComponent implements FxmlNode {
 
 ##### Controller ([`FxmlController`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
 ```java
-@Component
 public class HelloController implements FxmlController {
 
     @FXML 
@@ -76,7 +74,7 @@ public class HelloController implements FxmlController {
     private Label greetingName;
 
     @Override
-    public void initialize() { // Called automatically by JavaFX once the nodes are loaded and bound to this controller's fields
+    public void initialize() { // called once loading is fully done
         greetingBox.setVisible(false);
         setOnClick(helloButton, this::greet);
     }
@@ -94,7 +92,6 @@ you need to make sure that the controller class is not a singleton with @Scope(s
 ##### Entrypoint of the UI ([`FxUiManager`](./easyfxml/src/main/java/moe/tristan/easyfxml/FxUiManager.java))
 ###### (called by EasyFXML once JavaFX and Spring are both ready to use)
 ```java
-@Component
 public class HelloWorldUiManager extends FxUiManager {
 
     private final HelloComponent helloComponent;
