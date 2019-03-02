@@ -47,6 +47,7 @@
         <!-- Actual modules -->
         <module>easyfxml</module>
         <module>easyfxml-junit</module>
+        <module>easyfxml-samples</module>
     </modules>
 
 </project>

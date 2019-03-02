@@ -1,6 +1,5 @@
 package moe.tristan.easyfxml;
 
-import static org.springframework.context.annotation.FilterType.ANNOTATION;
 import static org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.PropertySource;
 
 import javafx.application.Application;
@@ -21,26 +21,18 @@ import javafx.application.HostServices;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
 import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
-import moe.tristan.easyfxml.util.NoSpringBean;
 
 @ComponentScan(
     basePackages = "moe.tristan.easyfxml",
     lazyInit = true,
-    includeFilters = @ComponentScan.Filter(
-        type = ASSIGNABLE_TYPE,
-        classes = {
-            EasyFxml.class,
-            FxApplication.class,
-            FxUiManager.class,
-            FxmlController.class,
-            AbstractInstanceManager.class,
-            ComponentListCell.class
-        }
-    ),
-    excludeFilters = @ComponentScan.Filter(
-        type = ANNOTATION,
-        classes = NoSpringBean.class
-    )
+    includeFilters = @Filter(type = ASSIGNABLE_TYPE, classes = {
+        EasyFxml.class,
+        FxApplication.class,
+        FxUiManager.class,
+        FxmlController.class,
+        AbstractInstanceManager.class,
+        ComponentListCell.class
+    })
 )
 @EnableAutoConfiguration
 @SpringBootConfiguration
@@ -60,7 +52,7 @@ public class EasyFxmlAutoConfiguration {
     @PostConstruct
     public void logFoundControllers() {
         final String fxmlControllersFound = String.join("\n->\t", context.getBeanNamesForType(FxmlController.class));
-        LOGGER.info("\nFound the following FxmlControllers : \n->\t{}", fxmlControllersFound);
+        LOGGER.debug("\nFound the following FxmlControllers : \n->\t{}", fxmlControllersFound);
     }
 
     @Bean
