@@ -1,7 +1,6 @@
 package moe.tristan.easyfxml.test;
 
 import static java.util.Collections.emptyList;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 
 import java.util.List;
@@ -54,12 +53,12 @@ public abstract class FxNodeTest extends ApplicationTest {
             return this;
         }
 
-        public final FxNodeAsyncQuery thenDo(Runnable... actionWhenReady) {
-            this.actions = List.of(actionWhenReady);
+        public final FxNodeAsyncQuery willDo(Runnable... actionsWhenReady) {
+            this.actions = List.of(actionsWhenReady);
             return this;
         }
 
-        public final void andFinallyAwaitFor(Supplier<Boolean>... awaited) {
+        public final void andAwaitFor(Supplier<Boolean>... awaited) {
             this.witnesses = List.of(awaited);
             run();
         }
@@ -71,8 +70,8 @@ public abstract class FxNodeTest extends ApplicationTest {
         private void runTestQuery(List<Node> nodes, List<Supplier<Boolean>> nodesReady, List<Runnable> actions, List<Supplier<Boolean>> witnesses) {
             CompletableFuture
                 .runAsync(() -> buildStageWithNodes(nodes), Platform::runLater)
-                .thenRun(() -> await().until(() -> allEvaluateToTrue(nodesReady)))
-                .thenRun(() -> actions.forEach(Runnable::run)).join();
+                .thenRunAsync(() -> await().until(() -> allEvaluateToTrue(nodesReady)))
+                .thenRunAsync(() -> actions.forEach(Runnable::run)).join();
 
             for (Supplier<Boolean> witness : witnesses) {
                 await().until(witness::get);

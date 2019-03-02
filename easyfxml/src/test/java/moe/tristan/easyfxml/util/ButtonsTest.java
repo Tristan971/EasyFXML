@@ -22,8 +22,8 @@ public class ButtonsTest extends FxNodeTest {
 
         withNodes(testButton)
             .startWhen(() -> point(testButton).query() != null)
-            .thenDo(() -> clickOn(testButton, PRIMARY))
-            .andFinallyAwaitFor(success::get);
+            .willDo(() -> clickOn(testButton, PRIMARY))
+            .andAwaitFor(success::get);
 
         assertThat(success).isTrue();
     }
