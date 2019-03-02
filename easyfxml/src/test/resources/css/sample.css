@@ -1,0 +1,12 @@
+.root {
+    -fx-background: -fx-base;
+    -fx-background-dark: rgb(43, 43, 48);
+
+    -fx-accent: rgb(230, 241, 255);
+    -fx-focus-color: rgb(55, 122, 224);
+}
+
+.dark {
+    -fx-base: -fx-background-dark;
+    -fx-background-color: -fx-background-dark;
+}

@@ -14,6 +14,7 @@ public class TestFxApplication extends FxApplication {
 
     @Override
     public void start(Stage primaryStage) {
+        super.start(primaryStage);
         stop();
     }
 
