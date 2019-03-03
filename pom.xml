@@ -14,7 +14,7 @@
 
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml-parent</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>3.1.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
