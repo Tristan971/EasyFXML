@@ -108,9 +108,17 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
         return controller;
     }
 
-    @SuppressWarnings("unchecked")
     public Try<Pane> orExceptionPane() {
         return ((Try<Pane>) getNode()).recover(ExceptionHandler::fromThrowable);
+    }
+
+    /**
+     * Convenient utility method for {@link #orExceptionPane()}.
+     *
+     * @return the loaded {@link NODE} or an {@link ExceptionHandler}'s {@link Pane} displaying the underlying loading error.
+     */
+    public Pane getNodeOrExceptionPane() {
+        return orExceptionPane().get();
     }
 
     /**

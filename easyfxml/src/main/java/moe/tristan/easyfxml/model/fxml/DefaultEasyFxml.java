@@ -2,6 +2,8 @@ package moe.tristan.easyfxml.model.fxml;
 
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -20,14 +22,16 @@ import io.vavr.control.Try;
 /**
  * This is the standard implementation of {@link EasyFxml}.
  */
-public class BaseEasyFxml implements EasyFxml {
+public class DefaultEasyFxml implements EasyFxml {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultEasyFxml.class);
 
     private final ApplicationContext context;
     private final Environment environment;
     private final ControllerManager controllerManager;
 
     @Autowired
-    protected BaseEasyFxml(
+    protected DefaultEasyFxml(
         final ApplicationContext context,
         final Environment environment,
         final ControllerManager controllerManager
@@ -106,12 +110,20 @@ public class BaseEasyFxml implements EasyFxml {
         final Class<? extends NODE> nodeClass,
         final Class<? extends CONTROLLER> controllerClass
     ) {
-        final String filePath = this.filePath(fxmlNode);
-        fxmlLoader.setLocation(getUrlForResource(filePath));
+        final String filePath = determineComponentViewFileLocation(fxmlNode);
+        LOGGER.debug("Determined that view file for component {} is to be read from path: {}", fxmlNode.getClass().getSimpleName(), filePath);
+
+        final URL urlForFile = getUrlForClasspathFile(filePath);
+        if (urlForFile == null) {
+            throw new IllegalArgumentException("Could not find the queried classpath-located file at: " + filePath);
+        }
+
+        fxmlLoader.setLocation(urlForFile);
         final Try<NODE> nodeLoad = Try.of(fxmlLoader::load).map(nodeClass::cast);
         final Try<CONTROLLER> controllerLoad = Try.of(fxmlLoader::getController).map(controllerClass::cast);
 
-        nodeLoad.onSuccess(fxmlLoader::onSuccess).onFailure(fxmlLoader::onFailure);
+        nodeLoad.onSuccess(fxmlLoader::onSuccess)
+                .onFailure(fxmlLoader::onFailure);
 
         return new FxmlLoadResult<>(nodeLoad, controllerLoad);
     }
@@ -148,7 +160,7 @@ public class BaseEasyFxml implements EasyFxml {
      * @return The node's {@link FxmlNode#getFile()} path prepended with the views root folder, as defined by
      * environment variable "moe.tristan.easyfxml.fxml.fxml_root_path".
      */
-    private String filePath(final FxmlNode fxmlNode) {
+    private String determineComponentViewFileLocation(final FxmlNode fxmlNode) {
         final String rootPath = Try.of(() -> "moe.tristan.easyfxml.fxml.fxml_root_path")
                                    .map(this.environment::getRequiredProperty)
                                    .getOrElse("");
@@ -156,8 +168,8 @@ public class BaseEasyFxml implements EasyFxml {
         return rootPath + fxmlNode.getFile().getPath();
     }
 
-    private static URL getUrlForResource(final String filePathString) {
-        return BaseEasyFxml.class.getClassLoader().getResource(filePathString);
+    private URL getUrlForClasspathFile(final String filePathString) {
+        return getClass().getClassLoader().getResource(filePathString);
     }
 
 }

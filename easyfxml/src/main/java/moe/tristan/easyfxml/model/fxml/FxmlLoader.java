@@ -27,7 +27,7 @@ import javafx.scene.Node;
  * This pre-made instance will be preloaded with {@link ApplicationContext#getBean(Class)} as the default way to
  * fabricate the controller classes which handle the UI's state.
  * <p>
- * See further configuration in {@link BaseEasyFxml}.
+ * See further configuration in {@link DefaultEasyFxml}.
  */
 
 @Component

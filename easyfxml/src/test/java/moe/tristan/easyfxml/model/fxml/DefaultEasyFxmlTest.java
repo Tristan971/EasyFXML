@@ -37,14 +37,14 @@ import io.vavr.control.Try;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
 @RunWith(SpringRunner.class)
-public class BaseEasyFxmlTest extends ApplicationTest {
+public class DefaultEasyFxmlTest extends ApplicationTest {
 
     private static final Object SELECTOR = new Object();
 
     @Autowired
     private ApplicationContext context;
     @Autowired
-    private BaseEasyFxml easyFxml;
+    private DefaultEasyFxml easyFxml;
     @Autowired
     private ControllerManager controllerManager;
 

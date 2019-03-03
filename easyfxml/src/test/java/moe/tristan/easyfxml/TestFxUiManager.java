@@ -7,12 +7,13 @@ import java.util.Optional;
 
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.model.fxml.BaseEasyFxmlTest;
+import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest;
+import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest.TEST_NODES;
 
 public class TestFxUiManager extends FxUiManager {
 
     private static final String TEST_TITLE = "TEST_TITLE";
-    private static final FxmlNode TEST_NODE = BaseEasyFxmlTest.TEST_NODES.PANE;
+    private static final FxmlNode TEST_NODE = TEST_NODES.PANE;
 
     @Override
     protected String title() {
