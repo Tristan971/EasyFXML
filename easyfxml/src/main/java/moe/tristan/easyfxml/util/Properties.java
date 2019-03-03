@@ -17,9 +17,13 @@ public final class Properties {
     }
 
     public static <T, P extends Property<T>> void whenPropertyIsSet(P property, Consumer<T> doWhenSet) {
-        property.addListener((o, prev, cur) -> doWhenSet.accept(cur));
+        whenPropertyIsSet(property, () -> doWhenSet.accept(property.getValue()));
+    }
+
+    public static <T, P extends Property<T>> void whenPropertyIsSet(P property, Runnable doWhenSet) {
+        property.addListener((o, prev, cur) -> doWhenSet.run());
         if (property.getValue() != null) {
-            doWhenSet.accept(property.getValue());
+            doWhenSet.run();
         }
     }
 
