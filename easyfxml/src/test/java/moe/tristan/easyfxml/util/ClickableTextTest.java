@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 
-import moe.tristan.easyfxml.test.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxNodeTest;
 
 public class ClickableTextTest extends FxNodeTest {
 

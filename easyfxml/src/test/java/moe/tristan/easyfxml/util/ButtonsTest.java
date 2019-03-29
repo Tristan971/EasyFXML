@@ -10,7 +10,7 @@ import org.junit.Test;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import moe.tristan.easyfxml.test.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxNodeTest;
 
 public class ButtonsTest extends FxNodeTest {
 
