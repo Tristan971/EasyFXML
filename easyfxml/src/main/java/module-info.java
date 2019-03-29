@@ -1,4 +1,4 @@
-open module easyfxml {
+open module moe.tristan.easyfxml {
     exports moe.tristan.easyfxml;
     exports moe.tristan.easyfxml.api;
     exports moe.tristan.easyfxml.util;

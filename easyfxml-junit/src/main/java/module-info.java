@@ -1,4 +1,5 @@
-open module easyfxml.junit {
+open module moe.tristan.easyfxml.junit {
+
     exports moe.tristan.easyfxml.test;
 
     requires transitive javafx.graphics;

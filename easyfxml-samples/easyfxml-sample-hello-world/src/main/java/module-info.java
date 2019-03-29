@@ -1,9 +1,9 @@
 /**
  * EasyFXML has full support for the module path!
  */
-open module easyfxml.sample.helloworld {
+open module moe.tristan.easyfxml.samples.helloworld {
 
-    requires easyfxml;
+    requires moe.tristan.easyfxml;
 
     requires spring.boot.autoconfigure;
     requires spring.context;
