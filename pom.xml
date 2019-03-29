@@ -14,7 +14,7 @@
 
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml-parent</artifactId>
-    <version>3.1.6</version>
+    <version>3.1.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -37,7 +37,7 @@
         <connection>scm:git:https://github.com/Tristan971/EasyFXML.git</connection>
         <developerConnection>scm:git:https://github.com/Tristan971/EasyFXML.git</developerConnection>
         <url>http://github.com/Tristan971/EasyFXML/tree/${project.scm.tag}</url>
-        <tag>3.1.6</tag>
+        <tag>master</tag>
     </scm>
 
     <issueManagement>
