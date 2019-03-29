@@ -1,4 +1,4 @@
-package moe.tristan.easyfxml.test;
+package moe.tristan.easyfxml.junit;
 
 import static java.util.Collections.emptyList;
 import static org.awaitility.Awaitility.await;
