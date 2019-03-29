@@ -1,7 +1,7 @@
 # EasyFXML
 A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ together
 
-[![Maven Central](https://img.shields.io/badge/maven--central-3.1.5-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.5/jar)
+[![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.6/jar)
 
 [![Build status](https://circleci.com/gh/Tristan971/EasyFXML.svg?style=svg)](https://circleci.com/gh/Tristan971/EasyFXML)
 [![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
@@ -133,7 +133,7 @@ It is very easy to use EasyFXML via Maven/Gradle. The current version can be imp
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>3.1.5</version>
+    <version>3.1.6</version>
 </dependency>
 ```
 
@@ -146,7 +146,7 @@ for pre-made test infrastructure aimed at properly and predictably executing tes
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml-junit</artifactId>
-    <version>3.1.5</version>
+    <version>3.1.6</version>
     <scope>test</scope>
 </dependency>
 ```
