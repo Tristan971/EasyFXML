@@ -50,7 +50,7 @@ public class EasyFxmlAutoConfiguration {
     public void logFoundControllers() {
         final String fxmlControllersFound = String.join("\n->\t", context.getBeanNamesForType(FxmlController.class));
         LOGGER.debug("\nFound the following FxmlControllers : \n->\t{}", fxmlControllersFound);
-        LOGGER.info("EasyFXML is configured now configured with context {}", context);
+        LOGGER.info("EasyFXML is now configured for: {}", context.getApplicationName());
     }
 
     @Bean
@@ -59,4 +59,3 @@ public class EasyFxmlAutoConfiguration {
     }
 
 }
-
