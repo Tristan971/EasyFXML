@@ -32,7 +32,6 @@
 
     <modules>
         <module>easyfxml-platform</module>
-        <module>easyfxml-settings</module>
     </modules>
 
 </project>
