@@ -20,10 +20,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import oshi.PlatformEnum;
 import oshi.SystemInfo;
 
+@Component
 public class PlatformService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlatformService.class);
