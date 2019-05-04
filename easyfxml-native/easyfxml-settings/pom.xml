@@ -28,4 +28,11 @@
     <name>EasyFXML - Native integrations - Settings management</name>
     <artifactId>easyfxml-settings</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-platform</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

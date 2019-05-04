@@ -173,6 +173,21 @@
                 <artifactId>easyfxml-junit</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>moe.tristan</groupId>
+                <artifactId>easyfxml-native</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>moe.tristan</groupId>
+                <artifactId>easyfxml-platform</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>moe.tristan</groupId>
+                <artifactId>easyfxml-settings</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- region OpenJFX / TestFX -->
             <dependency>
                 <groupId>org.openjfx</groupId>
