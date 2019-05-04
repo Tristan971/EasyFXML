@@ -7,5 +7,11 @@ open module easyfxml.settings {
     requires spring.beans;
     requires spring.boot.autoconfigure;
     requires spring.context;
+    requires spring.core;
+
+    requires com.fasterxml.jackson.databind;
+
+    requires slf4j.api;
+    requires com.fasterxml.jackson.core;
 
 }

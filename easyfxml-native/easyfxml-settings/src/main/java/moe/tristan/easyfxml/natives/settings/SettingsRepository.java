@@ -20,8 +20,8 @@ import java.util.Optional;
 
 public interface SettingsRepository {
 
-    <T> Optional<Setting<T>> getSetting(String settingName, Class<? extends T> valueType);
+    <T> Optional<T> findSetting(String settingName, Class<? extends T> valueType);
 
-    void saveSetting(Setting<?> setting);
+    <T> void saveSetting(String settingName, T value);
 
 }
