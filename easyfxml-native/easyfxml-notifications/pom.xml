@@ -19,20 +19,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
+        <artifactId>easyfxml-native</artifactId>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
         <version>3.1.7-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
-    <name>EasyFXML - Native integrations</name>
-    <artifactId>easyfxml-native</artifactId>
-    <packaging>pom</packaging>
+    <name>EasyFXML - Native integrations - Notifications</name>
+    <artifactId>easyfxml-notifications</artifactId>
 
-    <modules>
-        <module>easyfxml-platform</module>
-        <module>easyfxml-notifications</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-platform</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
