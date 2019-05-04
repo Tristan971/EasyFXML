@@ -1,5 +1,7 @@
 package moe.tristan.easyfxml.model.exception;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +30,6 @@ public class ExceptionHandlerTest extends ApplicationTest {
         this.ERR_PANE = new ExceptionHandler(this.EXCEPTION).asPane();
         this.ERR_PANE_READBLE = new ExceptionHandler(this.EXCEPTION).asPane(this.EXCEPTION_TEXT_READABLE);
     }
-
 
     @Test
     public void asPane() {
