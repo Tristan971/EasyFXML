@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=moe.tristan.easyfxml.natives.settings.SettingsAutoconfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=moe.tristan.easyfxml.natives.settings.EasyFxmlNativeSettingsAutoconfiguration

@@ -16,19 +16,10 @@
 
 package moe.tristan.easyfxml.natives.settings;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+public interface Setting<T> {
 
-@Component
-public class SettingsService {
+    String getName();
 
-    private final SettingsRepository userSettingsRepository;
-    private final SettingsRepository systemSettingsRepository;
-
-    @Autowired
-    public SettingsService(SettingsRepository userSettingsRepository, SettingsRepository systemSettingsRepository) {
-        this.userSettingsRepository = userSettingsRepository;
-        this.systemSettingsRepository = systemSettingsRepository;
-    }
+    T getValue();
 
 }

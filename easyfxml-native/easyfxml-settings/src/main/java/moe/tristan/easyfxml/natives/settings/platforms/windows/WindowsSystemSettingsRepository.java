@@ -14,21 +14,23 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.natives.settings;
+package moe.tristan.easyfxml.natives.settings.platforms.windows;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import java.util.Optional;
 
-@Component
-public class SettingsService {
+import moe.tristan.easyfxml.natives.settings.Setting;
+import moe.tristan.easyfxml.natives.settings.SettingsRepository;
 
-    private final SettingsRepository userSettingsRepository;
-    private final SettingsRepository systemSettingsRepository;
+public class WindowsSystemSettingsRepository implements SettingsRepository {
 
-    @Autowired
-    public SettingsService(SettingsRepository userSettingsRepository, SettingsRepository systemSettingsRepository) {
-        this.userSettingsRepository = userSettingsRepository;
-        this.systemSettingsRepository = systemSettingsRepository;
+    @Override
+    public <T> Optional<Setting<T>> getSetting(String settingName, Class<? extends T> valueType) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveSetting(Setting<?> setting) {
+
     }
 
 }

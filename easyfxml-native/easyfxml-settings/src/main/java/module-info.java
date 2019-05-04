@@ -1,7 +1,8 @@
 open module easyfxml.settings {
 
     exports moe.tristan.easyfxml.natives.settings;
-    exports moe.tristan.easyfxml.natives.settings.model;
+
+    requires moe.tristan.easyfxml.natives.platform;
 
     requires spring.beans;
     requires spring.boot.autoconfigure;

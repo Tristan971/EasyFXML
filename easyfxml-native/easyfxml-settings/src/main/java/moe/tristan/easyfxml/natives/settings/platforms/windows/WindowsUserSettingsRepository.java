@@ -14,12 +14,23 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.natives.settings.model;
+package moe.tristan.easyfxml.natives.settings.platforms.windows;
 
-public interface Setting<T> {
+import java.util.Optional;
 
-    String getName();
+import moe.tristan.easyfxml.natives.settings.Setting;
+import moe.tristan.easyfxml.natives.settings.SettingsRepository;
 
-    T getValue();
+public class WindowsUserSettingsRepository implements SettingsRepository {
+
+    @Override
+    public <T> Optional<Setting<T>> getSetting(String settingName, Class<? extends T> valueType) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveSetting(Setting<?> setting) {
+
+    }
 
 }

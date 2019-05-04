@@ -14,15 +14,18 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.natives.settings;
+package moe.tristan.easyfxml.natives.settings.platforms;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+public abstract class FilebasedSettingsRepository {
 
-@ComponentScan
-@Configuration
-@EnableAutoConfiguration
-public class SettingsAutoconfiguration {
+    private final String settingsPath;
+
+    protected FilebasedSettingsRepository(String settingsPath) {
+        this.settingsPath = settingsPath;
+    }
+
+    public String getSettingsPath() {
+        return settingsPath;
+    }
 
 }

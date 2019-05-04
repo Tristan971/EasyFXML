@@ -14,11 +14,11 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.natives.settings.model;
+package moe.tristan.easyfxml.natives.settings;
 
 import java.util.Optional;
 
-public interface SettingRepository {
+public interface SettingsRepository {
 
     <T> Optional<Setting<T>> getSetting(String settingName, Class<? extends T> valueType);
 
