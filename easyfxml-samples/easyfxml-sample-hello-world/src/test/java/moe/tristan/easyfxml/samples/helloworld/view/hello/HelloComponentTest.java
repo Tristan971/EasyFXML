@@ -14,8 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

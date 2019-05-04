@@ -1,8 +1,5 @@
 package moe.tristan.easyfxml.util;
 
-import static moe.tristan.easyfxml.util.Properties.whenPropertyIsSet;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.stream.IntStream;
 
 import org.junit.Test;

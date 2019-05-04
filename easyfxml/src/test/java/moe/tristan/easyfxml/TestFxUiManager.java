@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest;
 import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest.TEST_NODES;
 
 public class TestFxUiManager extends FxUiManager {

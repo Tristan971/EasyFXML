@@ -1,7 +1,5 @@
 package moe.tristan.easyfxml.model.system;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.net.URL;
 
 import org.junit.Test;

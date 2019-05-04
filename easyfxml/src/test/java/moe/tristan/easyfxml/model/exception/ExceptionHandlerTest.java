@@ -1,7 +1,5 @@
 package moe.tristan.easyfxml.model.exception;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
