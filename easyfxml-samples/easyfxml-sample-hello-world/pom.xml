@@ -7,7 +7,7 @@
         <version>3.1.7-SNAPSHOT</version>
     </parent>
 
-    <name>EasyFXML Sample - Hello World</name>
+    <name>EasyFXML Samples - Hello World</name>
     <artifactId>easyfxml-sample-hello-world</artifactId>
 
     <dependencies>

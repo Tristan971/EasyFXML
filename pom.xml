@@ -49,6 +49,7 @@
         <module>easyfxml</module>
         <module>easyfxml-junit</module>
         <module>easyfxml-samples</module>
+        <module>easyfml-native</module>
     </modules>
 
     <properties>
