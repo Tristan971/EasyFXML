@@ -32,7 +32,7 @@
 
     <modules>
         <module>easyfxml-platform</module>
-        <module>easyfxml-settings</module>
+        <module>easyfxml-notifications</module>
     </modules>
 
 </project>

@@ -16,6 +16,7 @@
 
 package moe.tristan.easyfxml.natives.platform;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.slf4j.Logger;
@@ -26,14 +27,18 @@ import oshi.PlatformEnum;
 import oshi.SystemInfo;
 
 @Component
-public class PlatformService {
+public class PlatformDetectionService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PlatformService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlatformDetectionService.class);
 
     private final AtomicReference<SystemInfo> systemInfo = new AtomicReference<>();
 
     public PlatformEnum getPlatformType() {
         return SystemInfo.getCurrentPlatformEnum();
+    }
+
+    public Optional<PlatformEnum> lookupPlatformType() {
+        return Optional.of(getPlatformType());
     }
 
     public SystemInfo getFullSystemInformation() {
