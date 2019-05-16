@@ -150,3 +150,7 @@ for pre-made test infrastructure aimed at properly and predictably executing tes
     <scope>test</scope>
 </dependency>
 ```
+
+## Contributors
+
+[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/0)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/0)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/1)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/1)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/2)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/2)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/3)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/3)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/4)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/4)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/5)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/5)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/6)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/6)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/7)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/7)
