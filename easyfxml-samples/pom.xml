@@ -34,4 +34,20 @@
         <module>easyfxml-sample-form-user</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-fxkit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>
