@@ -14,7 +14,7 @@ mvn clean install \
 -Dtestfx.headless=true \
 -Dprism.order=sw \
 -Dprism.text=t2k \
--Dtestfx.setup.timeout=10000
+-Dtestfx.setup.timeout=10000 \
 -f $MAVEN_PROJECT_FOLDER"
 
 echo "Final maven command = ${MAVEN_COMMAND}"
