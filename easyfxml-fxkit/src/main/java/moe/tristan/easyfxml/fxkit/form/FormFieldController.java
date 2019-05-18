@@ -32,4 +32,12 @@ public abstract class FormFieldController<F> implements FxmlController {
         // noop by default
     }
 
+    public void onValid() {
+        // noop by default
+    }
+
+    public void onInvalid(String reason) {
+        // noop by default
+    }
+
 }

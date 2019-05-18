@@ -16,32 +16,40 @@
   ~    limitations under the License.
   -->
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController">
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController">
     <children>
         <HBox alignment="CENTER_LEFT">
             <children>
                 <Label text="First name">
                     <font>
-                        <Font name="System Italic" size="10.0"/>
+                        <Font name="System Italic" size="10.0" />
                     </font>
                 </Label>
             </children>
         </HBox>
-        <HBox alignment="CENTER">
+        <HBox>
             <children>
-                <TextField promptText="John" fx:id="firstNameField"/>
+                <TextField fx:id="firstNameField" promptText="John" />
             </children>
         </HBox>
+      <HBox>
+         <children>
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="First name" textFill="RED" visible="false" fx:id="invalidLabel">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
     </children>
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
 </VBox>
