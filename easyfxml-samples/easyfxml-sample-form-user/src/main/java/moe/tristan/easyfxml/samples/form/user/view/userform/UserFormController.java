@@ -20,21 +20,36 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.fxkit.form.FormController;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
+import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent;
+import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController;
 
 @Component
 public class UserFormController extends FormController<UserForm> {
+
+    private final EasyFxml easyFxml;
+
+    private final FirstnameComponent firstnameComponent;
 
     public Label titleLabel;
     public VBox fieldsBox;
     public Button submitButton;
 
+    public UserFormController(EasyFxml easyFxml, FirstnameComponent firstnameComponent) {
+        this.easyFxml = easyFxml;
+        this.firstnameComponent = firstnameComponent;
+    }
+
     @Override
     public void initialize() {
-
+        easyFxml.loadNode(firstnameComponent, VBox.class, FirstnameController.class)
+                .afterControllerLoaded(this::addFormField)
+                .afterNodeLoaded(fieldsBox.getChildren()::add);
     }
 
     @Override

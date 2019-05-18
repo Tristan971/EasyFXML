@@ -1,4 +1,4 @@
-module moe.tristan.easyfxml.samples.form.user {
+open module moe.tristan.easyfxml.samples.form.user {
 
     requires moe.tristan.easyfxml;
     requires moe.tristan.easyfxml.fxkit;
