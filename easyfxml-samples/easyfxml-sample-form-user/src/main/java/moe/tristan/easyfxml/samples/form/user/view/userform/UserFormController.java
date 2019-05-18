@@ -18,6 +18,8 @@ package moe.tristan.easyfxml.samples.form.user.view.userform;
 
 import static moe.tristan.easyfxml.util.Buttons.setOnClick;
 
+import java.util.stream.Stream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -28,12 +30,11 @@ import javafx.scene.layout.VBox;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.fxkit.form.FormController;
+import moe.tristan.easyfxml.fxkit.form.FormFieldController;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent;
-import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameComponent;
-import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController;
 
 @Component
 public class UserFormController extends FormController {
@@ -63,12 +64,12 @@ public class UserFormController extends FormController {
     public void initialize() {
         setOnClick(submitButton, this::submit);
 
-        easyFxml.loadNode(firstnameComponent, VBox.class, FirstnameController.class)
-                .afterControllerLoaded(this::addFormField)
-                .afterNodeLoaded(fieldsBox.getChildren()::add);
-        easyFxml.loadNode(lastnameComponent, VBox.class, LastnameController.class)
-                .afterControllerLoaded(this::addFormField)
-                .afterNodeLoaded(fieldsBox.getChildren()::add);
+        Stream.of(firstnameComponent, lastnameComponent)
+              .map(field -> easyFxml.loadNode(field, VBox.class, FormFieldController.class))
+              .forEach(load -> load
+                  .afterControllerLoaded(this::addFormField)
+                  .afterNodeLoaded(fieldsBox.getChildren()::add)
+              );
     }
 
     @Override

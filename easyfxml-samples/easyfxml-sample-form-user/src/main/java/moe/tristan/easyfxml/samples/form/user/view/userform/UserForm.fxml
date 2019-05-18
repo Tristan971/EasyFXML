@@ -30,26 +30,22 @@
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
-            <BorderPane.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </BorderPane.margin>
         </Label>
     </top>
     <center>
         <VBox fx:id="fieldsBox" alignment="CENTER" fillWidth="false" spacing="5.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="5.0" top="5.0" />
          </BorderPane.margin></VBox>
     </center>
     <bottom>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="submitButton" mnemonicParsing="false" text="Submit">
-                    <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </HBox.margin>
-                </Button>
+                <Button fx:id="submitButton" mnemonicParsing="false" text="Submit" />
             </children>
         </HBox>
     </bottom>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </BorderPane>
