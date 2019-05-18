@@ -19,8 +19,8 @@ jobs:
                       - ~/.m2/repository
 
             - run:
-                  name: Build and Test
-                  command: 'docker run -v ~/.m2:/root/.m2 easyfxml/test:latest'
+                  name: Build and test in Docker
+                  command: 'docker run -v ~:/root easyfxml/test:latest'
 
             - save_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
@@ -28,14 +28,20 @@ jobs:
                       - ~/.m2/repository
 
             - run:
-                  name: Save test results
+                  name: Prepare post-build
+                  command: 'chmod +x ./.circleci/copy_recursive_regex.sh'
+                  when: always
+            - run:
+                  name: Aggregate test results
                   command: './.circleci/copy_recursive_regex.sh ".*/target/surefire-reports/.*xml" test-results'
                   when: always
-            - store_test_results:
-                  path: test-results
+
             - run:
-                  name: Save artifacts
+                  name: Aggregate artifacts
                   command: './.circleci/copy_recursive_regex.sh ".*/target/.*jar" artifacts'
                   when: always
+
+            - store_test_results:
+                  path: test-results
             - store_artifacts:
                   path: artifacts
