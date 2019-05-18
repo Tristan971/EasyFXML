@@ -60,12 +60,7 @@ public class BirthdayController extends FormFieldController<LocalDate> {
 
     @Override
     public String getFieldName() {
-        return "Birthdate";
-    }
-
-    @Override
-    public Class<? extends LocalDate> getFieldType() {
-        return LocalDate.class;
+        return BirthdayComponent.BIRTHDATE_FIELD_NAME;
     }
 
     @Override

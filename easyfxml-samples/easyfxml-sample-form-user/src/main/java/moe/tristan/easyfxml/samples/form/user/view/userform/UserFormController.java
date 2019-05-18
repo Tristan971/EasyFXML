@@ -16,6 +16,10 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
+import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayComponent.BIRTHDATE_FIELD_NAME;
+import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.email.EmailComponent.EMAIL_FIELD_NAME;
+import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent.FIRST_NAME_FIELD_NAME;
+import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameComponent.LAST_NAME_FIELD_NAME;
 import static moe.tristan.easyfxml.util.Buttons.setOnClick;
 
 import java.time.LocalDate;
@@ -35,6 +39,7 @@ import moe.tristan.easyfxml.fxkit.form.FormFieldController;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayComponent;
+import moe.tristan.easyfxml.samples.form.user.view.userform.fields.email.EmailComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameComponent;
 
@@ -48,6 +53,7 @@ public class UserFormController extends FormController {
     private final FirstnameComponent firstnameComponent;
     private final LastnameComponent lastnameComponent;
     private final BirthdayComponent birthdayComponent;
+    private final EmailComponent emailComponent;
 
     public Label titleLabel;
     public VBox fieldsBox;
@@ -57,19 +63,21 @@ public class UserFormController extends FormController {
         EasyFxml easyFxml,
         FirstnameComponent firstnameComponent,
         LastnameComponent lastnameComponent,
-        BirthdayComponent birthdayComponent
+        BirthdayComponent birthdayComponent,
+        EmailComponent emailComponent
     ) {
         this.easyFxml = easyFxml;
         this.firstnameComponent = firstnameComponent;
         this.lastnameComponent = lastnameComponent;
         this.birthdayComponent = birthdayComponent;
+        this.emailComponent = emailComponent;
     }
 
     @Override
     public void initialize() {
         setOnClick(submitButton, this::submit);
 
-        Stream.of(firstnameComponent, lastnameComponent, birthdayComponent)
+        Stream.of(firstnameComponent, lastnameComponent, birthdayComponent, emailComponent)
               .map(field -> easyFxml.loadNode(field, VBox.class, FormFieldController.class))
               .forEach(load -> load
                   .afterControllerLoaded(this::addFormField)
@@ -81,9 +89,10 @@ public class UserFormController extends FormController {
     public void submit() {
         UserForm userForm = ImmutableUserForm
             .builder()
-            .firstName(getField("First name"))
-            .lastName(getField("Last name"))
-            .birthdate(getFieldAs("Birthdate", LocalDate.class))
+            .firstName(getField(FIRST_NAME_FIELD_NAME))
+            .lastName(getField(LAST_NAME_FIELD_NAME))
+            .birthdate(getFieldAs(BIRTHDATE_FIELD_NAME, LocalDate.class))
+            .emailAddress(getField(EMAIL_FIELD_NAME))
             .build();
 
         LOGGER.info("Submitting user form {}", userForm);

@@ -14,12 +14,16 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
+package moe.tristan.easyfxml.samples.form.user.view.userform.fields.email;
 
-import java.util.regex.Pattern;
+import static java.util.concurrent.CompletableFuture.runAsync;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.springframework.stereotype.Component;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,41 +31,43 @@ import javafx.scene.control.TextField;
 import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
 
 @Component
-public class FirstnameController extends StringFormFieldController {
+public class EmailController extends StringFormFieldController {
 
-    private static final Pattern NO_NUMBERS_PATTERN = Pattern.compile("(\\b[^\\d]+\\b)+");
-
-    public TextField firstNameField;
-    public Label invalidLabel;
-
-    @Override
-    public ObservableValue<String> getObservableValue() {
-        return firstNameField.textProperty();
-    }
+    public TextField emailField;
+    public Label errorLabel;
 
     @Override
     public void validate(String fieldValue) {
-        if (!NO_NUMBERS_PATTERN.matcher(fieldValue).matches()) {
-            onInvalid("Name has digits or trailing spaces");
-        } else {
-            onValid();
-        }
+        runAsync(() -> {
+            try {
+                InternetAddress address = new InternetAddress(fieldValue);
+                address.validate();
+                Platform.runLater(this::onValid);
+            } catch (AddressException e) {
+                Platform.runLater(() -> onInvalid(e.getMessage()));
+            }
+        });
     }
 
     @Override
     public void onValid() {
-        invalidLabel.setVisible(false);
+        errorLabel.setVisible(false);
     }
 
     @Override
     public void onInvalid(String reason) {
-        invalidLabel.setText(reason);
-        invalidLabel.setVisible(true);
+        errorLabel.setText(reason);
+        errorLabel.setVisible(true);
+    }
+
+    @Override
+    public ObservableValue<String> getObservableValue() {
+        return emailField.textProperty();
     }
 
     @Override
     public String getFieldName() {
-        return FirstnameComponent.FIRST_NAME_FIELD_NAME;
+        return EmailComponent.EMAIL_FIELD_NAME;
     }
 
 }

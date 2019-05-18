@@ -31,18 +31,13 @@ public class LastnameController extends StringFormFieldController {
     public Label invalidLabel;
 
     @Override
-    public void init() {
-
-    }
-
-    @Override
     public ObservableValue<String> getObservableValue() {
         return lastNameField.textProperty();
     }
 
     @Override
     public String getFieldName() {
-        return "Last name";
+        return LastnameComponent.LAST_NAME_FIELD_NAME;
     }
 
 }

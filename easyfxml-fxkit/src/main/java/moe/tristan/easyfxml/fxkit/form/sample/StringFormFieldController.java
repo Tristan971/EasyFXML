@@ -36,18 +36,15 @@ public abstract class StringFormFieldController extends FormFieldController<Stri
         });
     }
 
-    public abstract void init();
+    public void init() {
+        // noop by default since most string form fields are very simple
+    }
 
     public abstract ObservableValue<String> getObservableValue();
 
     @Override
     public String getFieldValue() {
         return getObservableValue().getValue();
-    }
-
-    @Override
-    public Class<? extends String> getFieldType() {
-        return String.class;
     }
 
 }

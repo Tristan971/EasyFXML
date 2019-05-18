@@ -22,8 +22,6 @@ public abstract class FormFieldController<F> implements FxmlController {
 
     public abstract String getFieldName();
 
-    public abstract Class<? extends F> getFieldType();
-
     public abstract F getFieldValue();
 
     public void validate(F fieldValue) {

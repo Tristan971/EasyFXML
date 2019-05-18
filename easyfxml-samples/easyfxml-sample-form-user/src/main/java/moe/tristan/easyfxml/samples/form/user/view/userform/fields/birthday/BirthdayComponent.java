@@ -25,6 +25,8 @@ import moe.tristan.easyfxml.api.FxmlNode;
 @Component
 public class BirthdayComponent implements FxmlNode {
 
+    public static final String BIRTHDATE_FIELD_NAME = "Birthdate";
+
     @Override
     public FxmlFile getFile() {
         return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/fields/birthday/Birthday.fxml";

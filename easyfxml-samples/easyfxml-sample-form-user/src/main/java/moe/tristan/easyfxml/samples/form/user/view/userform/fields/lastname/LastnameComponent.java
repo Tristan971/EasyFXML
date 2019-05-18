@@ -25,6 +25,8 @@ import moe.tristan.easyfxml.api.FxmlNode;
 @Component
 public class LastnameComponent implements FxmlNode {
 
+    public static final String LAST_NAME_FIELD_NAME = "Last name";
+
     @Override
     public FxmlFile getFile() {
         return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/fields/lastname/Lastname.fxml";

@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,7 +39,6 @@ import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
 import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
 
 @ComponentScan(
-    basePackages = "moe.tristan.easyfxml",
     lazyInit = true,
     includeFilters = @Filter(type = ASSIGNABLE_TYPE, classes = {
         EasyFxml.class,
@@ -50,6 +50,7 @@ import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
         ComponentListCell.class
     })
 )
+@EnableAutoConfiguration
 @PropertySource("classpath:easyfxml.properties")
 public class EasyFxmlAutoConfiguration {
 
