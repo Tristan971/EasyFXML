@@ -3,7 +3,7 @@ jobs:
     build:
         docker:
             - image: circleci/buildpack-deps:disco
-        working_directory: $HOME/EasyFXML
+        working_directory: EasyFXML
         steps:
             - setup_remote_docker
             - checkout
