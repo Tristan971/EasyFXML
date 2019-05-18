@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import moe.tristan.easyfxml.EasyFxml;
