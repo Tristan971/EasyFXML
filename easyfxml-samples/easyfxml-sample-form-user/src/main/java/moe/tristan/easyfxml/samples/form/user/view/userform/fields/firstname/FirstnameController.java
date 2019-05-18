@@ -18,10 +18,13 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import javafx.scene.control.TextField;
 
 import moe.tristan.easyfxml.fxkit.form.FormFieldController;
 
+@Component
 public class FirstnameController extends FormFieldController<String> {
 
     public TextField firstNameField;

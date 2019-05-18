@@ -16,10 +16,20 @@
 
 package moe.tristan.easyfxml.samples.form.user.view;
 
+import org.springframework.stereotype.Component;
+
 import moe.tristan.easyfxml.FxUiManager;
 import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.samples.form.user.view.userform.UserFormComponent;
 
+@Component
 public class UserFormUiManager extends FxUiManager {
+
+    private final UserFormComponent userFormComponent;
+
+    public UserFormUiManager(UserFormComponent userFormComponent) {
+        this.userFormComponent = userFormComponent;
+    }
 
     @Override
     protected String title() {
@@ -28,7 +38,7 @@ public class UserFormUiManager extends FxUiManager {
 
     @Override
     protected FxmlNode mainComponent() {
-        return null;
+        return userFormComponent;
     }
 
 }

@@ -16,6 +16,8 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
+import org.springframework.stereotype.Component;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -23,6 +25,7 @@ import javafx.scene.layout.VBox;
 import moe.tristan.easyfxml.fxkit.form.FormController;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 
+@Component
 public class UserFormController extends FormController<UserForm> {
 
     public Label titleLabel;
