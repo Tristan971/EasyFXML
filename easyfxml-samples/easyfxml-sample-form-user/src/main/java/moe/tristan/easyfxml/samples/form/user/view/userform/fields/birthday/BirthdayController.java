@@ -29,6 +29,9 @@ import moe.tristan.easyfxml.fxkit.form.FormFieldController;
 @Component
 public class BirthdayController extends FormFieldController<LocalDate> {
 
+    static final String ERROR_EMPTY_BIRTHDATE = "You must provide an email address";
+    static final String ERROR_LESS_13YO_BIRTHDATE = "You must be at least 13 years old";
+
     public DatePicker datePicker;
     public Label errorText;
 
@@ -40,7 +43,7 @@ public class BirthdayController extends FormFieldController<LocalDate> {
     @Override
     public boolean validate(LocalDate fieldValue) {
         if (fieldValue == null) {
-            onInvalid("You must provide an email address.");
+            onInvalid(ERROR_EMPTY_BIRTHDATE);
             return false;
         }
 
@@ -49,7 +52,7 @@ public class BirthdayController extends FormFieldController<LocalDate> {
             onValid();
             return true;
         } else {
-            onInvalid("You must be at least 13 years old.");
+            onInvalid(ERROR_LESS_13YO_BIRTHDATE);
             return false;
         }
     }
