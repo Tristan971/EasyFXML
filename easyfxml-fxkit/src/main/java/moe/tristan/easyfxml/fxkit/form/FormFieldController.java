@@ -24,8 +24,13 @@ public abstract class FormFieldController<F> implements FxmlController {
 
     public abstract F getFieldValue();
 
-    public void validate(F fieldValue) {
+    public boolean validate(F fieldValue) {
         // noop by default
+        return true;
+    }
+
+    public boolean isValid() {
+        return validate(getFieldValue());
     }
 
     public void onValid() {

@@ -16,7 +16,7 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform.fields.email;
 
-import static java.util.concurrent.CompletableFuture.runAsync;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -37,16 +37,18 @@ public class EmailController extends StringFormFieldController {
     public Label errorLabel;
 
     @Override
-    public void validate(String fieldValue) {
-        runAsync(() -> {
+    public boolean validate(String fieldValue) {
+        return supplyAsync(() -> {
             try {
                 InternetAddress address = new InternetAddress(fieldValue);
                 address.validate();
                 Platform.runLater(this::onValid);
+                return true;
             } catch (AddressException e) {
                 Platform.runLater(() -> onInvalid(e.getMessage()));
+                return false;
             }
-        });
+        }).join();
     }
 
     @Override

@@ -38,12 +38,18 @@ public class BirthdayController extends FormFieldController<LocalDate> {
     }
 
     @Override
-    public void validate(LocalDate fieldValue) {
+    public boolean validate(LocalDate fieldValue) {
+        if (fieldValue == null) {
+            return false;
+        }
+
         boolean isAtLeast13 = Period.between(fieldValue, LocalDate.now()).getYears() >= 13;
         if (isAtLeast13) {
             onValid();
+            return true;
         } else {
             onInvalid("You must be at least 13 years old.");
+            return false;
         }
     }
 

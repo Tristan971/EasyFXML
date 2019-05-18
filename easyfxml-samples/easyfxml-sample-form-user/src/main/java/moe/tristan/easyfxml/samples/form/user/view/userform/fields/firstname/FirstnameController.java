@@ -16,6 +16,7 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
@@ -40,11 +41,13 @@ public class FirstnameController extends StringFormFieldController {
     }
 
     @Override
-    public void validate(String fieldValue) {
+    public boolean validate(String fieldValue) {
         if (!NO_NUMBERS_PATTERN.matcher(fieldValue).matches()) {
             onInvalid("Name has digits or trailing spaces");
+            return false;
         } else {
             onValid();
+            return true;
         }
     }
 

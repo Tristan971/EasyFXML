@@ -16,13 +16,15 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
+import static moe.tristan.easyfxml.model.exception.ExceptionHandler.displayExceptionPane;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayComponent.BIRTHDATE_FIELD_NAME;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.email.EmailComponent.EMAIL_FIELD_NAME;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent.FIRST_NAME_FIELD_NAME;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameComponent.LAST_NAME_FIELD_NAME;
 import static moe.tristan.easyfxml.util.Buttons.setOnClick;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -80,18 +82,31 @@ public class UserFormController extends FormController {
         Stream.of(firstnameComponent, lastnameComponent, birthdayComponent, emailComponent)
               .map(field -> easyFxml.loadNode(field, VBox.class, FormFieldController.class))
               .forEach(load -> load
-                  .afterControllerLoaded(this::addFormField)
+                  .afterControllerLoaded(this::subscribeToField)
                   .afterNodeLoaded(fieldsBox.getChildren()::add)
               );
     }
 
     @Override
     public void submit() {
+        final List<FormFieldController> invalidFields = findInvalidFields();
+        if (!invalidFields.isEmpty()) {
+            List<String> invalidFieldNames = invalidFields.stream().map(FormFieldController::getFieldName).collect(Collectors.toList());
+
+            displayExceptionPane(
+                "Invalid fields",
+                "Some fields were not valid: " + invalidFieldNames.toString(),
+                new IllegalStateException("Some fields were not valid: " + invalidFieldNames.toString())
+            );
+
+            return;
+        }
+
         UserForm userForm = ImmutableUserForm
             .builder()
             .firstName(getField(FIRST_NAME_FIELD_NAME))
             .lastName(getField(LAST_NAME_FIELD_NAME))
-            .birthdate(getFieldAs(BIRTHDATE_FIELD_NAME, LocalDate.class))
+            .birthdate(getField(BIRTHDATE_FIELD_NAME))
             .emailAddress(getField(EMAIL_FIELD_NAME))
             .build();
 

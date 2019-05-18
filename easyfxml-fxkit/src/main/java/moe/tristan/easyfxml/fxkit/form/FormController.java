@@ -16,26 +16,42 @@
 
 package moe.tristan.easyfxml.fxkit.form;
 
+import static java.util.function.Predicate.not;
+
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import moe.tristan.easyfxml.api.FxmlController;
 
 public abstract class FormController implements FxmlController {
 
-    private Map<String, FormFieldController> formFieldControllers = new ConcurrentHashMap<>();
+    private Map<String, FormFieldController> subscribedFields = new ConcurrentHashMap<>();
 
-    public void addFormField(FormFieldController formField) {
-        formFieldControllers.put(formField.getFieldName(), formField);
+    public void subscribeToField(FormFieldController formField) {
+        subscribedFields.put(formField.getFieldName(), formField);
     }
 
-    public String getField(String fieldName) {
-        return getFieldAs(fieldName, String.class);
+    public void unsubscribeToField(FormFieldController formField) {
+        final Set<String> toRemove = subscribedFields
+            .entrySet()
+            .stream()
+            .filter(entry -> formField.equals(entry.getValue()))
+            .map(Entry::getKey)
+            .collect(Collectors.toSet());
+        toRemove.forEach(subscribedFields::remove);
     }
 
-    public <T> T getFieldAs(String formFieldName, Class<T> fieldValueType) {
+    public <T> T getField(String formFieldName) {
         //noinspection unchecked
-        return (T) formFieldControllers.get(formFieldName).getFieldValue();
+        return (T) subscribedFields.get(formFieldName).getFieldValue();
+    }
+
+    protected List<FormFieldController> findInvalidFields() {
+        return subscribedFields.values().stream().filter(not(FormFieldController::isValid)).collect(Collectors.toList());
     }
 
     public abstract void submit();
