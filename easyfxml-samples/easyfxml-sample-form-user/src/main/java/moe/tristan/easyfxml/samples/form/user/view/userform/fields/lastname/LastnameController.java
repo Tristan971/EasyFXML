@@ -27,13 +27,15 @@ import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
 @Component
 public class LastnameController extends StringFormFieldController {
 
+    static final String ERROR_EMPTY_PROVIDED = "You must provide a last name";
+
     public TextField lastNameField;
     public Label invalidLabel;
 
     @Override
     public boolean validate(String fieldValue) {
         if (!fieldValueIsNotBlank(fieldValue)) {
-            onInvalid("You must provide a last name");
+            onInvalid(ERROR_EMPTY_PROVIDED);
             return false;
         } else {
             onValid();

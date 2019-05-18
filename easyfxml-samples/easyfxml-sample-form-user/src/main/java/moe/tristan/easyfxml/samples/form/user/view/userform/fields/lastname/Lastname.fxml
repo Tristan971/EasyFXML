@@ -21,31 +21,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<VBox maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController">
+<VBox maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController">
     <children>
         <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
             <children>
                 <Label text="Last name">
                     <font>
-                        <Font name="System Italic" size="10.0" />
+                        <Font name="System Italic" size="10.0"/>
                     </font>
                 </Label>
             </children>
         </HBox>
         <HBox maxWidth="1.7976931348623157E308">
             <children>
-                <TextField fx:id="lastNameField" promptText="Doe" />
+                <TextField fx:id="lastNameField" promptText="Doe"/>
             </children>
         </HBox>
-      <HBox maxWidth="1.7976931348623157E308">
-         <children>
-            <Label fx:id="invalidLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="First name" textFill="RED" visible="false">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
+        <HBox maxWidth="1.7976931348623157E308">
+            <children>
+                <Label fx:id="invalidLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Last name error" textFill="RED"
+                       visible="false">
+                    <font>
+                        <Font size="10.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
     </children>
 </VBox>
