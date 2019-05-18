@@ -13,10 +13,7 @@ jobs:
                   command: 'docker build -t easyfxml/test .'
 
             - restore_cache:
-                  keys:
-                      - m2-{{ .Branch }}-{{ checksum "pom.xml" }}
-                      - m2-{{ .Branch }}-{{ checksum "pom.xml" }}
-                      - m2-{{ checksum "pom.xml" }}
+                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
                   paths:
                       - ~/.m2/repository
 
