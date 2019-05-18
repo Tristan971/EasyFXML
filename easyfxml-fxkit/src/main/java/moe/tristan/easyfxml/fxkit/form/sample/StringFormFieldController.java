@@ -40,6 +40,10 @@ public abstract class StringFormFieldController extends FormFieldController<Stri
         // noop by default since most string form fields are very simple
     }
 
+    protected static boolean fieldValueIsNotBlank(String value) {
+        return value != null && !value.isBlank();
+    }
+
     public abstract ObservableValue<String> getObservableValue();
 
     @Override

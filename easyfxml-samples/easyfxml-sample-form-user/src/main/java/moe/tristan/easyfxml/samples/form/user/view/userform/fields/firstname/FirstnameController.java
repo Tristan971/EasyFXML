@@ -42,6 +42,11 @@ public class FirstnameController extends StringFormFieldController {
 
     @Override
     public boolean validate(String fieldValue) {
+        if (!fieldValueIsNotBlank(fieldValue)) {
+            onInvalid("You must provide a first name");
+            return false;
+        }
+
         if (!NO_NUMBERS_PATTERN.matcher(fieldValue).matches()) {
             onInvalid("Name has digits or trailing spaces");
             return false;

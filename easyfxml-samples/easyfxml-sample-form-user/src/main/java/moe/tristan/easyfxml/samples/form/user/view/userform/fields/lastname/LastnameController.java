@@ -31,6 +31,28 @@ public class LastnameController extends StringFormFieldController {
     public Label invalidLabel;
 
     @Override
+    public boolean validate(String fieldValue) {
+        if (!fieldValueIsNotBlank(fieldValue)) {
+            onInvalid("You must provide a last name");
+            return false;
+        } else {
+            onValid();
+            return true;
+        }
+    }
+
+    @Override
+    public void onValid() {
+        invalidLabel.setVisible(false);
+    }
+
+    @Override
+    public void onInvalid(String reason) {
+        invalidLabel.setText(reason);
+        invalidLabel.setVisible(true);
+    }
+
+    @Override
     public ObservableValue<String> getObservableValue() {
         return lastNameField.textProperty();
     }

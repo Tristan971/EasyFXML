@@ -40,6 +40,7 @@ public class BirthdayController extends FormFieldController<LocalDate> {
     @Override
     public boolean validate(LocalDate fieldValue) {
         if (fieldValue == null) {
+            onInvalid("You must provide an email address.");
             return false;
         }
 

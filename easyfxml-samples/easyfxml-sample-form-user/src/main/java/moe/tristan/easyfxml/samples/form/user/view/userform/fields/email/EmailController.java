@@ -38,6 +38,11 @@ public class EmailController extends StringFormFieldController {
 
     @Override
     public boolean validate(String fieldValue) {
+        if (!fieldValueIsNotBlank(fieldValue)) {
+            onInvalid("You must provide an email address");
+            return false;
+        }
+
         return supplyAsync(() -> {
             try {
                 InternetAddress address = new InternetAddress(fieldValue);
