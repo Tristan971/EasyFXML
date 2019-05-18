@@ -76,7 +76,7 @@ public class UserFormController extends FormController {
         UserForm userForm = ImmutableUserForm
             .builder()
             .firstName(getField("First name"))
-            .familyName(getField("Last name"))
+            .lastName(getField("Last name"))
             .build();
 
         LOGGER.info("Submitting user form {}", userForm);

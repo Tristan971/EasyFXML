@@ -16,7 +16,6 @@
   ~    limitations under the License.
   -->
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
@@ -36,7 +35,7 @@
         </HBox>
         <HBox>
             <children>
-                <TextField fx:id="lastNameField" promptText="John" />
+                <TextField fx:id="lastNameField" promptText="Doe" />
             </children>
         </HBox>
       <HBox>
@@ -49,7 +48,4 @@
          </children>
       </HBox>
     </children>
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
 </VBox>

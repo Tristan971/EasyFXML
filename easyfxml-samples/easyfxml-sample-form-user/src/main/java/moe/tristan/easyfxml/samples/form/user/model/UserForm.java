@@ -23,7 +23,7 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 public interface UserForm {
 
-    String getFamilyName();
+    String getLastName();
 
     String getFirstName();
 
