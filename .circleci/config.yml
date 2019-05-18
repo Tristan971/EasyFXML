@@ -2,16 +2,10 @@ version: 2
 jobs:
     build:
         docker:
-            - image: circleci/buildpack-deps:disco
+            - image: tristandeloche/easyfxml-docker:adoptopenjdk-11
         working_directory: ~/EasyFXML
         steps:
-
-            - setup_remote_docker
             - checkout
-
-            - run:
-                  name: Docker build
-                  command: 'docker build -t easyfxml/test .'
 
             - restore_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
@@ -20,7 +14,7 @@ jobs:
 
             - run:
                   name: Build and test in Docker
-                  command: 'docker run -v ~:/root easyfxml/test:latest'
+                  command: './.circleci/run_tests.sh'
 
             - save_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
