@@ -3,7 +3,7 @@ jobs:
     build:
         docker:
             - image: circleci/buildpack-deps:disco
-        working_directory: EasyFXML
+        working_directory: ~/EasyFXML
         steps:
             - setup_remote_docker
             - checkout
@@ -16,11 +16,11 @@ jobs:
                       - m2-{{ .Branch }}-{{ checksum "pom.xml" }}
                       - m2-{{ checksum "pom.xml" }}
                   paths:
-                      - $HOME/.m2/repository
+                      - ~/.m2/repository
             - run:
                   name: Build and Test
-                  command: 'docker run -v $HOME/.m2:$HOME/.m2 easyfxml/test:latest'
+                  command: 'docker run -v ~/.m2:~/.m2 easyfxml/test:latest'
             - save_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
                   paths:
-                      - $HOME/.m2/repository
+                      - ~/.m2/repository
