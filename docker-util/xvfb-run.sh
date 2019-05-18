@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # $Id: xvfb-run 2027 2004-11-16 14:54:16Z branden $
 

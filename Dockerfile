@@ -1,20 +1,14 @@
-FROM fedora:29
+FROM adoptopenjdk/maven-openjdk11:latest
 
-RUN dnf -q update -y
+RUN apt update
 
-RUN dnf -q install -y \
-    maven \
-    bash \
+RUN apt install -y \
+    apt-utils \
+    apt-transport-https \
+    xvfb \
     git \
-    xorg-x11-server-Xvfb \
     dbus-x11 \
-    gtk3 \
-    gtk2 \
-    firefox
-
-# Set up OpenJDK 11
-RUN dnf -q install -y java-11-openjdk java-11-openjdk-devel
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
+    chromium-browser
 
 # Enable colored output
 ENV term xterm
