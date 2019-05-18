@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import moe.tristan.easyfxml.api.FxmlController;
 
-public abstract class FormController<F> implements FxmlController {
+public abstract class FormController implements FxmlController {
 
     private Map<String, FormFieldController> formFieldControllers = new ConcurrentHashMap<>();
 
@@ -29,6 +29,15 @@ public abstract class FormController<F> implements FxmlController {
         formFieldControllers.put(formField.getFieldName(), formField);
     }
 
-    public abstract void submit(F form);
+    public String getField(String fieldName) {
+        return getFieldAs(fieldName, String.class);
+    }
+
+    public <T> T getFieldAs(String formFieldName, Class<T> fieldValueType) {
+        //noinspection unchecked
+        return (T) formFieldControllers.get(formFieldName);
+    }
+
+    public abstract void submit();
 
 }

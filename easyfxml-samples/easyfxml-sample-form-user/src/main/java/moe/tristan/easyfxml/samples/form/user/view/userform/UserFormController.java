@@ -16,6 +16,8 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Button;
@@ -24,12 +26,15 @@ import javafx.scene.layout.VBox;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.fxkit.form.FormController;
+import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController;
 
 @Component
-public class UserFormController extends FormController<UserForm> {
+public class UserFormController extends FormController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserFormController.class);
 
     private final EasyFxml easyFxml;
 
@@ -52,8 +57,13 @@ public class UserFormController extends FormController<UserForm> {
     }
 
     @Override
-    public void submit(UserForm form) {
+    public void submit() {
+        UserForm userForm = ImmutableUserForm
+            .builder()
+            .firstName(getField("First name"))
+            .build();
 
+        LOGGER.info("Submitting user form {}", userForm);
     }
 
 }
