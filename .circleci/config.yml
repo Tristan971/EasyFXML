@@ -36,7 +36,6 @@ jobs:
                   name: Aggregate test results
                   command: './.circleci/copy_recursive_regex.sh ".*/target/surefire-reports/.*xml" test-results'
                   when: always
-
             - run:
                   name: Aggregate artifacts
                   command: './.circleci/copy_recursive_regex.sh ".*/target/.*jar" artifacts'
@@ -45,7 +44,7 @@ jobs:
             - run:
                   name: Publish code coverage reporting
                   command: |
-                      JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco && \
+                      JACOCO_SOURCE_PATH=easyfxml/src/main/java ./cc-test-reporter format-coverage easyfxml/target/site/jacoco/jacoco.xml --input-type jacoco && \
                       ./cc-test-reporter upload-coverage -r 9791cde00c987e47a9082b96f73a2b4eb3590f308c501a3c61d34e0276c93ec1
 
             - store_test_results:
