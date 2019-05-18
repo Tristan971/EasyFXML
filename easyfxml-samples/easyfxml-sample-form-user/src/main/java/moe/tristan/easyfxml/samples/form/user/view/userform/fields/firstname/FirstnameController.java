@@ -18,19 +18,16 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
 
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import moe.tristan.easyfxml.fxkit.form.FormFieldController;
+import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
 
 @Component
-public class FirstnameController extends FormFieldController<String> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FirstnameController.class);
+public class FirstnameController extends StringFormFieldController {
 
     private static final Pattern NO_NUMBERS_PATTERN = Pattern.compile("(\\b[^\\d]+\\b)+");
 
@@ -38,16 +35,21 @@ public class FirstnameController extends FormFieldController<String> {
     public Label invalidLabel;
 
     @Override
-    public void initialize() {
-        firstNameField.textProperty().addListener((o, prev, next) -> validate(next));
+    public void init() {
+
+    }
+
+    @Override
+    public ObservableValue<String> getObservableValue() {
+        return firstNameField.textProperty();
     }
 
     @Override
     public void validate(String fieldValue) {
-        LOGGER.debug("Validating field: {}", getFieldName());
         if (!NO_NUMBERS_PATTERN.matcher(fieldValue).matches()) {
-            LOGGER.debug("\t-> {}", "invalid");
             onInvalid("Name has digits or trailing spaces");
+        } else {
+            onValid();
         }
     }
 
@@ -65,16 +67,6 @@ public class FirstnameController extends FormFieldController<String> {
     @Override
     public String getFieldName() {
         return "First name";
-    }
-
-    @Override
-    public Class<? extends String> getFieldType() {
-        return String.class;
-    }
-
-    @Override
-    public String getFieldValue() {
-        return firstNameField.getText();
     }
 
 }
