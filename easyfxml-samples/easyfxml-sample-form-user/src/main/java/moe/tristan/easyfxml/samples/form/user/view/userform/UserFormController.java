@@ -18,6 +18,7 @@ package moe.tristan.easyfxml.samples.form.user.view.userform;
 
 import static moe.tristan.easyfxml.util.Buttons.setOnClick;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ import moe.tristan.easyfxml.fxkit.form.FormController;
 import moe.tristan.easyfxml.fxkit.form.FormFieldController;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
+import moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameComponent;
 
@@ -45,6 +47,7 @@ public class UserFormController extends FormController {
 
     private final FirstnameComponent firstnameComponent;
     private final LastnameComponent lastnameComponent;
+    private final BirthdayComponent birthdayComponent;
 
     public Label titleLabel;
     public VBox fieldsBox;
@@ -53,18 +56,20 @@ public class UserFormController extends FormController {
     public UserFormController(
         EasyFxml easyFxml,
         FirstnameComponent firstnameComponent,
-        LastnameComponent lastnameComponent
+        LastnameComponent lastnameComponent,
+        BirthdayComponent birthdayComponent
     ) {
         this.easyFxml = easyFxml;
         this.firstnameComponent = firstnameComponent;
         this.lastnameComponent = lastnameComponent;
+        this.birthdayComponent = birthdayComponent;
     }
 
     @Override
     public void initialize() {
         setOnClick(submitButton, this::submit);
 
-        Stream.of(firstnameComponent, lastnameComponent)
+        Stream.of(firstnameComponent, lastnameComponent, birthdayComponent)
               .map(field -> easyFxml.loadNode(field, VBox.class, FormFieldController.class))
               .forEach(load -> load
                   .afterControllerLoaded(this::addFormField)
@@ -78,6 +83,7 @@ public class UserFormController extends FormController {
             .builder()
             .firstName(getField("First name"))
             .lastName(getField("Last name"))
+            .birthdate(getFieldAs("Birthdate", LocalDate.class))
             .build();
 
         LOGGER.info("Submitting user form {}", userForm);

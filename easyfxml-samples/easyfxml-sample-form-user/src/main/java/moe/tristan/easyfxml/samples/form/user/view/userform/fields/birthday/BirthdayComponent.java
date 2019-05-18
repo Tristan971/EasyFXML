@@ -14,35 +14,25 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname;
+package moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday;
 
 import org.springframework.stereotype.Component;
 
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
-import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
+import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlFile;
+import moe.tristan.easyfxml.api.FxmlNode;
 
 @Component
-public class LastnameController extends StringFormFieldController {
-
-    public TextField lastNameField;
-    public Label invalidLabel;
+public class BirthdayComponent implements FxmlNode {
 
     @Override
-    public void init() {
-
+    public FxmlFile getFile() {
+        return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/fields/birthday/Birthday.fxml";
     }
 
     @Override
-    public ObservableValue<String> getObservableValue() {
-        return lastNameField.textProperty();
-    }
-
-    @Override
-    public String getFieldName() {
-        return "Last name";
+    public Class<? extends FxmlController> getControllerClass() {
+        return BirthdayController.class;
     }
 
 }

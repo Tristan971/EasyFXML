@@ -16,10 +16,13 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname;
 
+import org.springframework.stereotype.Component;
+
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 
+@Component
 public class LastnameComponent implements FxmlNode {
 
     @Override
