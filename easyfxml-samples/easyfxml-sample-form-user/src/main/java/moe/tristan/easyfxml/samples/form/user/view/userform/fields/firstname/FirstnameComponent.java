@@ -14,29 +14,25 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.samples.form.user.view;
+package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import org.springframework.stereotype.Component;
 
-import moe.tristan.easyfxml.fxkit.form.FormController;
-import moe.tristan.easyfxml.samples.form.user.model.UserForm;
+import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlFile;
+import moe.tristan.easyfxml.api.FxmlNode;
 
-public class UserFormController extends FormController<UserForm> {
-
-    public Label titleLabel;
-    public VBox fieldsBox;
-    public Button submitButton;
+@Component
+public class FirstnameComponent implements FxmlNode {
 
     @Override
-    public void initialize() {
-
+    public FxmlFile getFile() {
+        return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/fields/firstname/Firstname.fxml";
     }
 
     @Override
-    public void submit(UserForm form) {
-
+    public Class<? extends FxmlController> getControllerClass() {
+        return FirstnameController.class;
     }
 
 }

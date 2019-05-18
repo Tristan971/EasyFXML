@@ -14,13 +14,20 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.samples.form.user.view;
+package moe.tristan.easyfxml.samples.form.user.view.userform;
 
-import java.util.Optional;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
-import moe.tristan.easyfxml.fxkit.form.FormFieldController;
+import moe.tristan.easyfxml.fxkit.form.FormController;
+import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 
-public class FirstnameController extends FormFieldController<String> {
+public class UserFormController extends FormController<UserForm> {
+
+    public Label titleLabel;
+    public VBox fieldsBox;
+    public Button submitButton;
 
     @Override
     public void initialize() {
@@ -28,18 +35,8 @@ public class FirstnameController extends FormFieldController<String> {
     }
 
     @Override
-    public String getFieldName() {
-        return "First name";
-    }
+    public void submit(UserForm form) {
 
-    @Override
-    public Class<? extends String> getFieldType() {
-        return String.class;
-    }
-
-    @Override
-    public Optional<String> getFieldValue() {
-        return Optional.empty();
     }
 
 }
