@@ -19,15 +19,15 @@ jobs:
                       - m2-{{ checksum "pom.xml" }}
                   paths:
                       - ~/.m2/repository
-            - run: mvn dependency:go-offline
-            - save_cache:
-                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
-                  paths:
-                      - ~/.m2/repository
 
             - run:
                   name: Build and Test
                   command: 'docker run -v ~/.m2:/root/.m2 easyfxml/test:latest'
+
+            - save_cache:
+                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
+                  paths:
+                      - ~/.m2/repository
 
             - store_test_results:
                   path: "**/target/surefire-reports"
