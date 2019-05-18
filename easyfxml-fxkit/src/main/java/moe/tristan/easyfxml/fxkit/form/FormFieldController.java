@@ -16,8 +16,6 @@
 
 package moe.tristan.easyfxml.fxkit.form;
 
-import java.util.Optional;
-
 import moe.tristan.easyfxml.api.FxmlController;
 
 public abstract class FormFieldController<F> implements FxmlController {
