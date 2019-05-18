@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.UserFormController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="340.0" minWidth="256.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.UserFormController">
     <top>
         <Label fx:id="titleLabel" text="User sign up" textAlignment="CENTER" BorderPane.alignment="CENTER">
             <font>

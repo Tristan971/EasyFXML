@@ -16,23 +16,22 @@
   ~    limitations under the License.
   -->
 
-
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="75.0" minWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayController">
+
+<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayController">
     <children>
         <Label text="Birthdate">
             <font>
-                <Font name="System Italic" size="10.0"/>
+                <Font name="System Italic" size="10.0" />
             </font>
         </Label>
-        <DatePicker fx:id="datePicker"/>
-        <Label visible="false" text="Error" textFill="RED" fx:id="errorText">
+        <DatePicker fx:id="datePicker" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+        <Label fx:id="errorText" text="Error" textFill="RED" visible="false">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Label>
     </children>

@@ -22,9 +22,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController">
+<VBox maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController">
     <children>
-        <HBox alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
             <children>
                 <Label text="Last name">
                     <font>
@@ -33,12 +33,12 @@
                 </Label>
             </children>
         </HBox>
-        <HBox>
+        <HBox maxWidth="1.7976931348623157E308">
             <children>
                 <TextField fx:id="lastNameField" promptText="Doe" />
             </children>
         </HBox>
-      <HBox>
+      <HBox maxWidth="1.7976931348623157E308">
          <children>
             <Label fx:id="invalidLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="First name" textFill="RED" visible="false">
                <font>

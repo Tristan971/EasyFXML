@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController">
+<VBox maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController">
     <children>
         <HBox alignment="CENTER_LEFT">
             <children>
@@ -33,7 +33,7 @@
                 </Label>
             </children>
         </HBox>
-        <HBox>
+        <HBox maxWidth="1.7976931348623157E308">
             <children>
                 <TextField fx:id="firstNameField" promptText="John" />
             </children>
