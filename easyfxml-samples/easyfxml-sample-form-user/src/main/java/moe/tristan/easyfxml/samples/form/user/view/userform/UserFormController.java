@@ -16,6 +16,8 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
+import static moe.tristan.easyfxml.util.Buttons.setOnClick;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -51,6 +53,8 @@ public class UserFormController extends FormController {
 
     @Override
     public void initialize() {
+        setOnClick(submitButton, this::submit);
+
         easyFxml.loadNode(firstnameComponent, VBox.class, FirstnameController.class)
                 .afterControllerLoaded(this::addFormField)
                 .afterNodeLoaded(fieldsBox.getChildren()::add);

@@ -26,7 +26,7 @@ public abstract class FormFieldController<F> implements FxmlController {
 
     public abstract Class<? extends F> getFieldType();
 
-    public abstract Optional<F> getFieldValue();
+    public abstract F getFieldValue();
 
     public void validate(F fieldValue) {
         // noop by default

@@ -35,7 +35,7 @@ public abstract class FormController implements FxmlController {
 
     public <T> T getFieldAs(String formFieldName, Class<T> fieldValueType) {
         //noinspection unchecked
-        return (T) formFieldControllers.get(formFieldName);
+        return (T) formFieldControllers.get(formFieldName).getFieldValue();
     }
 
     public abstract void submit();
