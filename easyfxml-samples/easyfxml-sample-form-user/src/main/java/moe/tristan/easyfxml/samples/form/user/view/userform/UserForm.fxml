@@ -36,7 +36,7 @@
         </Label>
     </top>
     <center>
-        <VBox fx:id="fieldsBox" alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER" />
+        <VBox fx:id="fieldsBox" alignment="CENTER" fillWidth="false" spacing="10.0" BorderPane.alignment="CENTER" />
     </center>
     <bottom>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">

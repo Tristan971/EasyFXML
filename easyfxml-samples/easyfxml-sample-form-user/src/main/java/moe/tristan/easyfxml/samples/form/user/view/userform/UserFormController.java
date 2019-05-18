@@ -32,6 +32,8 @@ import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController;
+import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameComponent;
+import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController;
 
 @Component
 public class UserFormController extends FormController {
@@ -41,14 +43,20 @@ public class UserFormController extends FormController {
     private final EasyFxml easyFxml;
 
     private final FirstnameComponent firstnameComponent;
+    private final LastnameComponent lastnameComponent;
 
     public Label titleLabel;
     public VBox fieldsBox;
     public Button submitButton;
 
-    public UserFormController(EasyFxml easyFxml, FirstnameComponent firstnameComponent) {
+    public UserFormController(
+        EasyFxml easyFxml,
+        FirstnameComponent firstnameComponent,
+        LastnameComponent lastnameComponent
+    ) {
         this.easyFxml = easyFxml;
         this.firstnameComponent = firstnameComponent;
+        this.lastnameComponent = lastnameComponent;
     }
 
     @Override
@@ -58,6 +66,9 @@ public class UserFormController extends FormController {
         easyFxml.loadNode(firstnameComponent, VBox.class, FirstnameController.class)
                 .afterControllerLoaded(this::addFormField)
                 .afterNodeLoaded(fieldsBox.getChildren()::add);
+        easyFxml.loadNode(lastnameComponent, VBox.class, LastnameController.class)
+                .afterControllerLoaded(this::addFormField)
+                .afterNodeLoaded(fieldsBox.getChildren()::add);
     }
 
     @Override
@@ -65,6 +76,7 @@ public class UserFormController extends FormController {
         UserForm userForm = ImmutableUserForm
             .builder()
             .firstName(getField("First name"))
+            .familyName(getField("Last name"))
             .build();
 
         LOGGER.info("Submitting user form {}", userForm);

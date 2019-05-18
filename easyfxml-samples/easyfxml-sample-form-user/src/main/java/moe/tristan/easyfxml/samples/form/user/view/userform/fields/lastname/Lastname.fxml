@@ -23,11 +23,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController">
+<VBox spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController">
     <children>
         <HBox alignment="CENTER_LEFT">
             <children>
-                <Label text="First name">
+                <Label text="Last name">
                     <font>
                         <Font name="System Italic" size="10.0" />
                     </font>
@@ -36,7 +36,7 @@
         </HBox>
         <HBox>
             <children>
-                <TextField fx:id="firstNameField" promptText="John" />
+                <TextField fx:id="lastNameField" promptText="John" />
             </children>
         </HBox>
       <HBox>
