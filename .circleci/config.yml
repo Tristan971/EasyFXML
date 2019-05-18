@@ -13,8 +13,15 @@ jobs:
                       - ~/.m2/repository
 
             - run:
-                  name: Build and test in Docker
-                  command: './.circleci/run_tests.sh'
+                  name: Prepare code coverage reporting
+                  command: |
+                    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter'
+                    chmod +x cc-test-reporter
+                    ./cc-test-reporter before-build
+
+            - run:
+                  name: Build and test
+                  command: 'maven_clean_install .'
 
             - save_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
@@ -34,6 +41,12 @@ jobs:
                   name: Aggregate artifacts
                   command: './.circleci/copy_recursive_regex.sh ".*/target/.*jar" artifacts'
                   when: always
+
+            - run:
+                  name: Publish code coverage reporting
+                  command: |
+                      JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
+                      ./cc-test-reporter upload-coverage -r 9791cde00c987e47a9082b96f73a2b4eb3590f308c501a3c61d34e0276c93ec1
 
             - store_test_results:
                   path: test-results
