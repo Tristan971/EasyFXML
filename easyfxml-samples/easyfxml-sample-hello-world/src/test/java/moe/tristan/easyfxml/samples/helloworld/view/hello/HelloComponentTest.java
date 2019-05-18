@@ -31,7 +31,6 @@ import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.junit.FxNodeTest;
-import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -47,7 +46,7 @@ public class HelloComponentTest extends FxNodeTest {
 
     @Before
     public void setUp() {
-        this.helloPane = easyFxml.loadNode(helloComponent).getNode().getOrElseGet(ExceptionHandler::fromThrowable);
+        this.helloPane = easyFxml.loadNode(helloComponent).getNodeOrExceptionPane();
     }
 
     @Test

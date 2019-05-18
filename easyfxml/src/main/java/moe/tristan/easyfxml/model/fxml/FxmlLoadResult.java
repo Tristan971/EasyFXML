@@ -125,6 +125,7 @@ public class FxmlLoadResult<NODE extends Node, CONTROLLER extends FxmlController
     }
 
     public Try<Pane> orExceptionPane() {
+        //noinspection unchecked
         return ((Try<Pane>) getNode()).recover(ExceptionHandler::fromThrowable);
     }
 

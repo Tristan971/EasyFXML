@@ -16,7 +16,6 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
@@ -31,6 +30,8 @@ import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
 public class FirstnameController extends StringFormFieldController {
 
     private static final Pattern NO_NUMBERS_PATTERN = Pattern.compile("(\\b[^\\d]+\\b)+");
+    static final String ERROR_EMPTY_PROVIDED = "You must provide a first name";
+    static final String ERROR_NAME_INVALID_PATTERN = "Name has digits or trailing spaces";
 
     public TextField firstNameField;
     public Label invalidLabel;
@@ -43,12 +44,12 @@ public class FirstnameController extends StringFormFieldController {
     @Override
     public boolean validate(String fieldValue) {
         if (!fieldValueIsNotBlank(fieldValue)) {
-            onInvalid("You must provide a first name");
+            onInvalid(ERROR_EMPTY_PROVIDED);
             return false;
         }
 
         if (!NO_NUMBERS_PATTERN.matcher(fieldValue).matches()) {
-            onInvalid("Name has digits or trailing spaces");
+            onInvalid(ERROR_NAME_INVALID_PATTERN);
             return false;
         } else {
             onValid();
