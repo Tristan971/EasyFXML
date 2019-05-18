@@ -27,7 +27,7 @@ jobs:
 
             - run:
                   name: Build and Test
-                  command: 'docker run -v ~/.m2:~/.m2 easyfxml/test:latest'
+                  command: 'docker run -v ~/.m2:/root/.m2 easyfxml/test:latest'
 
             - store_test_results:
                   path: "**/target/surefire-reports"
