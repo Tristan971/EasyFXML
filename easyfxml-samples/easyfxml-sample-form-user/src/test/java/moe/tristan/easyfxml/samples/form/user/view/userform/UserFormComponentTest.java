@@ -17,6 +17,8 @@
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
@@ -83,6 +85,15 @@ public class UserFormComponentTest extends FxNodeTest {
         verify(userCreationService).submitUserForm(submittedFormCaptor.capture());
 
         assertThat(submittedFormCaptor.getValue()).isEqualTo(expectedUserForm);
+    }
+
+    @Test
+    public void checkDoesNotSubmitOnAllEmpty() {
+        withNodes(userFormPane).run();
+
+        clickOn("#submitButton");
+
+        verify(userCreationService, never()).submitUserForm(any());
     }
 
 }
