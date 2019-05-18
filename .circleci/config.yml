@@ -5,6 +5,7 @@ jobs:
             - image: circleci/buildpack-deps:disco
         working_directory: ~/EasyFXML
         steps:
+
             - setup_remote_docker
             - checkout
 
@@ -28,11 +29,13 @@ jobs:
 
             - run:
                   name: Save test results
-                  command: |
-                      mkdir -p ~/test-results/junit/
-                      find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+                  command: './.circleci/copy_recursive_regex.sh ".*/target/surefire-reports/.*xml" test-results'
                   when: always
             - store_test_results:
-                  path: ~/test-results
+                  path: test-results
+            - run:
+                  name: Save artifacts
+                  command: './.circleci/copy_recursive_regex.sh ".*/target/.*jar" artifacts'
+                  when: always
             - store_artifacts:
-                  path: ~/test-results/junit
+                  path: artifacts
