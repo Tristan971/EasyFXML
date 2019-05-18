@@ -24,7 +24,7 @@
 <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.email.EmailController">
     <children>
-        <Label text="Label">
+        <Label text="Email address">
             <font>
                 <Font name="System Italic" size="10.0"/>
             </font>

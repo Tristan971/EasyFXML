@@ -33,13 +33,15 @@ import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
 @Component
 public class EmailController extends StringFormFieldController {
 
+    static final String ERROR_EMPTY_EMAIL = "You must provide an email address";
+
     public TextField emailField;
     public Label errorLabel;
 
     @Override
     public boolean validate(String fieldValue) {
         if (!fieldValueIsNotBlank(fieldValue)) {
-            onInvalid("You must provide an email address");
+            onInvalid(ERROR_EMPTY_EMAIL);
             return false;
         }
 
