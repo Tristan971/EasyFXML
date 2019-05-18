@@ -78,6 +78,7 @@
         <module>easyfxml-native</module>
         <module>easyfxml-junit</module>
         <module>easyfxml-samples</module>
+        <module>easyfxml-fxkit</module>
     </modules>
 
     <distributionManagement>

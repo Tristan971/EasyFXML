@@ -15,23 +15,40 @@
   ~    limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
+        <artifactId>easyfxml-samples</artifactId>
         <version>3.1.7-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
-    <name>EasyFXML Samples</name>
-    <artifactId>easyfxml-samples</artifactId>
-    <packaging>pom</packaging>
+    <name>EasyFXML - Samples - User form</name>
+    <artifactId>easyfxml-sample-form-user</artifactId>
 
-    <modules>
-        <module>easyfxml-sample-hello-world</module>
-        <module>easyfxml-sample-form-user</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-fxkit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.immutables</groupId>
+            <artifactId>value</artifactId>
+            <version>2.7.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>moe.tristan</groupId>
+            <artifactId>easyfxml-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
