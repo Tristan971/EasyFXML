@@ -73,12 +73,21 @@
     </properties>
 
     <modules>
+        <!-- Common configuration -->
         <module>easyfxml-module-base</module>
+
+        <!-- EasyFXML base -->
         <module>easyfxml</module>
-        <module>easyfxml-native</module>
-        <module>easyfxml-junit</module>
-        <module>easyfxml-samples</module>
+
+        <!-- Extras -->
         <module>easyfxml-fxkit</module>
+        <module>easyfxml-native</module>
+
+        <!-- Testing -->
+        <module>easyfxml-junit</module>
+
+        <!-- Sample usage -->
+        <module>easyfxml-samples</module>
     </modules>
 
     <distributionManagement>
