@@ -16,26 +16,41 @@
 
 package moe.tristan.easyfxml.samples.form.user.view.userform;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
+import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
+import moe.tristan.easyfxml.samples.form.user.model.UserCreationService;
+import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserFormComponentTest {
+public class UserFormComponentTest extends FxNodeTest {
 
     @Autowired
     private EasyFxml easyFxml;
 
     @Autowired
     private UserFormComponent userFormComponent;
+
+    @MockBean
+    private UserCreationService userCreationService;
 
     private Pane userFormPane;
 
@@ -45,8 +60,29 @@ public class UserFormComponentTest {
     }
 
     @Test
-    public void checkFirstNameValid() {
+    public void checkSubmitsOnAllValid() {
+        final UserForm expectedUserForm = ImmutableUserForm
+            .builder()
+            .firstName("Firstname")
+            .lastName("Lastname")
+            .emailAddress("something@email.com")
+            .birthdate(LocalDate.now().minusYears(15))
+            .build();
 
+        withNodes(userFormPane)
+            .willDo(
+                () -> clickOn("#firstNameField").write(expectedUserForm.getFirstName()),
+                () -> clickOn("#lastNameField").write(expectedUserForm.getLastName()),
+                () -> lookup("#datePicker").queryAs(DatePicker.class).setValue(expectedUserForm.getBirthdate()),
+                () -> clickOn("#emailField").write(expectedUserForm.getEmailAddress())
+            ).run();
+
+        clickOn("#submitButton");
+
+        final ArgumentCaptor<UserForm> submittedFormCaptor = ArgumentCaptor.forClass(UserForm.class);
+        verify(userCreationService).submitUserForm(submittedFormCaptor.capture());
+
+        assertThat(submittedFormCaptor.getValue()).isEqualTo(expectedUserForm);
     }
 
 }

@@ -39,6 +39,7 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.fxkit.form.FormController;
 import moe.tristan.easyfxml.fxkit.form.FormFieldController;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
+import moe.tristan.easyfxml.samples.form.user.model.UserCreationService;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.fields.email.EmailComponent;
@@ -51,6 +52,7 @@ public class UserFormController extends FormController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserFormController.class);
 
     private final EasyFxml easyFxml;
+    private final UserCreationService userCreationService;
 
     private final FirstnameComponent firstnameComponent;
     private final LastnameComponent lastnameComponent;
@@ -63,12 +65,14 @@ public class UserFormController extends FormController {
 
     public UserFormController(
         EasyFxml easyFxml,
+        UserCreationService userCreationService,
         FirstnameComponent firstnameComponent,
         LastnameComponent lastnameComponent,
         BirthdayComponent birthdayComponent,
         EmailComponent emailComponent
     ) {
         this.easyFxml = easyFxml;
+        this.userCreationService = userCreationService;
         this.firstnameComponent = firstnameComponent;
         this.lastnameComponent = lastnameComponent;
         this.birthdayComponent = birthdayComponent;
@@ -110,7 +114,7 @@ public class UserFormController extends FormController {
             .emailAddress(getField(EMAIL_FIELD_NAME))
             .build();
 
-        LOGGER.info("Submitting user form {}", userForm);
+        userCreationService.submitUserForm(userForm);
     }
 
 }
