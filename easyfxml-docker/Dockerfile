@@ -12,7 +12,7 @@ RUN apt install -qq -y \
     dbus-x11 \
     chromium-browser
 
-ENV term xterm
+ENV term xterm-256color
 
 ADD ./maven_clean_install.sh /bin/maven_clean_install
 
