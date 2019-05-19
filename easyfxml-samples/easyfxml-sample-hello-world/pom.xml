@@ -21,22 +21,10 @@
     <parent>
         <groupId>moe.tristan</groupId>
         <artifactId>easyfxml-samples</artifactId>
-        <version>3.1.7-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
     </parent>
 
-    <name>EasyFXML Samples - Hello World</name>
+    <name>EasyFXML - Samples - Hello World</name>
     <artifactId>easyfxml-sample-hello-world</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>moe.tristan</groupId>
-            <artifactId>easyfxml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>moe.tristan</groupId>
-            <artifactId>easyfxml-junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
 </project>

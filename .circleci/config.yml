@@ -2,22 +2,52 @@ version: 2
 jobs:
     build:
         docker:
-            - image: circleci/buildpack-deps:disco
+            - image: tristandeloche/easyfxml-docker:adoptopenjdk-11
         working_directory: ~/EasyFXML
         steps:
-            - setup_remote_docker
             - checkout
-            - run:
-                  name: Docker build
-                  command: 'docker build -t easyfxml/test .'
+
             - restore_cache:
-                  key: dependency-cache-{{ checksum "pom.xml" }}
+                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
                   paths:
-                      - ~/.m2
+                      - ~/.m2/repository
+
             - run:
-                  name: Build and Test
-                  command: 'docker run -v ~/.m2:/root/.m2 easyfxml/test:latest'
+                  name: Prepare code coverage reporting
+                  command: |
+                      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter && \
+                      chmod +x cc-test-reporter && \
+                      ./cc-test-reporter before-build
+
+            - run:
+                  name: Build and test
+                  command: 'maven_clean_install .'
+
             - save_cache:
-                  key: dependency-cache-{{ checksum "pom.xml" }}
+                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
                   paths:
-                      - ~/.m2
+                      - ~/.m2/repository
+
+            - run:
+                  name: Prepare post-build
+                  command: 'chmod +x ./.circleci/copy_recursive_regex.sh'
+                  when: always
+            - run:
+                  name: Aggregate test results
+                  command: './.circleci/copy_recursive_regex.sh ".*/target/surefire-reports/.*xml" test-results'
+                  when: always
+            - run:
+                  name: Aggregate artifacts
+                  command: './.circleci/copy_recursive_regex.sh ".*/target/.*jar" artifacts'
+                  when: always
+
+            - run:
+                  name: Publish code coverage reporting
+                  command: |
+                      JACOCO_SOURCE_PATH=easyfxml/src/main/java ./cc-test-reporter format-coverage easyfxml/target/site/jacoco/jacoco.xml --input-type jacoco && \
+                      ./cc-test-reporter upload-coverage -r 9791cde00c987e47a9082b96f73a2b4eb3590f308c501a3c61d34e0276c93ec1
+
+            - store_test_results:
+                  path: test-results
+            - store_artifacts:
+                  path: artifacts

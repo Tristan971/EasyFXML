@@ -78,7 +78,7 @@ public abstract class FxUiManager {
 
             mainStage.show();
         } catch (Throwable t) {
-            LOGGER.error("There was a failure during start-up.", t);
+            throw new RuntimeException("There was a failure during start-up of the application.", t);
         }
     }
 

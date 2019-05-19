@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2017 - 2019 EasyFXML project and contributors
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController">
+    <children>
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
+            <children>
+                <Label text="Last name">
+                    <font>
+                        <Font name="System Italic" size="10.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <HBox maxWidth="1.7976931348623157E308">
+            <children>
+                <TextField fx:id="lastNameField" promptText="Doe"/>
+            </children>
+        </HBox>
+        <HBox maxWidth="1.7976931348623157E308">
+            <children>
+                <Label fx:id="invalidLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Last name error" textFill="RED"
+                       visible="false">
+                    <font>
+                        <Font size="10.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </children>
+</VBox>

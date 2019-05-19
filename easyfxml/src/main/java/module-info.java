@@ -20,8 +20,8 @@ open module moe.tristan.easyfxml {
     requires spring.context;
     requires spring.core;
 
+    requires transitive io.vavr;
+    requires transitive slf4j.api;
     requires awaitility;
-    requires io.vavr;
-    requires slf4j.api;
 
 }

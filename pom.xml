@@ -31,7 +31,7 @@
 
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml-parent</artifactId>
-    <version>3.1.7-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -73,10 +73,20 @@
     </properties>
 
     <modules>
+        <!-- Common configuration -->
         <module>easyfxml-module-base</module>
+
+        <!-- EasyFXML base -->
         <module>easyfxml</module>
+
+        <!-- Extras -->
+        <module>easyfxml-fxkit</module>
         <module>easyfxml-native</module>
+
+        <!-- Testing -->
         <module>easyfxml-junit</module>
+
+        <!-- Sample usage -->
         <module>easyfxml-samples</module>
     </modules>
 
