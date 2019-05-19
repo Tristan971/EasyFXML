@@ -24,7 +24,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import moe.tristan.easyfxml.fxkit.form.sample.StringFormFieldController;
+import moe.tristan.easyfxml.fxkit.form.defaults.StringFormFieldController;
 
 @Component
 public class FirstnameController extends StringFormFieldController {
@@ -43,7 +43,7 @@ public class FirstnameController extends StringFormFieldController {
 
     @Override
     public boolean validate(String fieldValue) {
-        if (!fieldValueIsNotBlank(fieldValue)) {
+        if (isNullOrBlank()) {
             onInvalid(ERROR_EMPTY_PROVIDED);
             return false;
         }

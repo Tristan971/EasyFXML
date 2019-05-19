@@ -46,6 +46,13 @@ public abstract class FormController implements FxmlController {
     }
 
     public <T> T getField(String formFieldName) {
+        if (!subscribedFields.containsKey(formFieldName)) {
+            throw new IllegalArgumentException(
+                "Form was not subscribed to any field with name [\"" + formFieldName + "\"].\n"
+                + "Subscribed fields: " + subscribedFields.keySet()
+            );
+        }
+
         //noinspection unchecked
         return (T) subscribedFields.get(formFieldName).getFieldValue();
     }

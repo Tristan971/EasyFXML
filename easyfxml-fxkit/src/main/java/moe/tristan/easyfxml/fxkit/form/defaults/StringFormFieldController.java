@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.fxkit.form.sample;
+package moe.tristan.easyfxml.fxkit.form.defaults;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,19 +29,8 @@ public abstract class StringFormFieldController extends FormFieldController<Stri
 
     @Override
     public void initialize() {
-        init();
-        getObservableValue().addListener((o, prev, cur) -> {
-            LOGGER.debug("Validating field: {} [{}]", getFieldName(), getFieldValue());
-            validate(cur);
-        });
-    }
-
-    public void init() {
-        // noop by default since most string form fields are very simple
-    }
-
-    protected static boolean fieldValueIsNotBlank(String value) {
-        return value != null && !value.isBlank();
+        // by default, every change is made to run through validation
+        validateValueOnChange();
     }
 
     public abstract ObservableValue<String> getObservableValue();
@@ -49,6 +38,18 @@ public abstract class StringFormFieldController extends FormFieldController<Stri
     @Override
     public String getFieldValue() {
         return getObservableValue().getValue();
+    }
+
+    protected boolean isNullOrBlank() {
+        final String fieldValue = getFieldValue();
+        return fieldValue == null || fieldValue.isBlank();
+    }
+
+    private void validateValueOnChange() {
+        getObservableValue().addListener((o, prev, cur) -> {
+            LOGGER.debug("Validating field [{}] -> \"{}\"", getFieldName(), getFieldValue());
+            validate(cur);
+        });
     }
 
 }
