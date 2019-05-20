@@ -1,5 +1,15 @@
 # EasyFXML
-A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ together
+This repository contains all the modules that define the EasyFXML project.
+
+This project's aim is to enable _JavaFX_ developers' around the world to be more productive by exposing a large amount
+of tooling that is absent otherwise from the _JavaFX_ ecosystem.
+
+Some of the current highlights include
+- Much simpler usage of FXML as markup for UI components, instead of composing them in straight Java
+- Developing your _JavaFX_ application with a _Spring Boot_-first architecture
+- Writing properly asynchronous integration tests without pain
+- And even running them on any docker-enabled public CI environment
+- Better integratinon with the underlying operating-system to allow better usage of non cross-platform features
 
 [![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.6/jar)
 
@@ -8,149 +18,48 @@ A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ togeth
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
-## Features
+## General design philosophy
+_JavaFX_, like any technology, does not exist in a vacuum. And no matter how good (or bad) it is or could be, it will need an
+ecosystem to thrive.
 
-- Declarative and type-safe definition and usage of visual components
-- Fully compatible with Spring Boot 2, Java 11+ and the module path
-- Easier asynchronous management of components' lifecycle
-- Built with first-class support for FXML files
-- No specific configuration needed
+Inspired by pioneering works that set out to build the first blocks of such an ecosystem, such as
+[TornadoFX](https://github.com/edvin/tornadofx), [ControlsFX](https://github.com/controlsfx/controlsfx),
+[AfterburnerFX](https://github.com/AdamBien/afterburner.fx) and many others, this project aims at bridging some of the
+gaps in booth supporting tooling and the standard library.
 
-## Basics
+The focus has originally been on the integration of _Spring Boot_, but since then has *enjoyed* a sizable amount of scope
+creep as more and more of the gaps at time of writing made themselves visible.
 
-The idea of EasyFXML is to leverage the current MVC model for front-end components and apply it to _JavaFX_ to enable proper 
-separation of concerns and lifecycle management in applications.
+## Components of the EasyFXML project
+Since all of the components are expected to live a life (partly) of their own, they each will enjoy their own README and
+documentation that you can access in each others' directory.
 
-There are two core parts defining a visual element (an `FxmlNode`, hereafter):
-- Its view, an FXML file described by an `FxmlFile`, that is, a `String` supplier that is in charge of providing the path to the view file as a classpath resource.
-  - The reason behind not simply using a `String`, `File` or `Path` is to allow for dynamic management of view files (OSGi, dynamic choice FXML file to load...)
-- Its controller, a Spring Bean implementing `FxmlController`
+### Core
+- *[EasyFXML](easyfxml)*: Tiny opinionated framework for integrating _JavaFX_ with _Spring Boot_ seamlessly
+- *[EasyFXML - JUnit](easyfxml-junit)*: Infrastructure for fully asynchronous (yet simple) _JavaFX_ integration testing
+
+### Extras
+- *[EasyFXML - FXKit](easyfxml-fxkit)*: Design patterns for common UX components types
+- *[EasyFXML - Native](easyfxml-native)*: Support for non cross-platform features relying on underlying operating system
+
+### Infrastructure
+- *[EasyFXML - Docker](easyfxml-docker)*: Docker image and tools for out-of-the-box support of continuous integration systems
+- *[EasyFXML - Module Base](easyfxml-module-base)*: Maven meta-module ensuring dependency and plugin consistency across the whole project
+
+### Miscellaneous
+- *[EasyFXML - Samples](easyfxml-samples)*: Fully-contained project samples to showcase real-usage and enhance testing span
 
 ## Getting started
-###### This section is mostly a simplified version of the [Hello World](./easyfxml-samples/easyfxml-sample-hello-world) if you want to check it out for yourself
+A first step is to get familiar with _JavaFX_ and _Spring Boot_ as they are central building blocks of the project.
 
-Let's see how building a very minimal greeter window, like follows, would work:
+Once that is done, a look at both the *[core EasyFXML module](easyfxml)*, and then at 
+*[some of the latest usage samples](easyfxml-samples)* should provide a good overview of
+the design philosophy and expected usage at time of writing of the modules of the project.
 
-![Hello World Sample Screenshot](doc/images/sample-hello-world.png)
+## Contributing
+All contributions are welcome, both as questions, constructive criticism, feature requests and of course pull requests.
 
-For this you will need:
-- A component to load (the aforementionned Hello World one) along with its controller
-- An entrypoint for the UI
-- A main class
-
-##### Component ([`FxmlNode`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlNode.java))
-```java
-@Component
-public class HelloComponent implements FxmlNode {
-    
-    @Override 
-    public FxmlFile getFile() {
-        return () -> "my/package/view/hello/HelloView.fxml"; 
-        // component lies in `my.package.view.hello` package
-    }   // and its FXML view file is `HelloView.fxml`
-
-    @Override
-    public Class<? extends FxmlController> getControllerClass() {
-        return HelloController.class; 
-        // Its controller class is `HelloController`
-    }
-
-}
-```
-
-##### Controller ([`FxmlController`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
-```java
-@Component
-public class HelloController implements FxmlController {
-
-    @FXML 
-    private TextField userNameTextField;
-    
-    @FXML 
-    private Button helloButton;
-    
-    @FXML 
-    private HBox greetingBox;
-    
-    @FXML 
-    private Label greetingName;
-
-    @Override
-    public void initialize() { // called once loading is fully done
-        greetingBox.setVisible(false);
-        greetingName.textProperty().bind(userNameTextField.textProperty());
-
-        setOnClick(helloButton, () -> greetingBox.setVisible(true));
-    }
-
-}
-```
-Note that if you can have multiple instances of a given component (a notification panel, or a individual cell in a list/table for example), 
-you need to make sure that the controller class is not a singleton with @Scope(scopeName = ConfigurableBeanFactory.PROTOTYPE)
-
-##### Entrypoint of the UI ([`FxUiManager`](./easyfxml/src/main/java/moe/tristan/easyfxml/FxUiManager.java))
-###### (called by EasyFXML once JavaFX and Spring are both ready to use)
-```java
-@Component
-public class HelloWorldUiManager extends FxUiManager {
-
-    private final HelloComponent helloComponent;
-
-    @Autowired
-    public HelloWorldUiManager(HelloComponent helloComponent) {
-        this.helloComponent = helloComponent;
-    }
-
-    @Override
-    protected String title() {
-        return "Hello, World!";
-    }
-
-    @Override
-    protected FxmlNode mainComponent() { // defines what component must be loaded first into the main stage
-        return helloComponent;
-    }
-
-}
-```
-
-##### Main class ([`FxApplication`](./easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
-```java
-@SpringBootApplication // the EasyFXML Configuration is automatically imported by Spring Boot
-public class HelloWorld extends FxApplication {
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-```
-
-And that's about it. Feel free to look into [Hello World](./easyfxml-samples/easyfxml-sample-hello-world) if you want to know more!
-
-## Use in your project
-It is very easy to use EasyFXML via Maven/Gradle. The current version can be imported into your project with:
-
-```xml
-<dependency>
-    <groupId>moe.tristan</groupId>
-    <artifactId>easyfxml</artifactId>
-    <version>3.1.6</version>
-</dependency>
-```
-
-Testing in the asynchronous world of JavaFX can be especially complicated, especially when running in a CI environment.
-Fortunately, libraries like [TestFX](https://github.com/TestFX/TestFX) will help a lot.
-You also can use [EasyFXML-JUnit](./easyfxml-junit) (_experimental_), which is based on TestFX, 
-for pre-made test infrastructure aimed at properly and predictably executing tests of EasyFXML-based JavaFX applications.
-
-```xml
-<dependency>
-    <groupId>moe.tristan</groupId>
-    <artifactId>easyfxml-junit</artifactId>
-    <version>3.1.6</version>
-    <scope>test</scope>
-</dependency>
-```
-
-## Contributors
+There is not yet a clear organization for making first-contributions easy, but a good rule of thumb is to ensure opening an issue
+before making a pull-request so that the technical implementation's requirements can be discussed before work is done. Then, crack on! :-)
 
 [![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/0)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/0)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/1)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/1)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/2)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/2)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/3)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/3)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/4)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/4)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/5)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/5)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/6)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/6)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/7)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/7)
