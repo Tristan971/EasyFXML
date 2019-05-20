@@ -29,10 +29,6 @@ jobs:
                       - ~/.m2/repository
 
             - run:
-                  name: Prepare post-build
-                  command: 'chmod +x ./.circleci/copy_recursive_regex.sh'
-                  when: always
-            - run:
                   name: Aggregate test results
                   command: './.circleci/copy_recursive_regex.sh ".*/target/surefire-reports/.*xml" test-results'
                   when: always
@@ -51,3 +47,4 @@ jobs:
                   path: test-results
             - store_artifacts:
                   path: artifacts
+
