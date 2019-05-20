@@ -5,13 +5,14 @@ This project's aim is to enable _JavaFX_ developers' around the world to be more
 of tooling that is absent otherwise from the _JavaFX_ ecosystem.
 
 Some of the current highlights include
+- First-class support of the module path, with Java + OpenJFX 11
 - Much simpler usage of FXML as markup for UI components, instead of composing them in straight Java
-- Developing your _JavaFX_ application with a _Spring Boot_-first architecture
+- Developing your _JavaFX_ application with the latest _Spring Boot_-based architecture
 - Writing properly asynchronous integration tests without pain
 - And even running them on any docker-enabled public CI environment
 - Better integratinon with the underlying operating-system to allow better usage of non cross-platform features
 
-[![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.6/jar)
+[![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml-parent/3.1.6/pom)
 
 [![Build status](https://circleci.com/gh/Tristan971/EasyFXML.svg?style=svg)](https://circleci.com/gh/Tristan971/EasyFXML)
 [![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)

@@ -1,5 +1,5 @@
 # EasyFXML
-A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ together
+A tiny opinionated framework for integrating _JavaFX_ with _Spring Boot_ seamlessly
 
 [![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.6/jar)
 
@@ -10,8 +10,9 @@ A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ togeth
 
 ## Features
 
+- Based on Java 11, OpenJFX 11 and Spring Boot 2
+- Full support of both classpath and module path
 - Declarative and type-safe definition and usage of visual components
-- Fully compatible with Spring Boot 2, Java 11+ and the module path
 - Easier asynchronous management of components' lifecycle
 - Built with first-class support for FXML files
 - No specific configuration needed
@@ -26,19 +27,31 @@ There are two core parts defining a visual element (an `FxmlNode`, hereafter):
   - The reason behind not simply using a `String`, `File` or `Path` is to allow for dynamic management of view files (OSGi, dynamic choice FXML file to load...)
 - Its controller, a Spring Bean implementing `FxmlController`
 
+## Use in your project
+It is very easy to use EasyFXML via Maven/Gradle. The current version can be imported into your project with:
+
+```xml
+<dependency>
+    <groupId>moe.tristan</groupId>
+    <artifactId>easyfxml</artifactId>
+    <version>3.1.6</version>
+</dependency>
+```
+
+
 ## Getting started
-###### This section is mostly a simplified version of the [Hello World](./easyfxml-samples/easyfxml-sample-hello-world) if you want to check it out for yourself
+###### This section is mostly a simplified version of the [Hello World](../easyfxml-samples/easyfxml-sample-hello-world) if you want to check it out for yourself
 
 Let's see how building a very minimal greeter window, like follows, would work:
 
-![Hello World Sample Screenshot](doc/images/sample-hello-world.png)
+![Hello World Sample Screenshot](../doc/images/sample-hello-world.png)
 
 For this you will need:
 - A component to load (the aforementionned Hello World one) along with its controller
 - An entrypoint for the UI
 - A main class
 
-##### Component ([`FxmlNode`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlNode.java))
+##### Component ([`FxmlNode`](../easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlNode.java))
 ```java
 @Component
 public class HelloComponent implements FxmlNode {
@@ -58,7 +71,7 @@ public class HelloComponent implements FxmlNode {
 }
 ```
 
-##### Controller ([`FxmlController`](./easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
+##### Controller ([`FxmlController`](../easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
 ```java
 @Component
 public class HelloController implements FxmlController {
@@ -88,7 +101,7 @@ public class HelloController implements FxmlController {
 Note that if you can have multiple instances of a given component (a notification panel, or a individual cell in a list/table for example), 
 you need to make sure that the controller class is not a singleton with @Scope(scopeName = ConfigurableBeanFactory.PROTOTYPE)
 
-##### Entrypoint of the UI ([`FxUiManager`](./easyfxml/src/main/java/moe/tristan/easyfxml/FxUiManager.java))
+##### Entrypoint of the UI ([`FxUiManager`](../easyfxml/src/main/java/moe/tristan/easyfxml/FxUiManager.java))
 ###### (called by EasyFXML once JavaFX and Spring are both ready to use)
 ```java
 @Component
@@ -114,7 +127,7 @@ public class HelloWorldUiManager extends FxUiManager {
 }
 ```
 
-##### Main class ([`FxApplication`](./easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
+##### Main class ([`FxApplication`](../easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
 ```java
 @SpringBootApplication // the EasyFXML Configuration is automatically imported by Spring Boot
 public class HelloWorld extends FxApplication {
@@ -124,33 +137,4 @@ public class HelloWorld extends FxApplication {
 }
 ```
 
-And that's about it. Feel free to look into [Hello World](./easyfxml-samples/easyfxml-sample-hello-world) if you want to know more!
-
-## Use in your project
-It is very easy to use EasyFXML via Maven/Gradle. The current version can be imported into your project with:
-
-```xml
-<dependency>
-    <groupId>moe.tristan</groupId>
-    <artifactId>easyfxml</artifactId>
-    <version>3.1.6</version>
-</dependency>
-```
-
-Testing in the asynchronous world of JavaFX can be especially complicated, especially when running in a CI environment.
-Fortunately, libraries like [TestFX](https://github.com/TestFX/TestFX) will help a lot.
-You also can use [EasyFXML-JUnit](./easyfxml-junit) (_experimental_), which is based on TestFX, 
-for pre-made test infrastructure aimed at properly and predictably executing tests of EasyFXML-based JavaFX applications.
-
-```xml
-<dependency>
-    <groupId>moe.tristan</groupId>
-    <artifactId>easyfxml-junit</artifactId>
-    <version>3.1.6</version>
-    <scope>test</scope>
-</dependency>
-```
-
-## Contributors
-
-[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/0)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/0)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/1)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/1)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/2)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/2)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/3)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/3)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/4)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/4)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/5)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/5)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/6)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/6)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/7)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/7)
+And that's about it. Feel free to look into [Hello World](../easyfxml-samples/easyfxml-sample-hello-world) if you want to know more!
