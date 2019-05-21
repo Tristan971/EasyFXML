@@ -1,53 +1,59 @@
 # EasyFXML
 A tiny opinionated framework for integrating _JavaFX_ with _Spring Boot_ seamlessly
 
-[![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.6/jar)
+[![Maven Central](https://img.shields.io/badge/maven--central-3.2.0-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.2.0/jar)
 
-[![Build status](https://circleci.com/gh/Tristan971/EasyFXML.svg?style=svg)](https://circleci.com/gh/Tristan971/EasyFXML)
-[![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
-[![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
+## Required dependencies
+EasyFXML is based on, and requires the following runtime setup:
+- **[Java 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)** *with first-class support for the module-path if you use it*, 
+- **[OpenJFX 11](https://openjfx.io/)** via Maven,
+- **[Spring Boot 2](https://spring.io/projects/spring-boot)** via Maven
+
+It **might** still work on different environment set-ups, but there is no official support for it.
+
+Especially considering that JavaFX applications are expected to be bundled with their own JDK and dependencies, this
+should not be an issue.
 
 ## Features
 
-- Based on Java 11, OpenJFX 11 and Spring Boot 2
 - Full support of both classpath and module path
 - Declarative and type-safe definition and usage of visual components
 - Easier asynchronous management of components' lifecycle
 - Built with first-class support for FXML files
 - No specific configuration needed
 
-## Basics
+## Philosophy
 
-The idea of EasyFXML is to leverage the current MVC model for front-end components and apply it to _JavaFX_ to enable proper 
-separation of concerns and lifecycle management in applications.
+The idea of EasyFXML is to adopt the industry-standard MVC model for UI components and apply it to _JavaFX_.
+This allows easier  separation of concerns and lifecycle management of these components inside applications.
 
-There are two core parts defining a visual element (an `FxmlNode`, hereafter):
-- Its view, an FXML file described by an `FxmlFile`, that is, a `String` supplier that is in charge of providing the path to the view file as a classpath resource.
-  - The reason behind not simply using a `String`, `File` or `Path` is to allow for dynamic management of view files (OSGi, dynamic choice FXML file to load...)
-- Its controller, a Spring Bean implementing `FxmlController`
+There are thus three core elements that go into a UI component (an **[`FxmlNode`](src/main/java/moe/tristan/easyfxml/api/FxmlNode.java)** hereafter):
+- For the **M**odel, it is simple as your standard classes are just provided and usable via Java itself, and services and other more complex things 
+can be injected via _Spring_'s autowiring system.
+- The **V**iew, a standard `.fxml` file in the form of an **[`FxmlFile`](src/main/java/moe/tristan/easyfxml/api/FxmlFile.java)**
+- And **C**ontroller, that is, **a Spring Bean** implementing **[`FxmlController`](src/main/java/moe/tristan/easyfxml/api/FxmlController.java)**
 
-## Use in your project
+## Getting started
 It is very easy to use EasyFXML via Maven/Gradle. The current version can be imported into your project with:
 
 ```xml
 <dependency>
     <groupId>moe.tristan</groupId>
     <artifactId>easyfxml</artifactId>
-    <version>3.1.6</version>
+    <version>3.2.0</version>
 </dependency>
 ```
 
+Then when it comes to documentation and using it, this section is mostly an (extremely) simple example, available in the
+[samples module](../easyfxml-samples), under [Hello World](../easyfxml-samples/easyfxml-sample-hello-world) if you want 
+to check it out for yourself. Other more complex examples are available there.
 
-## Getting started
-###### This section is mostly a simplified version of the [Hello World](../easyfxml-samples/easyfxml-sample-hello-world) if you want to check it out for yourself
-
-Let's see how building a very minimal greeter window, like follows, would work:
+So, let's see how building a very minimal greeter window, like follows, would work:
 
 ![Hello World Sample Screenshot](../doc/images/sample-hello-world.png)
 
 For this you will need:
-- A component to load (the aforementionned Hello World one) along with its controller
+- The component's `FxmlNode`
 - An entrypoint for the UI
 - A main class
 
@@ -129,12 +135,14 @@ public class HelloWorldUiManager extends FxUiManager {
 
 ##### Main class ([`FxApplication`](../easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
 ```java
-@SpringBootApplication // the EasyFXML Configuration is automatically imported by Spring Boot
-public class HelloWorld extends FxApplication {
-    public static void main(String[] args) {
+@SpringBootApplication // EasyFXML wires itself in the context via Spring Boot's autoconfiguration
+public class HelloWorld extends FxApplication { // FxApplication is essential here to set-up JavaFX
+    public static void main(String[] args) {    // and Spring cohabitation
         launch(args);
     }
 }
 ```
 
-And that's about it. Feel free to look into [Hello World](../easyfxml-samples/easyfxml-sample-hello-world) if you want to know more!
+And that's about all we need here. 
+
+Feel free to look into [the samples](../easyfxml-samples) if you want to see more advanced examples!
