@@ -36,7 +36,7 @@ in the standard distribution of _JavaFX_.
   - Public [docker image](https://hub.docker.com/r/tristandeloche/easyfxml-docker) preconfigured with all the runtime requirements for _JavaFX_
   - Includes large support for non-headless features that usually cannot be reliably tested without loading a full desktop environment in your test instance
 
-- **[EasyFXML - FXKit](easyfxml-fxkit)**: Basic boilerplate and architecture for quiter prototyping of common kinds of UX components
+- **[EasyFXML - FXKit](easyfxml-fxkit)**: Basic boilerplate and architecture for developping common kinds of UX components and behaviors
 
 - **[EasyFXML - Native](easyfxml-native)**: Helps when non-cross-platform features are needed or suit the application better when done by-underlying-OS
   - Using [Oshi](https://github.com/oshi/oshi) for platform detection (no more brittle `switch`ing on the platform name system property)
