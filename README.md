@@ -1,4 +1,6 @@
 # EasyFXML
+##### A collection of tools and libraries for easier development on the _JavaFX_ platform
+
 
 [![Build status](https://img.shields.io/circleci/build/github/Tristan971/EasyFXML.svg?style=for-the-badge)](https://circleci.com/gh/Tristan971/EasyFXML)
 [![Maven Central](https://img.shields.io/maven-central/v/moe.tristan/easyfxml-parent.svg?style=for-the-badge)](https://search.maven.org/artifact/moe.tristan/easyfxml-parent)
