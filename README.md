@@ -2,6 +2,7 @@
 A tiny framework to combine the convenience of _Spring Boot_ and _JavaFX_ together
 
 [![Maven Central](https://img.shields.io/badge/maven--central-3.1.6-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.1.6/jar)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML?ref=badge_shield)
 
 [![Build status](https://circleci.com/gh/Tristan971/EasyFXML.svg?style=svg)](https://circleci.com/gh/Tristan971/EasyFXML)
 [![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
@@ -154,3 +155,7 @@ for pre-made test infrastructure aimed at properly and predictably executing tes
 ## Contributors
 
 [![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/0)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/0)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/1)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/1)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/2)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/2)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/3)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/3)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/4)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/4)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/5)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/5)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/6)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/6)[![](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/images/7)](https://sourcerer.io/fame/Tristan971/Tristan971/EasyFXML/links/7)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML?ref=badge_large)
