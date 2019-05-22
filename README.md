@@ -20,25 +20,25 @@ in the standard distribution of _JavaFX_.
 
 ## Overview of modules and features
 
-- *[EasyFXML](easyfxml)*: Core MVC framework for reusable and decoupled UI components
-  - First-class support of Java 11 with module path (no more "--add-opens" magic)
+- **[EasyFXML](easyfxml)**: Core MVC framework for reusable and decoupled UI components
+  - First-class support of Java 11 with module path (no more `--add-opens` magic)
   - Uses seamless Spring Boot 2 support with(in) _JavaFX_ components lifecycle
 
-- *[EasyFXML - JUnit](easyfxml-junit)*: Infrastructure for fully asynchronous (yet simple) _JavaFX_ integration testing
+- **[EasyFXML - JUnit](easyfxml-junit)**: Infrastructure for fully asynchronous (yet simple) _JavaFX_ integration testing
   - Pre-made [TestFX](https://github.com/TestFX/TestFX) configuration and usage
   - Relies on [Awaitility](https://github.com/awaitility/awaitility) to schedule and synchronize at testing time
 
-- *[EasyFXML - Docker](easyfxml-docker)*: Proper support for integration testing in continuous integration services
+- **[EasyFXML - Docker](easyfxml-docker)**: Proper support for integration testing in continuous integration services
   - Public [docker image](https://hub.docker.com/r/tristandeloche/easyfxml-docker) preconfigured with all the runtime requirements for _JavaFX_
   - Strives to include actual support for most (if not all) non-headless features as well
 
-- *[EasyFXML - FXKit](easyfxml-fxkit)*: Loosely constraining "design patterns" for common UX component types and behaviors
+- **[EasyFXML - FXKit](easyfxml-fxkit)**: Loosely constraining "design patterns" for common UX component types and behaviors
 
-- *[EasyFXML - Native](easyfxml-native)*: Supporting native underlying operating system when the experience is better
+- **[EasyFXML - Native](easyfxml-native)**: Supporting native underlying operating system when the experience is better
   - Relies on [Oshi](https://github.com/oshi/oshi) for platform detection (no more brittle `switch`ing on the platform name)
   - *(Planned)* Proper successor to [Zenjava's JavaFX plugin](https://github.com/javafx-maven-plugin/javafx-maven-plugin) for native bundling
 
-- *[EasyFXML - Samples](easyfxml-samples)*: Self-contained project samples to see how real usage looks like
+- **[EasyFXML - Samples](easyfxml-samples)**: Self-contained project samples to see how real usage looks like
 
 ## Getting started
 A first step is to get familiar with _JavaFX_ and _Spring Boot_ as they are central building blocks of the project.
