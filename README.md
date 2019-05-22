@@ -1,10 +1,11 @@
 # EasyFXML
 
-[![Build status](https://circleci.com/gh/Tristan971/EasyFXML.svg?style=svg)](https://circleci.com/gh/Tristan971/EasyFXML)
-[![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
-[![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
-[![Licensing Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML?ref=badge_shield)
+[![Build status](https://img.shields.io/circleci/build/github/Tristan971/EasyFXML.svg?style=for-the-badge)](https://circleci.com/gh/Tristan971/EasyFXML)
+[![Maven Central](https://img.shields.io/maven-central/v/moe.tristan/easyfxml-parent.svg?style=for-the-badge)](https://search.maven.org/artifact/moe.tristan/easyfxml-parent)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/Tristan971/EasyFXML.svg?style=for-the-badge)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
+[![Test coverage](https://img.shields.io/codeclimate/coverage/Tristan971/EasyFXML.svg?style=for-the-badge)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
+[![Snyk Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/Tristan971/EasyFXML.svg?style=for-the-badge)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
+[![License](https://img.shields.io/github/license/Tristan971/EasyFXML.svg?style=for-the-badge)](https://app.fossa.io/projects/git%2Bgithub.com%2FTristan971%2FEasyFXML?ref=badge_shield)
 
 ## Motivation
 

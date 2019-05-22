@@ -1,7 +1,7 @@
 # EasyFXML
 A tiny opinionated framework for integrating _JavaFX_ with _Spring Boot_ seamlessly
 
-[![Maven Central](https://img.shields.io/badge/maven--central-3.2.0-blue.svg)](https://search.maven.org/artifact/moe.tristan/easyfxml/3.2.0/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/moe.tristan/easyfxml.svg?style=for-the-badge)](https://search.maven.org/artifact/moe.tristan/easyfxml)
 
 ## Required dependencies
 EasyFXML is based on, and requires the following runtime setup:
