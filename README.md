@@ -22,38 +22,44 @@ is missing, and some parts of the standard library feel somewhat unpolished, mos
 This project's aim is to build and provide tools and extensions to the broader community so as to bridge these gaps left
 in the standard distribution of _JavaFX_.
 
-## Overview of modules and features
+## Overview of the project's modules
 
-- **[EasyFXML](easyfxml)**: Core MVC framework for reusable and decoupled UI components
-  - First-class support of Java 11 with module path (no more `--add-opens` magic)
-  - Uses seamless Spring Boot 2 support with(in) _JavaFX_ components lifecycle
+- **[EasyFXML](easyfxml)**: Core MVC-style framework for reusable and decoupled UI components
+  - Includes first-class support of Java 11 with module path (no more `--add-opens` magic)
+  - Based on a seamless Spring Boot 2 integration with(in) the _JavaFX_ model
 
-- **[EasyFXML - JUnit](easyfxml-junit)**: Infrastructure for fully asynchronous (yet simple) _JavaFX_ integration testing
-  - Pre-made [TestFX](https://github.com/TestFX/TestFX) configuration and usage
-  - Relies on [Awaitility](https://github.com/awaitility/awaitility) to schedule and synchronize at testing time
+- **[EasyFXML - JUnit](easyfxml-junit)**: Testing infrastructure for fully asynchronous (yet simple) _JavaFX_ component testing
+  - Uses pre-made [TestFX](https://github.com/TestFX/TestFX) configurations and patterns to achieve robust yet realistic UI testing
+  - Relies on [Awaitility](https://github.com/awaitility/awaitility) to reconcile test synchronization and the naturally asynchronous nature of UI testing
 
-- **[EasyFXML - Docker](easyfxml-docker)**: Proper support for integration testing in continuous integration services
+- **[EasyFXML - Docker](easyfxml-docker)**: Provides proper support for continuous integration services
   - Public [docker image](https://hub.docker.com/r/tristandeloche/easyfxml-docker) preconfigured with all the runtime requirements for _JavaFX_
-  - Strives to include actual support for most (if not all) non-headless features as well
+  - Includes large support for non-headless features that usually cannot be reliably tested without loading a full desktop environment in your test instance
 
-- **[EasyFXML - FXKit](easyfxml-fxkit)**: Loosely constraining "design patterns" for common UX component types and behaviors
+- **[EasyFXML - FXKit](easyfxml-fxkit)**: Basic boilerplate and architecture for quiter prototyping of common kinds of UX components
 
-- **[EasyFXML - Native](easyfxml-native)**: Supporting native underlying operating system when the experience is better
-  - Relies on [Oshi](https://github.com/oshi/oshi) for platform detection (no more brittle `switch`ing on the platform name)
-  - *(Planned)* Proper successor to [Zenjava's JavaFX plugin](https://github.com/javafx-maven-plugin/javafx-maven-plugin) for native bundling
+- **[EasyFXML - Native](easyfxml-native)**: Helps when non-cross-platform features are needed or suit the application better when done by-underlying-OS
+  - Using [Oshi](https://github.com/oshi/oshi) for platform detection (no more brittle `switch`ing on the platform name system property)
+  - *(Planned)* Proper successor to [Zenjava's JavaFX plugin](https://github.com/javafx-maven-plugin/javafx-maven-plugin) to enable native bundling 
+  and simpler distribution to end-users
 
-- **[EasyFXML - Samples](easyfxml-samples)**: Self-contained project samples to see how real usage looks like
+- **[EasyFXML - Samples](easyfxml-samples)**: Self-contained project samples
+  - Allows to showcase and learn about individual features in isolation and when coupled with others
+  - Only a few samples for now but will grow overtime, maybe with your help even :-)
 
 ## Getting started
-A first step is to get familiar with _JavaFX_ and _Spring Boot_ as they are central building blocks of the project.
+A first necessary step is to get familiar with both _JavaFX_ and _Spring Boot_.
 
-Once that is done, a look at both the *[core EasyFXML module](easyfxml)*, and then at 
-*[some of the latest usage samples](easyfxml-samples)* should provide a good overview of
-the design philosophy and expected usage at time of writing of the modules of the project.
+As they are central building blocks of the project and not necessarily meant to work together, there is some usage of both
+in the process of making them work together that might not be a great first experience with either.
 
-For larger-scale usage than small contained samples, you can have a look at:
-- [Lyrebird](https://github.com/Tristan971/Lyrebird) a _JavaFX_ Twitter client whose development difficulties motivated a lot of
-features you will find here
+Once that is done, a look at both the *[core EasyFXML module](easyfxml)*, and then at  *[some of the latest usage samples](easyfxml-samples)* 
+should provide a good overview of the design philosophy and expected usage of the project.
+
+For real usag in a fully-fledged application, here's a list of projects using EasyFXML at the moment:
+- [Lyrebird](https://github.com/Tristan971/Lyrebird) a _JavaFX_ Twitter client
+  - Most of the gaps in _JavaFX_ that I discovered developping it motivated this whole project
+  - It is not quite a completed project but there is a substantial-enough amount of usage in it to get a good idea for yourself
 
 ## Licensing and contributions
 All contributions are welcome, both as questions, constructive criticism, feature requests and of course pull requests.
