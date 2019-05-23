@@ -1,4 +1,4 @@
-# EasyFXML - Sample - User identity form
+# EasyFXML - Sample - Hello World
 
 This sample project demonstrates a minimal set-up for an [EasyFXML](../../easyfxml) application.
 
