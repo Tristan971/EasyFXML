@@ -2,7 +2,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: tristandeloche/easyfxml-docker:adoptopenjdk-11
+            - image: tristandeloche/easyfxml-docker:latest
         working_directory: ~/EasyFXML
         steps:
             - checkout
