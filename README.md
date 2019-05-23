@@ -52,7 +52,7 @@ A first necessary step is to get familiar with both _JavaFX_ and _Spring Boot_.
 As they are central building blocks of the project and not necessarily meant to work together, there is some usage of both
 in the process of making them work together that might not be a great first experience with either.
 
-Once that is done, a look at both the *[core EasyFXML module](easyfxml)*, and then at  *[some of the latest usage samples](easyfxml-samples)* 
+Once that is done, a look at both the *[core EasyFXML module](easyfxml)*, and then at  *[some of the usage samples](easyfxml-samples)* 
 should provide a good overview of the design philosophy and expected usage of the project.
 
 For real usage in a fully-fledged application, here's a list of projects using EasyFXML at the moment:
