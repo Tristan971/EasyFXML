@@ -24,28 +24,27 @@ in the standard distribution of _JavaFX_.
 
 ## Overview of the modules
 
-- **[EasyFXML](easyfxml)**: Core MVC-style framework for reusable and decoupled UI components
+- **[EasyFXML](easyfxml): Core MVC-style framework for reusable and decoupled UI components**
   - Includes first-class support of Java 11 with module path (no more `--add-opens` magic)
   - Based on a seamless Spring Boot 2 integration with(in) the _JavaFX_ model
 
-- **[EasyFXML - JUnit](easyfxml-junit)**: Testing infrastructure for fully asynchronous (yet simple) _JavaFX_ component testing
+- **[EasyFXML - JUnit](easyfxml-junit): Testing infrastructure for fully asynchronous (yet simple) _JavaFX_ component testing**
   - Uses pre-made [TestFX](https://github.com/TestFX/TestFX) configurations and patterns to achieve robust yet realistic UI testing
   - Relies on [Awaitility](https://github.com/awaitility/awaitility) to reconcile test synchronization and the naturally asynchronous nature of UI testing
 
-- **[EasyFXML - Docker](easyfxml-docker)**: Provides proper support for continuous integration services
+- **[EasyFXML - Docker](easyfxml-docker): Proper support for continuous integration services**
   - Public [docker image](https://hub.docker.com/r/tristandeloche/easyfxml-docker) preconfigured with all the runtime requirements for _JavaFX_
   - Includes large support for non-headless features that usually cannot be reliably tested without loading a full desktop environment in your test instance
 
-- **[EasyFXML - FXKit](easyfxml-fxkit)**: Basic boilerplate and architecture for developping common kinds of UX components and behaviors
+- **[EasyFXML - FXKit](easyfxml-fxkit): Boilerplate and architecture for developping common kinds of UX components and behaviors**
 
-- **[EasyFXML - Native](easyfxml-native)**: Helps when non-cross-platform features are needed or suit the application better when done by-underlying-OS
+- **[EasyFXML - Native](easyfxml-native): Support for non-cross-platform features like self-updates and native notifications**
   - Using [Oshi](https://github.com/oshi/oshi) for platform detection (no more brittle `switch`ing on the platform name system property)
   - *(Planned)* Proper successor to [Zenjava's JavaFX plugin](https://github.com/javafx-maven-plugin/javafx-maven-plugin) to enable native bundling 
   and simpler distribution to end-users
 
-- **[EasyFXML - Samples](easyfxml-samples)**: Self-contained project samples
+- **[EasyFXML - Samples](easyfxml-samples): Self-contained samples providing concrete usage samples**
   - Allows to showcase and learn about individual features in isolation and when coupled with others
-  - Only a few samples for now but will grow overtime, maybe with your help even :-)
 
 ## Getting started
 A first necessary step is to get familiar with both _JavaFX_ and _Spring Boot_.
