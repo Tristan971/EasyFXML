@@ -10,7 +10,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
 
-## Motivation
+## What is it?
 
 Having a cool framework for building desktop applications is a great feat on itself, and the _JavaFX_ team and contributors
 certainly came up with an amazing platform to build upon.
@@ -22,7 +22,7 @@ is missing, and some parts of the standard library feel somewhat unpolished, mos
 This project's aim is to build and provide tools and extensions to the broader community so as to bridge these gaps left
 in the standard distribution of _JavaFX_.
 
-## Overview of the project's modules
+## Overview of the modules
 
 - **[EasyFXML](easyfxml)**: Core MVC-style framework for reusable and decoupled UI components
   - Includes first-class support of Java 11 with module path (no more `--add-opens` magic)
@@ -56,7 +56,7 @@ in the process of making them work together that might not be a great first expe
 Once that is done, a look at both the *[core EasyFXML module](easyfxml)*, and then at  *[some of the latest usage samples](easyfxml-samples)* 
 should provide a good overview of the design philosophy and expected usage of the project.
 
-For real usag in a fully-fledged application, here's a list of projects using EasyFXML at the moment:
+For real usage in a fully-fledged application, here's a list of projects using EasyFXML at the moment:
 - [Lyrebird](https://github.com/Tristan971/Lyrebird) a _JavaFX_ Twitter client
   - Most of the gaps in _JavaFX_ that I discovered developping it motivated this whole project
   - It is not quite a completed project but there is a substantial-enough amount of usage in it to get a good idea for yourself
