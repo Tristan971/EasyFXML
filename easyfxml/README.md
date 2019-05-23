@@ -34,17 +34,8 @@ can be injected via _Spring_'s autowiring system.
 - And **C**ontroller, that is, **a Spring Bean** implementing **[`FxmlController`](src/main/java/moe/tristan/easyfxml/api/FxmlController.java)**
 
 ## Getting started
-It is very easy to use EasyFXML via Maven/Gradle. The current version can be imported into your project with:
 
-```xml
-<dependency>
-    <groupId>moe.tristan</groupId>
-    <artifactId>easyfxml</artifactId>
-    <version>3.2.0</version>
-</dependency>
-```
-
-Then when it comes to documentation and using it, this section is mostly an (extremely) simple example, available in the
+This section is mostly an (extremely) simple example, available in the
 [samples module](../easyfxml-samples), under [Hello World](../easyfxml-samples/easyfxml-sample-hello-world) if you want 
 to check it out for yourself. Other more complex examples are available there.
 
