@@ -32,7 +32,6 @@
 
     <modules>
         <module>easyfxml-platform</module>
-        <module>easyfxml-notifications</module>
     </modules>
 
 </project>
