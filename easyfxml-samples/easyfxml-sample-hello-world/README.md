@@ -6,7 +6,7 @@ This sample project demonstrates a minimal set-up for an [EasyFXML](../../easyfx
 
 Let's see how building a very minimal greeter window, like follows, would work:
 
-![Hello World Sample Screenshot](../../doc/images/sample-hello-world.png)
+![Hello World Sample Screenshot](doc/sample-hello-world.png)
 
 For this you will need:
 - The component's `FxmlNode`

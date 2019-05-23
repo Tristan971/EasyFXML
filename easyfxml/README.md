@@ -41,7 +41,7 @@ to check it out for yourself. Other more complex examples are available there.
 
 So, let's see how building a very minimal greeter window, like follows, would work:
 
-![Hello World Sample Screenshot](../doc/images/sample-hello-world.png)
+![Hello World Sample Screenshot](../easyfxml-samples/easyfxml-sample-hello-world/doc/sample-hello-world.png)
 
 For this you will need:
 - The component's `FxmlNode`
