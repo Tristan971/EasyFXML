@@ -24,9 +24,9 @@ in the standard distribution of _JavaFX_.
 
 ## Overview of the modules
 
-- **[EasyFXML](easyfxml): Core MVC-style framework for reusable and decoupled UI components**
-  - Includes first-class support of Java 11 with module path (no more `--add-opens` magic)
-  - Based on a seamless Spring Boot 2 integration with(in) the _JavaFX_ model
+- **[EasyFXML](easyfxml): Core MVC-inspired framework for reusable and decoupled UI components**
+  - Includes **first-class support of Java 11 with the module path** (no more `--add-opens` magic)
+  - Based on a **seamless Spring Boot 2 integration** with(in) the _JavaFX_ model
 
 - **[EasyFXML - JUnit](easyfxml-junit): Testing infrastructure for fully asynchronous (yet simple) _JavaFX_ component testing**
   - Uses pre-made [TestFX](https://github.com/TestFX/TestFX) configurations and patterns to achieve robust yet realistic UI testing
