@@ -17,7 +17,7 @@ certainly came up with an amazing platform to build upon.
 
 Unfortunately, due to shifting business priorities at Oracle, it was never pushed forward enough to realize its potential ;
 indeed a lot of the tooling for making _JavaFX_ apps easy to develop and maintain across multiple platforms with consistency
-is missing, and some parts of the standard library feel somewhat unpolished, most likely due to a lack of time to polish them.
+is missing, and some parts of the standard library feel somewhat unpolished, most likely due to a lack of time investment.
 
 This project's aim is to build and provide tools and extensions to the broader community so as to bridge these gaps left
 in the standard distribution of _JavaFX_.
