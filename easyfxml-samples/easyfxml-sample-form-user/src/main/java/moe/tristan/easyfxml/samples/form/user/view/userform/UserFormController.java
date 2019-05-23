@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Button;
@@ -48,8 +46,6 @@ import moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.Last
 
 @Component
 public class UserFormController extends FormController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserFormController.class);
 
     private final EasyFxml easyFxml;
     private final UserCreationService userCreationService;

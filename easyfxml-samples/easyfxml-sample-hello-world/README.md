@@ -2,7 +2,7 @@
 
 This sample project demonstrates a minimal set-up for an [EasyFXML](../../easyfxml) application.
 
-## Presentation
+### Presentation
 
 Let's see how building a very minimal greeter window, like follows, would work:
 
