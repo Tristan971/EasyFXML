@@ -1,4 +1,5 @@
-# EasyFXML
+![](doc/logo.svg)
+
 ##### A collection of tools and libraries for easier development on the _JavaFX_ platform
 
 

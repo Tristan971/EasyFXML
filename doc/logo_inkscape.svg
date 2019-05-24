@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   enable-background="new"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 270.93332 105.83334"
+   height="400"
+   width="1024">
+  <defs
+     id="defs2">
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient4589">
+      <stop
+         id="stop4587"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient4583">
+      <stop
+         id="stop4581"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+    </linearGradient>
+    <clipPath
+       id="clipPath4570"
+       clipPathUnits="userSpaceOnUse">
+      <use
+         height="100%"
+         width="100%"
+         id="use4572"
+         xlink:href="#g4566"
+         y="0"
+         x="0" />
+    </clipPath>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="53.152309"
+       x2="257.28247"
+       y1="53.152309"
+       x1="18.983854"
+       id="linearGradient4591"
+       xlink:href="#linearGradient4583" />
+    <filter
+       id="filter4643"
+       style="color-interpolation-filters:sRGB">
+      <feBlend
+         id="feBlend4645"
+         in2="BackgroundImage"
+         mode="overlay" />
+    </filter>
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="opacity:1;"
+     transform="translate(0,-191.16665)"
+     id="layer1">
+    <rect
+       ry="4.193645"
+       y="193.8257"
+       x="6.7865629"
+       height="101.04438"
+       width="257.8894"
+       id="rect815"
+       style="opacity:1;fill:#001e62;fill-opacity:0.98340251;stroke:none;stroke-width:0.25135416" />
+    <g
+       style=""
+       clip-path="url(#clipPath4570)"
+       id="g4568">
+      <g
+         style=""
+         id="g4566">
+        <path
+           style="fill:#fbb500;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+           d="m -24.60625,280.33123 c 0,0 105.568749,-108.74375 226.48333,-98.16041 120.91458,10.58333 21.43125,125.4125 21.43125,125.4125 0,0 -168.274997,-93.13334 -191.822914,0.26458 C 7.9374999,401.24581 -24.60625,280.33123 -24.60625,280.33123 Z"
+           id="path4552" />
+      </g>
+    </g>
+  </g>
+  <g
+     style="display:inline;filter:url(#filter4643)"
+     id="layer2">
+    <text
+       transform="matrix(0.8610155,-0.50290931,0.49710753,0.87106445,0,-191.16665)"
+       id="text819"
+       y="212.07814"
+       x="-113.59579"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.19607843;stroke:none;stroke-width:0.33786768"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#ffffff;fill-opacity:0.19607843;stroke-width:0.33786768"
+         y="212.07814"
+         x="-113.59579"
+         id="tspan817">JavaFX</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.19607843;stroke:none;stroke-width:0.33786768"
+       x="-133.7205"
+       y="244.8062"
+       id="text4530"
+       transform="matrix(0.8610155,-0.50290931,0.49710753,0.87106445,0,-191.16665)"><tspan
+         id="tspan4528"
+         x="-133.7205"
+         y="244.8062"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#ffffff;fill-opacity:0.19607843;stroke-width:0.33786768">Spring Boot 2</tspan></text>
+    <text
+       transform="matrix(0.8610155,-0.50290931,0.49710753,0.87106445,0,-191.16665)"
+       id="text4534"
+       y="275.67484"
+       x="-49.21423"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.19607843;stroke:none;stroke-width:0.33786768"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#ffffff;fill-opacity:0.19607843;stroke-width:0.33786768"
+         y="275.67484"
+         x="-49.21423"
+         id="tspan4532">module-path</tspan></text>
+    <text
+       transform="matrix(0.8610155,-0.50290931,0.49710753,0.87106445,0,-191.16665)"
+       id="text4542"
+       y="341.16861"
+       x="11.613729"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.19607843;stroke:none;stroke-width:0.33786768"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#ffffff;fill-opacity:0.19607843;stroke-width:0.33786768"
+         y="341.16861"
+         x="11.613729"
+         id="tspan4540">CI &amp; Docker</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:0.19607843;stroke:none;stroke-width:0.33786768"
+       x="-48.109173"
+       y="309.4213"
+       id="text4546"
+       transform="matrix(0.8610155,-0.50290931,0.49710753,0.87106445,0,-191.16665)"><tspan
+         id="tspan4544"
+         x="-48.109173"
+         y="309.4213"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.62353134px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#ffffff;fill-opacity:0.19607843;stroke-width:0.33786768">Integration testing</tspan></text>
+  </g>
+  <g
+     style="display:inline;"
+     id="layer3">
+    <text
+       id="text4576"
+       y="66.410416"
+       x="14.816667"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'DejaVu Sans Mono';-inkscape-font-specification:'DejaVu Sans Mono Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32291663;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:50.79999924px;font-family:'DejaVu Sans Mono';-inkscape-font-specification:'DejaVu Sans Mono Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32291663;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         y="66.410416"
+         x="14.816667"
+         id="tspan4574">EasyFXML</tspan></text>
+  </g>
+</svg>
