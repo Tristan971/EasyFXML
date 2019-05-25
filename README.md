@@ -1,6 +1,8 @@
-# EasyFXML
-##### A collection of tools and libraries for easier development on the _JavaFX_ platform
+<div align="center">
 
+![EasyFXML logo](doc/logo_plain_svg.svg)
+
+##### A collection of tools and libraries for easier development on the _JavaFX_ platform</h5>
 
 [![Build status](https://img.shields.io/circleci/build/github/Tristan971/EasyFXML.svg?style=for-the-badge)](https://circleci.com/gh/Tristan971/EasyFXML)
 [![Maven Central](https://img.shields.io/maven-central/v/moe.tristan/easyfxml-parent.svg?style=for-the-badge)](https://search.maven.org/artifact/moe.tristan/easyfxml-parent)
@@ -9,6 +11,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/maintainability)](https://codeclimate.com/github/Tristan971/EasyFXML/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89c1e95e4d5d41b35d9f/test_coverage)](https://codeclimate.com/github/Tristan971/EasyFXML/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tristan971/easyfxml/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/tristan971/easyfxml?targetFile=pom.xml)
+
+</div>
 
 ## What is it?
 
