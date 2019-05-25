@@ -9,5 +9,3 @@ mkdir -p ${DEST_FOLDER}
 find . -type f -regex ${REGEX} \
 -exec echo {} \; \
 -exec cp {} ${DEST_FOLDER} \;
-
-echo
