@@ -11,9 +11,9 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg8"
    version="1.1"
-   viewBox="0 0 257.8894 101.04439"
-   height="381.90002"
-   width="974.70013"
+   viewBox="0 0 169.51854 66.419546"
+   height="251.03448"
+   width="640.70001"
    sodipodi:docname="logo_inkscape.svg"
    inkscape:label="keywords"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -32,8 +32,8 @@
      id="namedview41"
      showgrid="false"
      inkscape:zoom="1"
-     inkscape:cx="208.64384"
-     inkscape:cy="191.94997"
+     inkscape:cx="485.07999"
+     inkscape:cy="179.66467"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -180,7 +180,7 @@
      id="g4054"
      clip-path="url(#clipPath4084)"
      inkscape:label="rect_clip"
-     transform="translate(-6.7865629,-2.6590488)">
+     transform="matrix(0.6573304,0,0,0.6573304,-4.4610141,-1.7478736)">
     <g
        inkscape:groupmode="layer"
        id="layer5"
