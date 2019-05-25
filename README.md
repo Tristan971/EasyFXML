@@ -1,6 +1,4 @@
-<div align="center">
-    <img src="./doc/logo_plain.svg" />
-</div>
+![EasyFXML logo](doc/logo_plain_svg.svg)
 
 ##### A collection of tools and libraries for easier development on the _JavaFX_ platform
 
