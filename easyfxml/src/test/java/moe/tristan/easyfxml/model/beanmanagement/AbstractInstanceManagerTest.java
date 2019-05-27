@@ -24,12 +24,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class AbstractInstanceManagerTest {
 
     private AbstractInstanceManager<String, String> instanceManager;
