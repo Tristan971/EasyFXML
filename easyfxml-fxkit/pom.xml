@@ -24,7 +24,7 @@
         <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
-    <name>EasyFXMl - FXKit</name>
+    <name>EasyFXML - FXKit</name>
     <artifactId>easyfxml-fxkit</artifactId>
     <description>Design patterns for JavaFX-based UX components</description>
 
