@@ -37,22 +37,21 @@ function build_via_docker_image() {
     printf "Candidate images:\n%s\n" "$CANDIDATE_IMAGES"
 
     local MOUNTED_DIR
-    local M2_DIR
-    if [ "$(command -v cygpath)" ]; then
+    local M2_DIR_ABSOLUTE
+    if [ "$(which cygpath)" ]; then
         MOUNTED_DIR=$(cygpath -aw .)
-        M2_DIR=$(cygpath -aw "$HOME/.m2")
+        M2_DIR_ABSOLUTE=$(cygpath -aw "$HOME/.m2")
     else
         MOUNTED_DIR=$(pwd)
-        M2_DIR="$HOME/.m2"
+        M2_DIR_ABSOLUTE="$HOME/.m2"
     fi
 
-    local IMAGE_PROJECT_DIR
-    IMAGE_PROJECT_DIR="/root/EasyFXML"
+    local IMAGE_PROJECT_DIR="/root/EasyFXML"
 
     set -x
     docker run \
         -v "${MOUNTED_DIR}:${IMAGE_PROJECT_DIR}" \
-        -v "$M2_DIR:/root/.m2" \
+        -v "$M2_DIR_ABSOLUTE:/root/.m2" \
         -it "${IMAGE}":"${TAG}" \
         -c "maven_clean_install ${IMAGE_PROJECT_DIR}"
 }
