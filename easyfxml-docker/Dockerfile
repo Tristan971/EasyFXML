@@ -14,6 +14,6 @@ RUN apt install -qq -y \
 
 ENV term xterm-256color
 
-ADD ./maven /bin/maven
+ADD ./easyfxml-maven /bin/easyfxml-maven
 
-ENTRYPOINT ["/bin/maven"]
+ENTRYPOINT ["/bin/easyfxml-maven"]
