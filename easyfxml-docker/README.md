@@ -13,9 +13,11 @@ needed for properly executing JavaFX integration tests in CI environments.
 
 ### Specifics
 
-The core need this offers is leveraging the X Virtual FrameBuffer for running _JavaFX_.
+Running _JavaFX_ mostly requires the X Virtual FrameBuffer (`xvfb`), but it is far from enough for most features and workflows.
 
-It is invoked by [maven_clean_install.sh](maven_clean_install.sh) (which is on the path inside the image).
+This images sets up basically all of what you might want.
+
+It is invoked by [maven_clean_install.sh](maven) (which is on the path inside the image).
 
 That script wraps maven invocations with `xvfb-run` to ensure set-up and teardown of the
 virtual desktop environment when building and most importantly testing.
