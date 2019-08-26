@@ -21,7 +21,7 @@ jobs:
 
             - run:
                   name: Build and test
-                  command: 'clean install'
+                  command: 'maven clean install'
 
             - save_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
