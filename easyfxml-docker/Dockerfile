@@ -14,6 +14,6 @@ RUN apt install -qq -y \
 
 ENV term xterm-256color
 
-ADD ./maven_clean_install.sh /bin/maven_clean_install
+ADD ./maven /bin/maven
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/maven"]

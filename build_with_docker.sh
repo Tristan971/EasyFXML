@@ -46,14 +46,11 @@ function build_via_docker_image() {
         M2_DIR_ABSOLUTE="$HOME/.m2"
     fi
 
-    local IMAGE_PROJECT_DIR="/root/EasyFXML"
+    local IMAGE_PROJECT_DIR="/root/build"
 
     set -x
-    docker run \
-        -v "${MOUNTED_DIR}:${IMAGE_PROJECT_DIR}" \
-        -v "$M2_DIR_ABSOLUTE:/root/.m2" \
-        -it "${IMAGE}":"${TAG}" \
-        -c "maven_clean_install ${IMAGE_PROJECT_DIR}"
+
+    docker run  -v "${MOUNTED_DIR}":${IMAGE_PROJECT_DIR} -v "${M2_DIR_ABSOLUTE}":/root/.m2 -it "${IMAGE}":"${TAG}" clean install
 }
 
 verify_environment

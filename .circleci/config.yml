@@ -3,7 +3,7 @@ jobs:
     build:
         docker:
             - image: tristandeloche/easyfxml-docker:latest
-        working_directory: ~/EasyFXML
+        working_directory: ~/build
         steps:
             - checkout
 
@@ -21,7 +21,7 @@ jobs:
 
             - run:
                   name: Build and test
-                  command: 'maven_clean_install .'
+                  command: 'clean install'
 
             - save_cache:
                   key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
