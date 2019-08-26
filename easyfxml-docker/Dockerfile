@@ -14,6 +14,6 @@ RUN apt install -qq -y \
 
 ENV term xterm-256color
 
-ADD ./maven_clean_install.sh /bin/maven_clean_install
+ADD ./easyfxml-maven /bin/easyfxml-maven
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/easyfxml-maven"]
