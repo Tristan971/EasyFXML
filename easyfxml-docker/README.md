@@ -11,6 +11,11 @@ needed for properly executing JavaFX integration tests in CI environments.
 - **Java version:** 11
 - **Provider:** AdoptOpenJDK
 
+### Usage
+
+The image executes maven with the given arguments on the folder `/root/build`, so an example would be:
+`docker run -v /my/project:/root/build -it tristandeloche/easyfxml-docker:1.2.3 clean install`
+
 ### Specifics
 
 Running _JavaFX_ mostly requires the X Virtual FrameBuffer (`xvfb`), but it is far from enough for most features and workflows.
