@@ -18,7 +18,6 @@ package moe.tristan.easyfxml.model.components.listview;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static moe.tristan.easyfxml.model.components.listview.ComponentListViewFxmlController.BADLY_SCOPED_BEANS;
-import static moe.tristan.easyfxml.model.components.listview.CustomListViewTestComponents.VIEW;
 import static moe.tristan.easyfxml.model.components.listview.cell.ComponentCellFxmlSampleController.REMOTE_REF;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -45,6 +44,7 @@ import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
+import moe.tristan.easyfxml.model.components.listview.view.ComponentListView;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
@@ -55,8 +55,10 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     @Autowired
     private EasyFxml easyFxml;
 
+    @Autowired
+    private ComponentListView componentListView;
+
     private Stage stage;
-    private ComponentListViewSampleFxmlController clvsfc;
 
     @Override
     public void start(Stage stage) {
@@ -67,8 +69,8 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     public void ensureLoadsAndMapsProperly() throws InterruptedException, TimeoutException, ExecutionException {
         final String TEST_BUTTON_SUCCESS_TEXT = "TEST_SUCCESS";
 
-        final ComponentListViewSampleFxmlController ctrl = setUpStage();
-        IntStream.range(0, 100).forEach(i -> ctrl.addValue(TEST_BUTTON_SUCCESS_TEXT));
+        final ComponentListViewSampleFxmlController clvsfc = setUpStage();
+        IntStream.range(0, 100).forEach(i -> clvsfc.addValue(TEST_BUTTON_SUCCESS_TEXT));
 
         await().until(() -> REMOTE_REF.get() != null);
 
@@ -86,16 +88,14 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             clvsfc.listView.scrollTo(1);
             assertThat(clvsfc.scrolledToEnd.get()).isFalse();
             clvsfc.listView.scrollTo(99);
-
-            await().until(() -> clvsfc.scrolledToEnd.get());
         });
+
+        await().until(clvsfc.scrolledToEnd::get);
     }
 
     private ComponentListViewSampleFxmlController setUpStage() throws InterruptedException, ExecutionException, TimeoutException {
-        final CompletableFuture<ComponentListViewSampleFxmlController> setUpAsyncWait = new CompletableFuture<>();
-
         final FxmlLoadResult<Pane, ComponentListViewSampleFxmlController> res = easyFxml.loadNode(
-            VIEW,
+            componentListView,
             AnchorPane.class,
             ComponentListViewSampleFxmlController.class
         );
@@ -106,16 +106,12 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
             (Function<? super Throwable, RuntimeException>) RuntimeException::new
         );
 
-        this.clvsfc = clvsfc;
-
-        Platform.runLater(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             final Scene scene = new Scene(listView);
             stage.setScene(scene);
             stage.show();
-            setUpAsyncWait.complete(clvsfc);
-        });
-
-        return setUpAsyncWait.get(5, SECONDS);
+            return clvsfc;
+        }, Platform::runLater).get(5, SECONDS);
     }
 
     public static class BadlyScopedController implements ComponentCellFxmlController<String> {

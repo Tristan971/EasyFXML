@@ -64,6 +64,7 @@ public abstract class FxNodeTest extends ApplicationTest {
             return new FxNodeAsyncQuery(nodes);
         }
 
+        @SafeVarargs
         public final FxNodeAsyncQuery startWhen(Supplier<Boolean>... readyCheck) {
             this.nodesReady = List.of(readyCheck);
             return this;
@@ -74,6 +75,7 @@ public abstract class FxNodeTest extends ApplicationTest {
             return this;
         }
 
+        @SafeVarargs
         public final void andAwaitFor(Supplier<Boolean>... awaited) {
             this.witnesses = List.of(awaited);
             run();

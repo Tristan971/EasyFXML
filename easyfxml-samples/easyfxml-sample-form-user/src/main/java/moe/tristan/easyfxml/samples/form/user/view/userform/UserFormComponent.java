@@ -27,7 +27,7 @@ public class UserFormComponent implements FxmlNode {
 
     @Override
     public FxmlFile getFile() {
-        return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/UserForm.fxml";
+        return () -> "UserForm.fxml";
     }
 
     @Override

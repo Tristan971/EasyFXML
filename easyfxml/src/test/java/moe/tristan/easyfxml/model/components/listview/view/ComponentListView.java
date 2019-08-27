@@ -14,27 +14,22 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.samples.form.user.view.userform.fields.email;
-
-import org.springframework.stereotype.Component;
+package moe.tristan.easyfxml.model.components.listview.view;
 
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlNode;
 
-@Component
-public class EmailComponent implements FxmlNode {
-
-    public static final String EMAIL_FIELD_NAME = "Email address";
+public class ComponentListView implements FxmlNode {
 
     @Override
     public FxmlFile getFile() {
-        return () -> "Email.fxml";
+        return () -> "ComponentListViewSample.fxml";
     }
 
     @Override
     public Class<? extends FxmlController> getControllerClass() {
-        return EmailController.class;
+        return ComponentListViewSampleFxmlController.class;
     }
 
 }

@@ -46,7 +46,7 @@ public class PanesTest extends ApplicationTest {
     private final FxmlNode testPaneInfo = new FxmlNode() {
         @Override
         public FxmlFile getFile() {
-            return () -> "fxml/test_pane.fxml";
+            return () -> "PanesTest.fxml";
         }
 
         @Override

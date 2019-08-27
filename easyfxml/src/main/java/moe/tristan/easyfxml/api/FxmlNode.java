@@ -29,8 +29,8 @@ import moe.tristan.easyfxml.util.Stages;
  * <p>
  * - {@link FxmlController} class : The bean class to use as its controller (its logic)
  * <p>
- * While you might expect a separate stylesheet element to be related, it actually is not bound to the component but to
- * the window in JavaFX. See {@link Stages#setStylesheet(Stage, FxmlStylesheet)} for styling a window.
+ * While you might expect a separate stylesheet element to be related, it actually is not bound to the component but to the window in JavaFX. See {@link
+ * Stages#setStylesheet(Stage, FxmlStylesheet)} for styling a window.
  */
 public interface FxmlNode {
 

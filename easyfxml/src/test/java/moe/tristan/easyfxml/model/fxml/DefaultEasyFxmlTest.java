@@ -200,18 +200,15 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
 
     @Ignore("This is not a test class")
     public enum TEST_NODES implements FxmlNode {
-        PANE(
-            () -> "fxml/test_pane.fxml",
-            SAMPLE_CONTROL_CLASS.class
-        ),
+        PANE(() -> "PanesTest.fxml", SAMPLE_CONTROL_CLASS.class),
 
         BUTTON(
-            () -> "fxml/button.fxml",
+            () -> "Button.fxml",
             NoControllerClass.class
         ),
 
         INVALID(
-            () -> "fxml/invalid_file.fxml",
+            () -> "InvalidFile.fxml",
             NoControllerClass.class
         );
 

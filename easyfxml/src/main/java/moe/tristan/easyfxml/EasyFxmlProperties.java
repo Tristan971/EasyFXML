@@ -16,7 +16,13 @@
 
 package moe.tristan.easyfxml;
 
+import static moe.tristan.easyfxml.model.fxml.FxmlFileResolutionStrategy.RELATIVE;
+
+import java.util.Objects;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import moe.tristan.easyfxml.model.fxml.FxmlFileResolutionStrategy;
 
 @ConfigurationProperties(prefix = "moe.tristan.easyfxml")
 public class EasyFxmlProperties {
@@ -24,14 +30,14 @@ public class EasyFxmlProperties {
     /**
      * Base classpath location in which to look for fxml files
      */
-    private String basePath = "";
+    private FxmlFileResolutionStrategy fxmlFileResolutionStrategy = RELATIVE;
 
-    public String getBasePath() {
-        return basePath;
+    public FxmlFileResolutionStrategy getFxmlFileResolutionStrategy() {
+        return fxmlFileResolutionStrategy;
     }
 
-    public void setBasePath(String basePath) {
-        this.basePath = basePath;
+    public void setFxmlFileResolutionStrategy(FxmlFileResolutionStrategy fxmlFileResolutionStrategy) {
+        this.fxmlFileResolutionStrategy = Objects.requireNonNull(fxmlFileResolutionStrategy);
     }
 
 }

@@ -29,7 +29,7 @@ public class BirthdayComponent implements FxmlNode {
 
     @Override
     public FxmlFile getFile() {
-        return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/fields/birthday/Birthday.fxml";
+        return () -> "Birthday.fxml";
     }
 
     @Override

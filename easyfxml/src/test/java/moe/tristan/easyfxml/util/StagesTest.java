@@ -38,7 +38,7 @@ import io.vavr.control.Try;
 
 public class StagesTest extends ApplicationTest {
 
-    private static final String RES_REL_PATH_TEST_STYLE = "fxml/test_style.css";
+    private static final String RES_REL_PATH_TEST_STYLE = "css/test_style.css";
     private static final FxmlStylesheet TEST_STYLE = () -> getResourcePath(RES_REL_PATH_TEST_STYLE).get();
 
     private Stage testStage;

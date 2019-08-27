@@ -16,7 +16,7 @@
 
 package moe.tristan.easyfxml.model.components.listview;
 
-import static org.awaitility.Awaitility.with;
+import static org.awaitility.Awaitility.await;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -69,13 +69,11 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
     }
 
     /**
-     * You should not need to care about this method. In the unlikely case where you actually want all the cells of your
-     * ListView to actually be the same one, it is left protected and not private so you can override it and avoid the
-     * warnings being spouted at you.
+     * You should not need to care about this method. In the unlikely case where you actually want all the cells of your ListView to actually be the same one,
+     * it is left protected and not private so you can override it and avoid the warnings being spouted at you.
      * <p>
-     * Else, the idea is that a set of cells is created and they share the elements one after another during scrolling
-     * and JavaFX might generate more of them later so we should just not make any assumption and expect all of them to
-     * be different and not singletons.
+     * Else, the idea is that a set of cells is created and they share the elements one after another during scrolling and JavaFX might generate more of them
+     * later so we should just not make any assumption and expect all of them to be different and not singletons.
      */
     protected void findBadlyScopedComponents() {
         synchronized (HAS_CHECKED_BEAN_DEFINITIONS) {
@@ -123,19 +121,18 @@ public abstract class ComponentListViewFxmlController<T> implements FxmlControll
     }
 
     private void listenToScroll() {
-        CompletableFuture.runAsync(this::awaitScrollBarLoaded)
-                         .thenRunAsync(this::listenToScrollBarValue, Platform::runLater);
+        CompletableFuture
+            .runAsync(this::awaitScrollBarLoaded)
+            .thenRunAsync(this::listenToScrollBarValue, Platform::runLater);
     }
 
     private void awaitScrollBarLoaded() {
-        with().pollDelay(1, TimeUnit.SECONDS)
-              .pollInterval(500, TimeUnit.MILLISECONDS)
-              .await()
-              .atMost(5, TimeUnit.SECONDS)
-              .until(() -> {
-                  LOG.debug("Looking for scrollbar !");
-                  return listView.lookup(SCROLL_BAR_SELECTOR) != null;
-              });
+        await()
+            .atMost(5, TimeUnit.SECONDS)
+            .until(() -> {
+                LOG.debug("Looking for scrollbar !");
+                return listView.lookup(SCROLL_BAR_SELECTOR) != null;
+            });
     }
 
     private void listenToScrollBarValue() {
