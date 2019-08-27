@@ -20,7 +20,7 @@
     <parent>
         <artifactId>easyfxml-parent</artifactId>
         <groupId>moe.tristan</groupId>
-        <version>3.3.0</version>
+        <version>3.4.0-SNAPSHOT</version>
     </parent>
 
     <name>EasyFXML - Common module configuration</name>

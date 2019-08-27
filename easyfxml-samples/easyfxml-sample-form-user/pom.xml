@@ -20,7 +20,7 @@
     <parent>
         <groupId>moe.tristan</groupId>
         <artifactId>easyfxml-samples</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.0-SNAPSHOT</version>
     </parent>
 
     <name>EasyFXML - Samples - User form</name>

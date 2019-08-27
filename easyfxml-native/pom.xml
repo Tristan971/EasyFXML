@@ -20,7 +20,7 @@
     <parent>
         <groupId>moe.tristan</groupId>
         <artifactId>easyfxml-module-base</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.0-SNAPSHOT</version>
         <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
