@@ -38,7 +38,7 @@ function build_via_docker_image() {
 
     local MOUNTED_DIR
     local M2_DIR_ABSOLUTE
-    if [ "$(which cygpath)" ]; then
+    if [ "$(command -v cygpath)" ]; then
         MOUNTED_DIR=$(cygpath -aw .)
         M2_DIR_ABSOLUTE=$(cygpath -aw "$HOME/.m2")
     else
