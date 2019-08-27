@@ -34,7 +34,7 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 
 import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
 import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
 
@@ -42,7 +42,7 @@ import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
     lazyInit = true,
     includeFilters = @Filter(type = ASSIGNABLE_TYPE, classes = {
         EasyFxml.class,
-        FxmlNode.class,
+        FxmlComponent.class,
         FxApplication.class,
         FxUiManager.class,
         FxmlController.class,

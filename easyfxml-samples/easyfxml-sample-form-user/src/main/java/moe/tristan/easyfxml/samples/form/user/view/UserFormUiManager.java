@@ -19,7 +19,7 @@ package moe.tristan.easyfxml.samples.form.user.view;
 import org.springframework.stereotype.Component;
 
 import moe.tristan.easyfxml.FxUiManager;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.samples.form.user.view.userform.UserFormComponent;
 
 @Component
@@ -37,7 +37,7 @@ public class UserFormUiManager extends FxUiManager {
     }
 
     @Override
-    protected FxmlNode mainComponent() {
+    protected FxmlComponent mainComponent() {
         return userFormComponent;
     }
 

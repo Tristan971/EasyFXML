@@ -18,11 +18,11 @@ package moe.tristan.easyfxml.model.beanmanagement;
 
 import javafx.stage.Stage;
 
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 
 /**
  * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
  */
-public class StageManager extends AbstractInstanceManager<FxmlNode, Stage> {
+public class StageManager extends AbstractInstanceManager<FxmlComponent, Stage> {
 
 }

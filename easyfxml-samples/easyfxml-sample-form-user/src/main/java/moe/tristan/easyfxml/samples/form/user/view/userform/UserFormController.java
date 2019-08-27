@@ -80,7 +80,7 @@ public class UserFormController extends FormController {
         setOnClick(submitButton, this::submit);
 
         Stream.of(firstnameComponent, lastnameComponent, birthdayComponent, emailComponent)
-              .map(field -> easyFxml.loadNode(field, VBox.class, FormFieldController.class))
+              .map(field -> easyFxml.load(field, VBox.class, FormFieldController.class))
               .forEach(load -> load
                   .afterControllerLoaded(this::subscribeToField)
                   .afterNodeLoaded(fieldsBox.getChildren()::add)

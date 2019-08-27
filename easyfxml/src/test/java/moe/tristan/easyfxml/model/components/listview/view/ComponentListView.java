@@ -18,9 +18,9 @@ package moe.tristan.easyfxml.model.components.listview.view;
 
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 
-public class ComponentListView implements FxmlNode {
+public class ComponentListView implements FxmlComponent {
 
     @Override
     public FxmlFile getFile() {

@@ -19,7 +19,7 @@ package moe.tristan.easyfxml.samples.helloworld.view;
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.FxUiManager;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.samples.helloworld.view.hello.HelloComponent;
 
 public class HelloWorldUiManager extends FxUiManager {
@@ -42,7 +42,7 @@ public class HelloWorldUiManager extends FxUiManager {
      * @return the component to load as the root view in your main {@link Stage}.
      */
     @Override
-    protected FxmlNode mainComponent() {
+    protected FxmlComponent mainComponent() {
         return helloComponent;
     }
 

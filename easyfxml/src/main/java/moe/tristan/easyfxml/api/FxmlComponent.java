@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import moe.tristan.easyfxml.util.Stages;
 
 /**
- * A {@link FxmlNode} is any element that has a graphical representation and a controller.
+ * A {@link FxmlComponent} is any element that has a graphical representation and a controller.
  * <p>
  * It is described by 2 elements :
  * <p>
@@ -32,7 +32,7 @@ import moe.tristan.easyfxml.util.Stages;
  * While you might expect a separate stylesheet element to be related, it actually is not bound to the component but to the window in JavaFX. See {@link
  * Stages#setStylesheet(Stage, FxmlStylesheet)} for styling a window.
  */
-public interface FxmlNode {
+public interface FxmlComponent {
 
     FxmlFile getFile();
 

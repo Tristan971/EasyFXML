@@ -23,9 +23,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 
-import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 
-public class ClickableTextTest extends FxNodeTest {
+public class ClickableTextTest extends FxmlComponentTest {
 
     @Test
     public void shouldExecuteActionGiven() {

@@ -28,8 +28,8 @@ import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.EasyFxmlProperties;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.api.FxmlNode;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.Selector;
 
@@ -55,58 +55,56 @@ public class DefaultEasyFxml implements EasyFxml {
         this.easyFxmlProperties = easyFxmlProperties;
     }
 
-    private Try<FxmlController> makeControllerForNode(final FxmlNode node) {
-        return Try.of(node::getControllerClass).map(this.context::getBean);
+    private Try<FxmlController> makeControllerForComponent(final FxmlComponent component) {
+        return Try.of(component::getControllerClass).map(this.context::getBean);
     }
 
     @Override
-    public FxmlLoadResult<Pane, FxmlController> loadNode(final FxmlNode node) {
-        return this.loadNode(node, Pane.class, FxmlController.class);
+    public FxmlLoadResult<Pane, FxmlController> load(final FxmlComponent component) {
+        return this.load(component, Pane.class, FxmlController.class);
     }
 
     @Override
-    public FxmlLoadResult<Pane, FxmlController> loadNode(final FxmlNode node, final Selector selector) {
-        return this.loadNode(node, Pane.class, FxmlController.class, selector);
+    public FxmlLoadResult<Pane, FxmlController> load(final FxmlComponent component, final Selector selector) {
+        return this.load(component, Pane.class, FxmlController.class, selector);
     }
 
     @Override
     public <NODE extends Node, CONTROLLER extends FxmlController>
     FxmlLoadResult<NODE, CONTROLLER>
-    loadNode(
-        final FxmlNode node,
-        final Class<? extends NODE> nodeClass,
+    load(
+        final FxmlComponent component,
+        final Class<? extends NODE> componentClass,
         final Class<? extends CONTROLLER> controllerClass
     ) {
         return this.loadNodeImpl(
-            this.getSingleStageFxmlLoader(node),
-            node,
-            nodeClass,
+            this.getSingleStageFxmlLoader(component),
+            component,
+            componentClass,
             controllerClass
         );
     }
 
     @Override
-    public <NODE extends Node, CONTROLLER extends FxmlController>
-    FxmlLoadResult<NODE, CONTROLLER>
-    loadNode(
-        final FxmlNode node,
+    public <NODE extends Node, CONTROLLER extends FxmlController> FxmlLoadResult<NODE, CONTROLLER> load(
+        final FxmlComponent component,
         final Class<? extends NODE> nodeClass,
         final Class<? extends CONTROLLER> controllerClass,
         final Selector selector
     ) {
         return this.loadNodeImpl(
-            this.getMultiStageFxmlLoader(node, selector),
-            node,
+            this.getMultiStageFxmlLoader(component, selector),
+            component,
             nodeClass,
             controllerClass
         );
     }
 
     /**
-     * This method acts just like {@link #loadNode(FxmlNode)} but with no autoconfiguration of controller binding and stylesheet application.
+     * This method acts just like {@link #load(FxmlComponent)} but with no autoconfiguration of controller binding and stylesheet application.
      *
      * @param fxmlLoader      The loader to use. See {@link FxmlLoader} for why this matters.
-     * @param fxmlNode        The node to load as declared in some enum most likely
+     * @param component   The node to load as declared in some enum most likely
      * @param nodeClass       The class to try to cast the node to
      * @param controllerClass The class to try to cast the controller to
      * @param <NODE>          The type of the node to load
@@ -119,55 +117,56 @@ public class DefaultEasyFxml implements EasyFxml {
     FxmlLoadResult<NODE, CONTROLLER>
     loadNodeImpl(
         final FxmlLoader fxmlLoader,
-        final FxmlNode fxmlNode,
+        final FxmlComponent component,
         final Class<? extends NODE> nodeClass,
         final Class<? extends CONTROLLER> controllerClass
     ) {
-        final URL componentUrl = determineComponentViewFileLocation(fxmlNode);
+        final URL componentViewFileUrl = determineComponentViewFileLocation(component);
 
-        fxmlLoader.setLocation(componentUrl);
+        fxmlLoader.setLocation(componentViewFileUrl);
         final Try<NODE> nodeLoad = Try.of(fxmlLoader::load).map(nodeClass::cast);
         final Try<CONTROLLER> controllerLoad = Try.of(fxmlLoader::getController).map(controllerClass::cast);
 
-        nodeLoad.onSuccess(fxmlLoader::onSuccess)
-                .onFailure(fxmlLoader::onFailure);
+        nodeLoad
+            .onSuccess(fxmlLoader::onSuccess)
+            .onFailure(fxmlLoader::onFailure);
 
         return new FxmlLoadResult<>(nodeLoad, controllerLoad);
     }
 
-    private FxmlLoader getSingleStageFxmlLoader(final FxmlNode node) {
+    private FxmlLoader getSingleStageFxmlLoader(final FxmlComponent component) {
         final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
-        final Try<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
+        final Try<FxmlController> instanceLoadingResult = this.makeControllerForComponent(component);
         instanceLoadingResult.peek(instance -> {
             loader.setControllerFactory(clazz -> instance);
-            loader.setOnSuccess(elem -> this.controllerManager.registerSingle(node, instance));
+            loader.setOnSuccess(elem -> this.controllerManager.registerSingle(component, instance));
             loader.setOnFailure(cause -> {
-                throw new FxmlNodeLoadException(node, cause);
+                throw new FxmlComponentLoadException(component, cause);
             });
         });
         return loader;
     }
 
-    private FxmlLoader getMultiStageFxmlLoader(final FxmlNode node, final Selector selector) {
+    private FxmlLoader getMultiStageFxmlLoader(final FxmlComponent component, final Selector selector) {
         final FxmlLoader loader = this.context.getBean(FxmlLoader.class);
-        final Try<FxmlController> instanceLoadingResult = this.makeControllerForNode(node);
+        final Try<FxmlController> instanceLoadingResult = this.makeControllerForComponent(component);
         instanceLoadingResult.peek(instance -> {
             loader.setControllerFactory(clazz -> instance);
-            loader.setOnSuccess(elem -> this.controllerManager.registerMultiple(node, selector, instance));
+            loader.setOnSuccess(elem -> this.controllerManager.registerMultiple(component, selector, instance));
             loader.setOnFailure(cause -> {
-                throw new FxmlNodeLoadException(node, cause);
+                throw new FxmlComponentLoadException(component, cause);
             });
         });
         return loader;
     }
 
     /**
-     * @param fxmlNode The node who's filepath we look for
+     * @param component the component whose FXML file we want a sanitized URL for
      *
-     * @return The node's {@link FxmlNode#getFile()} path prepended with the views root folder, as defined by {@link EasyFxmlProperties#getBasePath()}
+     * @return a validated file URL for the given component's FXML file.
      */
-    private URL determineComponentViewFileLocation(final FxmlNode fxmlNode) {
-        String path = fxmlNode.getFile().getPath();
+    private URL determineComponentViewFileLocation(final FxmlComponent component) {
+        String path = component.getFile().getPath();
 
         URL fxmlFilePath = null;
         switch (easyFxmlProperties.getFxmlFileResolutionStrategy()) {
@@ -178,10 +177,13 @@ public class DefaultEasyFxml implements EasyFxml {
                 );
                 break;
             case RELATIVE:
-                Class<?> headClass = Stream.of(fxmlNode.getClass().getEnclosingClass(), fxmlNode.getClass()).filter(Objects::nonNull).findFirst().orElseThrow();
+                Class<?> headClass = Stream.of(
+                    component.getClass().getEnclosingClass(),
+                    component.getClass()
+                ).filter(Objects::nonNull).findFirst().orElseThrow();
                 fxmlFilePath = Objects.requireNonNull(
                     headClass.getResource(path),
-                    "Classpath resource at " + path + " relative to " + fxmlNode + " was absent!"
+                    "Classpath resource at " + path + " relative to " + component + " was absent!"
                 );
                 break;
         }

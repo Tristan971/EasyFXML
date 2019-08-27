@@ -36,14 +36,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserCreationService;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserFormComponentTest extends FxNodeTest {
+public class UserFormComponentTest extends FxmlComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -58,7 +58,7 @@ public class UserFormComponentTest extends FxNodeTest {
 
     @Before
     public void setUp() {
-        userFormPane = easyFxml.loadNode(userFormComponent).getNodeOrExceptionPane();
+        userFormPane = easyFxml.load(userFormComponent).getNodeOrExceptionPane();
     }
 
     @Test

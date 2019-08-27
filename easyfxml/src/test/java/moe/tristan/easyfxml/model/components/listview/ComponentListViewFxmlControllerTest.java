@@ -94,7 +94,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
     }
 
     private ComponentListViewSampleFxmlController setUpStage() throws InterruptedException, ExecutionException, TimeoutException {
-        final FxmlLoadResult<Pane, ComponentListViewSampleFxmlController> res = easyFxml.loadNode(
+        final FxmlLoadResult<Pane, ComponentListViewSampleFxmlController> res = easyFxml.load(
             componentListView,
             AnchorPane.class,
             ComponentListViewSampleFxmlController.class

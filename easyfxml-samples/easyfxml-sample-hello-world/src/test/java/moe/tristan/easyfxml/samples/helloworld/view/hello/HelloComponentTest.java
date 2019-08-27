@@ -30,11 +30,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class HelloComponentTest extends FxNodeTest {
+public class HelloComponentTest extends FxmlComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -46,7 +46,7 @@ public class HelloComponentTest extends FxNodeTest {
 
     @Before
     public void setUp() {
-        this.helloPane = easyFxml.loadNode(helloComponent).getNodeOrExceptionPane();
+        this.helloPane = easyFxml.load(helloComponent).getNodeOrExceptionPane();
     }
 
     @Test

@@ -33,7 +33,7 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.model.fxml.NoControllerClass;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
@@ -43,7 +43,7 @@ public class PanesTest extends ApplicationTest {
     @Autowired
     private EasyFxml easyFxml;
 
-    private final FxmlNode testPaneInfo = new FxmlNode() {
+    private final FxmlComponent testPaneInfo = new FxmlComponent() {
         @Override
         public FxmlFile getFile() {
             return () -> "PanesTest.fxml";
@@ -60,7 +60,7 @@ public class PanesTest extends ApplicationTest {
 
     @Before
     public void setUp() {
-        container = easyFxml.loadNode(testPaneInfo).getNode().get();
+        container = easyFxml.load(testPaneInfo).getNode().get();
     }
 
     @Test

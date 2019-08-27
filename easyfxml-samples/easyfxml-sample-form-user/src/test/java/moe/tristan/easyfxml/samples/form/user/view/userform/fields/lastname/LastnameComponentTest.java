@@ -30,12 +30,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class LastnameComponentTest extends FxNodeTest {
+public class LastnameComponentTest extends FxmlComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -48,7 +48,7 @@ public class LastnameComponentTest extends FxNodeTest {
 
     @Before
     public void setUp() {
-        final FxmlLoadResult<Pane, LastnameController> load = easyFxml.loadNode(lastnameComponent, Pane.class, LastnameController.class);
+        final FxmlLoadResult<Pane, LastnameController> load = easyFxml.load(lastnameComponent, Pane.class, LastnameController.class);
         lastnamePane = load.getNodeOrExceptionPane();
         lastnameController = load.getController().get();
     }

@@ -32,7 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public abstract class FxNodeTest extends ApplicationTest {
+public abstract class FxmlComponentTest extends ApplicationTest {
 
     protected final FxNodeAsyncQuery withNodes(Node... nodes) {
         return FxNodeAsyncQuery.withNodes(nodes);

@@ -30,12 +30,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class EmailComponentTest extends FxNodeTest {
+public class EmailComponentTest extends FxmlComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -48,7 +48,7 @@ public class EmailComponentTest extends FxNodeTest {
 
     @Before
     public void setUp() {
-        final FxmlLoadResult<Pane, EmailController> load = easyFxml.loadNode(emailComponent, Pane.class, EmailController.class);
+        final FxmlLoadResult<Pane, EmailController> load = easyFxml.load(emailComponent, Pane.class, EmailController.class);
         emailPane = load.getNodeOrExceptionPane();
         emailController = load.getController().get();
     }

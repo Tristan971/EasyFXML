@@ -21,7 +21,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 public abstract class ComponentListCell<T> extends ListCell<T> {
@@ -29,8 +29,8 @@ public abstract class ComponentListCell<T> extends ListCell<T> {
     protected final Pane cellNode;
     protected final ComponentCellFxmlController<T> cellController;
 
-    public ComponentListCell(final EasyFxml easyFxml, final FxmlNode cellNode) {
-        this(easyFxml.loadNode(
+    public ComponentListCell(final EasyFxml easyFxml, final FxmlComponent cellNode) {
+        this(easyFxml.load(
             cellNode,
             Pane.class,
             ComponentCellFxmlController.class

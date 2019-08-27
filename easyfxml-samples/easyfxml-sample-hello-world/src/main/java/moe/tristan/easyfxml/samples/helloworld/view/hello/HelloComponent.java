@@ -18,9 +18,9 @@ package moe.tristan.easyfxml.samples.helloworld.view.hello;
 
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 
-public class HelloComponent implements FxmlNode {
+public class HelloComponent implements FxmlComponent {
 
     @Override
     public FxmlFile getFile() {

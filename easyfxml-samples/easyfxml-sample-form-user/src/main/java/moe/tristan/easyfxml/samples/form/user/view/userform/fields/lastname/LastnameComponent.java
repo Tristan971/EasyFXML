@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
 
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 
 @Component
-public class LastnameComponent implements FxmlNode {
+public class LastnameComponent implements FxmlComponent {
 
     public static final String LAST_NAME_FIELD_NAME = "Last name";
 

@@ -27,7 +27,7 @@ should not be an issue.
 The idea of EasyFXML is to adopt the industry-standard MVC model for UI components and apply it to _JavaFX_.
 This allows easier  separation of concerns and lifecycle management of these components inside applications.
 
-There are thus three core elements that go into a UI component (an **[`FxmlNode`](src/main/java/moe/tristan/easyfxml/api/FxmlNode.java)** hereafter):
+There are thus three core elements that go into a UI component (an **[`FxmlComponent`](src/main/java/moe/tristan/easyfxml/api/FxmlComponent.java)** hereafter):
 - For the **M**odel, it is simple as your standard classes are just provided and usable via Java itself, and services and other more complex things 
 can be injected via _Spring_'s autowiring system.
 - The **V**iew, a standard `.fxml` file in the form of an **[`FxmlFile`](src/main/java/moe/tristan/easyfxml/api/FxmlFile.java)**
@@ -44,31 +44,29 @@ So, let's see how building a very minimal greeter window, like follows, would wo
 ![Hello World Sample Screenshot](../easyfxml-samples/easyfxml-sample-hello-world/doc/sample-hello-world.png)
 
 For this you will need:
-- The component's `FxmlNode`
+- The component's `FxmlComponent`
 - An entrypoint for the UI
 - A main class
 
-##### Component ([`FxmlNode`](../easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlNode.java))
+##### Component ([`FxmlComponent`](src/main/java/moe/tristan/easyfxml/api/FxmlComponent.java))
 ```java
 @Component
-public class HelloComponent implements FxmlNode {
+public class HelloComponent implements FxmlComponent {
     
     @Override 
     public FxmlFile getFile() {
-        return () -> "my/package/view/hello/HelloView.fxml"; 
-        // component lies in `my.package.view.hello` package
-    }   // and its FXML view file is `HelloView.fxml`
+        return () -> "HelloView.fxml"; 
+    }
 
     @Override
     public Class<? extends FxmlController> getControllerClass() {
         return HelloController.class; 
-        // Its controller class is `HelloController`
     }
 
 }
 ```
 
-##### Controller ([`FxmlController`](../easyfxml/src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
+##### Controller ([`FxmlController`](src/main/java/moe/tristan/easyfxml/api/FxmlController.java))
 ```java
 @Component
 public class HelloController implements FxmlController {
@@ -98,7 +96,7 @@ public class HelloController implements FxmlController {
 Note that if you can have multiple instances of a given component (a notification panel, or a individual cell in a list/table for example), 
 you need to make sure that the controller class is not a singleton with @Scope(scopeName = ConfigurableBeanFactory.PROTOTYPE)
 
-##### Entrypoint of the UI ([`FxUiManager`](../easyfxml/src/main/java/moe/tristan/easyfxml/FxUiManager.java))
+##### Entrypoint of the UI ([`FxUiManager`](src/main/java/moe/tristan/easyfxml/FxUiManager.java))
 ###### (called by EasyFXML once JavaFX and Spring are both ready to use)
 ```java
 @Component
@@ -117,14 +115,14 @@ public class HelloWorldUiManager extends FxUiManager {
     }
 
     @Override
-    protected FxmlNode mainComponent() { // defines what component must be loaded first into the main stage
+    protected FxmlComponent mainComponent() { // defines what component must be loaded first into the main stage
         return helloComponent;
     }
 
 }
 ```
 
-##### Main class ([`FxApplication`](../easyfxml/src/main/java/moe/tristan/easyfxml/FxApplication.java))
+##### Main class ([`FxApplication`](src/main/java/moe/tristan/easyfxml/FxApplication.java))
 ```java
 @SpringBootApplication // EasyFXML wires itself in the context via Spring Boot's autoconfiguration
 public class HelloWorld extends FxApplication { // FxApplication is essential here to set-up JavaFX

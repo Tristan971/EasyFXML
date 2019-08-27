@@ -26,9 +26,9 @@ import org.junit.Test;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import moe.tristan.easyfxml.junit.FxNodeTest;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 
-public class ButtonsTest extends FxNodeTest {
+public class ButtonsTest extends FxmlComponentTest {
 
     @Test
     public void setOnClick() {

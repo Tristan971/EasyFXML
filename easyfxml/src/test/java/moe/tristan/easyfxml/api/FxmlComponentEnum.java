@@ -28,7 +28,7 @@ import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
 @RunWith(SpringRunner.class)
-public class FxmlNodeEnum {
+public class FxmlComponentEnum {
 
     @Autowired
     private ComponentByOwnClass componentByOwnClass;
@@ -38,7 +38,7 @@ public class FxmlNodeEnum {
         assertThat(componentByOwnClass).isNotNull();
     }
 
-    public static class ComponentByOwnClass implements FxmlNode {
+    public static class ComponentByOwnClass implements FxmlComponent {
 
         @Override
         public FxmlFile getFile() {
@@ -52,7 +52,7 @@ public class FxmlNodeEnum {
 
     }
 
-    public enum ComponentsByEnum implements FxmlNode {
+    public enum ComponentsByEnum implements FxmlComponent {
         TEST;
 
         @Override

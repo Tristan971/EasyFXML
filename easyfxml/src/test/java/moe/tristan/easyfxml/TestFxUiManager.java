@@ -21,14 +21,14 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Optional;
 
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest.TEST_NODES;
+import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest.TestComponents;
 
 public class TestFxUiManager extends FxUiManager {
 
     private static final String TEST_TITLE = "TEST_TITLE";
-    private static final FxmlNode TEST_NODE = TEST_NODES.PANE;
+    private static final FxmlComponent TEST_NODE = TestComponents.PANE;
 
     @Override
     protected String title() {
@@ -36,7 +36,7 @@ public class TestFxUiManager extends FxUiManager {
     }
 
     @Override
-    protected FxmlNode mainComponent() {
+    protected FxmlComponent mainComponent() {
         return TEST_NODE;
     }
 

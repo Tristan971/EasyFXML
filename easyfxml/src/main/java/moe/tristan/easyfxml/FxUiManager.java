@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
 import moe.tristan.easyfxml.model.exception.ExceptionHandler;
 import moe.tristan.easyfxml.model.fxml.FxmlStylesheets;
@@ -47,7 +47,7 @@ import io.vavr.control.Try;
  * <p>
  * - {@link #title()} for the main stage's title.
  * <p>
- * - {@link #mainComponent()} for the main scene info as a {@link FxmlNode}.
+ * - {@link #mainComponent()} for the main scene info as a {@link FxmlComponent}.
  * <p>
  * - {@link #getStylesheet()} that is optionally overriden if you use a custom stylesheet. If you don't need one, ignore
  * it.
@@ -90,7 +90,7 @@ public abstract class FxUiManager {
     /**
      * @return The component to load in the main stage upon startup
      */
-    protected abstract FxmlNode mainComponent();
+    protected abstract FxmlComponent mainComponent();
 
     /**
      * Called right after the main {@link Scene} was created if you want to edit it.
@@ -121,16 +121,16 @@ public abstract class FxUiManager {
     }
 
     /**
-     * Simple utility class to load an {@link FxmlNode} as a {@link Scene} for use with {@link #mainComponent()}
+     * Simple utility class to load an {@link FxmlComponent} as a {@link Scene} for use with {@link #mainComponent()}
      *
-     * @param node the node to load in the {@link Scene}
+     * @param component the component to load in the {@link Scene}
      *
      * @return The ready-to-use {@link Scene}
      *
      * @throws RuntimeException if the scene could not be loaded properly
      */
-    protected Scene getScene(final FxmlNode node) {
-        return easyFxml.loadNode(node)
+    protected Scene getScene(final FxmlComponent component) {
+        return easyFxml.load(component)
                        .getNode()
                        .map(Scene::new)
                        .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);

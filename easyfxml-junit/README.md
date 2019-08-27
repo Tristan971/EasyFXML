@@ -32,7 +32,7 @@ are tested and for the most part using these features.
 
 So, assuming a very minimal greeter window, let's test it:
 
-![Hello World Sample Screenshot](../doc/images/sample-hello-world.png)
+![Hello World Sample Screenshot](../easyfxml-samples/easyfxml-sample-hello-world/doc/sample-hello-world.png)
 
 ```java
 @SpringBootTest

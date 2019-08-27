@@ -43,7 +43,7 @@ import javafx.stage.Stage;
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.Selector;
 import moe.tristan.easyfxml.util.Stages;
@@ -72,25 +72,25 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void loadAsPaneSingle() throws InterruptedException, ExecutionException, TimeoutException {
-        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE).getNode());
+        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.load(TestComponents.PANE).getNode());
 
         assertThat(testPane.getChildren()).hasSize(1);
         assertThat(testPane.getChildren().get(0).getClass()).isEqualTo(Button.class);
 
         this.assertControllerBoundToTestPane(
             testPane,
-            this.controllerManager.getSingle(TEST_NODES.PANE)
+            this.controllerManager.getSingle(TestComponents.PANE)
         );
     }
 
     @Test
     public void loadAsPaneMultiple() throws InterruptedException, ExecutionException, TimeoutException {
-        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(TEST_NODES.PANE, new Selector(SELECTOR))
+        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.load(TestComponents.PANE, new Selector(SELECTOR))
                                                                     .getNode());
 
         this.assertControllerBoundToTestPane(
             testPane,
-            this.controllerManager.getMultiple(TEST_NODES.PANE, new Selector(SELECTOR))
+            this.controllerManager.getMultiple(TestComponents.PANE, new Selector(SELECTOR))
         );
 
         assertThat(testPane.getChildren()).hasSize(1);
@@ -100,23 +100,23 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
 
     @Test
     public void loadWithTypeSuccess() throws InterruptedException, ExecutionException, TimeoutException {
-        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.loadNode(
-            TEST_NODES.PANE,
+        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.load(
+            TestComponents.PANE,
             Pane.class,
             FxmlController.class
         ).getNode());
 
         this.assertControllerBoundToTestPane(
             testPane,
-            this.controllerManager.getSingle(TEST_NODES.PANE)
+            this.controllerManager.getSingle(TestComponents.PANE)
         );
     }
 
     @Test
     public void loadWithTypeSingleInvalidClassFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
-            () -> this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, FxmlController.class).getNode(),
-            this.controllerManager.getSingle(TEST_NODES.BUTTON),
+            () -> this.easyFxml.load(TestComponents.BUTTON, Pane.class, FxmlController.class).getNode(),
+            this.controllerManager.getSingle(TestComponents.BUTTON),
             ClassCastException.class
         );
     }
@@ -124,8 +124,8 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
     @Test
     public void loadWithTypeSingleInvalidFileFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
-            () -> this.easyFxml.loadNode(TEST_NODES.INVALID).getNode(),
-            this.controllerManager.getSingle(TEST_NODES.INVALID),
+            () -> this.easyFxml.load(TestComponents.INVALID).getNode(),
+            this.controllerManager.getSingle(TestComponents.INVALID),
             LoadException.class
         );
     }
@@ -133,8 +133,8 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
     @Test
     public void loadWithTypeMultipleInvalidClassFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
-            () -> this.easyFxml.loadNode(TEST_NODES.BUTTON, Pane.class, NoControllerClass.class, new Selector(SELECTOR)).getNode(),
-            this.controllerManager.getMultiple(TEST_NODES.BUTTON, new Selector(SELECTOR)),
+            () -> this.easyFxml.load(TestComponents.BUTTON, Pane.class, NoControllerClass.class, new Selector(SELECTOR)).getNode(),
+            this.controllerManager.getMultiple(TestComponents.BUTTON, new Selector(SELECTOR)),
             ClassCastException.class
         );
     }
@@ -142,8 +142,8 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
     @Test
     public void loadWithTypeMultipleInvalidFileFailure() {
         this.assertPaneFailedLoadingAndDidNotRegister(
-            () -> this.easyFxml.loadNode(TEST_NODES.INVALID, new Selector(SELECTOR)).getNode(),
-            this.controllerManager.getMultiple(TEST_NODES.INVALID, new Selector(SELECTOR)),
+            () -> this.easyFxml.load(TestComponents.INVALID, new Selector(SELECTOR)).getNode(),
+            this.controllerManager.getMultiple(TestComponents.INVALID, new Selector(SELECTOR)),
             LoadException.class
         );
     }
@@ -193,13 +193,13 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
         final Class<? extends Throwable> expectedFailureCauseClass
     ) {
         assertThatThrownBy(failingLoadResultSupplier::get)
-            .isInstanceOf(FxmlNodeLoadException.class)
+            .isInstanceOf(FxmlComponentLoadException.class)
             .hasCauseInstanceOf(expectedFailureCauseClass);
         assertThat(controllerLookup.isEmpty()).isTrue();
     }
 
     @Ignore("This is not a test class")
-    public enum TEST_NODES implements FxmlNode {
+    public enum TestComponents implements FxmlComponent {
         PANE(() -> "PanesTest.fxml", SAMPLE_CONTROL_CLASS.class),
 
         BUTTON(
@@ -215,7 +215,7 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
         private final FxmlFile fxmlFile;
         private final Class<? extends FxmlController> controllerClass;
 
-        TEST_NODES(final FxmlFile fxmlFile, final Class<? extends FxmlController> controllerClass) {
+        TestComponents(final FxmlFile fxmlFile, final Class<? extends FxmlController> controllerClass) {
             this.fxmlFile = fxmlFile;
             this.controllerClass = controllerClass;
         }

@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
 
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 
 @Component
-public class EmailComponent implements FxmlNode {
+public class EmailComponent implements FxmlComponent {
 
     public static final String EMAIL_FIELD_NAME = "Email address";
 

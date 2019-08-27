@@ -17,11 +17,11 @@
 package moe.tristan.easyfxml.model.beanmanagement;
 
 import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.api.FxmlNode;
+import moe.tristan.easyfxml.api.FxmlComponent;
 
 /**
  * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
  */
-public class ControllerManager extends AbstractInstanceManager<FxmlNode, FxmlController> {
+public class ControllerManager extends AbstractInstanceManager<FxmlComponent, FxmlController> {
 
 }
