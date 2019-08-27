@@ -45,7 +45,6 @@ public abstract class FxNodeTest extends ApplicationTest {
         };
     }
 
-    @SuppressWarnings("unchecked")
     public static final class FxNodeAsyncQuery {
 
         private List<Node> nodes;
@@ -56,7 +55,7 @@ public abstract class FxNodeTest extends ApplicationTest {
 
         private List<Supplier<Boolean>> witnesses = emptyList();
 
-        public FxNodeAsyncQuery(Node[] nodes) {
+        FxNodeAsyncQuery(Node[] nodes) {
             this.nodes = List.of(nodes);
         }
 
@@ -64,6 +63,7 @@ public abstract class FxNodeTest extends ApplicationTest {
             return new FxNodeAsyncQuery(nodes);
         }
 
+        @SafeVarargs
         public final FxNodeAsyncQuery startWhen(Supplier<Boolean>... readyCheck) {
             this.nodesReady = List.of(readyCheck);
             return this;
@@ -74,6 +74,7 @@ public abstract class FxNodeTest extends ApplicationTest {
             return this;
         }
 
+        @SafeVarargs
         public final void andAwaitFor(Supplier<Boolean>... awaited) {
             this.witnesses = List.of(awaited);
             run();

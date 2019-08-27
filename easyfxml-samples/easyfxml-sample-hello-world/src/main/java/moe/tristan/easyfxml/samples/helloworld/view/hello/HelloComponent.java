@@ -24,7 +24,7 @@ public class HelloComponent implements FxmlNode {
 
     @Override
     public FxmlFile getFile() {
-        return () -> "moe/tristan/easyfxml/samples/helloworld/view/hello/HelloView.fxml";
+        return () -> "HelloView.fxml";
     }
 
     @Override

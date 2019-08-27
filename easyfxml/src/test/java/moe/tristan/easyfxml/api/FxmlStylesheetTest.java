@@ -29,7 +29,7 @@ import moe.tristan.easyfxml.util.Resources;
 
 public class FxmlStylesheetTest {
 
-    private static final String RES_REL_PATH = "fxml/test_style.css";
+    private static final String RES_REL_PATH = "css/test_style.css";
 
     private String cssFile;
 

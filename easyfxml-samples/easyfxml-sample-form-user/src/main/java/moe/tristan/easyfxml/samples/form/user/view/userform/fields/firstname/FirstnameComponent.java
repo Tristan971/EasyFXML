@@ -29,7 +29,7 @@ public class FirstnameComponent implements FxmlNode {
 
     @Override
     public FxmlFile getFile() {
-        return () -> "moe/tristan/easyfxml/samples/form/user/view/userform/fields/firstname/Firstname.fxml";
+        return () -> "Firstname.fxml";
     }
 
     @Override
