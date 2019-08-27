@@ -45,7 +45,6 @@ public abstract class FxNodeTest extends ApplicationTest {
         };
     }
 
-    @SuppressWarnings("unchecked")
     public static final class FxNodeAsyncQuery {
 
         private List<Node> nodes;
@@ -56,7 +55,7 @@ public abstract class FxNodeTest extends ApplicationTest {
 
         private List<Supplier<Boolean>> witnesses = emptyList();
 
-        public FxNodeAsyncQuery(Node[] nodes) {
+        FxNodeAsyncQuery(Node[] nodes) {
             this.nodes = List.of(nodes);
         }
 
