@@ -25,7 +25,7 @@
         <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
-    <name>EasyFXML</name>
+    <name>EasyFXML - Core</name>
     <artifactId>easyfxml</artifactId>
 
     <dependencies>

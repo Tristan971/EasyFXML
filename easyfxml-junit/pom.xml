@@ -25,7 +25,7 @@
         <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
-    <name>EasyFXML JUnit</name>
+    <name>EasyFXML - JUnit</name>
     <artifactId>easyfxml-junit</artifactId>
 
     <dependencies>

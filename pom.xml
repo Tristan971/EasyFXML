@@ -24,7 +24,7 @@
         <relativePath />
     </parent>
 
-    <name>EasyFXML Master</name>
+    <name>EasyFXML Master POM</name>
     <description>A simple-to-use and boilerplate free JavaFX library.</description>
     <url>https://tristan971.github.io/EasyFXML/</url>
 

@@ -24,7 +24,7 @@
         <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
-    <name>EasyFXML Samples</name>
+    <name>EasyFXML - Samples</name>
     <artifactId>easyfxml-samples</artifactId>
     <packaging>pom</packaging>
 
