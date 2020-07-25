@@ -20,12 +20,10 @@ import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstn
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController.ERROR_NAME_INVALID_PATTERN;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -35,7 +33,6 @@ import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class FirstnameComponentTest extends FxmlComponentTest {
 
     @Autowired
@@ -47,7 +44,7 @@ public class FirstnameComponentTest extends FxmlComponentTest {
     private Pane firstnamePane;
     private FirstnameController firstnameController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         final FxmlLoadResult<Pane, FirstnameController> load = easyFxml.load(firstnameComponent, Pane.class, FirstnameController.class);
         firstnamePane = load.getNodeOrExceptionPane();

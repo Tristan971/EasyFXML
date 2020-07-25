@@ -21,18 +21,18 @@ import static org.testfx.assertions.api.Assertions.assertThat;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 
 import io.vavr.control.Try;
 
-public class FxmlLoadResultTest extends ApplicationTest {
+public class FxmlLoadResultTest extends FxmlComponentTest {
 
     private static final Node TEST_NODE = new Pane();
     private static final FxmlController TEST_CONTROLLER = () -> {
@@ -41,7 +41,7 @@ public class FxmlLoadResultTest extends ApplicationTest {
 
     private FxmlLoadResult<Node, FxmlController> fxmlLoadResult;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         fxmlLoadResult = new FxmlLoadResult<>(
             Try.of(() -> TEST_NODE),

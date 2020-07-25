@@ -23,14 +23,16 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.Start;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class ExceptionHandlerTest extends ApplicationTest {
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
+
+public class ExceptionHandlerTest extends FxmlComponentTest {
 
     private String EXCEPTION_TEXT;
     private String EXCEPTION_TEXT_READABLE;
@@ -38,7 +40,7 @@ public class ExceptionHandlerTest extends ApplicationTest {
     private Pane ERR_PANE;
     private Pane ERR_PANE_READBLE;
 
-    @Override
+    @Start
     public void start(final Stage stage) {
         this.EXCEPTION_TEXT = "SAMPLE EXCEPTION";
         this.EXCEPTION_TEXT_READABLE = "USER READABLE ERROR";

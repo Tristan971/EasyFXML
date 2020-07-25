@@ -4,8 +4,10 @@ open module moe.tristan.easyfxml.junit {
 
     requires transitive javafx.graphics;
 
-    requires transitive awaitility;
-    requires transitive org.testfx.junit;
-    requires transitive org.testfx;
+    requires org.junit.jupiter.api;
+    requires org.testfx.junit5;
+
+    requires awaitility;
+    requires org.testfx;
 
 }

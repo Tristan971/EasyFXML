@@ -28,12 +28,12 @@ import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testfx.framework.junit5.Start;
 
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -44,13 +44,14 @@ import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListView;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
-public class ComponentListViewFxmlControllerTest extends ApplicationTest {
+@ExtendWith(SpringExtension.class)
+public class ComponentListViewFxmlControllerTest extends FxmlComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -60,7 +61,7 @@ public class ComponentListViewFxmlControllerTest extends ApplicationTest {
 
     private Stage stage;
 
-    @Override
+    @Start
     public void start(Stage stage) {
         this.stage = stage;
     }

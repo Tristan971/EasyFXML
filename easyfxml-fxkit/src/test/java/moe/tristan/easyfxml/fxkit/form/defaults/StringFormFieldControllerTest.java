@@ -21,8 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
@@ -35,7 +35,7 @@ public class StringFormFieldControllerTest {
 
     private StringFormFieldController sampleFieldController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         sampleProp = new SimpleStringProperty();
         validationCount = new AtomicInteger(0);

@@ -22,15 +22,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.Consumer;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,7 +38,7 @@ import javafx.scene.Node;
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class FxmlLoaderTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(FxmlLoaderTest.class);
@@ -50,7 +50,7 @@ public class FxmlLoaderTest {
     private int fail = 0;
     private FxmlLoader fxmlLoader;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         fxmlLoader = new FxmlLoader(context);
         fxmlLoader.setOnSuccess(n -> succ++);

@@ -22,12 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -38,7 +36,6 @@ import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class BirthdayComponentTest extends FxmlComponentTest {
 
     @Autowired
@@ -50,7 +47,7 @@ public class BirthdayComponentTest extends FxmlComponentTest {
     private Pane birthdayPane;
     private BirthdayController birthdayController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         final FxmlLoadResult<Pane, BirthdayController> load = easyFxml.load(BirthdayComponent, Pane.class, BirthdayController.class);
         birthdayPane = load.getNodeOrExceptionPane();

@@ -10,8 +10,8 @@ open module moe.tristan.easyfxml.natives.platform {
     requires spring.context;
     requires spring.core;
 
-    requires transitive oshi.core;
+    requires oshi.core;
 
-    requires slf4j.api;
+    requires org.slf4j;
 
 }

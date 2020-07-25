@@ -22,8 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import moe.tristan.easyfxml.util.Resources;
 
@@ -33,7 +33,7 @@ public class FxmlStylesheetTest {
 
     private String cssFile;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException, MalformedURLException {
         cssFile = Objects.requireNonNull(getClass().getClassLoader().getResource(RES_REL_PATH))
                          .toURI()

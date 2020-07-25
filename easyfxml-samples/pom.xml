@@ -19,9 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
+        <artifactId>easyfxml-parent</artifactId>
         <version>3.4.0-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
     </parent>
 
     <name>EasyFXML - Samples</name>
@@ -37,14 +36,17 @@
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml-fxkit</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml-junit</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

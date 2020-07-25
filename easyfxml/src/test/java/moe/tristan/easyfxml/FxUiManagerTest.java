@@ -16,19 +16,20 @@
 
 package moe.tristan.easyfxml;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
+
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
-public class FxUiManagerTest extends ApplicationTest {
+@ExtendWith(SpringExtension.class)
+public class FxUiManagerTest extends FxmlComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;

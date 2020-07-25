@@ -25,14 +25,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testfx.framework.junit5.Start;
 
 import javafx.fxml.LoadException;
 import javafx.scene.Node;
@@ -41,9 +42,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlComponent;
+import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.beanmanagement.ControllerManager;
 import moe.tristan.easyfxml.model.beanmanagement.Selector;
 import moe.tristan.easyfxml.util.Stages;
@@ -52,8 +54,10 @@ import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
-public class DefaultEasyFxmlTest extends ApplicationTest {
+@ExtendWith(SpringExtension.class)
+public class DefaultEasyFxmlTest extends FxmlComponentTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultEasyFxmlTest.class);
 
     private static final Object SELECTOR = new Object();
 
@@ -64,10 +68,9 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
     @Autowired
     private ControllerManager controllerManager;
 
-    @SuppressWarnings("EmptyMethod")
-    @Override
+    @Start
     public void start(final Stage stage) {
-        // initializes JavaFX Platform
+        LOGGER.info("Start app with stage: {}", stage);
     }
 
     @Test
@@ -159,13 +162,12 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
     }
 
     /**
-     * We have to sleep here because the event firing in JavaFX can't be waited on all the way. So if we don't wait, as
-     * soon as the click is actually sent, but not yet registered, we are already asserting. The wait is a horrific
-     * thing that the whole async life promised to save us from. But it did not deliver (yet).
+     * We have to sleep here because the event firing in JavaFX can't be waited on all the way. So if we don't wait, as soon as the click is actually sent, but
+     * not yet registered, we are already asserting. The wait is a horrific thing that the whole async life promised to save us from. But it did not deliver
+     * (yet).
      *
      * @param testPane         The pane to test bounding on
-     * @param controllerLookup The controller as an {@link Option} so we can know if the test actually failed because of
-     *                         some outside reason.
+     * @param controllerLookup The controller as an {@link Option} so we can know if the test actually failed because of some outside reason.
      */
     private void assertControllerBoundToTestPane(final Pane testPane, final Option<FxmlController> controllerLookup)
     throws InterruptedException, ExecutionException, TimeoutException {
@@ -198,7 +200,6 @@ public class DefaultEasyFxmlTest extends ApplicationTest {
         assertThat(controllerLookup.isEmpty()).isTrue();
     }
 
-    @Ignore("This is not a test class")
     public enum TestComponents implements FxmlComponent {
         PANE(() -> "PanesTest.fxml", SAMPLE_CONTROL_CLASS.class),
 

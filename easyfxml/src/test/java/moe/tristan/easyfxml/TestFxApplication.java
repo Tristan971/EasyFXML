@@ -17,7 +17,7 @@
 package moe.tristan.easyfxml;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.stage.Stage;
 

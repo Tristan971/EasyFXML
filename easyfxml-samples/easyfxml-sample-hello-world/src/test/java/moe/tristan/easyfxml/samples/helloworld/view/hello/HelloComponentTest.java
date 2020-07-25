@@ -16,14 +16,12 @@
 
 package moe.tristan.easyfxml.samples.helloworld.view.hello;
 
-import static org.testfx.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,7 +31,6 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.junit.FxmlComponentTest;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class HelloComponentTest extends FxmlComponentTest {
 
     @Autowired
@@ -44,7 +41,7 @@ public class HelloComponentTest extends FxmlComponentTest {
 
     private Pane helloPane;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.helloPane = easyFxml.load(helloComponent).getNodeOrExceptionPane();
     }
@@ -58,7 +55,7 @@ public class HelloComponentTest extends FxmlComponentTest {
             clickOn("#helloButton");
         }).andAwaitFor(() -> lookup("#greetingBox").queryAs(HBox.class).isVisible());
 
-        assertThat(lookup("#greetingName").queryAs(Label.class)).hasText(expectedUserName);
+        assertThat(lookup("#greetingName").queryAs(Label.class)).extracting(Label::getText).isEqualTo(expectedUserName);
     }
 
     @Test
@@ -69,7 +66,7 @@ public class HelloComponentTest extends FxmlComponentTest {
             .willDo(() -> clickOn("#helloButton"))
             .andAwaitFor(() -> lookup("#greetingBox").query().isVisible());
 
-        assertThat(lookup("#greetingName").queryAs(Label.class)).hasText(defaultGreetingName);
+        assertThat(lookup("#greetingName").queryAs(Label.class)).extracting(Label::getText).isEqualTo(defaultGreetingName);
     }
 
 }

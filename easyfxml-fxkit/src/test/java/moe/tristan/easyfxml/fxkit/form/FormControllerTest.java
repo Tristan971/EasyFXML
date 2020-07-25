@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FormControllerTest {
 
@@ -49,7 +49,7 @@ public class FormControllerTest {
     private AtomicInteger submissions;
     private FormController formController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         initialized = new AtomicBoolean(false);
         submissions = new AtomicInteger(0);
