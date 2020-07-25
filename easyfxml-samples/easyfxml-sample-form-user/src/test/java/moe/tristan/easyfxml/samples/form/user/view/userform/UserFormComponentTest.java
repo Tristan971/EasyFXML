@@ -34,13 +34,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserCreationService;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 
 @SpringBootTest
-public class UserFormComponentTest extends FxmlComponentTest {
+public class UserFormComponentTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;

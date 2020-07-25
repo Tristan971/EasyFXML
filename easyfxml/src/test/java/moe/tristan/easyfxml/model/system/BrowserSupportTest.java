@@ -27,13 +27,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
 import io.vavr.control.Try;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
 @ExtendWith(SpringExtension.class)
-public class BrowserSupportTest extends FxmlComponentTest {
+public class BrowserSupportTest extends SpringBootComponentTest {
 
     @Autowired
     private BrowserSupport browserSupport;

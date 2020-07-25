@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
 
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
-public class FxAsyncTest extends FxmlComponentTest {
+public class FxAsyncTest extends SpringBootComponentTest {
 
     private Thread fxThread = null;
 

@@ -22,6 +22,7 @@ import java.net.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -38,6 +39,7 @@ import io.vavr.control.Try;
 /**
  * This is the standard implementation of {@link EasyFxml}.
  */
+@Component
 public class DefaultEasyFxml implements EasyFxml {
 
     private final ApplicationContext context;

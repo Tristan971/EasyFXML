@@ -16,40 +16,24 @@
 
 package moe.tristan.easyfxml;
 
-import static org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE;
-
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
 
 import javafx.application.Application;
 import javafx.application.HostServices;
 
 import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.api.FxmlComponent;
-import moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager;
-import moe.tristan.easyfxml.model.components.listview.ComponentListCell;
 
-@ComponentScan(
-    lazyInit = true,
-    includeFilters = @Filter(type = ASSIGNABLE_TYPE, classes = {
-        EasyFxml.class,
-        FxmlComponent.class,
-        FxApplication.class,
-        FxUiManager.class,
-        FxmlController.class,
-        AbstractInstanceManager.class,
-        ComponentListCell.class
-    })
-)
+@ComponentScan("moe.tristan.easyfxml")
 @EnableAutoConfiguration
 @EnableConfigurationProperties(EasyFxmlProperties.class)
 public class EasyFxmlAutoConfiguration {
@@ -71,6 +55,7 @@ public class EasyFxmlAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean(Application.class)
     public HostServices hostServices(final Application application) {
         return application.getHostServices();
     }

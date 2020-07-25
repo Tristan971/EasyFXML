@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -59,13 +60,15 @@ public class FirstnameController extends StringFormFieldController {
 
     @Override
     public void onValid() {
-        invalidLabel.setVisible(false);
+        Platform.runLater(() -> invalidLabel.setVisible(false));
     }
 
     @Override
     public void onInvalid(String reason) {
-        invalidLabel.setText(reason);
-        invalidLabel.setVisible(true);
+        Platform.runLater(() -> {
+            invalidLabel.setText(reason);
+            invalidLabel.setVisible(true);
+        });
     }
 
     @Override

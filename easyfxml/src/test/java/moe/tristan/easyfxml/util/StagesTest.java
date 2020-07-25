@@ -33,11 +33,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
 import io.vavr.control.Try;
 
-public class StagesTest extends FxmlComponentTest {
+public class StagesTest extends SpringBootComponentTest {
 
     private static final String RES_REL_PATH_TEST_STYLE = "css/test_style.css";
     private static final FxmlStylesheet TEST_STYLE = () -> getResourcePath(RES_REL_PATH_TEST_STYLE).get();

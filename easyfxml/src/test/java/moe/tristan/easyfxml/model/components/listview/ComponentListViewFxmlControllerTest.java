@@ -29,10 +29,9 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.testfx.framework.junit5.Start;
 
 import javafx.application.Platform;
@@ -43,15 +42,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListView;
 import moe.tristan.easyfxml.model.components.listview.view.ComponentListViewSampleFxmlController;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
-@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@ExtendWith(SpringExtension.class)
-public class ComponentListViewFxmlControllerTest extends FxmlComponentTest {
+@SpringBootTest
+@Import({ComponentListView.class, ComponentListViewSampleFxmlController.class})
+public class ComponentListViewFxmlControllerTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -75,7 +73,7 @@ public class ComponentListViewFxmlControllerTest extends FxmlComponentTest {
 
         await().until(() -> REMOTE_REF.get() != null);
 
-        assertThat(BADLY_SCOPED_BEANS).hasSize(1).containsOnly("componentListViewFxmlControllerTest.BadlyScopedController");
+        assertThat(BADLY_SCOPED_BEANS).hasSize(1).containsOnly(BadlyScopedController.BADLY_SCOPED_COMPONENT_NAME);
 
         final Button testButton = REMOTE_REF.get();
         assertThat(testButton).isNotNull();
@@ -113,18 +111,6 @@ public class ComponentListViewFxmlControllerTest extends FxmlComponentTest {
             stage.show();
             return clvsfc;
         }, Platform::runLater).get(5, SECONDS);
-    }
-
-    public static class BadlyScopedController implements ComponentCellFxmlController<String> {
-
-        @Override
-        public void updateWithValue(String newValue) {
-        }
-
-        @Override
-        public void initialize() {
-        }
-
     }
 
 }

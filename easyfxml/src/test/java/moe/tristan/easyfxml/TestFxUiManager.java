@@ -21,23 +21,27 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlStylesheet;
-import moe.tristan.easyfxml.model.fxml.DefaultEasyFxmlTest.TestComponents;
+import moe.tristan.easyfxml.samples.panewithbutton.PaneWithButtonComponent;
 
+@Component
 public class TestFxUiManager extends FxUiManager {
 
-    private static final String TEST_TITLE = "TEST_TITLE";
-    private static final FxmlComponent TEST_NODE = TestComponents.PANE;
+    @Autowired
+    private PaneWithButtonComponent paneWithButtonComponent;
 
     @Override
     protected String title() {
-        return TEST_TITLE;
+        return "A pane with a button";
     }
 
     @Override
     protected FxmlComponent mainComponent() {
-        return TEST_NODE;
+        return paneWithButtonComponent;
     }
 
     @Override

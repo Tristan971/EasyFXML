@@ -29,9 +29,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
-public class NodesTest extends FxmlComponentTest {
+public class NodesTest extends SpringBootComponentTest {
 
     private static final double MARGIN = 5d;
 

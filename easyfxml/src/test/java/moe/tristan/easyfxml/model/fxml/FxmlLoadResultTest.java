@@ -28,11 +28,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.api.FxmlController;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
 import io.vavr.control.Try;
 
-public class FxmlLoadResultTest extends FxmlComponentTest {
+public class FxmlLoadResultTest extends SpringBootComponentTest {
 
     private static final Node TEST_NODE = new Pane();
     private static final FxmlController TEST_CONTROLLER = () -> {

@@ -30,9 +30,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
-public class ExceptionHandlerTest extends FxmlComponentTest {
+public class ExceptionHandlerTest extends SpringBootComponentTest {
 
     private String EXCEPTION_TEXT;
     private String EXCEPTION_TEXT_READABLE;

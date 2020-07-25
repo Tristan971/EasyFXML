@@ -30,11 +30,11 @@ import moe.tristan.easyfxml.EasyFxml;
 import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.model.fxml.NoControllerClass;
 
 @SpringBootTest
-public class PanesTest extends FxmlComponentTest {
+public class PanesTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;

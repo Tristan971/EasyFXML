@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.service.query.PointQuery;
@@ -34,8 +35,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+@SpringBootTest
 @ExtendWith(ApplicationExtension.class)
-public abstract class FxmlComponentTest extends ApplicationTest {
+public abstract class SpringBootComponentTest extends ApplicationTest {
 
     protected final FxNodeAsyncQuery withNodes(Node... nodes) {
         return FxNodeAsyncQuery.withNodes(nodes);

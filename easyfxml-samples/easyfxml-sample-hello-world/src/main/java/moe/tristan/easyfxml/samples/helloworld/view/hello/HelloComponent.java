@@ -16,10 +16,13 @@
 
 package moe.tristan.easyfxml.samples.helloworld.view.hello;
 
+import org.springframework.stereotype.Component;
+
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlComponent;
 
+@Component
 public class HelloComponent implements FxmlComponent {
 
     @Override

@@ -28,9 +28,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
-public class ComponentListCellTest extends FxmlComponentTest {
+public class ComponentListCellTest extends SpringBootComponentTest {
 
     @Test
     public void updateItem() {

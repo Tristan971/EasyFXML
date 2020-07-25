@@ -23,9 +23,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Test;
 
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
-public class ClickableTextTest extends FxmlComponentTest {
+public class ClickableTextTest extends SpringBootComponentTest {
 
     @Test
     public void shouldExecuteActionGiven() {

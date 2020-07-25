@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanExpression;
@@ -28,6 +29,7 @@ import javafx.scene.control.Button;
 
 import moe.tristan.easyfxml.model.components.listview.ComponentCellFxmlController;
 
+@Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ComponentCellFxmlSampleController implements ComponentCellFxmlController<String> {
 

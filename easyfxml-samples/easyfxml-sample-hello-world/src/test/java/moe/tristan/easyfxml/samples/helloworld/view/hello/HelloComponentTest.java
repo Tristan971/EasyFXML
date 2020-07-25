@@ -28,10 +28,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
 @SpringBootTest
-public class HelloComponentTest extends FxmlComponentTest {
+public class HelloComponentTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;

@@ -29,11 +29,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @SpringBootTest
-public class FirstnameComponentTest extends FxmlComponentTest {
+public class FirstnameComponentTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;

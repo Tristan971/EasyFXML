@@ -16,12 +16,15 @@
 
 package moe.tristan.easyfxml.model.beanmanagement;
 
-import moe.tristan.easyfxml.api.FxmlController;
+import org.springframework.stereotype.Component;
+
 import moe.tristan.easyfxml.api.FxmlComponent;
+import moe.tristan.easyfxml.api.FxmlController;
 
 /**
- * @see moe.tristan.easyfxml.model.beanmanagement.AbstractInstanceManager
+ * @see AbstractInstanceManager
  */
+@Component
 public class ControllerManager extends AbstractInstanceManager<FxmlComponent, FxmlController> {
 
 }

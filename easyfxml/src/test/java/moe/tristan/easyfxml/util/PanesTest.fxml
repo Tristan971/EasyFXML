@@ -20,7 +20,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="moe.tristan.easyfxml.model.fxml.SAMPLE_CONTROL_CLASS">
+            fx:controller="moe.tristan.easyfxml.samples.panewithbutton.PaneWithButtonController">
 
     <Button fx:id="button" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="TEST_BUTTON"
             xmlns="http://javafx.com/javafx/8.0.111"/>

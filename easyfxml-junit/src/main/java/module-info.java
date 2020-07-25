@@ -9,5 +9,6 @@ open module moe.tristan.easyfxml.junit {
 
     requires awaitility;
     requires org.testfx;
+    requires spring.boot.test;
 
 }
