@@ -38,8 +38,7 @@ import io.vavr.control.Try;
 /**
  * The {@link FxUiManager} is one take on a bootstrapping class for the JavaFX UI.
  * <p>
- * The goal being both to decouple the GUI code from the main class and also to offer a somewhat declarative entry point
- * for the JavaFX side of your project.
+ * The goal being both to decouple the GUI code from the main class and also to offer a somewhat declarative entry point for the JavaFX side of your project.
  * <p>
  * Every method's overriding possibilities is detailed on it.
  * <p>
@@ -49,8 +48,7 @@ import io.vavr.control.Try;
  * <p>
  * - {@link #mainComponent()} for the main scene info as a {@link FxmlComponent}.
  * <p>
- * - {@link #getStylesheet()} that is optionally overriden if you use a custom stylesheet. If you don't need one, ignore
- * it.
+ * - {@link #getStylesheet()} that is optionally overriden if you use a custom stylesheet. If you don't need one, ignore it.
  */
 public abstract class FxUiManager {
 
@@ -59,8 +57,8 @@ public abstract class FxUiManager {
     private EasyFxml easyFxml;
 
     /**
-     * Called by {@link FxApplication} after Spring and JavaFX are started. This is the equivalent of {@link
-     * javafx.application.Application#start(Stage)} in traditional JavaFX apps.
+     * Called by {@link FxApplication} after Spring and JavaFX are started. This is the equivalent of {@link javafx.application.Application#start(Stage)} in
+     * traditional JavaFX apps.
      *
      * @param mainStage A reference to the main stage of the application, received from JavaFX via {@link javafx.application.Application#start(Stage)}.
      */
@@ -105,8 +103,7 @@ public abstract class FxUiManager {
     /**
      * Called as we enter the {@link #startGui(Stage)} method.
      *
-     * @param mainStage The main stage, supplied by JavaFX's {@link javafx.application.Application#start(Stage)}
-     *                  method.
+     * @param mainStage The main stage, supplied by JavaFX's {@link javafx.application.Application#start(Stage)} method.
      */
     @SuppressWarnings("unused")
     protected void onStageCreated(final Stage mainStage) {
@@ -130,10 +127,11 @@ public abstract class FxUiManager {
      * @throws RuntimeException if the scene could not be loaded properly
      */
     protected Scene getScene(final FxmlComponent component) {
-        return easyFxml.load(component)
-                       .getNode()
-                       .map(Scene::new)
-                       .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
+        return easyFxml
+            .load(component)
+            .getNode()
+            .map(Scene::new)
+            .getOrElseThrow((Function<? super Throwable, RuntimeException>) RuntimeException::new);
     }
 
     private void setTheme(final FxmlStylesheet stylesheet, Stage mainStage) {

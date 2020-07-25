@@ -50,7 +50,7 @@ public abstract class FxmlComponentTest extends ApplicationTest {
 
     public static final class FxNodeAsyncQuery {
 
-        private List<Node> nodes;
+        private final List<Node> nodes;
 
         private List<Supplier<Boolean>> nodesReady = emptyList();
 

@@ -63,8 +63,10 @@ public class DefaultEasyFxmlTest extends FxmlComponentTest {
 
     @Autowired
     private ApplicationContext context;
+
     @Autowired
     private DefaultEasyFxml easyFxml;
+
     @Autowired
     private ControllerManager controllerManager;
 
@@ -88,8 +90,7 @@ public class DefaultEasyFxmlTest extends FxmlComponentTest {
 
     @Test
     public void loadAsPaneMultiple() throws InterruptedException, ExecutionException, TimeoutException {
-        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.load(TestComponents.PANE, new Selector(SELECTOR))
-                                                                    .getNode());
+        final Pane testPane = this.assertSuccessAndGet(this.easyFxml.load(TestComponents.PANE, new Selector(SELECTOR)).getNode());
 
         this.assertControllerBoundToTestPane(
             testPane,

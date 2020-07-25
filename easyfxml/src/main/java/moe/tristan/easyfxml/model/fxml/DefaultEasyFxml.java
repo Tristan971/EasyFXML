@@ -16,12 +16,12 @@
 
 package moe.tristan.easyfxml.model.fxml;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -104,7 +104,7 @@ public class DefaultEasyFxml implements EasyFxml {
      * This method acts just like {@link #load(FxmlComponent)} but with no autoconfiguration of controller binding and stylesheet application.
      *
      * @param fxmlLoader      The loader to use. See {@link FxmlLoader} for why this matters.
-     * @param component   The node to load as declared in some enum most likely
+     * @param component       The node to load as declared in some enum most likely
      * @param nodeClass       The class to try to cast the node to
      * @param controllerClass The class to try to cast the controller to
      * @param <NODE>          The type of the node to load
@@ -168,27 +168,20 @@ public class DefaultEasyFxml implements EasyFxml {
     private URL determineComponentViewFileLocation(final FxmlComponent component) {
         String path = component.getFile().getPath();
 
-        URL fxmlFilePath = null;
-        switch (easyFxmlProperties.getFxmlFileResolutionStrategy()) {
-            case ABSOLUTE:
-                fxmlFilePath = Objects.requireNonNull(
-                    getClass().getClassLoader().getResource(path),
-                    "Classpath resource at " + path + " not found!"
-                );
-                break;
-            case RELATIVE:
-                Class<?> headClass = Stream.of(
-                    component.getClass().getEnclosingClass(),
-                    component.getClass()
-                ).filter(Objects::nonNull).findFirst().orElseThrow();
-                fxmlFilePath = Objects.requireNonNull(
-                    headClass.getResource(path),
-                    "Classpath resource at " + path + " relative to " + component + " was absent!"
-                );
-                break;
-        }
+        ClassPathResource resource = switch (easyFxmlProperties.getFxmlFileResolutionStrategy()) {
+            case RELATIVE -> new ClassPathResource(path, component.getClass());
+            case ABSOLUTE -> new ClassPathResource(path);
+        };
 
-        return fxmlFilePath;
+        try {
+            return resource.getURL();
+        } catch (IOException e) {
+            throw new IllegalStateException(String.format(
+                "Cannot load file [%s] for component [%s]",
+                path,
+                component
+            ));
+        }
     }
 
 }

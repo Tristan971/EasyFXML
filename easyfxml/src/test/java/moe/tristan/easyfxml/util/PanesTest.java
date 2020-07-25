@@ -20,24 +20,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.junit.FxmlComponentTest;
 import moe.tristan.easyfxml.model.fxml.NoControllerClass;
 
-@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class PanesTest extends FxmlComponentTest {
 
     @Autowired
