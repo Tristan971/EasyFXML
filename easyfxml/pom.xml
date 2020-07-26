@@ -22,7 +22,6 @@
         <groupId>moe.tristan</groupId>
         <artifactId>easyfxml-parent</artifactId>
         <version>3.4.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>EasyFXML - Core</name>
