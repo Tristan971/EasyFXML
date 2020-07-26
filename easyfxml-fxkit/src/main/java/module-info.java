@@ -7,5 +7,6 @@ open module moe.tristan.easyfxml.fxkit {
 
     requires transitive java.compiler;
     requires transitive org.immutables.value;
+    requires org.slf4j;
 
 }

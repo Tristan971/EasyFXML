@@ -19,9 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
-        <version>3.4.0-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
+        <artifactId>easyfxml-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <name>EasyFXML - Samples</name>
@@ -33,18 +32,38 @@
         <module>easyfxml-sample-form-user</module>
     </modules>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml-fxkit</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml-junit</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

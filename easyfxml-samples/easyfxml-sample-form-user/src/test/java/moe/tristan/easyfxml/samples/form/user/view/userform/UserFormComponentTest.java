@@ -23,27 +23,24 @@ import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.samples.form.user.model.ImmutableUserForm;
 import moe.tristan.easyfxml.samples.form.user.model.UserCreationService;
 import moe.tristan.easyfxml.samples.form.user.model.UserForm;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class UserFormComponentTest extends FxmlComponentTest {
+public class UserFormComponentTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -56,7 +53,7 @@ public class UserFormComponentTest extends FxmlComponentTest {
 
     private Pane userFormPane;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         userFormPane = easyFxml.load(userFormComponent).getNodeOrExceptionPane();
     }

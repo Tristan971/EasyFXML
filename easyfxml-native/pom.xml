@@ -19,9 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
-        <version>3.4.0-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
+        <artifactId>easyfxml-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <name>EasyFXML - Native integrations</name>

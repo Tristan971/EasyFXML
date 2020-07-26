@@ -21,14 +21,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
-public class ButtonsTest extends FxmlComponentTest {
+public class ButtonsTest extends SpringBootComponentTest {
 
     @Test
     public void setOnClick() {

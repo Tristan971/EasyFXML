@@ -49,10 +49,10 @@ public class EmailController extends StringFormFieldController {
             try {
                 InternetAddress address = new InternetAddress(fieldValue);
                 address.validate();
-                Platform.runLater(this::onValid);
+                onValid();
                 return true;
             } catch (AddressException e) {
-                Platform.runLater(() -> onInvalid(e.getMessage()));
+                onInvalid(e.getMessage());
                 return false;
             }
         }).join();
@@ -60,13 +60,15 @@ public class EmailController extends StringFormFieldController {
 
     @Override
     public void onValid() {
-        errorLabel.setVisible(false);
+        Platform.runLater(() -> errorLabel.setVisible(false));
     }
 
     @Override
     public void onInvalid(String reason) {
-        errorLabel.setText(reason);
-        errorLabel.setVisible(true);
+        Platform.runLater(() -> {
+            errorLabel.setText(reason);
+            errorLabel.setVisible(true);
+        });
     }
 
     @Override

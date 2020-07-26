@@ -20,36 +20,27 @@
 
     <parent>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
-        <version>3.4.0-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
+        <artifactId>easyfxml-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <name>EasyFXML - Core</name>
     <artifactId>easyfxml</artifactId>
 
     <dependencies>
-        <!-- region OpenJFX 11 -->
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-        </dependency>
-        <!-- endregion -->
+
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml-junit</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

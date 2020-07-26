@@ -16,28 +16,37 @@
 
 package moe.tristan.easyfxml.util;
 
-import static io.vavr.API.$;
-import static io.vavr.API.Case;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.File;
 import java.net.URL;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import io.vavr.collection.Seq;
+import io.vavr.control.Either;
 import io.vavr.control.Try;
 
 /**
  * This class is for classpath-based files simpler access (i.e. resources).
  */
 public final class Resources {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Resources.class);
+
+    // Matches strings ending with / or \
+    private static final Pattern DIRECTORY_SUFFIX_PATTERN = Pattern.compile(".*([/\\\\])$");
+
+    private static final String CLASSPATH_FILES_PATTERN = "classpath*:%s*";
+    public static final PathMatchingResourcePatternResolver PATH_MATCHING_RESOURCE_RESOLVER = new PathMatchingResourcePatternResolver();
 
     private Resources() {
     }
@@ -50,19 +59,10 @@ public final class Resources {
      * @return The path associated with resource at said relative path to classpath.
      */
     public static Try<Path> getResourcePath(final String resourceRelativePath) {
-        return Try.of(Resources::getResourcesRootURL)
-                  .mapTry(URL::toURI)
-                  .mapTry(Paths::get)
-                  .map(resPath -> {
-                      try {
-                          return Paths.get(getBaseURL().toURI()).resolve(resourceRelativePath).toRealPath();
-                      } catch (IOException | URISyntaxException e) {
-                          throw new IllegalArgumentException(
-                              "Could not load file at " + getBaseURL() + resourceRelativePath,
-                              e
-                          );
-                      }
-                  });
+        return Try.of(() -> new ClassPathResource(resourceRelativePath))
+                  .filter(ClassPathResource::exists)
+                  .map(ClassPathResource::getPath)
+                  .map(Paths::get);
     }
 
     private static URL getResourcesRootURL() {
@@ -70,26 +70,15 @@ public final class Resources {
     }
 
     /**
-     * This method gets the {@link Path} associated to a classpath-located file.
+     * This method gets the {@link URL} associated to a classpath-located file.
      *
      * @param resourceRelativePath The path from the root of the classpath (target/classes/ in a maven project)
      *
-     * @return The path associated with resource at said relative path to classpath.
+     * @return The url associated with resource at said relative path to classpath.
      */
     public static Try<URL> getResourceURL(final String resourceRelativePath) {
-        final ClassLoader classLoader = Resources.class.getClassLoader();
-        return Try.of(() -> classLoader)
-                  .map(cl -> cl.getResource(resourceRelativePath))
-                  .map(Objects::requireNonNull)
-                  .mapFailure(
-                      Case(
-                          $(err -> err instanceof NullPointerException || err instanceof NoSuchFileException),
-                          err -> new IllegalArgumentException(
-                              "Error loading file at: " + getBaseURL().toExternalForm() + resourceRelativePath,
-                              err
-                          )
-                      )
-                  );
+        return Try.of(() -> new ClassPathResource(resourceRelativePath))
+                  .mapTry(ClassPathResource::getURL);
     }
 
     private static URL getBaseURL() {
@@ -97,17 +86,41 @@ public final class Resources {
     }
 
     /**
-     * Returns a stream from the files in the given directory. Simple wrapper around {@link DirectoryStream}.
+     * Attempts to (non-recursively) list classpath resources at a given directory path.
      *
-     * @param directory The directory to iterate over
+     * @param directory the {@link Path} of the directory within which to list resources. If it does not end with {@link File#separator}, it will automatically
+     *                  be appended.
      *
-     * @return A stream of the files under the given directory or an empty stream if the {@link Path} was not a
-     * directory.
+     * @return an {@link Either} whose left projection contains failures (exceptions) encountered during resolution, and whose right contains the resolved
+     * {@link Path}s of each individual resource found.
+     *
+     * @throws RuntimeException as per {@link PathMatchingResourcePatternResolver#getResources(String)} failure semantics.
      */
-    public static Try<List<Path>> listFiles(final Path directory) {
-        return Try.of(() -> Files.newDirectoryStream(directory))
-                  .map(ds -> StreamSupport.stream(ds.spliterator(), false))
-                  .map(ps -> ps.collect(Collectors.toList()));
+    public static Either<Seq<Throwable>, Seq<Path>> listFiles(Path directory) {
+        String directoryPath = directory.toString();
+        if (!DIRECTORY_SUFFIX_PATTERN.matcher(directoryPath).matches()) {
+            directoryPath += File.separator;
+        }
+
+        LOGGER.info("Looking for files inside classpath at path: [{}]", directoryPath);
+
+        String pathPattern = String.format(CLASSPATH_FILES_PATTERN, directoryPath);
+
+        Resource[] resources = Try
+            .of(() -> PATH_MATCHING_RESOURCE_RESOLVER.getResources(pathPattern))
+            .getOrElseThrow((Function<Throwable, RuntimeException>) RuntimeException::new);
+
+        return Either.sequence(
+            Arrays
+                .stream(resources)
+                .map(resource -> Try
+                    .of(() -> resource)
+                    .mapTry(Resource::getFile)
+                    .filter(File::isFile)
+                    .map(File::toPath)
+                    .toEither()
+                ).collect(Collectors.toList())
+        );
     }
 
 }

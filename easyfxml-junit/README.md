@@ -47,7 +47,7 @@ public class HelloComponentTest extends FxNodeTest {
 
     private Pane helloPane;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // for each test ran, we reload a brand new pane on which to apply testing
         // allowing proper test independency

@@ -21,17 +21,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
 
-public class FxAsyncTest extends ApplicationTest {
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
+
+public class FxAsyncTest extends SpringBootComponentTest {
 
     private Thread fxThread = null;
 
-    @Before
+    @BeforeEach
     public void setUp() throws ExecutionException, InterruptedException {
         final CompletableFuture<Thread> fxThreadFetch = new CompletableFuture<>();
         Platform.runLater(() -> fxThreadFetch.complete(Thread.currentThread()));

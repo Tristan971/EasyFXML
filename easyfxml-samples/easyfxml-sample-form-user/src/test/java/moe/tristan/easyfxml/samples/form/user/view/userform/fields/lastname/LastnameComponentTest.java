@@ -19,23 +19,20 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController.ERROR_EMPTY_PROVIDED;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.junit.FxmlComponentTest;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.model.fxml.FxmlLoadResult;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class LastnameComponentTest extends FxmlComponentTest {
+public class LastnameComponentTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -46,7 +43,7 @@ public class LastnameComponentTest extends FxmlComponentTest {
     private Pane lastnamePane;
     private LastnameController lastnameController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         final FxmlLoadResult<Pane, LastnameController> load = easyFxml.load(lastnameComponent, Pane.class, LastnameController.class);
         lastnamePane = load.getNodeOrExceptionPane();

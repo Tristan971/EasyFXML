@@ -23,7 +23,10 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.service.query.PointQuery;
 
 import javafx.application.Platform;
@@ -32,7 +35,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public abstract class FxmlComponentTest extends ApplicationTest {
+@SpringBootTest
+@ExtendWith(ApplicationExtension.class)
+public abstract class SpringBootComponentTest extends ApplicationTest {
 
     protected final FxNodeAsyncQuery withNodes(Node... nodes) {
         return FxNodeAsyncQuery.withNodes(nodes);
@@ -47,7 +52,7 @@ public abstract class FxmlComponentTest extends ApplicationTest {
 
     public static final class FxNodeAsyncQuery {
 
-        private List<Node> nodes;
+        private final List<Node> nodes;
 
         private List<Supplier<Boolean>> nodesReady = emptyList();
 

@@ -18,8 +18,8 @@ package moe.tristan.easyfxml.util;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.Start;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,13 +29,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class NodesTest extends ApplicationTest {
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
+
+public class NodesTest extends SpringBootComponentTest {
 
     private static final double MARGIN = 5d;
 
     private Button testButton;
 
-    @Override
+    @Start
     public void start(final Stage stage) {
         this.testButton = new Button();
         Pane container = new AnchorPane(this.testButton);

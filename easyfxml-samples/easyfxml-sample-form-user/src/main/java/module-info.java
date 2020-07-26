@@ -6,6 +6,7 @@ open module moe.tristan.easyfxml.samples.form.user {
     requires spring.context;
     requires spring.boot.autoconfigure;
 
-    requires java.mail;
+    requires jakarta.mail;
+    requires org.slf4j;
 
 }

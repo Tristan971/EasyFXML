@@ -17,6 +17,7 @@
 package moe.tristan.easyfxml.model.components.listview.view;
 
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
@@ -27,6 +28,7 @@ import javafx.collections.ObservableList;
 import moe.tristan.easyfxml.model.components.listview.ComponentListViewFxmlController;
 import moe.tristan.easyfxml.model.components.listview.cell.ComponentListCellSample;
 
+@Component
 public class ComponentListViewSampleFxmlController extends ComponentListViewFxmlController<String> {
 
     private final ObservableList<String> values = FXCollections.observableArrayList();

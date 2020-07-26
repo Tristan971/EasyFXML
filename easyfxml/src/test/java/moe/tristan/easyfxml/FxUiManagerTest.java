@@ -16,37 +16,32 @@
 
 package moe.tristan.easyfxml;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.testfx.framework.junit5.Start;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
-public class FxUiManagerTest extends ApplicationTest {
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
+
+@SpringBootTest
+public class FxUiManagerTest extends SpringBootComponentTest {
 
     @Autowired
-    private EasyFxml easyFxml;
+    private TestFxUiManager testFxUiManager;
 
     private Stage stage;
 
-    @Override
+    @Start
     public void start(Stage stage) {
         this.stage = stage;
     }
 
     @Test
     public void startGui() {
-        Platform.runLater(() -> {
-            final TestFxUiManager uiManager = new TestFxUiManager();
-            uiManager.setEasyFxml(easyFxml);
-            uiManager.startGui(stage);
-        });
+        Platform.runLater(() -> testFxUiManager.startGui(stage));
     }
 
 }

@@ -16,10 +16,13 @@
 
 package moe.tristan.easyfxml.model.components.listview.cell;
 
+import org.springframework.stereotype.Component;
+
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
 import moe.tristan.easyfxml.api.FxmlComponent;
 
+@Component
 public class ComponentListCellComponent implements FxmlComponent {
 
     @Override

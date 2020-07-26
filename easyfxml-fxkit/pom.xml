@@ -15,13 +15,15 @@
   ~    limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>moe.tristan</groupId>
-        <artifactId>easyfxml-module-base</artifactId>
-        <version>3.4.0-SNAPSHOT</version>
-        <relativePath>../easyfxml-module-base/pom.xml</relativePath>
+        <artifactId>easyfxml-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <name>EasyFXML - FXKit</name>
@@ -32,16 +34,13 @@
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.immutables</groupId>
-            <artifactId>value</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>moe.tristan</groupId>
             <artifactId>easyfxml-junit</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

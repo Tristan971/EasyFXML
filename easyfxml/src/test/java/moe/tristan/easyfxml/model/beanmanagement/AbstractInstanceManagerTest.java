@@ -20,16 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
 
 @ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class AbstractInstanceManagerTest {
 
     private AbstractInstanceManager<String, String> instanceManager;
@@ -40,7 +40,7 @@ public class AbstractInstanceManagerTest {
     private static final Selector SEL_1 = new Selector("SEL1");
     private static final Selector SEL_2 = new Selector("SEL2");
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.instanceManager = new AbstractInstanceManager<>() {
         };

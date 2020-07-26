@@ -18,27 +18,23 @@ package moe.tristan.easyfxml.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 import moe.tristan.easyfxml.EasyFxml;
-import moe.tristan.easyfxml.EasyFxmlAutoConfiguration;
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlComponent;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 import moe.tristan.easyfxml.model.fxml.NoControllerClass;
 
-@ContextConfiguration(classes = EasyFxmlAutoConfiguration.class)
-@RunWith(SpringRunner.class)
-public class PanesTest extends ApplicationTest {
+@SpringBootTest
+public class PanesTest extends SpringBootComponentTest {
 
     @Autowired
     private EasyFxml easyFxml;
@@ -58,7 +54,7 @@ public class PanesTest extends ApplicationTest {
     private Pane container;
     private Pane embedded;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         container = easyFxml.load(testPaneInfo).getNode().get();
     }

@@ -21,6 +21,7 @@ import java.time.Period;
 
 import org.springframework.stereotype.Component;
 
+import javafx.application.Platform;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
@@ -59,13 +60,15 @@ public class BirthdayController extends FormFieldController<LocalDate> {
 
     @Override
     public void onValid() {
-        errorText.setVisible(false);
+        Platform.runLater(() -> errorText.setVisible(false));
     }
 
     @Override
     public void onInvalid(String reason) {
-        errorText.setText(reason);
-        errorText.setVisible(true);
+        Platform.runLater(() -> {
+            errorText.setText(reason);
+            errorText.setVisible(true);
+        });
     }
 
     @Override

@@ -23,8 +23,8 @@ import static org.awaitility.Awaitility.await;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.Start;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -33,10 +33,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import moe.tristan.easyfxml.api.FxmlStylesheet;
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
 
 import io.vavr.control.Try;
 
-public class StagesTest extends ApplicationTest {
+public class StagesTest extends SpringBootComponentTest {
 
     private static final String RES_REL_PATH_TEST_STYLE = "css/test_style.css";
     private static final FxmlStylesheet TEST_STYLE = () -> getResourcePath(RES_REL_PATH_TEST_STYLE).get();
@@ -45,7 +46,7 @@ public class StagesTest extends ApplicationTest {
     private String stageTitle;
     private String stageTitle2;
 
-    @Override
+    @Start
     public void start(final Stage stage) {
         Platform.setImplicitExit(false);
         stageTitle = "stageTitle";

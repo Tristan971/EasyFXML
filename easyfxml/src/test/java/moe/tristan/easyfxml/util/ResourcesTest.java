@@ -25,8 +25,10 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import io.vavr.collection.Seq;
+import io.vavr.control.Either;
 import io.vavr.control.Try;
 
 public class ResourcesTest {
@@ -59,8 +61,7 @@ public class ResourcesTest {
         );
 
         assertThat(fileThatDoesntExist.isFailure()).isTrue();
-        assertThat(fileThatDoesntExist.getCause().getMessage()).contains(PATH_UTIL_TESTS_FOLDER +
-                                                                         NONEXISTING_FILE_NAME);
+        assertThat(fileThatDoesntExist.getCause().getMessage()).contains(PATH_UTIL_TESTS_FOLDER + NONEXISTING_FILE_NAME);
     }
 
     @Test
@@ -78,17 +79,18 @@ public class ResourcesTest {
 
     @Test
     public void listFiles_existing_folder() {
-        final Try<Path> pathUtilsTestFolder = Resources.getResourcePath(PATH_UTIL_TESTS_FOLDER);
+        Try<Path> pathUtilsTestFolder = Resources.getResourcePath(PATH_UTIL_TESTS_FOLDER);
         assertThat(pathUtilsTestFolder.isSuccess()).isTrue();
 
-        final Try<List<Path>> files = Resources.listFiles(pathUtilsTestFolder.get());
-        assertThat(files.isSuccess()).isTrue();
-        assertThat(files.get().size()).isEqualTo(2);
+        Either<Seq<Throwable>, Seq<Path>> files = Resources.listFiles(pathUtilsTestFolder.get());
 
-        final List<String> fileNames = files.get().stream()
-                                            .map(Path::getFileName)
-                                            .map(Path::toString)
-                                            .collect(Collectors.toList());
+        assertThat(files.isRight()).isTrue();
+
+        List<String> fileNames = files
+            .get()
+            .map(Path::getFileName)
+            .map(Path::toString)
+            .collect(Collectors.toList());
 
         assertThat(fileNames).containsExactlyInAnyOrder(
             EXISTING_FILE_NAME,

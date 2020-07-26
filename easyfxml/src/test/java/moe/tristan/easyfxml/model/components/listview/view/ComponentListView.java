@@ -16,10 +16,13 @@
 
 package moe.tristan.easyfxml.model.components.listview.view;
 
+import org.springframework.stereotype.Component;
+
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
 import moe.tristan.easyfxml.api.FxmlFile;
-import moe.tristan.easyfxml.api.FxmlComponent;
 
+@Component
 public class ComponentListView implements FxmlComponent {
 
     @Override

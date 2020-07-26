@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 - 2019 EasyFXML project and contributors
+ * Copyright 2017 - 2020 EasyFXML project and contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,27 +14,21 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.model.fxml;
+package moe.tristan.easyfxml.model.components.listview;
 
 import org.springframework.stereotype.Component;
 
-import moe.tristan.easyfxml.api.FxmlController;
+@Component(BadlyScopedController.BADLY_SCOPED_COMPONENT_NAME)
+public class BadlyScopedController implements ComponentCellFxmlController<String> {
 
-/**
- * Empty controller for logicless components.
- * <p>
- * You can use it if your component does nothing more than display its content.
- */
-@Component
-public class NoControllerClass implements FxmlController {
+    public static final String BADLY_SCOPED_COMPONENT_NAME = "badly scoped component";
 
-    /**
-     * Empty voluntarily as no logic is to be included in this class.
-     */
-    @SuppressWarnings("EmptyMethod")
+    @Override
+    public void updateWithValue(String newValue) {
+    }
+
     @Override
     public void initialize() {
-        //see doc
     }
 
 }

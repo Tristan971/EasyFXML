@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 - 2019 EasyFXML project and contributors
+ * Copyright 2017 - 2020 EasyFXML project and contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,27 +14,25 @@
  *    limitations under the License.
  */
 
-package moe.tristan.easyfxml.model.fxml;
+package moe.tristan.easyfxml.samples.panewithbutton;
 
 import org.springframework.stereotype.Component;
 
+import moe.tristan.easyfxml.api.FxmlComponent;
 import moe.tristan.easyfxml.api.FxmlController;
+import moe.tristan.easyfxml.api.FxmlFile;
 
-/**
- * Empty controller for logicless components.
- * <p>
- * You can use it if your component does nothing more than display its content.
- */
 @Component
-public class NoControllerClass implements FxmlController {
+public class PaneWithButtonComponent implements FxmlComponent {
 
-    /**
-     * Empty voluntarily as no logic is to be included in this class.
-     */
-    @SuppressWarnings("EmptyMethod")
     @Override
-    public void initialize() {
-        //see doc
+    public FxmlFile getFile() {
+        return () -> "PaneWithButton.fxml";
+    }
+
+    @Override
+    public Class<? extends FxmlController> getControllerClass() {
+        return PaneWithButtonController.class;
     }
 
 }

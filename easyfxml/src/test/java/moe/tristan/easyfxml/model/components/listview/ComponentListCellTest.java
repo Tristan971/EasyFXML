@@ -21,15 +21,16 @@ import static org.awaitility.Awaitility.await;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
 
 import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 
-public class ComponentListCellTest extends ApplicationTest {
+import moe.tristan.easyfxml.junit.SpringBootComponentTest;
+
+public class ComponentListCellTest extends SpringBootComponentTest {
 
     @Test
     public void updateItem() {
@@ -70,7 +71,7 @@ public class ComponentListCellTest extends ApplicationTest {
         await().until(() -> value.get() == null);
     }
 
-    public class TestListCell extends ComponentListCell<String> {
+    public static class TestListCell extends ComponentListCell<String> {
 
         public TestListCell(Pane cellNode, ComponentCellFxmlController<String> controller) {
             super(cellNode, controller);
