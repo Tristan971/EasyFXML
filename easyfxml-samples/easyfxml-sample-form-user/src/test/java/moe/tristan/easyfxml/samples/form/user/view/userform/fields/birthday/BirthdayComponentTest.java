@@ -19,6 +19,7 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayController.ERROR_EMPTY_BIRTHDATE;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.birthday.BirthdayController.ERROR_LESS_13YO_BIRTHDATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import java.time.LocalDate;
 
@@ -71,6 +72,8 @@ public class BirthdayComponentTest extends SpringBootComponentTest {
     public void checkEmptyBirthday() {
         withNodes(birthdayPane)
             .andAwaitFor(() -> lookup("#datePicker").queryAs(DatePicker.class).isVisible());
+
+        await().until(() -> !birthdayController.isValid());
 
         assertThat(birthdayController.isValid())
             .withFailMessage("Expected empty date to be invalid.")
