@@ -18,6 +18,7 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname;
 
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.lastname.LastnameController.ERROR_EMPTY_PROVIDED;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,8 @@ public class LastnameComponentTest extends SpringBootComponentTest {
         withNodes(lastnamePane)
             .willDo(() -> clickOn("#lastNameField"))
             .run();
+
+        await().until(() -> !lastnameController.isValid());
 
         assertThat(lastnameController.isValid())
             .withFailMessage("Expected empty name to be invalid.")

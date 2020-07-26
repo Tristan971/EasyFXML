@@ -19,6 +19,7 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController.ERROR_EMPTY_PROVIDED;
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.firstname.FirstnameController.ERROR_NAME_INVALID_PATTERN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,6 +70,8 @@ public class FirstnameComponentTest extends SpringBootComponentTest {
         withNodes(firstnamePane)
             .willDo(() -> clickOn("#firstNameField"))
             .run();
+
+        await().until(() -> !firstnameController.isValid());
 
         assertThat(firstnameController.isValid())
             .withFailMessage("Expected empty name to be invalid.")

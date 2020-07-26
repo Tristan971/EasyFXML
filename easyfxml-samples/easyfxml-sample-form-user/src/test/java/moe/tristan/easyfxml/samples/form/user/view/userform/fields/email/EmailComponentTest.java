@@ -18,6 +18,7 @@ package moe.tristan.easyfxml.samples.form.user.view.userform.fields.email;
 
 import static moe.tristan.easyfxml.samples.form.user.view.userform.fields.email.EmailController.ERROR_EMPTY_EMAIL;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,8 @@ public class EmailComponentTest extends SpringBootComponentTest {
         withNodes(emailPane)
             .willDo(() -> clickOn("#emailField"))
             .run();
+
+        await().until(() -> !emailController.isValid());
 
         assertThat(emailController.isValid())
             .withFailMessage("Expected empty email to be invalid.")
