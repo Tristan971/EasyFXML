@@ -2,11 +2,8 @@ name: EasyFXML - CI
 
 on:
   push:
-    branches:
-      - *
-  pull_request:
-    branches:
-      - *
+    paths:
+      - easyfxml-docker
 
 env:
   IMAGE_NAME: easyfxml-docker
