@@ -2,7 +2,8 @@ version: 2
 jobs:
     build:
         docker:
-            - image: tristandeloche/easyfxml-docker:1.0.0
+            - image: tristandeloche/easyfxml-docker:4.0.0-SNAPSHOT
+
         working_directory: ~/build
         steps:
             - checkout
