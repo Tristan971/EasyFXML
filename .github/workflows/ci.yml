@@ -1,0 +1,22 @@
+name: EasyFXML - CI
+
+on:
+  push:
+    branches:
+      - *
+  pull_request:
+    branches:
+      - *
+
+env:
+  IMAGE_NAME: easyfxml-docker
+
+jobs:
+
+  build-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1.1.0
+        with:
+          path: easyfxml-docker
