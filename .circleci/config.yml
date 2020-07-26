@@ -1,0 +1,50 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: tristandeloche/easyfxml-docker:1.0.0
+        working_directory: ~/build
+        steps:
+            - checkout
+
+            - restore_cache:
+                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
+                  paths:
+                      - ~/.m2/repository
+
+            - run:
+                  name: Prepare code coverage reporting
+                  command: |
+                      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter && \
+                      chmod +x cc-test-reporter && \
+                      ./cc-test-reporter before-build
+
+            - run:
+                  name: Build and test
+                  command: '/bin/easyfxml-maven clean install'
+
+            - save_cache:
+                  key: m2-{{ .Branch }}-{{ checksum "pom.xml" }}
+                  paths:
+                      - ~/.m2/repository
+
+            - run:
+                  name: Aggregate test results
+                  command: './.circleci/copy_recursive_regex.sh ".*/target/surefire-reports/.*xml" test-results'
+                  when: always
+            - run:
+                  name: Aggregate artifacts
+                  command: './.circleci/copy_recursive_regex.sh ".*/target/.*jar" artifacts'
+                  when: always
+
+            - run:
+                  name: Publish code coverage reporting
+                  command: |
+                      JACOCO_SOURCE_PATH=easyfxml/src/main/java ./cc-test-reporter format-coverage easyfxml/target/site/jacoco/jacoco.xml --input-type jacoco && \
+                      ./cc-test-reporter upload-coverage -r 9791cde00c987e47a9082b96f73a2b4eb3590f308c501a3c61d34e0276c93ec1
+
+            - store_test_results:
+                  path: test-results
+            - store_artifacts:
+                  path: artifacts
+
