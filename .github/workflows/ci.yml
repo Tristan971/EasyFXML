@@ -15,4 +15,4 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v1.1.0
         with:
-          path: easyfxml-docker
+          path: ./easyfxml-docker
