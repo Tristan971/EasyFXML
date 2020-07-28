@@ -1,0 +1,28 @@
+resources:
+  - name: easyfxml-repo
+    type: git
+    icon: github
+    public: true
+    webhook_token: github
+    source:
+      uri: https://github.com/Tristan971/EasyFXML.git
+
+  - name: easyfxml-docker-image
+    type: docker-image
+    icon: docker
+    source:
+      repository: tristandeloche/easyfxml-docker
+      username: ((dockerhub.USERNAME))
+      password: ((dockerhub.PASSWORD))
+
+jobs:
+  - name: build-docker-image
+    public: true
+    serial: true
+    plan:
+      - get: easyfxml-repo
+        trigger: true
+      - put: easyfxml-docker-image
+        params:
+          cache: true
+          build: easyfxml-repo/easyfxml-docker/
