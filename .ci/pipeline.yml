@@ -26,3 +26,14 @@ jobs:
         params:
           cache: true
           build: easyfxml-repo/easyfxml-docker/
+
+  - name: build-and-test
+    public: true
+    serial: true
+    passed:
+      - build-docker-image
+    plan:
+      - get: easyfxml-docker-image
+        trigger: true
+
+

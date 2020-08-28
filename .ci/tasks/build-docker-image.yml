@@ -1,0 +1,12 @@
+---
+- name: build-docker-image
+  image_resource:
+    type: registry-image
+
+  inputs:
+    - name: easyfxml-repo
+
+  command:
+    path: build
+
+
