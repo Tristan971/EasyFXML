@@ -1,3 +1,11 @@
+# This project is archived
+I do not realistically have the time to take care of this project, unfortunately. It originally was built along a Twitter client GUI application, and they co-evolved. But that was almost 2 years ago, and Twitter has since essentially made 3rd-party clients impossible...
+
+Thanks for checking it out still! Hope you find a more supported alternative!
+
+---
+
+
 <div align="center">
 
 ![EasyFXML logo](doc/logo_plain_svg.svg)
